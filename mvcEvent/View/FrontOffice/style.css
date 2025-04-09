@@ -1,0 +1,77 @@
+/* Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+  }
+  
+  /* Container Utility */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  /* Header Styles */
+  .site-header {
+    background-color: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  .logo img {
+    height: 50px;
+  }
+  
+  /* Navigation Links */
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+  }
+  
+  .nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    font-size: 16px;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-links a:hover {
+    color: #ff4fa0;
+  }
+  
+  /* Button Styles */
+  .buttons button {
+    background: linear-gradient(90deg, #be3cf0, #ff50aa);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.8rem;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .buttons button:hover {
+    background: linear-gradient(90deg, #ff50aa, #be3cf0);
+    box-shadow: 0 4px 12px rgba(255, 79, 160, 0.3);
+  }
+  .logo img {
+    height: 100px; /* ajuste la taille ici (ex: 70px, 80px, etc.) */
+    width: auto;
+    object-fit: contain;
+  }
+  
