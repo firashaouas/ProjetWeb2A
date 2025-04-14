@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Activités - Click'N'Go</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+  <!-- Header -->
+    <header class="header header-activite">
+    <nav>
+      <img src="images/logo.png" class="logo" alt="Logo ClickNGo" />
+      <ul class="nav-links">
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="activite.html">Activités</a></li>
+        <li><a href="events.html">Événements</a></li>
+        <li><a href="Produits.html">Produits</a></li>
+        <li><a href="transports.html">Transports</a></li>
+        <li><a href="sponsors.html">Sponsors</a></li>
+      </ul>
+      <a href="#" class="register-btn">Register</a>
+    </nav>
+    <h1>Choisissez votre style d’activité</h1>
+</header>
+ 
+
+  <!-- Catégories -->
+  <div class="container">
+    <h2 class="subtitle">Catégories</h2>
+    <div class="trending">
+      <!-- 13 catégories -->
+      <div class="activity-card category-toggle" data-target="#atelier"><img src="images/atelier.jpg" alt=""><h3>Ateliers</h3></div>
+      <div class="activity-card category-toggle" data-target="#bien-etre"><img src="images/bien.jpg" alt=""><h3>Bien-être</h3></div>
+      <div class="activity-card category-toggle" data-target="#aerien"><img src="images/air.jpg" alt=""><h3>Aérien</h3></div>
+      <div class="activity-card category-toggle" data-target="#aquatique"><img src="images/image-3.png" alt=""><h3>Aquatique</h3></div>
+      <div class="activity-card category-toggle" data-target="#terrestre"><img src="images/image-2.png" alt=""><h3>Terrestre</h3></div>
+      <div class="activity-card category-toggle" data-target="#insolite"><img src="images/insolite.jpg" alt=""><h3>Insolite</h3></div>
+      <div class="activity-card category-toggle" data-target="#culture"><img src="images/culture.jpg" alt=""><h3>Culture</h3></div>
+      <div class="activity-card category-toggle" data-target="#detente"><img src="images/detente.jpg" alt=""><h3>Détente</h3></div>
+      <div class="activity-card category-toggle" data-target="#sport"><img src="images/sport.jpg" alt=""><h3>Sport</h3></div>
+      <div class="activity-card category-toggle" data-target="#nature"><img src="images/nature.jpg" alt=""><h3>Nature</h3></div>
+      <div class="activity-card category-toggle" data-target="#aventure"><img src="images/aventure.jpg" alt=""><h3>Aventure</h3></div>
+      <div class="activity-card category-toggle" data-target="#famille"><img src="images/1.jpg" alt=""><h3>Famille</h3></div>
+      <div class="activity-card category-toggle" data-target="#extreme"><img src="images/extreme.jpg" alt=""><h3>Extrême</h3></div>
+    </div>
+
+    <!-- Sections dynamiques -->
+    <div id="atelier" class="category-content" style="display:none;">
+        <h3>Activités Ateliers</h3>
+        <div class="exclusives">
+    
+            <!-- Atelier Cuisine -->
+            <div>
+                <img src="images/cuisine.jpg" alt="Atelier Cuisine">
+                <span>
+                    <h3>Atelier Cuisine</h3>
+                    <p>60 DT</p>
+                    <a href="reservation.html?nom=Atelier+Cuisine&prix=60&duree=2h" class="register-btn">Réserver</a>
+                </span>
+            </div>
+    
+            <!-- Atelier Peinture -->
+            <div>
+                <img src="images/peinture.jpg" alt="Atelier Peinture">
+                <span>
+                    <h3>Atelier Peinture</h3>
+                    <p>40 DT</p>
+                    <a href="reservation.html?nom=Atelier+Peinture&prix=40&duree=1h30" class="register-btn">Réserver</a>
+                </span>
+            </div>
+    
+            <!-- Atelier Musique -->
+            <div>
+                <img src="images/musique.jpg" alt="Atelier Musique">
+                <span>
+                    <h3>Atelier Musique</h3>
+                    <p>55 DT</p>
+                    <a href="reservation.html?nom=Atelier+Musique&prix=55&duree=2h" class="register-btn">Réserver</a>
+                </span>
+            </div>
+    
+            <!-- Atelier Danse -->
+            <div>
+                <img src="images/danse.jpg" alt="Atelier Danse">
+                <span>
+                    <h3>Atelier Danse</h3>
+                    <p>50 DT</p>
+                    <a href="reservation.html?nom=Atelier+Danse&prix=50&duree=1h30" class="register-btn">Réserver</a>
+                </span>
+            </div>
+    
+            <!-- Atelier Robotique -->
+            <div>
+                <img src="images/robot.jpg" alt="Atelier Robotique">
+                <span>
+                    <h3>Atelier Robotique</h3>
+                    <p>70 DT</p>
+                    <a href="reservation.html?nom=Atelier+Robotique&prix=70&duree=2h" class="register-btn">Réserver</a>
+                </span>
+            </div>
+    
+        </div>
+    </div>
+    
+      
+    <div id="bien-etre" class="category-content" style="display:none;">
+        <h3>Activités Bien-être</h3>
+        <div class="exclusives">
+    
+            <!-- Massage -->
+            <div>
+                <img src="images/massage.jpg" alt="Massage">
+                <span>
+                    <h3>Massage</h3>
+                    <p>70 DT</p>
+                    <a href="reservation.html?nom=Massage&prix=70&duree=1h" class="register-btn">Réserver</a>
+                </span>
+            </div>
+    
+            <!-- Yoga -->
+            <div>
+                <img src="images/yoga.jpg" alt="Yoga">
+                <span>
+                    <h3>Yoga</h3>
+                    <p>50 DT</p>
+                    <a href="reservation.html?nom=Yoga&prix=50&duree=1h30" class="register-btn">Réserver</a>
+                </span>
+            </div>
+    
+            <!-- Hammam -->
+            <div>
+                <img src="images/hammem.jpg" alt="Hammam">
+                <span>
+                    <h3>Hammam</h3>
+                    <p>45 DT</p>
+                    <a href="reservation.html?nom=Hammam&prix=45&duree=1h" class="register-btn">Réserver</a>
+                </span>
+            </div>
+    
+            <!-- Spa -->
+            <div>
+                <img src="images/spa.jpg" alt="Spa">
+                <span>
+                    <h3>Spa</h3>
+                    <p>80 DT</p>
+                    <a href="reservation.html?nom=Spa&prix=80&duree=1h30" class="register-btn">Réserver</a>
+                </span>
+            </div>
+    
+            <!-- Méditation -->
+            <div>
+                <img src="images/detente.jpg" alt="Méditation">
+                <span>
+                    <h3>Méditation</h3>
+                    <p>35 DT</p>
+                    <a href="reservation.html?nom=Méditation&prix=35&duree=1h" class="register-btn">Réserver</a>
+                </span>
+            </div>
+    
+        </div>
+    </div>
+    
+    <div id="aerien" class="category-content" style="display:none;">
+        <h3>Activités Aérien</h3>
+        <div class="exclusives">
+    
+            <!-- Parapente -->
+            <div>
+                <img src="images/parapente.jpg" alt="Parapente">
+                <span>
+                    <h3>Parapente</h3>
+                    <p>180 DT</p>
+                    <a href="reservation.html?nom=Parapente&prix=180&duree=1h" class="register-btn">Réserver</a>
+                </span>
+            </div>
+    
+            <!-- Montgolfière -->
+            <div>
+                <img src="images/mong.jpg" alt="Montgolfière">
+                <span>
+                    <h3>Montgolfière</h3>
+                    <p>250 DT</p>
+                    <a href="reservation.html?nom=Montgolfière&prix=250&duree=1h30" class="register-btn">Réserver</a>
+                </span>
+            </div>
+    
+            <!-- ULM -->
+            <div>
+                <img src="images/vol.jpg" alt="Vol ULM">
+                <span>
+                    <h3>Vol ULM</h3>
+                    <p>220 DT</p>
+                    <a href="reservation.html?nom=Vol+ULM&prix=220&duree=1h" class="register-btn">Réserver</a>
+                </span>
+            </div>
+    
+            <!-- Parachute -->
+            <div>
+                <img src="images/para.jpg" alt="Parachute">
+                <span>
+                    <h3>Parachute</h3>
+                    <p>300 DT</p>
+                    <a href="reservation.html?nom=Parachute&prix=300&duree=1h" class="register-btn">Réserver</a>
+                </span>
+            </div>
+    
+            <!-- Hélicoptère -->
+            <div>
+                <img src="images/heli.jpg" alt="Tour en hélicoptère">
+                <span>
+                    <h3>Tour en Hélicoptère</h3>
+                    <p>400 DT</p>
+                    <a href="reservation.html?nom=Helicoptere&prix=400&duree=1h" class="register-btn">Réserver</a>
+                </span>
+            </div>
+    
+        </div>
+    </div>
+    
+    <div id="aquatique" class="category-content" style="display:none;">
+        <h3>Activités Aquatique</h3>
+        <div class="exclusives">
+    
+            <!-- Jet Ski -->
+            <div>
+                <img src="images/jet.jpg" alt="Jet Ski">
+                <span>
+                    <h3>Jet Ski</h3>
+                    <p>100 DT</p>
+                    <a href="reservation.html?nom=Jet+Ski&prix=100&duree=1h" class="register-btn">Réserver</a>
+                </span>
+            </div>
+    
+            <!-- Plongée -->
+            <div>
+                <img src="images/plong.jpg" alt="Plongée">
+                <span>
+                    <h3>Plongée</h3>
+                    <p>120 DT</p>
+                    <a href="reservation.html?nom=Plongee&prix=120&duree=1h" class="register-btn">Réserver</a>
+                </span>
+            </div>
+    
+            <!-- Bouée Tractée -->
+            <div>
+                <img src="images/boue.jpg" alt="Bouée Tractée">
+                <span>
+                    <h3>Bouée Tractée</h3>
+                    <p>60 DT</p>
+                    <a href="reservation.html?nom=Bouee+Tractee&prix=60&duree=1h" class="register-btn">Réserver</a>
+                </span>
+            </div>
+    
+            <!-- Paddle -->
+            <div>
+                <img src="images/paddle.jpg" alt="Paddle">
+                <span>
+                    <h3>Paddle</h3>
+                    <p>40 DT</p>
+                    <a href="reservation.html?nom=Paddle&prix=40&duree=1h" class="register-btn">Réserver</a>
+                </span>
+            </div>
+    
+            <!-- Canoë Kayak -->
+            <div>
+                <img src="images/kayak.jpg" alt="Canoë Kayak">
+                <span>
+                    <h3>Canoë Kayak</h3>
+                    <p>55 DT</p>
+                    <a href="reservation.html?nom=Canoe+Kayak&prix=55&duree=1h" class="register-btn">Réserver</a>
+                </span>
+            </div>
+    
+        </div>
+    </div>
+    
+    <div id="terrestre" class="category-content" style="display:none;">
+        <h3>Activités Terrestre</h3>
+        <div class="exclusives">
+    
+            <!-- Randonnée -->
+            <div>
+                <img src="images/rando.jpg" alt="Randonnée">
+                <span>
+                    <h3>Randonnée</h3>
+                    <p>40 DT</p>
+                    <a href="reservation.html?nom=Randonnee&prix=40&duree=2h" class="register-btn">Réserver</a>
+                </span>
+            </div>
+    
+            <!-- Escalade -->
+            <div>
+                <img src="images/escal.jpg" alt="Escalade">
+                <span>
+                    <h3>Escalade</h3>
+                    <p>70 DT</p>
+                    <a href="reservation.html?nom=Escalade&prix=70&duree=1h30" class="register-btn">Réserver</a>
+                </span>
+            </div>
+    
+            <!-- Paintball -->
+            <div>
+                <img src="images/paintb.jpg" alt="Paintball">
+                <span>
+                    <h3>Paintball</h3>
+                    <p>90 DT</p>
+                    <a href="reservation.html?nom=Paintball&prix=90&duree=1h" class="register-btn">Réserver</a>
+                </span>
+            </div>
+    
+            <!-- Vélo Tout Terrain -->
+            <div>
+                <img src="images/vtt.jpg" alt="VTT">
+                <span>
+                    <h3>Vélo Tout Terrain</h3>
+                    <p>50 DT</p>
+                    <a href="reservation.html?nom=VTT&prix=50&duree=2h" class="register-btn">Réserver</a>
+                </span>
+            </div>
+    
+            <!-- Karting -->
+            <div>
+                <img src="images/karting.jpg" alt="Karting">
+                <span>
+                    <h3>Karting</h3>
+                    <p>100 DT</p>
+                    <a href="reservation.html?nom=Karting&prix=100&duree=1h" class="register-btn">Réserver</a>
+                </span>
+            </div>
+    
+        </div>
+    </div>
+    
+    <div id="insolite" class="category-content" style="display:none;">
+        <h3>Activités Insolite</h3>
+        <div class="exclusives">
+        
+          <!-- Escape Game -->
+          <div>
+            <img src="images/escape.jpg" alt="Escape Game">
+            <span>
+              <h3>Escape Game</h3>
+              <p>90 DT</p>
+              <a href="reservation.html?nom=Escape+Game&prix=90&duree=2h" class="register-btn">Réserver</a>
+            </span>
+          </div>
+      
+          <!-- Réalité Virtuelle -->
+          <div>
+            <img src="images/vr.jpg" alt="Réalité Virtuelle">
+            <span>
+              <h3>Réalité Virtuelle</h3>
+              <p>110 DT</p>
+              <a href="reservation.html?nom=Réalité+Virtuelle&prix=110&duree=1h30" class="register-btn">Réserver</a>
+            </span>
+          </div>
+      
+          <!-- Dîner dans le noir -->
+          <div>
+            <img src="images/noir.jpg" alt="Dîner dans le noir">
+            <span>
+              <h3>Dîner dans le noir</h3>
+              <p>130 DT</p>
+              <a href="reservation.html?nom=Dîner+dans+le+noir&prix=130&duree=3h" class="register-btn">Réserver</a>
+            </span>
+          </div>
+      
+          <!-- Labyrinthe géant -->
+          <div>
+            <img src="images/labr.jpg" alt="Labyrinthe géant">
+            <span>
+              <h3>Labyrinthe géant</h3>
+              <p>60 DT</p>
+              <a href="reservation.html?nom=Labyrinthe+géant&prix=60&duree=1h" class="register-btn">Réserver</a>
+            </span>
+          </div>
+      
+          <!-- Simulateur de chute libre -->
+          <div>
+            <img src="images/chute.jpg" alt="Chute libre">
+            <span>
+              <h3>Chute libre indoor</h3>
+              <p>200 DT</p>
+              <a href="reservation.html?nom=Chute+libre+indoor&prix=200&duree=30min" class="register-btn">Réserver</a>
+            </span>
+          </div>
+      
+        </div>
+    </div>
+    
+    <div id="culture" class="category-content" style="display:none;">
+        <h3>Activités Culture</h3>
+        <div class="exclusives">
+      
+          <!-- Visite Musée -->
+          <div>
+            <img src="images/muse.jpg" alt="Musée">
+            <span>
+              <h3>Visite Musée</h3>
+              <p>20 DT</p>
+              <a href="reservation.html?nom=Visite+Musée&prix=20&duree=2h" class="register-btn">Réserver</a>
+            </span>
+          </div>
+      
+          <!-- Théâtre -->
+          <div>
+            <img src="images/theatre.jpg" alt="Théâtre">
+            <span>
+              <h3>Théâtre</h3>
+              <p>25 DT</p>
+              <a href="reservation.html?nom=Théâtre&prix=25&duree=2h" class="register-btn">Réserver</a>
+            </span>
+          </div>
+      
+          <!-- Projection film historique -->
+          <div>
+            <img src="images/projection.jpg" alt="Film Historique">
+            <span>
+              <h3>Film Historique</h3>
+              <p>18 DT</p>
+              <a href="reservation.html?nom=Film+Historique&prix=18&duree=1h30" class="register-btn">Réserver</a>
+            </span>
+          </div>
+      
+          <!-- Exposition -->
+          <div>
+            <img src="images/expo.jpg" alt="Exposition">
+            <span>
+              <h3>Exposition d'art</h3>
+              <p>30 DT</p>
+              <a href="reservation.html?nom=Exposition+d'art&prix=30&duree=2h" class="register-btn">Réserver</a>
+            </span>
+          </div>
+      
+        </div>
+    </div>
+    
+    <div id="detente" class="category-content" style="display:none;">
+        <h3>Activités Détente</h3>
+        <div class="exclusives">
+      
+          <!-- Pique-nique -->
+          <div>
+            <img src="images/pique.jpg" alt="Pique-nique">
+            <span>
+              <h3>Pique-nique</h3>
+              <p>15 DT</p>
+              <a href="reservation.html?nom=Pique-nique&prix=15&duree=3h" class="register-btn">Réserver</a>
+            </span>
+          </div>
+      
+          <!-- Yoga -->
+          <div>
+            <img src="images/yoga.jpg" alt="Yoga">
+            <span>
+              <h3>Yoga</h3>
+              <p>20 DT</p>
+              <a href="reservation.html?nom=Yoga&prix=20&duree=1h30" class="register-btn">Réserver</a>
+            </span>
+          </div>
+      
+          <!-- Hammam -->
+          <div>
+            <img src="images/hammem.jpg" alt="Hammam">
+            <span>
+              <h3>Hammam</h3>
+              <p>35 DT</p>
+              <a href="reservation.html?nom=Hammam&prix=35&duree=1h" class="register-btn">Réserver</a>
+            </span>
+          </div>
+      
+          <!-- Lecture en plein air -->
+          <div>
+            <img src="images/lecture.jpg" alt="Lecture">
+            <span>
+              <h3>Lecture en plein air</h3>
+              <p>10 DT</p>
+              <a href="reservation.html?nom=Lecture+en+plein+air&prix=10&duree=2h" class="register-btn">Réserver</a>
+            </span>
+          </div>
+      
+        </div>
+    </div>
+    
+    <!-- Continue for other categories like sport, nature, aventure, famille, extreme... -->
+    
+      
+    <div id="sport" class="category-content" style="display:none;">
+        <h3>Activités Sport</h3>
+        <div class="exclusives">
+      
+          <!-- Foot -->
+          <div>
+            <img src="images/foot.jpg" alt="Foot">
+            <span>
+              <h3>Foot</h3>
+              <p>25 DT</p>
+              <a href="reservation.html?nom=Foot&prix=25&duree=1h30" class="register-btn">Réserver</a>
+            </span>
+          </div>
+      
+          <!-- Basket -->
+          <div>
+            <img src="images/basket.jpg" alt="Basket">
+            <span>
+              <h3>Basket</h3>
+              <p>30 DT</p>
+              <a href="reservation.html?nom=Basket&prix=30&duree=1h30" class="register-btn">Réserver</a>
+            </span>
+          </div>
+      
+          <!-- Zumba -->
+          <div>
+            <img src="images/zumba.jpg" alt="Zumba">
+            <span>
+              <h3>Zumba</h3>
+              <p>35 DT</p>
+              <a href="reservation.html?nom=Zumba&prix=35&duree=1h" class="register-btn">Réserver</a>
+            </span>
+          </div>
+      
+          <!-- Course à pied -->
+          <div>
+            <img src="images/course.jpg" alt="Course à pied">
+            <span>
+              <h3>Course à pied</h3>
+              <p>10 DT</p>
+              <a href="reservation.html?nom=Course+à+pied&prix=10&duree=1h" class="register-btn">Réserver</a>
+            </span>
+          </div>
+      
+        </div>
+      </div>
+      
+      <div id="nature" class="category-content" style="display:none;">
+        <h3>Activités Nature</h3>
+        <div class="exclusives">
+      
+          <!-- Balade en Forêt -->
+          <div>
+            <img src="images/balade.jpg" alt="Balade Forêt">
+            <span>
+              <h3>Balade Forêt</h3>
+              <p>10 DT</p>
+              <a href="reservation.html?nom=Balade+Forêt&prix=10&duree=2h" class="register-btn">Réserver</a>
+            </span>
+          </div>
+      
+          <!-- Observation des oiseaux -->
+          <div>
+            <img src="images/oiseaux.jpg" alt="Observation des oiseaux">
+            <span>
+              <h3>Observation Oiseaux</h3>
+              <p>15 DT</p>
+              <a href="reservation.html?nom=Observation+Oiseaux&prix=15&duree=1h" class="register-btn">Réserver</a>
+            </span>
+          </div>
+      
+          <!-- Plogging (jogging + ramassage de déchets) -->
+          <div>
+            <img src="images/plogging.jpg" alt="Plogging">
+            <span>
+              <h3>Plogging</h3>
+              <p>Gratuit</p>
+              <a href="reservation.html?nom=Plogging&prix=0&duree=1h30" class="register-btn">Réserver</a>
+            </span>
+          </div>
+      
+          <!-- Cueillette de plantes -->
+          <div>
+            <img src="images/cueillete.jpg" alt="Cueillette">
+            <span>
+              <h3>Cueillette de plantes</h3>
+              <p>20 DT</p>
+              <a href="reservation.html?nom=Cueillette+de+plantes&prix=20&duree=2h" class="register-btn">Réserver</a>
+            </span>
+          </div>
+      
+        </div>
+      </div>
+      
+      <div id="aventure" class="category-content" style="display:none;">
+        <h3>Activités Aventure</h3>
+        <div class="exclusives">
+          
+          <!-- Paintball -->
+          <div>
+            <img src="images/paintb.jpg" alt="Paintball">
+            <span>
+              <h3>Paintball</h3>
+              <p>50 DT</p>
+              <a href="reservation.html?nom=Paintball&prix=50&duree=2h" class="register-btn">Réserver</a>
+            </span>
+          </div>
+          
+          <!-- Parcours accrobranche -->
+          <div>
+            <img src="images/accrobranche.jpg" alt="Accrobranche">
+            <span>
+              <h3>Accrobranche</h3>
+              <p>45 DT</p>
+              <a href="reservation.html?nom=Accrobranche&prix=45&duree=2h" class="register-btn">Réserver</a>
+            </span>
+          </div>
+          
+          <!-- Spéléologie -->
+          <div>
+            <img src="images/speleologie.jpg" alt="Spéléologie">
+            <span>
+              <h3>Spéléologie</h3>
+              <p>60 DT</p>
+              <a href="reservation.html?nom=Spéléologie&prix=60&duree=3h" class="register-btn">Réserver</a>
+            </span>
+          </div>
+          
+          <!-- Exploration de grottes -->
+          <div>
+            <img src="images/grotte.jpg" alt="Grotte">
+            <span>
+              <h3>Exploration Grotte</h3>
+              <p>55 DT</p>
+              <a href="reservation.html?nom=Exploration+Grotte&prix=55&duree=2h" class="register-btn">Réserver</a>
+            </span>
+          </div>
+          
+        </div>
+      </div>
+      
+      <div id="famille" class="category-content" style="display:none;">
+        <h3>Activités Famille</h3>
+        <div class="exclusives">
+          
+          <!-- Activité Zoo -->
+          <div>
+            <img src="images/zoo.jpg" alt="Zoo">
+            <span>
+              <h3>Zoo</h3>
+              <p>30 DT</p>
+              <a href="reservation.html?nom=Zoo&prix=30&duree=3h" class="register-btn">Réserver</a>
+            </span>
+          </div>
+          
+          <!-- Activité Jeu de société -->
+          <div>
+            <img src="images/fam.jpg" alt="Jeu de société">
+            <span>
+              <h3>Jeu de société</h3>
+              <p>65 DT</p>
+              <a href="reservation.html?nom=Jeu+de+société&prix=65&duree=2h" class="register-btn">Réserver</a>
+            </span>
+          </div>
+          
+          <!-- Activité Cirque -->
+          <div>
+            <img src="images/fes.jpg" alt="Cirque">
+            <span>
+              <h3>Cirque</h3>
+              <p>18 DT</p>
+              <a href="reservation.html?nom=Cirque&prix=18&duree=1h" class="register-btn">Réserver</a>
+            </span>
+          </div>
+          
+          <!-- Activité Parc d’attractions -->
+          <div>
+            <img src="images/parc.jpg" alt="Parc d’attractions">
+            <span>
+              <h3>Parc d’attractions</h3>
+              <p>50 DT</p>
+              <a href="reservation.html?nom=Parc+d’attractions&prix=50&duree=4h" class="register-btn">Réserver</a>
+            </span>
+          </div>
+          
+          <!-- Activité Mini-golf -->
+          <div>
+            <img src="images/golf.jpg" alt="Mini-golf">
+            <span>
+              <h3>Mini-golf</h3>
+              <p>25 DT</p>
+              <a href="reservation.html?nom=Mini-golf&prix=25&duree=2h" class="register-btn">Réserver</a>
+            </span>
+          </div>
+          
+          <!-- Activité Piscine familiale -->
+          <div>
+            <img src="images/pis.jpg" alt="Piscine familiale">
+            <span>
+              <h3>Piscine familiale</h3>
+              <p>35 DT</p>
+              <a href="reservation.html?nom=Piscine+familiale&prix=35&duree=3h" class="register-btn">Réserver</a>
+            </span>
+          </div>
+          
+          <!-- Activité Atelier créatif -->
+          <div>
+            <img src="images/ate (2).jpg" alt="Atelier créatif">
+            <span>
+              <h3>Atelier créatif</h3>
+              <p>20 DT</p>
+              <a href="reservation.html?nom=Atelier+créatif&prix=20&duree=2h" class="register-btn">Réserver</a>
+            </span>
+          </div>
+          
+        </div>
+      </div>
+      
+      <div id="extreme" class="category-content" style="display:none;">
+        <h3>Activités Extrême</h3>
+        <div class="exclusives">
+          
+          <!-- Saut à l'élastique -->
+          <div>
+            <img src="images/Saut à l'élastique.jpg" alt="Saut à l'élastique">
+            <span>
+              <h3>Saut à l'élastique</h3>
+              <p>200 DT</p>
+              <a href="reservation.html?nom=Saut+à+l'élastique&prix=200&duree=1h" class="register-btn">Réserver</a>
+            </span>
+          </div>
+          
+          <!-- Parachutisme -->
+          <div>
+            <img src="images/Parachutisme.jpg" alt="Parachutisme">
+            <span>
+              <h3>Parachutisme</h3>
+              <p>250 DT</p>
+              <a href="reservation.html?nom=Parachutisme&prix=250&duree=3h" class="register-btn">Réserver</a>
+            </span>
+          </div>
+          
+          <!-- Escalade en falaise -->
+          <div>
+            <img src="images/escalade.jpg" alt="Escalade">
+            <span>
+              <h3>Escalade Falaise</h3>
+              <p>120 DT</p>
+              <a href="reservation.html?nom=Escalade+Falaise&prix=120&duree=3h" class="register-btn">Réserver</a>
+            </span>
+          </div>
+          
+          <!-- Base Jump -->
+          <div>
+            <img src="images/Base Jump.jpg" alt="Base Jump">
+            <span>
+              <h3>Base Jump</h3>
+              <p>300 DT</p>
+              <a href="reservation.html?nom=Base+Jump&prix=300&duree=2h" class="register-btn">Réserver</a>
+            </span>
+          </div>
+          
+        </div>
+      </div>
+      <section class="activites-container">
+        <div class="section-header">
+          <h2>Nos activités près de vous</h2>
+          <a href="#" class="voir-tout">Tout afficher &gt;</a>
+        </div>
+      
+        <div class="activites-grid">
+          <!-- Activité 1 -->
+          <div class="activite-card">
+            <img src="images/bougie.jpg" alt="Atelier Bougie">
+            <div class="activite-content">
+              <p class="categorie">ATELIER BOUGIE</p>
+              <h3>Atelier bougies parfumées à El Medina</h3>
+              <span class="tag">Top vente</span>
+              <p class="prix">45DT <span>/ personne</span></p>
+              <p class="note"><span class="etoile">★</span> 4,9 (42)</p>
+            </div>
+          </div>
+      
+          <!-- Activité 2 -->
+          <div class="activite-card">
+            <img src="images/savon.jpg" alt="Atelier Savon">
+            <div class="activite-content">
+              <p class="categorie">ATELIER SAVON</p>
+              <h3>Atelier création de savons à Centre ville</h3>
+              <p class="prix">50DT<span>/ personne</span></p>
+              <p class="note"><span class="etoile">★</span> 4,7 (17)</p>
+            </div>
+          </div>
+      
+          <!-- Activité 3 -->
+          <div class="activite-card">
+            <img src="images/vide poche.jpg" alt="Vide-poche">
+            <div class="activite-content">
+              <p class="categorie">ATELIER MAROQUINERIE</p>
+              <h3>Atelier maroquinerie "Vide-poche" à Gabes</h3>
+              <p class="prix">55DT<span>/ personne</span></p>
+              <p class="note"><span class="etoile">★</span> 5,0 (1)</p>
+            </div>
+          </div>
+          <!-- Activité 5 -->
+          <div class="activite-card">
+            <img src="images/maro.jpg" alt="Ceinture">
+            <div class="activite-content">
+              <p class="categorie">ATELIER MAROQUINERIE</p>
+              <h3>Atelier de maroquinerie d'une ceinture à Nabeul</h3>
+              <p class="prix">95DT <span>/ personne</span></p>
+              <p class="note"><span class="etoile">★</span> 5,0 (7)</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div class="see-all-events">
+        
+        <section class="atouts">
+            <div class="atout">
+              <img src="images/l1.webp" alt="Activités" />
+              <div>
+                <h3>Des offres adaptées à votre événement</h3>
+                
+              </div>
+            </div>
+            <div class="atout">
+              <img src="images/l2.webp" alt="Prix" />
+              <div>
+                <h3>Même prix qu'en direct</h3>
+                
+              </div>
+            </div>
+            <div class="atout">
+              <img src="images/l3.webp" alt="Contact" />
+              <div>
+                <h3>Des devis faciles à comparer</h3>
+                
+              </div>
+            </div>
+            <div class="atout">
+                <img src="images/l4.webp" alt="Contact" />
+                <div>
+                  <h3>Un contact dédié à votre projet</h3>
+                  
+                </div>
+              </div>
+          </section>
+    </div>
+    <section class="categories-section">
+        <h2 class="section-title">Découvrez nos catégories d'entreprises</h2>
+        <div class="categories-buttons">
+          <a href="categorie.html" class="cat-btn">Team building</a>
+          <a href="categorie.html" class="cat-btn">Animation</a>
+          <a href="categorie.html" class="cat-btn">Séminaire</a>
+          <a href="categorie.html" class="cat-btn">Réunions</a>
+          <a href="categorie.html" class="cat-btn">Soirée</a>
+          <a href="categorie.html" class="cat-btn">Repas</a>
+          <a href="categorie.html" class="cat-btn">Fundays</a>
+        </div>
+      </section>
+      
+   
+      
+      
+      <section class="avis-section">
+        <div class="avis-header">
+            <h2><span class="ecriture-plume">Nos clients adorent !</span> <span class="etoile">★</span> 4,7/5</h2>
+            <p class="ecriture-plume">64 234 avis pour vous aider à choisir</p>
+          </div>
+          
+      
+        <div class="avis-nav">
+          <button class="btn-nav" onclick="changeAvis(-1)">←</button>
+          <button class="btn-nav" onclick="changeAvis(1)">→</button>
+        </div>
+      
+        <!-- WRAPPER pour scroll horizontal -->
+        <div class="avis-slider-wrapper">
+          <div class="avis-slider" id="avis-slider">
+            <!-- Slides ici -->
+            <div class="avis-slide">
+              <div class="avis-content">
+                <div class="avis-image">
+                  <img src="images/para2.jpg" alt="Saut en parachute">
+                </div>
+                <div class="avis-card">
+                  <h3>Saut en parachute</h3>
+                  <div class="avis-rating"><span class="etoile">★</span> 5/5</div>
+                  <p>Équipe hyper sympa: au top! Sensations garanties, mais on se sent en toute confiance ! Moment inoubliable .. je n’ai qu’une envie: Recommencer !! Le kiff total</p>
+                  <p class="avis-auteur">Pauline</p>
+                </div>
+              </div>
+            </div>
+      
+            <div class="avis-slide">
+              <div class="avis-content">
+                <div class="avis-image">
+                  <img src="images/mong.jpg" alt="Montgolfière">
+                </div>
+                <div class="avis-card">
+                  <h3>Balade en montgolfière</h3>
+                  <div class="avis-rating"><span class="etoile">★</span> 4.8/5</div>
+                  <p>Une expérience magique au lever du soleil. Très bien organisée, je recommande pour un moment hors du temps !</p>
+                  <p class="avis-auteur">Marc</p>
+                </div>
+              </div>
+            </div>
+      
+            <div class="avis-slide">
+              <div class="avis-content">
+                <div class="avis-image">
+                  <img src="images/pilote.jpg" alt="Stage de pilotage">
+                </div>
+                <div class="avis-card">
+                  <h3>Stage de pilotage</h3>
+                  <div class="avis-rating"><span class="etoile">★</span> 5/5</div>
+                  <p>Génial ! L’équipe était passionnée, et les sensations sont incroyables. À refaire sans hésiter !</p>
+                  <p class="avis-auteur">Chloé</p>
+                </div>
+              </div>
+            </div>
+      
+            <div class="avis-slide">
+              <div class="avis-content">
+                <div class="avis-image">
+                  <img src="images/plo.webp" alt="Plongée sous-marine">
+                </div>
+                <div class="avis-card">
+                  <h3>Plongée sous-marine</h3>
+                  <div class="avis-rating"><span class="etoile">★</span> 4.9/5</div>
+                  <p>Un moment magique au cœur des fonds marins. L’équipe a su me rassurer dès le début. Inoubliable !</p>
+                  <p class="avis-auteur">Yassine</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <section class="avis-form-section">
+            <h3>Laissez votre avis</h3>
+            <form id="avis-form">
+              <div class="avis-stars" id="avis-stars">
+                <span class="star" data-value="1">★</span>
+                <span class="star" data-value="2">★</span>
+                <span class="star" data-value="3">★</span>
+                <span class="star" data-value="4">★</span>
+                <span class="star" data-value="5">★</span>
+              </div>
+        
+              <input type="text" id="avis-nom" placeholder="Votre prénom" required>
+              <input type="text" id="avis-activite" placeholder="Nom de l’activité" required>
+              <textarea id="avis-message" placeholder="Votre avis..." required></textarea>
+              <button type="submit">Envoyer</button>
+            </form>
+          </section>
+          
+      </section>
+      <script>
+        let selectedNote = 0;
+        const stars = document.querySelectorAll('.avis-stars .star');
+      
+        stars.forEach(star => {
+          star.addEventListener('click', () => {
+            selectedNote = parseInt(star.dataset.value);
+            updateStars(selectedNote);
+          });
+        });
+      
+        function updateStars(note) {
+          stars.forEach(star => {
+            star.classList.toggle('selected', parseInt(star.dataset.value) <= note);
+          });
+        }
+      
+        // Gestion de l'envoi (console log pour exemple)
+        document.getElementById('avis-form').addEventListener('submit', function(e) {
+          e.preventDefault();
+          const nom = document.getElementById('avis-nom').value.trim();
+          const message = document.getElementById('avis-message').value.trim();
+      
+          if (selectedNote === 0) {
+            alert("Merci de choisir une note !");
+            return;
+          }
+      
+          console.log("Nouvel avis :", {
+            nom: nom,
+            message: message,
+            note: selectedNote
+          });
+      
+          alert("Merci pour votre avis !");
+          this.reset();
+          updateStars(0);
+          selectedNote = 0;
+        });
+      </script>
+      
+      <script>
+        let currentSlide = 0;
+        const slider = document.getElementById("avis-slider");
+        const slides = document.querySelectorAll(".avis-slide");
+      
+        function changeAvis(direction) {
+          currentSlide = (currentSlide + direction + slides.length) % slides.length;
+          const offset = -currentSlide * 100;
+          slider.style.transform = `translateX(${offset}%)`;
+        }
+      </script>
+      
+      
+      
+      
+
+
+  <!-- Script -->
+  <script>
+    $(document).ready(function () {
+      $(".category-toggle").click(function () {
+        const target = $(this).data("target");
+        $(".category-content").not(target).slideUp();
+        $(target).slideToggle();
+      });
+    });
+  </script>
+  <div class="footer-wrapper">
+    <div class="newsletter">
+        <div class="newsletter-left">
+            <h2>Abonnez-vous à notre</h2>
+            <h1>Click'N'Go</h1>
+        </div>
+        <div class="newsletter-right">
+            <div class="newsletter-input">
+                <input type="text" placeholder="Entrez votre adresse e-mail" />
+                <button>Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-content">
+        <div class="footer-main">
+            <div class="footer-brand">
+                <img src="images/logo.png" alt="click'N'go Logo" class="footer-logo">
+            </div>
+            <p>Rejoignez nous aussi sur :</p>
+            <div class="social-icons">
+                <a href="#" style="--color: #0072b1" class="icon"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="#" style="--color: #E1306C" class="icon"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" style="--color: #FF0050" class="icon"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="#" style="--color: #4267B2" class="icon"><i class="fa-brands fa-facebook"></i></a>
+            </div>
+        </div>
+
+        <div class="links">
+            <p>Moyens de paiement</p>
+            <div class="payment-methods">
+                <img src="images/visa.webp" alt="Visa">
+                <img src="images/mastercard-v2.webp" alt="mastercard">
+                <img src="images/logo-cb.webp" alt="cb" class="cb-logo">
+                <img src="images/paypal.webp" alt="paypal" class="paypal">
+            </div>
+        </div>
+
+        <div class="links">
+            <p>À propos</p>
+            <a href="#">À propos de click'N'go</a>
+            <a href="#">Presse</a>
+            <a href="#">Nous rejoindre</a>
+        </div>
+
+        <div class="links">
+            <p>Liens utiles</p>
+            <a href="#">Devenir partenaire</a>
+            <a href="#">FAQ - Besoin d'aide ?</a>
+            <a href="#">Tous les avis click'N'go</a>
+        </div>
+    </div>
+
+    <div class="footer-section">
+        <hr>
+        <div class="footer-separator"></div>
+        <div class="footer-bottom">
+            <p>© click'N'go 2025 - tous droits réservés</p>
+            <div class="footer-links-bottom">
+                <a href="#">Conditions générales</a>
+                <a href="#">Mentions légales</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

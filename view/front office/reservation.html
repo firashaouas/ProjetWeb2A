@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Réservation</title>
+    <link rel="stylesheet" href="reservation.css">
+    <style>
+        /* Styles des sections et boutons */
+        .step {
+            cursor: pointer;
+        }
+        .step.active {
+            font-weight: bold;
+        }
+        .section {
+            display: none;
+        }
+        .section.active {
+            display: block;
+        }
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .prev-btn, .next-btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            background-color: #e70a83; /* Orange doux */
+            color: white;
+            border-radius: 5px;
+        }
+        .prev-btn {
+            background-color: #e70a83; /* Bleu nuit */
+        }
+        .prev-btn:disabled {
+            background-color: #ccc; /* Gris pour désactiver */
+        }
+
+        /* Style pour le calendrier */
+        .calendar-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            margin-bottom: 20px;
+        }
+
+        .calendar div {
+            text-align: center;
+            padding: 10px;
+            cursor: pointer;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+        }
+
+        .calendar .selected {
+            background-color: #e70a83; /* Orange doux */
+            color: white;
+        }
+        .time-selection {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .time-selection label {
+            margin-right: 10px;
+        }
+
+        .input-container input {
+            margin-bottom: 10px;
+        }
+        
+        /* Style pour le résumé */
+        .summary {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #d7a4c9;
+            border-radius: 8px;
+            border: 1px solid #8e537b;
+        }
+
+        .summary h3 {
+            margin-top: 0;
+        }
+
+        .summary p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="reservation-container">
+        <h1>Réservez votre activité</h1>
+
+        <!-- Étapes de la réservation -->
+        <div class="steps">
+            <span class="step active" id="step-1">Tarif</span>
+            <span class="step" id="step-2">Date</span>
+            <span class="step" id="step-3">Infos</span>
+            <span class="step" id="step-4">Paiement</span>
+        </div>
+
+        <!-- Section Tarif -->
+        <div class="section active" id="section-1">
+            <div class="activity-summary">
+                <h2 id="activity-title">Nom de l’activité</h2>
+            </div>
+
+            <div class="pricing">
+                <div class="price-details">
+                    <p>Prix / personne</p>
+                    <strong id="unit-price">0,00 DT</strong>
+                </div>
+
+                <div class="quantity">
+                    <label for="nb-personnes">Nombre de personnes :</label>
+                    <input type="number" id="nb-personnes" min="1" value="1" required>
+                </div>
+
+                <div class="total">
+                    <p>Total :</p>
+                    <strong id="total-amount">0,00 DT</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Date -->
+        <div class="section" id="section-2">
+            <h3>Choisir la date</h3>
+
+            <!-- Calendrier -->
+            <div class="calendar-container">
+                <div class="calendar" id="calendar"></div>
+            </div>
+
+            <!-- Sélection des horaires -->
+            <div class="time-selection" id="time-selection">
+                <h4>Choisissez l'horaire</h4>
+                <label>
+                    <input type="radio" name="time" value="10:00 AM" required> 10:00 AM
+                </label>
+                <br>
+                <label>
+                    <input type="radio" name="time" value="02:00 PM" required> 02:00 PM
+                </label>
+            </div>
+        </div>
+
+        <!-- Section Infos -->
+        <div class="section" id="section-3">
+            <h3>Informations personnelles</h3>
+            <div class="input-container">
+                <label for="nom-client">Nom :</label>
+                <input type="text" id="nom-client" placeholder="Votre nom" required>
+            </div>
+            <div class="input-container">
+                <label for="email-client">Email :</label>
+                <input type="email" id="email-client" placeholder="Votre email" required>
+            </div>
+        </div>
+
+        <!-- Section Paiement -->
+        <div class="section" id="section-4">
+            <h3>Informations de paiement</h3>
+            <div class="input-container">
+                <label for="card-number">Numéro de carte :</label>
+                <input type="text" id="card-number" placeholder="Numéro de carte" 
+                    pattern="^\d{12}$" maxlength="12" required title="Le numéro de carte doit être composé de 12 chiffres.">
+            </div>
+            <button class="next-btn" onclick="showSummary()">Payer</button>
+        </div>
+
+        <!-- Résumé de la réservation -->
+        <div class="summary" id="reservation-summary" style="display:none;">
+            <h3>Résumé de votre réservation</h3>
+            <p><strong>Nom de l'activité :</strong> <span id="summary-activity-name"></span></p>
+            <p><strong>Nombre de personnes :</strong> <span id="summary-people"></span></p>
+            <p><strong>Date choisie :</strong> <span id="summary-date"></span></p>
+            <p><strong>Horaire choisi :</strong> <span id="summary-time"></span></p>
+            <p><strong>Email :</strong> <span id="summary-email"></span></p>
+            <p><strong>Prix total :</strong> <span id="summary-total"></span></p>
+            <button class="confirm-btn" onclick="confirmPayment()">Confirmer le paiement</button>
+        </div>
+
+        <!-- Conteneur des boutons -->
+        <div class="button-container">
+            <button class="prev-btn" onclick="changeSection('prev')" id="prev-btn" disabled>Précédent</button>
+            <button class="next-btn" onclick="changeSection('next')" id="next-btn">Suivant</button>
+        </div>
+
+        <p class="no-fees">✅ Zéro frais de réservation</p>
+    </div>
+
+    <script>
+        // Fonction pour récupérer les paramètres URL
+        function getParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                nom: params.get('nom') || "Activité",
+                prix: parseFloat(params.get('prix')) || 0,
+                duree: params.get('duree') || ""
+            };
+        }
+
+        // Récupérer les données de l'URL
+        const { nom, prix, duree } = getParams();
+
+        // Mettre à jour le contenu de la page
+        document.getElementById("activity-title").textContent = `${nom} ${duree ? '- ' + duree : ''}`;
+        document.getElementById("unit-price").textContent = `${prix.toFixed(2)} DT`;
+
+        const input = document.getElementById("nb-personnes");
+        const total = document.getElementById("total-amount");
+
+        function updateTotal() {
+            const nb = parseInt(input.value) || 1;
+            const totalPrice = (nb * prix).toFixed(2);
+            total.textContent = `${totalPrice} DT`;
+        }
+
+        input.addEventListener("input", updateTotal);
+        updateTotal(); // Mise à jour initiale
+
+        // Gestion de l'affichage des sections
+        let currentSection = 1;
+        const totalSections = 4;
+
+        function changeSection(direction) {
+            // Validation des champs de la section actuelle
+            if (direction === 'next') {
+                const requiredFields = document.querySelectorAll(`#section-${currentSection} input[required]`);
+                let valid = true;
+                requiredFields.forEach(field => {
+                    if (!field.value) {
+                        valid = false;
+                    }
+                });
+                if (!valid) {
+                    alert("Veuillez remplir tous les champs obligatoires.");
+                    return;
+                }
+            }
+
+            // Masquer la section actuelle
+            document.getElementById(`section-${currentSection}`).classList.remove('active');
+            document.getElementById(`step-${currentSection}`).classList.remove('active');
+
+            // Mettre à jour la section suivante ou précédente
+            if (direction === 'next' && currentSection < totalSections) {
+                currentSection++;
+            } else if (direction === 'prev' && currentSection > 1) {
+                currentSection--;
+            }
+
+            // Afficher la nouvelle section
+            document.getElementById(`section-${currentSection}`).classList.add('active');
+            document.getElementById(`step-${currentSection}`).classList.add('active');
+
+            // Gérer la visibilité du bouton "Précédent" (ne pas afficher dans la dernière section)
+            document.getElementById('prev-btn').disabled = currentSection === 1;
+
+
+            document.getElementById('next-btn').style.display = currentSection === 4 ? 'none' : 'inline-block';
+        }
+
+        // Fonction pour afficher le résumé
+        function showSummary() {
+            const peopleCount = document.getElementById("nb-personnes").value;
+            const email = document.getElementById("email-client").value;
+            const date = "Date sélectionnée";  // Ajoute ici la date sélectionnée
+            const time = document.querySelector('input[name="time"]:checked') ? document.querySelector('input[name="time"]:checked').value : "Non précisé";
+
+            document.getElementById("summary-activity-name").textContent = `${nom} ${duree}`;
+            document.getElementById("summary-people").textContent = peopleCount;
+            document.getElementById("summary-date").textContent = date;
+            document.getElementById("summary-time").textContent = time;
+            document.getElementById("summary-email").textContent = email;
+            document.getElementById("summary-total").textContent = total.textContent;
+
+            // Afficher le résumé
+            document.getElementById("reservation-summary").style.display = "block";
+
+            // Cacher la section Paiement
+            document.getElementById("section-4").style.display = "none";
+        }
+
+        // Fonction pour confirmer le paiement
+        function confirmPayment() {
+            alert("Paiement confirmé! Merci pour votre réservation.");
+            // Réinitialiser la page ou rediriger vers une autre page
+            window.location.reload();  // Exemple de réinitialisation
+        }
+
+        // Générer le calendrier dynamique
+        function generateCalendar() {
+            const calendar = document.getElementById("calendar");
+            const currentDate = new Date();
+            const currentMonth = currentDate.getMonth();
+            const currentYear = currentDate.getFullYear();
+
+            // Afficher le mois et l'année
+            const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            const monthYear = document.createElement("div");
+            monthYear.textContent = `${monthNames[currentMonth]} ${currentYear}`;
+            calendar.appendChild(monthYear);
+
+            // Créer les jours du mois
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayDiv = document.createElement("div");
+                dayDiv.textContent = day;
+                dayDiv.addEventListener("click", function() {
+                    document.querySelectorAll(".calendar div").forEach(d => d.classList.remove("selected"));
+                    dayDiv.classList.add("selected");
+                });
+                calendar.appendChild(dayDiv);
+            }
+        }
+
+        // Initialiser le calendrier au chargement de la page
+        generateCalendar();
+
+    </script>
+</body>
+</html>

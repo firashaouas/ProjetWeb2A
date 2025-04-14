@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Nos catégories entreprise</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <section class="categorie-page-header">
+        <h1>Nos offres pour les entreprises</h1>
+        <p>Toutes nos catégories pour répondre à vos besoins professionnels.</p>
+      </section>
+      <br>
+
+    <div class="search-bar">
+        <div class="search-tabs">
+          <button class="tab active">Team building</button>
+          <button class="tab">Animation</button>
+          <button class="tab">Séminaire</button>
+          <button class="tab">Réunions</button>
+          <button class="tab">Soirée</button>
+          <button class="tab">Repas</button>
+          <button class="tab">Fundays</button>
+        </div>
+        <div class="search-fields">
+          <div class="location-field">
+            <span class="icon">📩</span>
+            <span class="text">N'importe où</span>
+          </div>
+          <div class="input-field">
+            <input type="text" placeholder="Rechercher par mots-clés">
+            <button class="search-btn">🔍</button>
+          </div>
+        </div>
+      </div>
+      <script>
+        const tabs = document.querySelectorAll('.tab');
+        tabs.forEach(tab => {
+          tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            // Ici tu peux aussi déclencher une recherche ou filtrage spécifique
+          });
+        });
+      </script>
+
+  <section class="categorie-block" id="team-building">
+    <h2>Team Building 🏢</h2>
+    <p>Renforcez les liens de votre équipe avec des expériences uniques.</p>
+  </section>
+
+  <section class="categorie-block" id="animation">
+    <h2>Animation 🎉</h2>
+    <p>Des animations interactives pour dynamiser vos événements.</p>
+  </section>
+  <section class="categorie-block" id="reunion">
+    <h2>Réunions 🧑‍💼 </h2>
+    <p>Des espaces pensés pour vos réunions professionnelles, avec tout l’équipement nécessaire.</p>
+  </section>
+  
+
+  <section class="categorie-block" id="seminaire">
+    <h2>Séminaire</h2>
+    <p>Organisez vos séminaires dans des lieux inspirants.</p>
+  </section>
+  <section class="categorie-block" id="repas">
+    <h2>Repas d'entreprise 🍽️</h2>
+    <p>Organisez un moment convivial autour d’un bon repas, dans des lieux adaptés à vos équipes.</p>
+  </section>
+  <section class="categorie-block" id="soiree">
+    <h2>Soirées d'entreprise 🌙</h2>
+    <p>Des soirées festives pour célébrer vos succès avec vos collaborateurs.</p>
+  </section>
+  <section class="categorie-block" id="funday">
+    <h2>Fundays 🎈</h2>
+    <p>Des journées fun pour motiver vos équipes, renforcer la cohésion et créer des souvenirs mémorables.</p>
+  </section>
+  
+  
+  
+  
+
+</body>
+</html>

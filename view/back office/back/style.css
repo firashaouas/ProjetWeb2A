@@ -1,0 +1,180 @@
+/* Updated CSS for modern and animated passenger dashboard */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: #f8f9fd;
+    color: #333;
+  }
+  
+  .dashboard {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f0f2f5;
+  }
+  
+  .sidebar {
+    width: 250px;
+    background-color: #fff;
+    box-shadow: 2px 0 15px rgba(0,0,0,0.05);
+    padding: 30px 20px;
+    border-radius: 0 20px 20px 0;
+  }
+  
+  .sidebar h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #6c5ce7;
+    text-align: center;
+  }
+  
+  .school-name {
+    font-size: 14px;
+    margin-bottom: 30px;
+    color: #888;
+    text-align: center;
+  }
+  
+  .sidebar nav a {
+    display: block;
+    padding: 12px 20px;
+    margin: 10px 0;
+    text-decoration: none;
+    border-radius: 12px;
+    color: #444;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+  
+  .sidebar nav a:hover,
+  .sidebar nav a.active {
+    background: linear-gradient(to right, #be3cf0, #dc46d7, #ff50aa, #ff6666);
+    color: white;
+    transform: scale(1.02);
+  }
+  
+  .sidebar .logout {
+    color: #e84118;
+    margin-top: 20px;
+  }
+  
+  .main-content {
+    flex: 1;
+    padding: 40px;
+    overflow-y: auto;
+  }
+  
+  .trajets, .tasks, .calendar, .passenger-history {
+    margin-bottom: 40px;
+  }
+  
+  .trajets h3, .tasks h3, .passenger-history h3 {
+    font-size: 22px;
+    margin-bottom: 20px;
+    color: #444;
+  }
+  
+  .trajet-cards {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  
+  .card {
+    flex: 1 1 200px;
+    padding: 25px;
+    border-radius: 20px;
+    color: white;
+    background: linear-gradient(to right, #be3cf0, #dc46d7, #ff50aa, #ff6666);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-8px);
+    background: linear-gradient(to left, #be3cf0, #dc46d7, #ff50aa, #ff6666);
+  }
+  
+  .card h4 {
+    margin-bottom: 10px;
+  }
+  
+  .card button {
+    margin-top: 15px;
+    background-color: white;
+    color: #333;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s ease;
+  }
+  
+  .card button:hover {
+    background-color: #eee;
+  }
+  
+  .tasks ul, .passenger-history ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .tasks li, .passenger-history li {
+    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 12px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .calendar {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    max-width: 320px;
+  }
+  
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    text-align: center;
+    margin-top: 15px;
+  }
+  
+  .calendar-grid div {
+    background-color: #f1f2f6;
+    padding: 10px 0;
+    border-radius: 10px;
+    transition: 0.3s ease;
+  }
+  
+  .calendar-grid div:hover {
+    background-color: #dfe4ea;
+    cursor: pointer;
+  }
+  
+  .highlight {
+    background: linear-gradient(to right, #be3cf0, #dc46d7, #ff50aa, #ff6666);
+    color: white;
+    font-weight: bold;
+  }
+  
+  .calendar h5 {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #444;
+  }
+  
+  .elsa-gradient-primary {
+    background: linear-gradient(to right, #be3cf0, #dc46d7, #ff50aa, #ff6666);
+  }
+  
+  .elsa-gradient-primary-hover:hover {
+    background: linear-gradient(to left, #be3cf0, #dc46d7, #ff50aa, #ff6666);
+  }
+  
