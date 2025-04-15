@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Transport</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet"/>
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+        }
+        .elsa-gradient-primary {
+            background: linear-gradient(to right, #be3cf0, #dc46d7 17%, #ff50aa 68%, #ff6666);
+        }
+
+        /* Header styles */
+        header {
+            background-color: #fff;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        header nav {
+            display: flex;
+            justify-content: center; /* Centers the navbar */
+            width: 100%;
+        }
+
+        header .buttons button {
+            background: linear-gradient(90deg, #be3cf0, #ff50aa);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s ease-in-out;
+        }
+
+        header .buttons button:hover {
+            background: linear-gradient(90deg, #ff50aa, #be3cf0);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #f8f8f8;
+            padding: 3rem 0;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        footer .footer-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 3rem;
+        }
+
+        footer .footer-section h3 {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+
+        footer .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        footer .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        footer .footer-section .social-media a {
+            font-size: 1.25rem;
+            margin: 0 0.5rem;
+            color: #333;
+            transition: color 0.3s;
+        }
+
+        footer .footer-section .social-media a:hover {
+            color: #ff50aa;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- BACKGROUND IMAGE WITH NAVBAR -->
+<div class="relative w-full h-[85vh] mt-2">
+    <!-- NAVBAR SUR L'IMAGE -->
+    <nav class="absolute top-0 left-0 w-full z-20 p-4">
+        <div class="flex items-center justify-center max-w-7xl mx-auto">
+            <div class="flex space-x-8 text-lg font-bold text-black">
+                <a href="#home" class="hover:text-[#be3cf0]">Accueil</a>
+                <a href="#services" class="hover:text-[#be3cf0]">Services</a>
+                <a href="#about" class="hover:text-[#be3cf0]">À propos</a>
+                <a href="#contact" class="hover:text-[#be3cf0]">Contact</a>
+            </div>
+        </div>
+    </nav>
+    <!-- IMAGE DE FOND -->
+    <img alt="Background image of a person driving a car" class="absolute inset-0 w-full h-full object-cover opacity-75" src="qui_sommes-nous_2023.webp"/>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-container max-w-7xl mx-auto px-4">
+        <div class="footer-section">
+            <h3>About Us</h3>
+            <ul>
+                <li><a href="#">Company Info</a></li>
+                <li><a href="#">Careers</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Contact</h3>
+            <ul>
+                <li><a href="#">Support</a></li>
+                <li><a href="#">Help Center</a></li>
+                <li><a href="#">FAQ</a></li>
+            </ul>
+        </div>
+        <div class="footer-section social-media">
+            <h3>Follow Us</h3>
+            <a href="#" class="fab fa-facebook"></a>
+            <a href="#" class="fab fa-twitter"></a>
+            <a href="#" class="fab fa-instagram"></a>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
