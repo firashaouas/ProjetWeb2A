@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Achat</title>
+  <!-- Le CSS reste inchangé -->
+  <style>@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;500&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+  
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(145deg, #ffeaf2, #d9e4ff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+  
+    .container {
+      display: flex;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 30px;
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+      max-width: 1100px;
+      width: 90%;
+      overflow: hidden;
+      transform: translateY(0);
+      animation: slideIn 0.8s ease-out;
+    }
+  
+    @keyframes slideIn {
+      from { transform: translateY(50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  
+    .preview {
+      width: 45%;
+      background: linear-gradient(135deg, #fff0f5, #f0f7ff);
+      color: #333;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+  
+    .preview::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.1"><circle cx="10" cy="10" r="2" fill="%23ff8fa3"/><circle cx="90" cy="90" r="3" fill="%23c084fc"/><circle cx="50" cy="20" r="2" fill="%23ff8fa3"/><circle cx="80" cy="50" r="2" fill="%23c084fc"/></svg>') repeat;
+      z-index: 0;
+    }
+  
+    .preview::after {
+      content: '✨';
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 24px;
+      opacity: 0.5;
+      z-index: 1;
+    }
+  
+    .preview img {
+      width: 220px;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 20px;
+      margin-bottom: 25px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      z-index: 1;
+      border: 3px solid #fff;
+    }
+  
+    .preview img:hover {
+      transform: scale(1.08) rotate(1deg);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    }
+  
+    .preview h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 30px;
+      margin: 10px 0;
+      text-align: center;
+      color: #2d2d2d;
+      z-index: 1;
+      position: relative;
+    }
+  
+    .preview h3::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 2px;
+      background: #ff8fa3;
+      margin: 8px auto;
+      border-radius: 1px;
+    }
+  
+    .preview .price {
+      font-size: 22px;
+      font-weight: 500;
+      color: #fff;
+      background: linear-gradient(45deg, #ff8fa3, #c084fc);
+      padding: 8px 20px;
+      border-radius: 20px;
+      z-index: 1;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+  
+    .preview .price:hover {
+      transform: translateY(-2px);
+    }
+  
+    .achat-form {
+      width: 55%;
+      padding: 50px;
+      background: #fff;
+      transition: transform 0.3s ease;
+    }
+  
+    .achat-form:hover {
+      transform: scale(1.02);
+    }
+  
+    .achat-form h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      color: #2d2d2d;
+      text-align: center;
+      margin-bottom: 30px;
+      position: relative;
+    }
+  
+    .achat-form h2::after {
+      content: '';
+      width: 60px;
+      height: 3px;
+      background: #ff8fa3;
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 2px;
+    }
+  
+    .achat-form label {
+      display: block;
+      margin: 20px 0 10px;
+      font-weight: 500;
+      color: #333;
+      font-size: 16px;
+    }
+  
+    .achat-form input[type="text"],
+    .achat-form input[type="email"],
+    .achat-form input[type="number"] {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: 12px;
+      border: 1px solid #e0e0e0;
+      font-size: 16px;
+      background: #f9f9f9;
+      transition: all 0.3s ease;
+    }
+  
+    .achat-form input:focus {
+      border-color: #ff8fa3;
+      box-shadow: 0 0 0 3px rgba(255, 143, 163, 0.2);
+      outline: none;
+      background: #fff;
+    }
+  
+    .achat-form .readonly {
+      background: #f0f0f0;
+      color: #666;
+      cursor: not-allowed;
+    }
+  
+    .radio-group {
+      margin: 20px 0;
+      display: flex;
+      gap: 25px;
+      flex-wrap: wrap;
+    }
+  
+    .radio-group label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 15px;
+      color: #444;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+  
+    .radio-group input[type="radio"] {
+      accent-color: #ff8fa3;
+    }
+  
+    .radio-group label:hover {
+      color: #ff8fa3;
+    }
+  
+    .achat-form button {
+      width: 100%;
+      padding: 16px;
+      margin-top: 20px;
+      border: none;
+      border-radius: 12px;
+      font-size: 18px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+  
+    .register-btn {
+      background: linear-gradient(90deg, #ff8fa3, #c084fc);
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+  
+    .register-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: 0.5s;
+    }
+  
+    .register-btn:hover::before {
+      left: 100%;
+    }
+  
+    .register-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(255, 143, 163, 0.4);
+    }
+  
+    .register-btn.cancel {
+      background: #e0e0e0;
+      color: #444;
+    }
+  
+    .register-btn.cancel:hover {
+      background: #d0d0d0;
+      transform: translateY(-2px);
+      box-shadow: none;
+    }
+  
+    .error {
+      color: #e63946;
+      font-size: 13px;
+      margin-top: 5px;
+      display: none;
+    }
+  
+    .invalid {
+      border-color: #e63946;
+      box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.2);
+    }
+  
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        width: 95%;
+      }
+  
+      .preview,
+      .achat-form {
+        width: 100%;
+      }
+  
+      .preview img {
+        width: 180px;
+        height: 180px;
+      }
+    }</style>
+  
+</head>
+<body>
+  <div class="container">
+    <div class="preview">
+      <img src="https://via.placeholder.com/220x220.png?text=Produit" alt="Produit" id="productImage">
+      <div class="price" id="previewPrix">-- TND/h</div>
+    </div>
+
+    <div class="achat-form">
+      <h2>Validation d'achat</h2>
+      <form id="achatForm" action="valider_achat.php" method="post" novalidate>
+        <div class="form-group">
+          <label>Nom</label>
+          <input type="text" name="nom" id="nom" placeholder="Votre nom">
+          <span class="error" id="nom_error">Le nom doit contenir uniquement des lettres (min 2 caractères).</span>
+        </div>
+    
+        <div class="form-group">
+          <label>Prénom</label>
+          <input type="text" name="prenom" id="prenom" placeholder="Votre prénom">
+          <span class="error" id="prenom_error">Le prénom doit contenir uniquement des lettres (min 2 caractères).</span>
+        </div>
+    
+        <div class="form-group">
+          <label>Numéro de téléphone</label>
+          <input type="text" name="telephone" id="telephone" placeholder="Votre numéro de téléphone">
+          <span class="error" id="telephone_error">Veuillez entrer un numéro de téléphone valide.</span>
+        </div>
+    
+        <div class="form-group">
+          <label>Quantité</label>
+          <input type="number" name="quantite" id="quantite" min="1" value="1">
+          <span class="error" id="quantite_error">La quantité doit être un nombre positif (minimum 1).</span>
+        </div>
+    
+        <div class="form-group">
+          <label>Prix total (TND)</label>
+          <input type="text" name="prix_total" id="prix_total" class="readonly" readonly>
+        </div>
+    
+        <div class="form-group">
+          <label>Mode de paiement</label>
+          <div class="radio-group">
+            <label><input type="radio" name="paiement" value="Carte"> Carte</label>
+            <label><input type="radio" name="paiement" value="Especes"> Espèces</label>
+            <label><input type="radio" name="paiement" value="PayPal"> PayPal</label>
+          </div>
+          <span class="error" id="paiement_error">Veuillez sélectionner un mode de paiement.</span>
+        </div>
+    
+        <div class="form-buttons">
+          <button type="submit" class="register-btn">Valider l'achat</button>
+          <button type="button" class="register-btn cancel" onclick="window.location.href='produit.php'">Annuler</button>
+        </div>
+      </form>
+    </div>
+    
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('achatForm');
+        const nomInput = document.getElementById('nom');
+        const prenomInput = document.getElementById('prenom');
+        const telephoneInput = document.getElementById('telephone');
+        const quantiteInput = document.getElementById('quantite');
+        const paiementRadios = document.querySelectorAll('input[name="paiement"]');
+        
+        // Activer la validation en temps réel
+        nomInput.addEventListener('input', validateNom);
+        prenomInput.addEventListener('input', validatePrenom);
+        telephoneInput.addEventListener('input', validateTelephone);
+        quantiteInput.addEventListener('input', validateQuantite);
+        
+        // Valider les radios quand l'utilisateur clique
+        paiementRadios.forEach(radio => {
+          radio.addEventListener('change', validatePaiement);
+        });
+        
+        // Valider au blur aussi
+        nomInput.addEventListener('blur', validateNom);
+        prenomInput.addEventListener('blur', validatePrenom);
+        telephoneInput.addEventListener('blur', validateTelephone);
+        quantiteInput.addEventListener('blur', validateQuantite);
+        
+        // Fonctions de validation
+        function validateNom() {
+          const value = nomInput.value.trim();
+          const errorElement = document.getElementById('nom_error');
+          
+          if (value.length < 2 || !/^[a-zA-ZÀ-ÖØ-öø-ÿ\s'-]+$/.test(value)) {
+            errorElement.style.display = 'inline';
+            return false;
+          } else {
+            errorElement.style.display = 'none';
+            return true;
+          }
+        }
+        
+        function validatePrenom() {
+          const value = prenomInput.value.trim();
+          const errorElement = document.getElementById('prenom_error');
+          
+          if (value.length < 2 || !/^[a-zA-ZÀ-ÖØ-öø-ÿ\s'-]+$/.test(value)) {
+            errorElement.style.display = 'inline';
+            return false;
+          } else {
+            errorElement.style.display = 'none';
+            return true;
+          }
+        }
+        
+        function validateTelephone() {
+          const value = telephoneInput.value.trim();
+          const errorElement = document.getElementById('telephone_error');
+          
+          if (!/^\d{8,15}$/.test(value)) {
+            errorElement.style.display = 'inline';
+            return false;
+          } else {
+            errorElement.style.display = 'none';
+            return true;
+          }
+        }
+        
+        function validateQuantite() {
+          const value = parseInt(quantiteInput.value);
+          const errorElement = document.getElementById('quantite_error');
+          
+          if (isNaN(value) || value < 1) {
+            errorElement.style.display = 'inline';
+            return false;
+          } else {
+            errorElement.style.display = 'none';
+            return true;
+          }
+        }
+        
+        function validatePaiement() {
+          const checked = document.querySelector('input[name="paiement"]:checked');
+          const errorElement = document.getElementById('paiement_error');
+          
+          if (!checked) {
+            errorElement.style.display = 'inline';
+            return false;
+          } else {
+            errorElement.style.display = 'none';
+            return true;
+          }
+        }
+        
+        // Validation finale avant soumission
+        form.addEventListener('submit', function(event) {
+          const isNomValid = validateNom();
+          const isPrenomValid = validatePrenom();
+          const isTelephoneValid = validateTelephone();
+          const isQuantiteValid = validateQuantite();
+          const isPaiementValid = validatePaiement();
+          
+          if (!isNomValid || !isPrenomValid || !isTelephoneValid || !isQuantiteValid || !isPaiementValid) {
+            event.preventDefault();
+            
+            // Faire défiler jusqu'au premier champ invalide
+            if (!isNomValid) nomInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            else if (!isPrenomValid) prenomInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            else if (!isTelephoneValid) telephoneInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            else if (!isQuantiteValid) quantiteInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            else if (!isPaiementValid) paiementRadios[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        });
+      });
+    </script>
+    
+
+  <script>
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+
+    // Récupérer les paramètres
+    const produit = getQueryParam('produit') || 'Produit inconnu';
+    const prixUnitaire = parseFloat(getQueryParam('prix')) || 0;
+    const imageUrl = getQueryParam('photo') || 'https://via.placeholder.com/220x220.png?text=Produit';
+
+    // Sélectionner les éléments
+    const prixTotalInput = document.getElementById('prix_total');
+    const quantiteInput = document.getElementById('quantite');
+    const productImage = document.getElementById('productImage');
+
+    // Mettre à jour la prévisualisation
+    document.getElementById('previewNom').textContent = decodeURIComponent(produit);
+    document.getElementById('previewPrix').textContent = prixUnitaire.toFixed(2) + ' TND';
+
+    // Gérer l'image
+    try {
+      const decodedImageUrl = decodeURIComponent(imageUrl);
+      productImage.src = decodedImageUrl;
+      productImage.onerror = () => {
+        console.error('Erreur de chargement de l\'image:', decodedImageUrl);
+        productImage.src = 'https://via.placeholder.com/220x220.png?text=Image+Introuvable';
+      };
+    } catch (e) {
+      console.error('Erreur de décodage de l\'URL de l\'image:', e);
+      productImage.src = 'https://via.placeholder.com/220x220.png?text=Image+Introuvable';
+    }
+
+    function recalculerPrixTotal() {
+      const quantite = parseInt(quantiteInput.value, 10) || 1;
+      const prixTotal = quantite * prixUnitaire;
+      prixTotalInput.value = prixTotal.toFixed(2) + ' TND';
+    }
+
+    quantiteInput.addEventListener('input', recalculerPrixTotal);
+    recalculerPrixTotal();
+
+    const form = document.getElementById('achatForm');
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      let isValid = true;
+
+      const quantite = document.getElementById('quantite');
+      if (!quantite.value || quantite.value < 1) {
+        quantite.classList.add('invalid');
+        document.getElementById('quantite_error').style.display = 'block';
+        isValid = false;
+      } else {
+        quantite.classList.remove('invalid');
+        document.getElementById('quantite_error').style.display = 'none';
+      }
+
+      const nom = document.getElementById('nom');
+      const nomRegex = /^[A-Za-zÀ-ÿ\s-]{2,}$/;
+      if (!nom.value.trim() || !nomRegex.test(nom.value.trim())) {
+        nom.classList.add('invalid');
+        document.getElementById('nom_error').style.display = 'block';
+        isValid = false;
+      } else {
+        nom.classList.remove('invalid');
+        document.getElementById('nom_error').style.display = 'none';
+      }
+
+      const prenom = document.getElementById('prenom');
+      if (!prenom.value.trim() || !nomRegex.test(prenom.value.trim())) {
+        prenom.classList.add('invalid');
+        document.getElementById('prenom_error').style.display = 'block';
+        isValid = false;
+      } else {
+        prenom.classList.remove('invalid');
+        document.getElementById('prenom_error').style.display = 'none';
+      }
+
+      const telephone = document.getElementById('telephone');
+      const telephoneRegex = /^\+?[0-9\s-]{8,}$/;
+      if (!telephone.value.trim() || !telephoneRegex.test(telephone.value.trim())) {
+        telephone.classList.add('invalid');
+        document.getElementById('telephone_error').style.display = 'block';
+        isValid = false;
+      } else {
+        telephone.classList.remove('invalid');
+        document.getElementById('telephone_error').style.display = 'none';
+      }
+
+      const paiement = document.querySelector('input[name="paiement"]:checked');
+      if (!paiement) {
+        document.getElementById('paiement_error').style.display = 'block';
+        isValid = false;
+      } else {
+        document.getElementById('paiement_error').style.display = 'none';
+      }
+
+      if (isValid) {
+        form.submit();
+      }
+    });
+  </script>
+</body>
+</html>

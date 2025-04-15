@@ -1,0 +1,1788 @@
+2025-04-13 22:50:25 - POST data: Array
+(
+    [action] => add
+    [name] => vzsvezve
+    [price] => 131
+    [stock] => 1231
+    [category] => Vêtements
+    [purchase_available] => yes
+    [rental_available] => yes
+)
+
+2025-04-13 22:50:25 - Database connected successfully
+2025-04-13 22:55:29 - POST data: Array
+(
+    [action] => add
+    [name] => vzvz
+    [price] => 131
+    [stock] => 121
+    [category] => Vêtements
+    [purchase_available] => yes
+    [rental_available] => yes
+)
+
+2025-04-13 22:55:29 - Database connected successfully
+2025-04-13 22:55:49 - POST data: Array
+(
+    [action] => delete
+    [id] => 1
+)
+
+2025-04-13 22:55:49 - Database connected successfully
+2025-04-13 22:56:18 - POST data: Array
+(
+    [name] => nessim
+    [price] => 131
+    [stock] => 121
+    [category] => Tech
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+    [id] => 2
+)
+
+2025-04-13 22:56:18 - Database connected successfully
+2025-04-13 22:56:25 - POST data: Array
+(
+    [name] => vzvzbdsbsb
+    [price] => 131.00
+    [stock] => 121
+    [category] => Vêtements
+    [purchase_available] => no
+    [rental_available] => no
+    [action] => update
+    [id] => 2
+)
+
+2025-04-13 22:56:25 - Database connected successfully
+2025-04-13 22:56:32 - POST data: Array
+(
+    [name] => yessmine
+    [price] => 131.00
+    [stock] => 121
+    [category] => Vêtements
+    [purchase_available] => no
+    [rental_available] => no
+    [action] => update
+    [id] => 2
+)
+
+2025-04-13 22:56:32 - Database connected successfully
+2025-04-13 22:56:38 - POST data: Array
+(
+    [action] => delete
+    [id] => 2
+)
+
+2025-04-13 22:56:38 - Database connected successfully
+2025-04-13 22:56:41 - POST data: Array
+(
+    [action] => delete
+    [id] => 3
+)
+
+2025-04-13 22:56:41 - Database connected successfully
+2025-04-13 22:57:57 - POST data: Array
+(
+    [name] => fzfzf
+    [price] => 24
+    [stock] => 1213
+    [category] => Tech
+    [purchase_available] => no
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-13 22:57:57 - Database connected successfully
+2025-04-13 23:01:45 - POST data: Array
+(
+)
+
+2025-04-13 23:01:45 - Database connected successfully
+2025-04-13 23:01:51 - POST data: Array
+(
+    [name] => bdssdb
+    [price] => 131
+    [stock] => 121
+    [category] => Bien-être
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-13 23:01:51 - Database connected successfully
+2025-04-13 23:01:54 - POST data: Array
+(
+)
+
+2025-04-13 23:01:54 - Database connected successfully
+2025-04-15 03:01:33 - POST data: Array
+(
+)
+
+2025-04-15 03:01:49 - POST data: Array
+(
+)
+
+2025-04-15 03:02:37 - POST data: Array
+(
+)
+
+2025-04-15 03:02:37 - Database connected successfully
+2025-04-15 03:02:40 - POST data: Array
+(
+)
+
+2025-04-15 03:02:40 - Database connected successfully
+2025-04-15 03:06:08 - POST data: Array
+(
+)
+
+2025-04-15 03:06:08 - Database connected successfully
+2025-04-15 03:08:30 - POST data: Array
+(
+)
+
+2025-04-15 03:08:30 - Database connected successfully
+2025-04-15 03:11:04 - POST data: Array
+(
+    [name] => azert
+    [price] => 782578
+    [stock] => 852
+    [category] => Équipements Sportifs
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 03:11:04 - Database connected successfully
+2025-04-15 03:14:41 - POST data: Array
+(
+)
+
+2025-04-15 03:14:41 - Database connected successfully
+2025-04-15 03:15:57 - POST data: Array
+(
+)
+
+2025-04-15 03:15:57 - Database connected successfully
+2025-04-15 03:17:26 - POST data: Array
+(
+)
+
+2025-04-15 03:17:26 - Database connected successfully
+2025-04-15 03:24:34 - POST data: Array
+(
+)
+
+2025-04-15 03:24:34 - FILES data: Array
+(
+)
+
+2025-04-15 03:24:49 - POST data: Array
+(
+    [name] => azert
+    [price] => 782578
+    [stock] => 852
+    [category] => Équipements Sportifs
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 03:24:49 - FILES data: Array
+(
+    [photo] => Array
+        (
+            [name] => logo2.png
+            [full_path] => logo2.png
+            [type] => image/png
+            [tmp_name] => C:\xampp\tmp\phpCB8.tmp
+            [error] => 0
+            [size] => 61025
+        )
+
+)
+
+2025-04-15 03:25:02 - POST data: Array
+(
+)
+
+2025-04-15 03:25:02 - FILES data: Array
+(
+)
+
+2025-04-15 03:25:13 - POST data: Array
+(
+    [name] => rdbf
+    [price] => 4425
+    [stock] => 56
+    [category] => Équipements Sportifs
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 03:25:13 - FILES data: Array
+(
+    [photo] => Array
+        (
+            [name] => 68cfb94e-85b1-44b3-9418-a6c463b64b79.jpeg
+            [full_path] => 68cfb94e-85b1-44b3-9418-a6c463b64b79.jpeg
+            [type] => image/jpeg
+            [tmp_name] => C:\xampp\tmp\php6A4A.tmp
+            [error] => 0
+            [size] => 11404
+        )
+
+)
+
+2025-04-15 03:25:59 - POST data: Array
+(
+)
+
+2025-04-15 03:25:59 - Database connected successfully
+2025-04-15 03:26:12 - POST data: Array
+(
+    [name] => rdbf
+    [price] => 4425
+    [stock] => 56
+    [category] => Équipements Sportifs
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 03:26:12 - Database connected successfully
+2025-04-15 03:33:16 - POST data: Array
+(
+)
+
+2025-04-15 03:33:16 - Database connected successfully
+2025-04-15 03:33:25 - POST data: Array
+(
+    [name] => ezfe
+    [price] => 7282
+    [stock] => 287
+    [category] => Équipements Sportifs
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 03:33:25 - Database connected successfully
+2025-04-15 03:38:52 - POST data: Array
+(
+)
+
+2025-04-15 03:38:52 - Database connected successfully
+2025-04-15 03:41:38 - POST data: Array
+(
+)
+
+2025-04-15 03:41:38 - Database connected successfully
+2025-04-15 03:56:39 - POST data: Array
+(
+)
+
+2025-04-15 03:56:39 - Database connected successfully
+2025-04-15 04:03:31 - POST data: Array
+(
+)
+
+2025-04-15 04:03:31 - Database connected successfully
+2025-04-15 04:03:36 - POST data: Array
+(
+)
+
+2025-04-15 04:03:36 - Database connected successfully
+2025-04-15 04:13:08 - POST data: Array
+(
+)
+
+2025-04-15 04:13:08 - Database connected successfully
+2025-04-15 04:13:10 - POST data: Array
+(
+)
+
+2025-04-15 04:13:10 - Database connected successfully
+2025-04-15 04:35:00 - POST data: Array
+(
+    [name] => rv
+    [price] => 72
+    [stock] => 278
+    [category] => Équipements Sportifs
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 04:35:00 - Database connected successfully
+2025-04-15 04:36:28 - POST data: Array
+(
+    [name] => i
+    [price] => 3
+    [stock] => 38
+    [category] => Équipements Sportifs
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 04:36:28 - Database connected successfully
+2025-04-15 04:36:44 - POST data: Array
+(
+    [name] => g,j
+    [price] => 7527
+    [stock] => 827
+    [category] => Équipements Sportifs
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 04:36:44 - Database connected successfully
+2025-04-15 04:39:44 - POST data: Array
+(
+    [name] => aa
+    [price] => 8
+    [stock] => 8
+    [category] => Équipements Sportifs
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 04:39:44 - Database connected successfully
+2025-04-15 04:42:04 - POST data: Array
+(
+    [name] => dvs
+    [price] => 2
+    [stock] => 2
+    [category] => Équipements Sportifs
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 04:42:04 - Database connected successfully
+2025-04-15 04:54:03 - POST data: Array
+(
+)
+
+2025-04-15 04:54:03 - Database connected successfully
+2025-04-15 04:55:14 - POST data: Array
+(
+)
+
+2025-04-15 04:55:14 - Database connected successfully
+2025-04-15 04:58:25 - POST data: Array
+(
+)
+
+2025-04-15 04:58:25 - Database connected successfully
+2025-04-15 05:00:02 - POST data: Array
+(
+)
+
+2025-04-15 05:00:02 - Database connected successfully
+2025-04-15 05:13:05 - POST data: Array
+(
+    [name] => oùp
+    [price] => 8
+    [stock] => 8
+    [category] => Équipements Sportifs
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 05:13:05 - Database connected successfully
+2025-04-15 05:20:36 - POST data: Array
+(
+    [name] => 
+    [price] => 
+    [stock] => 
+    [category] => Équipements Sportifs
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 05:20:36 - Database connected successfully
+2025-04-15 05:22:52 - POST data: Array
+(
+    [name] => jyrjj
+    [price] => 7825
+    [stock] => 752
+    [category] => Équipements Sportifs
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 05:22:52 - Database connected successfully
+2025-04-15 05:28:47 - POST data: Array
+(
+)
+
+2025-04-15 05:28:47 - Database connected successfully
+2025-04-15 05:28:56 - POST data: Array
+(
+    [name] => aaaaaaaaaaaa
+    [price] => 7825.00
+    [stock] => 752
+    [category] => Équipements Sportifs
+    [purchase_available] => no
+    [rental_available] => no
+    [action] => update
+    [id] => 27
+)
+
+2025-04-15 05:28:56 - Database connected successfully
+2025-04-15 05:48:56 - POST data: Array
+(
+)
+
+2025-04-15 05:48:56 - Database connected successfully
+2025-04-15 16:05:54 - Database connected successfully
+2025-04-15 16:05:59 - Database connected successfully
+2025-04-15 16:06:02 - Database connected successfully
+2025-04-15 16:06:02 - Database connected successfully
+2025-04-15 16:06:03 - Database connected successfully
+2025-04-15 16:10:06 - Database connected successfully
+2025-04-15 16:10:12 - Database connected successfully
+2025-04-15 16:10:25 - Database connected successfully
+2025-04-15 16:10:29 - Database connected successfully
+2025-04-15 16:11:47 - Database connected successfully
+2025-04-15 16:13:03 - Database connected successfully
+2025-04-15 16:13:05 - Database connected successfully
+2025-04-15 16:13:07 - Database connected successfully
+2025-04-15 16:13:08 - Database connected successfully
+2025-04-15 16:13:08 - Database connected successfully
+2025-04-15 16:13:09 - Database connected successfully
+2025-04-15 16:13:37 - Database connected successfully
+2025-04-15 17:52:20 - Database connected successfully
+2025-04-15 17:52:49 - POST data: Array
+(
+    [name] => klik
+    [price] => 58
+    [stock] => 572
+    [category] => Équipements Sportifs
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 17:52:49 - Database connected successfully
+2025-04-15 17:53:34 - POST data: Array
+(
+)
+
+2025-04-15 17:53:34 - Database connected successfully
+2025-04-15 17:53:37 - POST data: Array
+(
+    [name] => klik
+    [price] => 58.00
+    [stock] => 572
+    [category] => Équipements Sportifs
+    [purchase_available] => no
+    [rental_available] => no
+    [action] => update
+    [id] => 28
+)
+
+2025-04-15 17:53:37 - Database connected successfully
+2025-04-15 17:54:12 - POST data: Array
+(
+    [action] => delete
+    [id] => 28
+)
+
+2025-04-15 17:54:12 - Database connected successfully
+2025-04-15 17:57:04 - POST data: Array
+(
+    [action] => delete
+    [id] => 27
+)
+
+2025-04-15 17:57:04 - Database connected successfully
+2025-04-15 18:03:58 - Database connected successfully
+2025-04-15 18:03:59 - Database connected successfully
+2025-04-15 18:04:01 - Database connected successfully
+2025-04-15 18:11:24 - Database connected successfully
+2025-04-15 18:12:39 - Database connected successfully
+2025-04-15 18:14:01 - Database connected successfully
+2025-04-15 18:18:49 - Database connected successfully
+2025-04-15 18:18:51 - Database connected successfully
+2025-04-15 18:18:52 - Database connected successfully
+2025-04-15 18:18:53 - Database connected successfully
+2025-04-15 18:18:55 - Database connected successfully
+2025-04-15 18:18:57 - Database connected successfully
+2025-04-15 18:25:02 - Database connected successfully
+2025-04-15 18:25:06 - Database connected successfully
+2025-04-15 18:25:07 - Database connected successfully
+2025-04-15 18:46:46 - Database connected successfully
+2025-04-15 18:50:57 - Database connected successfully
+2025-04-15 18:51:42 - Database connected successfully
+2025-04-15 18:53:36 - Database connected successfully
+2025-04-15 18:53:51 - Database connected successfully
+2025-04-15 18:55:10 - Database connected successfully
+2025-04-15 18:55:11 - Database connected successfully
+2025-04-15 18:55:55 - Database connected successfully
+2025-04-15 18:55:56 - Database connected successfully
+2025-04-15 18:55:58 - Database connected successfully
+2025-04-15 18:55:59 - Database connected successfully
+2025-04-15 18:56:00 - Database connected successfully
+2025-04-15 18:56:02 - Database connected successfully
+2025-04-15 18:56:03 - Database connected successfully
+2025-04-15 18:56:05 - Database connected successfully
+2025-04-15 18:56:07 - Database connected successfully
+2025-04-15 18:56:09 - Database connected successfully
+2025-04-15 18:56:10 - Database connected successfully
+2025-04-15 18:56:12 - Database connected successfully
+2025-04-15 18:56:37 - Database connected successfully
+2025-04-15 18:56:39 - Database connected successfully
+2025-04-15 18:56:56 - Database connected successfully
+2025-04-15 18:56:59 - Database connected successfully
+2025-04-15 18:57:02 - Database connected successfully
+2025-04-15 19:02:32 - Database connected successfully
+2025-04-15 19:02:33 - Database connected successfully
+2025-04-15 19:02:34 - Database connected successfully
+2025-04-15 19:02:34 - Database connected successfully
+2025-04-15 19:02:35 - Database connected successfully
+2025-04-15 19:04:01 - Database connected successfully
+2025-04-15 19:04:03 - Database connected successfully
+2025-04-15 19:04:05 - Database connected successfully
+2025-04-15 19:04:10 - Database connected successfully
+2025-04-15 19:04:11 - Database connected successfully
+2025-04-15 19:04:13 - Database connected successfully
+2025-04-15 19:04:14 - Database connected successfully
+2025-04-15 19:04:15 - Database connected successfully
+2025-04-15 19:05:14 - Database connected successfully
+2025-04-15 19:06:08 - Database connected successfully
+2025-04-15 19:06:10 - Database connected successfully
+2025-04-15 19:06:13 - Database connected successfully
+2025-04-15 19:06:14 - Database connected successfully
+2025-04-15 19:06:17 - Database connected successfully
+2025-04-15 19:06:18 - Database connected successfully
+2025-04-15 19:06:18 - Database connected successfully
+2025-04-15 19:06:23 - Database connected successfully
+2025-04-15 19:08:02 - Database connected successfully
+2025-04-15 19:09:27 - POST data: Array
+(
+)
+
+2025-04-15 19:09:27 - Database connected successfully
+2025-04-15 19:09:39 - POST data: Array
+(
+    [name] => tryt
+    [price] => 0.00
+    [stock] => 0
+    [category] => Équipements Sportifs
+    [purchase_available] => no
+    [rental_available] => no
+    [action] => update
+    [id] => 26
+)
+
+2025-04-15 19:09:39 - Database connected successfully
+2025-04-15 19:09:45 - POST data: Array
+(
+)
+
+2025-04-15 19:09:45 - Database connected successfully
+2025-04-15 19:09:50 - POST data: Array
+(
+    [name] => tryt
+    [price] => 0.00
+    [stock] => 0
+    [category] => Équipements Sportifs
+    [purchase_available] => no
+    [rental_available] => no
+    [action] => update
+    [id] => 26
+)
+
+2025-04-15 19:09:50 - Database connected successfully
+2025-04-15 19:10:32 - POST data: Array
+(
+    [name] => cvb
+    [price] => 0
+    [stock] => 0
+    [category] => Vêtements et Accessoires
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 19:10:32 - Database connected successfully
+2025-04-15 19:11:04 - Database connected successfully
+2025-04-15 19:11:05 - Database connected successfully
+2025-04-15 19:11:32 - Database connected successfully
+2025-04-15 19:11:43 - Database connected successfully
+2025-04-15 19:12:07 - Database connected successfully
+2025-04-15 19:13:26 - Database connected successfully
+2025-04-15 19:16:33 - Database connected successfully
+2025-04-15 19:16:42 - Database connected successfully
+2025-04-15 19:16:43 - Database connected successfully
+2025-04-15 19:17:28 - Database connected successfully
+2025-04-15 19:17:46 - Database connected successfully
+2025-04-15 19:26:00 - Database connected successfully
+2025-04-15 19:26:08 - Database connected successfully
+2025-04-15 19:26:09 - Database connected successfully
+2025-04-15 19:26:18 - Database connected successfully
+2025-04-15 19:27:31 - Database connected successfully
+2025-04-15 19:27:39 - Database connected successfully
+2025-04-15 19:28:29 - Database connected successfully
+2025-04-15 19:41:28 - Database connected successfully
+2025-04-15 19:41:29 - Database connected successfully
+2025-04-15 19:41:29 - Database connected successfully
+2025-04-15 19:41:30 - Database connected successfully
+2025-04-15 19:41:30 - Database connected successfully
+2025-04-15 19:41:31 - Database connected successfully
+2025-04-15 19:41:39 - Database connected successfully
+2025-04-15 19:41:40 - Database connected successfully
+2025-04-15 19:41:41 - Database connected successfully
+2025-04-15 19:41:43 - Database connected successfully
+2025-04-15 19:41:43 - Database connected successfully
+2025-04-15 19:43:06 - Database connected successfully
+2025-04-15 19:43:06 - Database connected successfully
+2025-04-15 19:44:26 - Database connected successfully
+2025-04-15 19:44:27 - Database connected successfully
+2025-04-15 19:44:33 - Database connected successfully
+2025-04-15 19:44:34 - Database connected successfully
+2025-04-15 19:53:21 - POST data: Array
+(
+    [name] => azerty
+    [price] => 5
+    [stock] => 5
+    [category] => Vêtements et Accessoires
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 19:53:21 - Database connected successfully
+2025-04-15 19:53:26 - POST data: Array
+(
+)
+
+2025-04-15 19:53:26 - Database connected successfully
+2025-04-15 19:53:47 - POST data: Array
+(
+    [name] => yuiop
+    [price] => 5.00
+    [stock] => 5
+    [category] => Vêtements et Accessoires
+    [purchase_available] => no
+    [rental_available] => no
+    [action] => update
+    [id] => 30
+)
+
+2025-04-15 19:53:47 - Database connected successfully
+2025-04-15 19:57:21 - POST data: Array
+(
+)
+
+2025-04-15 19:57:21 - Database connected successfully
+2025-04-15 19:57:27 - POST data: Array
+(
+    [name] => yuiop
+    [price] => 5.00
+    [stock] => 5
+    [category] => Vêtements et Accessoires
+    [purchase_available] => no
+    [rental_available] => no
+    [action] => update
+    [id] => 30
+)
+
+2025-04-15 19:57:27 - Database connected successfully
+2025-04-15 19:57:34 - POST data: Array
+(
+    [action] => delete
+    [id] => 30
+)
+
+2025-04-15 19:57:34 - Database connected successfully
+2025-04-15 19:59:51 - POST data: Array
+(
+    [action] => delete
+    [id] => 29
+)
+
+2025-04-15 19:59:51 - Database connected successfully
+2025-04-15 20:00:01 - POST data: Array
+(
+    [action] => delete
+    [id] => 29
+)
+
+2025-04-15 20:00:01 - Database connected successfully
+2025-04-15 20:00:56 - POST data: Array
+(
+    [action] => delete
+    [id] => 26
+)
+
+2025-04-15 20:00:56 - Database connected successfully
+2025-04-15 20:01:50 - POST data: Array
+(
+    [action] => delete
+    [id] => 25
+)
+
+2025-04-15 20:01:50 - Database connected successfully
+2025-04-15 20:02:55 - POST data: Array
+(
+    [action] => delete
+    [id] => 24
+)
+
+2025-04-15 20:02:55 - Database connected successfully
+2025-04-15 20:04:51 - POST data: Array
+(
+    [action] => delete
+    [id] => 23
+)
+
+2025-04-15 20:04:51 - Database connected successfully
+2025-04-15 20:05:32 - Database connected successfully
+2025-04-15 20:05:34 - Database connected successfully
+2025-04-15 20:06:25 - POST data: Array
+(
+    [name] => lkn
+    [price] => 85
+    [stock] => 8
+    [category] => Équipements Sportifs
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 20:06:25 - Database connected successfully
+2025-04-15 20:06:41 - Database connected successfully
+2025-04-15 20:09:47 - Database connected successfully
+2025-04-15 20:11:08 - Database connected successfully
+2025-04-15 20:17:22 - Database connected successfully
+2025-04-15 20:18:54 - Database connected successfully
+2025-04-15 20:20:10 - Database connected successfully
+2025-04-15 20:21:36 - Database connected successfully
+2025-04-15 20:22:05 - Database connected successfully
+2025-04-15 20:23:49 - Database connected successfully
+2025-04-15 20:24:26 - Database connected successfully
+2025-04-15 20:24:54 - Database connected successfully
+2025-04-15 20:26:58 - Database connected successfully
+2025-04-15 20:46:16 - Database connected successfully
+2025-04-15 20:46:19 - Database connected successfully
+2025-04-15 20:47:37 - POST data: Array
+(
+    [name] => id
+    [price] => 658.00
+    [stock] => 85
+    [category] => Vêtements et Accessoires
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 20:47:37 - Database connected successfully
+2025-04-15 20:47:51 - POST data: Array
+(
+    [action] => delete
+    [id] => 40
+)
+
+2025-04-15 20:47:51 - Database connected successfully
+2025-04-15 20:48:01 - Database connected successfully
+2025-04-15 20:48:03 - Database connected successfully
+2025-04-15 20:48:10 - Database connected successfully
+2025-04-15 20:48:13 - Database connected successfully
+2025-04-15 20:48:14 - Database connected successfully
+2025-04-15 20:48:16 - Database connected successfully
+2025-04-15 20:48:17 - Database connected successfully
+2025-04-15 20:48:17 - Database connected successfully
+2025-04-15 20:48:19 - Database connected successfully
+2025-04-15 20:48:21 - Database connected successfully
+2025-04-15 20:48:39 - POST data: Array
+(
+    [action] => delete
+    [id] => 41
+)
+
+2025-04-15 20:48:39 - Database connected successfully
+2025-04-15 20:50:18 - POST data: Array
+(
+    [name] => Raquette Balle de Tenis
+    [price] => 658.00
+    [stock] => 85
+    [category] => Équipements Sportifs
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 20:50:18 - Database connected successfully
+2025-04-15 20:50:31 - Database connected successfully
+2025-04-15 20:51:07 - POST data: Array
+(
+    [action] => delete
+    [id] => 37
+)
+
+2025-04-15 20:51:07 - Database connected successfully
+2025-04-15 20:51:21 - Database connected successfully
+2025-04-15 20:52:13 - POST data: Array
+(
+    [name] => Ballons
+    [price] => 260
+    [stock] => 65
+    [category] => Équipements Sportifs
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 20:52:13 - Database connected successfully
+2025-04-15 20:52:40 - Database connected successfully
+2025-04-15 20:52:50 - Database connected successfully
+2025-04-15 20:53:53 - POST data: Array
+(
+    [name] => Corde à sauter
+    [price] => 12
+    [stock] => 12
+    [category] => Équipements Sportifs
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 20:53:53 - Database connected successfully
+2025-04-15 20:54:10 - Database connected successfully
+2025-04-15 20:54:13 - Database connected successfully
+2025-04-15 20:54:37 - POST data: Array
+(
+    [name] => Corde à sauter
+    [price] => 12
+    [stock] => 65
+    [category] => Équipements Sportifs
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 20:54:37 - Database connected successfully
+2025-04-15 20:56:25 - POST data: Array
+(
+    [name] => Corde à sauter
+    [price] => 12
+    [stock] => 65
+    [category] => Équipements Sportifs
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 20:56:25 - Database connected successfully
+2025-04-15 20:56:38 - Database connected successfully
+2025-04-15 20:57:19 - POST data: Array
+(
+    [name] => Haltères réglables
+    [price] => 12
+    [stock] => 65
+    [category] => Équipements Sportifs
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 20:57:19 - Database connected successfully
+2025-04-15 20:57:29 - Database connected successfully
+2025-04-15 20:58:23 - POST data: Array
+(
+    [name] => Planche de surf
+    [price] => 24
+    [stock] => 65
+    [category] => Équipements Sportifs
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 20:58:23 - Database connected successfully
+2025-04-15 20:58:47 - Database connected successfully
+2025-04-15 20:58:55 - POST data: Array
+(
+)
+
+2025-04-15 20:58:55 - Database connected successfully
+2025-04-15 20:59:01 - POST data: Array
+(
+    [name] => Planche de surf
+    [price] => 25
+    [stock] => 65
+    [category] => Équipements Sportifs
+    [purchase_available] => no
+    [rental_available] => no
+    [action] => update
+    [id] => 46
+)
+
+2025-04-15 20:59:01 - Database connected successfully
+2025-04-15 20:59:09 - Database connected successfully
+2025-04-15 20:59:44 - POST data: Array
+(
+    [name] => Lunettes de natation
+    [price] => 16
+    [stock] => 20
+    [category] => Équipements Sportifs
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 20:59:44 - Database connected successfully
+2025-04-15 21:00:41 - POST data: Array
+(
+    [name] => Chaussures de plage
+    [price] => 20
+    [stock] => 20
+    [category] => Équipements Sportifs
+    [purchase_available] => yes
+    [rental_available] => no
+    [action] => add
+)
+
+2025-04-15 21:00:41 - Database connected successfully
+2025-04-15 21:00:53 - Database connected successfully
+2025-04-15 21:01:01 - Database connected successfully
+2025-04-15 21:01:41 - POST data: Array
+(
+    [name] => Bouteille d'eau de sport en plastique
+    [price] => 20
+    [stock] => 6
+    [category] => Vêtements et Accessoires
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 21:01:41 - Database connected successfully
+2025-04-15 21:01:51 - Database connected successfully
+2025-04-15 21:02:00 - POST data: Array
+(
+    [action] => delete
+    [id] => 42
+)
+
+2025-04-15 21:02:00 - Database connected successfully
+2025-04-15 21:02:06 - POST data: Array
+(
+    [action] => delete
+    [id] => 39
+)
+
+2025-04-15 21:02:06 - Database connected successfully
+2025-04-15 21:02:09 - POST data: Array
+(
+    [action] => delete
+    [id] => 35
+)
+
+2025-04-15 21:02:09 - Database connected successfully
+2025-04-15 21:02:12 - POST data: Array
+(
+    [action] => delete
+    [id] => 34
+)
+
+2025-04-15 21:02:12 - Database connected successfully
+2025-04-15 21:02:15 - POST data: Array
+(
+    [action] => delete
+    [id] => 33
+)
+
+2025-04-15 21:02:15 - Database connected successfully
+2025-04-15 21:02:23 - POST data: Array
+(
+    [action] => delete
+    [id] => 32
+)
+
+2025-04-15 21:02:23 - Database connected successfully
+2025-04-15 21:02:26 - POST data: Array
+(
+    [action] => delete
+    [id] => 31
+)
+
+2025-04-15 21:02:26 - Database connected successfully
+2025-04-15 21:02:40 - Database connected successfully
+2025-04-15 21:02:44 - Database connected successfully
+2025-04-15 21:03:17 - POST data: Array
+(
+    [name] => Combinaison de wingsuit
+    [price] => 100
+    [stock] => 65
+    [category] => Vêtements et Accessoires
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 21:03:17 - Database connected successfully
+2025-04-15 21:03:28 - Database connected successfully
+2025-04-15 21:03:52 - POST data: Array
+(
+    [name] => Veste coupe-vent imperméable
+    [price] => 120
+    [stock] => 32
+    [category] => Vêtements et Accessoires
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 21:03:52 - Database connected successfully
+2025-04-15 21:04:26 - POST data: Array
+(
+    [name] => Leggings confort  avec  brassière
+    [price] => 120
+    [stock] => 35
+    [category] => Équipements Sportifs
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 21:04:26 - Database connected successfully
+2025-04-15 21:04:30 - Database connected successfully
+2025-04-15 21:07:15 - POST data: Array
+(
+)
+
+2025-04-15 21:07:15 - Database connected successfully
+2025-04-15 21:07:19 - POST data: Array
+(
+    [name] => Leggings confort  avec  brassière
+    [price] => 120.00
+    [stock] => 35
+    [category] => Vêtements et Accessoires
+    [purchase_available] => no
+    [rental_available] => no
+    [action] => update
+    [id] => 52
+)
+
+2025-04-15 21:07:19 - Database connected successfully
+2025-04-15 21:07:48 - POST data: Array
+(
+    [name] => Chaussures de randonnée
+    [price] => 123
+    [stock] => 65
+    [category] => Vêtements et Accessoires
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 21:07:48 - Database connected successfully
+2025-04-15 21:08:05 - Database connected successfully
+2025-04-15 21:08:27 - POST data: Array
+(
+    [name] => Gant de sport personnalisé
+    [price] => 12
+    [stock] => 65
+    [category] => Vêtements et Accessoires
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 21:08:27 - Database connected successfully
+2025-04-15 21:08:56 - POST data: Array
+(
+    [name] => Sacs à dos
+    [price] => 25
+    [stock] => 65
+    [category] => Vêtements et Accessoires
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 21:08:56 - Database connected successfully
+2025-04-15 21:09:21 - Database connected successfully
+2025-04-15 21:09:28 - Database connected successfully
+2025-04-15 21:09:31 - Database connected successfully
+2025-04-15 21:09:34 - Database connected successfully
+2025-04-15 21:13:23 - Database connected successfully
+2025-04-15 21:13:58 - Database connected successfully
+2025-04-15 21:14:09 - Database connected successfully
+2025-04-15 21:18:43 - Database connected successfully
+2025-04-15 21:18:56 - Database connected successfully
+2025-04-15 21:25:20 - Database connected successfully
+2025-04-15 21:25:28 - Database connected successfully
+2025-04-15 21:27:28 - Database connected successfully
+2025-04-15 21:29:02 - Database connected successfully
+2025-04-15 21:31:39 - Database connected successfully
+2025-04-15 21:31:44 - Database connected successfully
+2025-04-15 21:32:25 - POST data: Array
+(
+    [name] => Montre connectée
+    [price] => 250
+    [stock] => 65
+    [category] => Gadgets & Technologies
+    [purchase_available] => yes
+    [rental_available] => no
+    [action] => add
+)
+
+2025-04-15 21:32:25 - Database connected successfully
+2025-04-15 21:32:46 - Database connected successfully
+2025-04-15 21:33:35 - POST data: Array
+(
+    [name] => Casque VR
+    [price] => 120
+    [stock] => 12
+    [category] => Gadgets & Technologies
+    [purchase_available] => yes
+    [rental_available] => no
+    [action] => add
+)
+
+2025-04-15 21:33:35 - Database connected successfully
+2025-04-15 21:33:43 - Database connected successfully
+2025-04-15 21:33:44 - Database connected successfully
+2025-04-15 21:33:45 - Database connected successfully
+2025-04-15 21:33:56 - Database connected successfully
+2025-04-15 21:33:57 - Database connected successfully
+2025-04-15 21:33:58 - Database connected successfully
+2025-04-15 21:33:58 - Database connected successfully
+2025-04-15 21:38:29 - Database connected successfully
+2025-04-15 21:38:33 - Database connected successfully
+2025-04-15 21:38:36 - Database connected successfully
+2025-04-15 21:38:37 - Database connected successfully
+2025-04-15 21:38:38 - Database connected successfully
+2025-04-15 21:39:33 - Database connected successfully
+2025-04-15 21:39:40 - Database connected successfully
+2025-04-15 21:39:41 - Database connected successfully
+2025-04-15 21:41:45 - Database connected successfully
+2025-04-15 21:41:48 - Database connected successfully
+2025-04-15 21:41:54 - Database connected successfully
+2025-04-15 21:41:55 - Database connected successfully
+2025-04-15 21:41:56 - Database connected successfully
+2025-04-15 21:41:57 - Database connected successfully
+2025-04-15 21:43:38 - Database connected successfully
+2025-04-15 21:43:43 - Database connected successfully
+2025-04-15 21:43:44 - Database connected successfully
+2025-04-15 21:43:45 - Database connected successfully
+2025-04-15 21:44:40 - Database connected successfully
+2025-04-15 21:44:42 - Database connected successfully
+2025-04-15 21:44:50 - Database connected successfully
+2025-04-15 21:44:53 - Database connected successfully
+2025-04-15 21:44:54 - Database connected successfully
+2025-04-15 21:44:55 - Database connected successfully
+2025-04-15 21:44:57 - Database connected successfully
+2025-04-15 21:45:20 - POST data: Array
+(
+    [name] => Caméra instantanée
+    [price] => 250
+    [stock] => 12
+    [category] => Gadgets & Technologies
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 21:45:20 - Database connected successfully
+2025-04-15 21:45:25 - Database connected successfully
+2025-04-15 21:45:50 - POST data: Array
+(
+    [name] => Powerbank solaire
+    [price] => 65
+    [stock] => 25
+    [category] => Gadgets & Technologies
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 21:45:50 - Database connected successfully
+2025-04-15 21:46:06 - Database connected successfully
+2025-04-15 21:46:35 - POST data: Array
+(
+    [name] => Tracker de nage
+    [price] => 120
+    [stock] => 32
+    [category] => Gadgets & Technologies
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 21:46:35 - Database connected successfully
+2025-04-15 21:47:07 - POST data: Array
+(
+    [name] => Mini Enceinte Étanche
+    [price] => 120
+    [stock] => 30
+    [category] => Gadgets & Technologies
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 21:47:07 - Database connected successfully
+2025-04-15 21:47:23 - Database connected successfully
+2025-04-15 21:47:32 - Database connected successfully
+2025-04-15 21:47:53 - Database connected successfully
+2025-04-15 21:47:57 - Database connected successfully
+2025-04-15 21:48:23 - POST data: Array
+(
+    [name] => Tapis de yoga
+    [price] => 120
+    [stock] => 20
+    [category] => Articles de Bien-être & Récupération
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 21:48:23 - Database connected successfully
+2025-04-15 21:48:55 - POST data: Array
+(
+    [name] => Huiles essentielles
+    [price] => 120
+    [stock] => 65
+    [category] => Articles de Bien-être & Récupération
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 21:48:55 - Database connected successfully
+2025-04-15 21:49:17 - POST data: Array
+(
+    [name] => Diffuseur portatif
+    [price] => 32
+    [stock] => 25
+    [category] => Articles de Bien-être & Récupération
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 21:49:17 - Database connected successfully
+2025-04-15 21:49:41 - POST data: Array
+(
+    [name] => Oreiller de voyage
+    [price] => 32
+    [stock] => 65
+    [category] => Articles de Bien-être & Récupération
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 21:49:41 - Database connected successfully
+2025-04-15 21:50:03 - POST data: Array
+(
+    [name] => Crème post-effort
+    [price] => 65
+    [stock] => 32
+    [category] => Articles de Bien-être & Récupération
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 21:50:03 - Database connected successfully
+2025-04-15 21:50:12 - Database connected successfully
+2025-04-15 21:50:14 - Database connected successfully
+2025-04-15 21:50:15 - Database connected successfully
+2025-04-15 21:50:18 - Database connected successfully
+2025-04-15 21:50:20 - Database connected successfully
+2025-04-15 21:50:29 - Database connected successfully
+2025-04-15 21:51:35 - POST data: Array
+(
+    [name] => Barres protéinées
+    [price] => 120
+    [stock] => 65
+    [category] => Nutrition & Hydratation
+    [purchase_available] => yes
+    [rental_available] => no
+    [action] => add
+)
+
+2025-04-15 21:51:35 - Database connected successfully
+2025-04-15 21:52:08 - POST data: Array
+(
+    [name] => Smoothie shaker
+    [price] => 23
+    [stock] => 55
+    [category] => Nutrition & Hydratation
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 21:52:08 - Database connected successfully
+2025-04-15 21:52:39 - POST data: Array
+(
+    [name] => Boisson énergétique
+    [price] => 65
+    [stock] => 65
+    [category] => Nutrition & Hydratation
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 21:52:39 - Database connected successfully
+2025-04-15 21:53:05 - POST data: Array
+(
+    [name] => Fruits secs
+    [price] => 65
+    [stock] => 20
+    [category] => Nutrition & Hydratation
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 21:53:05 - Database connected successfully
+2025-04-15 21:53:30 - POST data: Array
+(
+    [name] => SportFix
+    [price] => 65
+    [stock] => 25
+    [category] => Nutrition & Hydratation
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 21:53:30 - Database connected successfully
+2025-04-15 21:53:36 - Database connected successfully
+2025-04-15 21:53:39 - Database connected successfully
+2025-04-15 21:53:41 - Database connected successfully
+2025-04-15 21:55:18 - POST data: Array
+(
+    [name] => Casque
+    [price] => 23
+    [stock] => 55
+    [category] => Accessoires de Voyage & Mobilité
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 21:55:18 - Database connected successfully
+2025-04-15 21:55:43 - POST data: Array
+(
+    [name] => Sac USB pratique
+    [price] => 23
+    [stock] => 55
+    [category] => Accessoires de Voyage & Mobilité
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 21:55:43 - Database connected successfully
+2025-04-15 21:56:02 - POST data: Array
+(
+    [name] =>  Coussin voyage
+    [price] => 23
+    [stock] => 55
+    [category] => Accessoires de Voyage & Mobilité
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 21:56:02 - Database connected successfully
+2025-04-15 21:57:28 - Database connected successfully
+2025-04-15 21:57:33 - Database connected successfully
+2025-04-15 21:57:39 - Database connected successfully
+2025-04-15 21:57:42 - Database connected successfully
+2025-04-15 22:01:36 - Database connected successfully
+2025-04-15 22:01:56 - Database connected successfully
+2025-04-15 22:01:56 - Database connected successfully
+2025-04-15 22:01:58 - Database connected successfully
+2025-04-15 22:02:00 - Database connected successfully
+2025-04-15 22:02:04 - Database connected successfully
+2025-04-15 22:02:08 - Database connected successfully
+2025-04-15 22:02:10 - Database connected successfully
+2025-04-15 22:02:57 - Database connected successfully
+2025-04-15 22:03:09 - POST data: Array
+(
+    [name] => Tapis de réparation
+    [price] => 658.00
+    [stock] => 85
+    [category] => Supports et accessoires d'atelier
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 22:03:09 - Database connected successfully
+2025-04-15 22:03:15 - Database connected successfully
+2025-04-15 22:03:20 - Database connected successfully
+2025-04-15 22:06:08 - POST data: Array
+(
+    [name] => Organisateur outils
+    [price] => 58
+    [stock] => 54
+    [category] => Supports et accessoires d'atelier
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 22:06:08 - Database connected successfully
+2025-04-15 22:06:34 - POST data: Array
+(
+    [name] => Support vélo
+    [price] => 55
+    [stock] => 85
+    [category] => Supports et accessoires d'atelier
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 22:06:34 - Database connected successfully
+2025-04-15 22:06:58 - POST data: Array
+(
+    [name] => Serviette
+    [price] => 65
+    [stock] => 51
+    [category] => Supports et accessoires d'atelier
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 22:06:58 - Database connected successfully
+2025-04-15 22:07:16 - POST data: Array
+(
+    [name] => Outils de réparation
+    [price] => 658
+    [stock] => 85
+    [category] => Supports et accessoires d'atelier
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 22:07:16 - Database connected successfully
+2025-04-15 22:07:37 - POST data: Array
+(
+    [name] => Support réglable
+    [price] => 658
+    [stock] => 85
+    [category] => Supports et accessoires d'atelier
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 22:07:37 - Database connected successfully
+2025-04-15 22:07:41 - POST data: Array
+(
+)
+
+2025-04-15 22:07:41 - Database connected successfully
+2025-04-15 22:07:48 - POST data: Array
+(
+    [name] => Outils de réparation
+    [price] => 658.00
+    [stock] => 85
+    [category] => Supports et accessoires d'atelier
+    [purchase_available] => no
+    [rental_available] => no
+    [action] => update
+    [id] => 74
+)
+
+2025-04-15 22:07:48 - Database connected successfully
+2025-04-15 22:07:56 - Database connected successfully
+2025-04-15 22:10:53 - POST data: Array
+(
+    [name] => BrainBox
+    [price] => 65
+    [stock] => 6
+    [category] => Univers du cerveau
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 22:10:53 - Database connected successfully
+2025-04-15 22:11:19 - POST data: Array
+(
+    [name] => Jeu de mémoire visuelle
+    [price] => 65
+    [stock] => 25
+    [category] => Univers du cerveau
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 22:11:19 - Database connected successfully
+2025-04-15 22:11:36 - Database connected successfully
+2025-04-15 22:11:43 - Database connected successfully
+2025-04-15 22:12:07 - POST data: Array
+(
+    [name] => Jeux de table
+    [price] => 555
+    [stock] => 8
+    [category] => Univers du cerveau
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 22:12:07 - Database connected successfully
+2025-04-15 22:12:31 - POST data: Array
+(
+    [name] => Puzzle
+    [price] => 658.00
+    [stock] => 85
+    [category] => Univers du cerveau
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 22:12:31 - Database connected successfully
+2025-04-15 22:12:55 - POST data: Array
+(
+    [name] => Cube de Rubik
+    [price] => 55
+    [stock] => 52
+    [category] => Univers du cerveau
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-15 22:12:55 - Database connected successfully
+2025-04-15 22:13:10 - Database connected successfully
+2025-04-15 22:13:40 - Database connected successfully
+2025-04-15 22:13:43 - Database connected successfully
+2025-04-15 22:13:44 - Database connected successfully
+2025-04-15 22:13:45 - Database connected successfully
+2025-04-15 22:13:46 - Database connected successfully
+2025-04-15 22:19:16 - Database connected successfully
+2025-04-15 22:21:02 - Database connected successfully
+2025-04-15 22:23:18 - Database connected successfully
+2025-04-15 22:23:18 - Database connected successfully
+2025-04-15 22:23:19 - Database connected successfully
+2025-04-15 22:23:22 - Database connected successfully
+2025-04-15 22:23:22 - Database connected successfully
+2025-04-15 22:23:25 - Database connected successfully
+2025-04-15 22:23:51 - Database connected successfully
+2025-04-15 22:23:55 - Database connected successfully
+2025-04-15 22:24:00 - Database connected successfully
+2025-04-15 22:24:01 - Database connected successfully
+2025-04-15 22:24:02 - Database connected successfully
+2025-04-15 22:24:07 - Database connected successfully
+2025-04-15 22:24:09 - Database connected successfully
+2025-04-15 22:24:16 - Database connected successfully
+2025-04-15 22:24:55 - Database connected successfully
+2025-04-15 22:24:56 - Database connected successfully
+2025-04-15 22:24:57 - Database connected successfully
+2025-04-15 22:25:00 - Database connected successfully
+2025-04-15 22:28:31 - Database connected successfully
+2025-04-15 22:28:34 - Database connected successfully
+2025-04-15 22:28:35 - Database connected successfully
+2025-04-15 22:28:36 - Database connected successfully
+2025-04-15 22:28:37 - Database connected successfully
+2025-04-15 22:28:40 - Database connected successfully
+2025-04-15 22:28:41 - Database connected successfully
+2025-04-15 22:29:42 - Database connected successfully
+2025-04-15 22:29:44 - Database connected successfully
+2025-04-15 22:29:49 - Database connected successfully
+2025-04-15 22:30:00 - POST data: Array
+(
+)
+
+2025-04-15 22:30:00 - Database connected successfully
+2025-04-15 22:30:05 - POST data: Array
+(
+    [name] => Huiles essentielles
+    [price] => 25
+    [stock] => 65
+    [category] => Articles de Bien-être & Récupération
+    [purchase_available] => no
+    [rental_available] => no
+    [action] => update
+    [id] => 62
+)
+
+2025-04-15 22:30:05 - Database connected successfully
+2025-04-15 22:30:19 - Database connected successfully
+2025-04-15 22:32:09 - Database connected successfully
+2025-04-15 22:32:10 - Database connected successfully
+2025-04-15 22:32:13 - Database connected successfully
+2025-04-15 22:32:14 - Database connected successfully
+2025-04-15 22:32:15 - Database connected successfully
+2025-04-15 22:32:16 - Database connected successfully
+2025-04-15 22:32:19 - Database connected successfully
+2025-04-15 22:32:20 - Database connected successfully
+2025-04-15 22:33:20 - Database connected successfully
+2025-04-15 22:33:23 - Database connected successfully
+2025-04-15 22:33:26 - Database connected successfully
+2025-04-15 22:33:28 - Database connected successfully
+2025-04-15 22:33:30 - Database connected successfully
+2025-04-15 22:33:33 - Database connected successfully
+2025-04-15 22:33:39 - POST data: Array
+(
+)
+
+2025-04-15 22:33:39 - Database connected successfully
+2025-04-15 22:33:42 - POST data: Array
+(
+    [name] => Puzzle
+    [price] => 658.00
+    [stock] => 95
+    [category] => Univers du cerveau
+    [purchase_available] => no
+    [rental_available] => no
+    [action] => update
+    [id] => 79
+)
+
+2025-04-15 22:33:42 - Database connected successfully
+2025-04-15 22:33:54 - Database connected successfully
+2025-04-15 22:34:04 - POST data: Array
+(
+)
+
+2025-04-15 22:34:04 - Database connected successfully
+2025-04-15 22:34:09 - POST data: Array
+(
+    [name] => Jeux de table
+    [price] => 45
+    [stock] => 8
+    [category] => Univers du cerveau
+    [purchase_available] => no
+    [rental_available] => no
+    [action] => update
+    [id] => 78
+)
+
+2025-04-15 22:34:09 - Database connected successfully
+2025-04-15 22:34:15 - Database connected successfully
+2025-04-15 22:34:23 - POST data: Array
+(
+)
+
+2025-04-15 22:34:23 - Database connected successfully
+2025-04-15 22:34:28 - POST data: Array
+(
+    [name] => Jeu de mémoire visuelle
+    [price] => 40
+    [stock] => 25
+    [category] => Univers du cerveau
+    [purchase_available] => no
+    [rental_available] => no
+    [action] => update
+    [id] => 77
+)
+
+2025-04-15 22:34:28 - Database connected successfully
+2025-04-15 22:34:34 - Database connected successfully
+2025-04-15 22:36:34 - Database connected successfully
+2025-04-15 22:36:34 - Database connected successfully
+2025-04-15 22:36:35 - Database connected successfully
+2025-04-15 22:45:09 - POST data: Array
+(
+)
+
+2025-04-15 22:45:09 - Database connected successfully
+2025-04-15 22:45:23 - POST data: Array
+(
+    [name] => Puzzle
+    [price] => 320
+    [stock] => 95
+    [category] => Univers du cerveau
+    [purchase_available] => no
+    [rental_available] => no
+    [action] => update
+    [id] => 79
+)
+
+2025-04-15 22:45:23 - Database connected successfully
+2025-04-15 22:45:30 - Database connected successfully
+2025-04-15 22:59:15 - POST data: Array
+(
+    [action] => delete
+    [id] => 67
+)
+
+2025-04-15 22:59:15 - Database connected successfully
+2025-04-15 22:59:41 - Database connected successfully
+2025-04-15 23:19:19 - Database connected successfully
+2025-04-15 23:19:29 - Database connected successfully
+2025-04-15 23:19:31 - Database connected successfully
+2025-04-15 23:19:35 - Database connected successfully
+2025-04-15 23:25:12 - POST data: Array
+(
+    [name] => Puzzle
+    [price] => 320
+    [stock] => 95
+    [category] => Univers du cerveau
+    [purchase_available] => no
+    [rental_available] => no
+    [action] => add
+)
+
+2025-04-15 23:25:12 - Database connected successfully
+2025-04-15 23:25:21 - Database connected successfully
+2025-04-15 23:25:28 - POST data: Array
+(
+)
+
+2025-04-15 23:25:28 - Database connected successfully
+2025-04-15 23:25:32 - POST data: Array
+(
+    [name] => Puzzle
+    [price] => 98
+    [stock] => 95
+    [category] => Univers du cerveau
+    [purchase_available] => no
+    [rental_available] => no
+    [action] => update
+    [id] => 81
+)
+
+2025-04-15 23:25:32 - Database connected successfully
+2025-04-15 23:25:39 - Database connected successfully
+2025-04-15 23:25:45 - POST data: Array
+(
+    [action] => delete
+    [id] => 81
+)
+
+2025-04-15 23:25:45 - Database connected successfully
+2025-04-15 23:26:58 - Database connected successfully
+2025-04-15 23:26:59 - Database connected successfully
+2025-04-15 23:27:03 - Database connected successfully
+2025-04-15 23:27:07 - Database connected successfully
+2025-04-15 23:27:08 - Database connected successfully
+2025-04-15 23:27:09 - Database connected successfully
+2025-04-15 23:27:10 - Database connected successfully
+2025-04-15 23:32:58 - Database connected successfully
+2025-04-15 23:33:22 - Database connected successfully
+2025-04-15 23:33:26 - Database connected successfully
+2025-04-15 23:33:28 - Database connected successfully
+2025-04-15 23:33:31 - Database connected successfully
+2025-04-15 23:33:33 - Database connected successfully
