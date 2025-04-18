@@ -10,21 +10,21 @@
 <body>
 
   <!-- Header -->
-    <header class="header header-activite">
-    <nav>
-      <img src="images/logo.png" class="logo" alt="Logo ClickNGo" />
-      <ul class="nav-links">
-        <li><a href="index.html">Accueil</a></li>
-        <li><a href="activite.html">Activités</a></li>
-        <li><a href="events.html">Événements</a></li>
-        <li><a href="Produits.html">Produits</a></li>
-        <li><a href="transports.html">Transports</a></li>
-        <li><a href="sponsors.html">Sponsors</a></li>
-      </ul>
-      <a href="#" class="register-btn">Register</a>
-    </nav>
-    <h1>Choisissez votre style d’activité</h1>
-</header>
+    <header class="header header-activite" style="background-image: url('images/banner act.jpg'); background-size: cover; background-position: center; padding-top: 10px;">
+        <nav style="margin-top: -90px;">
+            <img src="images/logo.png" class="logo" alt="Logo ClickNGo" style="filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.9));">
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="activite.html">Activités</a></li>
+                <li><a href="events.html">Événements</a></li>
+                <li><a href="Produits.html">Produits</a></li>
+                <li><a href="transports.html">Transports</a></li>
+                <li><a href="sponsors.html">Sponsors</a></li>
+            </ul>
+            <a href="#" class="register-btn">Register</a>
+        </nav>
+        <h1>Choisissez votre style d'activité</h1>
+    </header>
  
 
   <!-- Catégories -->
@@ -663,13 +663,13 @@
             </span>
           </div>
           
-          <!-- Activité Parc d’attractions -->
+          <!-- Activité Parc d'attractions -->
           <div>
-            <img src="images/parc.jpg" alt="Parc d’attractions">
+            <img src="images/parc.jpg" alt="Parc d'attractions">
             <span>
-              <h3>Parc d’attractions</h3>
+              <h3>Parc d'attractions</h3>
               <p>50 DT</p>
-              <a href="reservation.html?nom=Parc+d’attractions&prix=50&duree=4h" class="register-btn">Réserver</a>
+              <a href="reservation.html?nom=Parc+d'attractions&prix=50&duree=4h" class="register-btn">Réserver</a>
             </span>
           </div>
           
@@ -850,7 +850,6 @@
         </div>
       </section>
       
-   
       
       
       <section class="avis-section">
@@ -877,7 +876,7 @@
                 <div class="avis-card">
                   <h3>Saut en parachute</h3>
                   <div class="avis-rating"><span class="etoile">★</span> 5/5</div>
-                  <p>Équipe hyper sympa: au top! Sensations garanties, mais on se sent en toute confiance ! Moment inoubliable .. je n’ai qu’une envie: Recommencer !! Le kiff total</p>
+                  <p>Équipe hyper sympa: au top! Sensations garanties, mais on se sent en toute confiance ! Moment inoubliable .. je n'ai qu'une envie: Recommencer !! Le kiff total</p>
                   <p class="avis-auteur">Pauline</p>
                 </div>
               </div>
@@ -905,7 +904,7 @@
                 <div class="avis-card">
                   <h3>Stage de pilotage</h3>
                   <div class="avis-rating"><span class="etoile">★</span> 5/5</div>
-                  <p>Génial ! L’équipe était passionnée, et les sensations sont incroyables. À refaire sans hésiter !</p>
+                  <p>Génial ! L'équipe était passionnée, et les sensations sont incroyables. À refaire sans hésiter !</p>
                   <p class="avis-auteur">Chloé</p>
                 </div>
               </div>
@@ -919,7 +918,7 @@
                 <div class="avis-card">
                   <h3>Plongée sous-marine</h3>
                   <div class="avis-rating"><span class="etoile">★</span> 4.9/5</div>
-                  <p>Un moment magique au cœur des fonds marins. L’équipe a su me rassurer dès le début. Inoubliable !</p>
+                  <p>Un moment magique au cœur des fonds marins. L'équipe a su me rassurer dès le début. Inoubliable !</p>
                   <p class="avis-auteur">Yassine</p>
                 </div>
               </div>
@@ -938,7 +937,7 @@
               </div>
         
               <input type="text" id="avis-nom" placeholder="Votre prénom" required>
-              <input type="text" id="avis-activite" placeholder="Nom de l’activité" required>
+              <input type="text" id="avis-activite" placeholder="Nom de l'activité" required>
               <textarea id="avis-message" placeholder="Votre avis..." required></textarea>
               <button type="submit">Envoyer</button>
             </form>

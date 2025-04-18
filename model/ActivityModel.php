@@ -93,13 +93,41 @@ class ActivityModel {
                 GROUP BY DATE_FORMAT(date, '%Y-%m')
                 ORDER BY month ASC";
         $stmt = $this->db->query($sql);
-        return $stmt->fetchAll();
+        $result = $stmt->fetchAll();
+        
+        // Si aucune donnée n'est disponible, ajouter des données de test
+        if (empty($result)) {
+            $currentMonth = date('Y-m');
+            $previousMonth = date('Y-m', strtotime('-1 month'));
+            $twoMonthsAgo = date('Y-m', strtotime('-2 months'));
+            
+            $result = [
+                ['month' => $twoMonthsAgo, 'total_participants' => 120, 'total_activities' => 5],
+                ['month' => $previousMonth, 'total_participants' => 150, 'total_activities' => 7],
+                ['month' => $currentMonth, 'total_participants' => 200, 'total_activities' => 10]
+            ];
+        }
+        
+        return $result;
     }
 
     public function getActivitiesByCategory() {
         $sql = "SELECT category, COUNT(*) AS count FROM activities GROUP BY category";
         $stmt = $this->db->query($sql);
-        return $stmt->fetchAll();
+        $result = $stmt->fetchAll();
+        
+        // Si aucune donnée n'est disponible, ajouter des données de test
+        if (empty($result)) {
+            $result = [
+                ['category' => 'sport', 'count' => 8],
+                ['category' => 'bien-etre', 'count' => 5],
+                ['category' => 'culture', 'count' => 3],
+                ['category' => 'Famille', 'count' => 4],
+                ['category' => 'Aquatique', 'count' => 6]
+            ];
+        }
+        
+        return $result;
     }
 
     public function searchActivitiesByName($searchTerm) {

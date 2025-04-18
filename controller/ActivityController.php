@@ -9,13 +9,13 @@ class ActivityController {
     }
 
     public function index() {
-        $searchTerm = $_GET['search'] ?? '';
+        $activities = $this->model->getAllActivities();
+        $searchTerm = isset($_GET['search']) ? $_GET['search'] : '';
+        
         if (!empty($searchTerm)) {
             $activities = $this->model->searchActivitiesByName($searchTerm);
-        } else {
-            $activities = $this->model->getAllActivities();
         }
-
+        
         return [
             'section' => 'control_data',
             'activities' => $activities,
@@ -24,75 +24,22 @@ class ActivityController {
     }
 
     public function add() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $name = $_POST['name'] ?? '';
-            $description = $_POST['description'] ?? '';
-            $price = floatval($_POST['price'] ?? 0);
-            $location = $_POST['location'] ?? '';
-            $date = $_POST['date'] ?? '';
-            $category = $_POST['category'] ?? '';
-            $capacity = intval($_POST['capacity'] ?? 0);
-            $image = null;
-
-            if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-                $uploadDir = __DIR__ . '/../../image/';
-                if (!is_dir($uploadDir)) {
-                    mkdir($uploadDir, 0755, true);
-                }
-                $imagePath = basename($_FILES['image']['name']);
-                $image = 'image/' . $imagePath;
-                move_uploaded_file($_FILES['image']['tmp_name'], $uploadDir . $imagePath);
-            }
-
-            $success = $this->model->addActivity($name, $description, $price, $location, $date, $category, $capacity, $image);
-            if ($success) {
-                header("Location: dashboard.php");
-                exit;
-            } else {
-                return [
-                    'section' => 'add_activity',
-                    'error' => 'Erreur lors de l\'ajout de l\'activité.'
-                ];
-            }
-        }
-        return ['section' => 'add_activity'];
+        // Si le formulaire est soumis, l'action est gérée par process_activity.php
+        return [
+            'section' => 'add_activity'
+        ];
     }
 
     public function edit($id) {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $name = $_POST['name'] ?? '';
-            $description = $_POST['description'] ?? '';
-            $price = floatval($_POST['price'] ?? 0);
-            $location = $_POST['location'] ?? '';
-            $date = $_POST['date'] ?? '';
-            $category = $_POST['category'] ?? '';
-            $capacity = intval($_POST['capacity'] ?? 0);
-            $image = $_POST['current_image'] ?? null;
-
-            if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-                $uploadDir = __DIR__ . '/../../image/';
-                if (!is_dir($uploadDir)) {
-                    mkdir($uploadDir, 0755, true);
-                }
-                $imagePath = basename($_FILES['image']['name']);
-                $image = 'image/' . $imagePath;
-                move_uploaded_file($_FILES['image']['tmp_name'], $uploadDir . $imagePath);
-            }
-
-            $success = $this->model->updateActivity($id, $name, $description, $price, $location, $date, $category, $capacity, $image);
-            if ($success) {
-                header("Location: dashboard.php");
-                exit;
-            } else {
-                return [
-                    'section' => 'edit_activity',
-                    'activity' => $this->model->getActivityById($id),
-                    'error' => 'Erreur lors de la mise à jour de l\'activité.'
-                ];
-            }
-        }
-
         $activity = $this->model->getActivityById($id);
+        
+        if (!$activity) {
+            return [
+                'section' => 'edit_activity',
+                'error' => 'Activité non trouvée'
+            ];
+        }
+        
         return [
             'section' => 'edit_activity',
             'activity' => $activity
@@ -100,54 +47,76 @@ class ActivityController {
     }
 
     public function delete($id) {
-        $this->model->deleteActivity($id);
-        header("Location: dashboard.php");
+        // Cette méthode sert uniquement à rediriger vers process_activity.php
+        // L'opération de suppression est effectuée dans process_activity.php
+        $baseUrl = dirname(dirname($_SERVER['PHP_SELF']));
+        header("Location: $baseUrl/view/back office/process_activity.php?operation=delete&id=$id");
         exit;
     }
 
     public function notifications() {
+        $data = $this->model->getNotifications();
+        
         return [
             'section' => 'notifications',
-            'notifications' => $this->model->getNotifications()
+            'notifications' => $data
         ];
     }
 
     public function calendar() {
+        $activities = $this->model->getUpcomingActivities();
+        
         return [
             'section' => 'calendar',
-            'activities' => $this->model->getUpcomingActivities()
+            'activities' => $activities
         ];
     }
 
     public function statistics() {
+        $stats = $this->model->getStatistics();
+        $participantsByMonth = $this->model->getParticipantsByMonth();
+        $activitiesByCategory = $this->model->getActivitiesByCategory();
+        
         return [
             'section' => 'statistics',
-            'stats' => $this->model->getStatistics(),
-            'participantsByMonth' => $this->model->getParticipantsByMonth(),
-            'activitiesByCategory' => $this->model->getActivitiesByCategory()
+            'stats' => $stats,
+            'participantsByMonth' => $participantsByMonth,
+            'activitiesByCategory' => $activitiesByCategory
         ];
     }
 
     public function daily_activity() {
+        $dailyActivity = $this->model->getDailyActivity();
+        
         return [
             'section' => 'daily_activity',
-            'dailyActivity' => $this->model->getDailyActivity()
+            'dailyActivity' => $dailyActivity
         ];
     }
 
     public function history() {
+        $history = $this->model->getActivityHistory();
+        $upcomingActivities = $this->model->getUpcomingActivities();
+        
         return [
             'section' => 'history',
-            'history' => $this->model->getActivityHistory(),
-            'upcomingActivities' => $this->model->getUpcomingActivities()
+            'history' => $history,
+            'upcomingActivities' => $upcomingActivities
         ];
     }
 
     public function settings() {
-        return ['section' => 'settings'];
+        // Placeholder pour de futures fonctionnalités
+        return [
+            'section' => 'settings'
+        ];
     }
 
     public function logout() {
+        // Implémentation de la déconnexion
+        // À adapter selon votre système d'authentification
+        session_start();
+        session_destroy();
         header("Location: login.php");
         exit;
     }

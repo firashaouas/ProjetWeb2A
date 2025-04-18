@@ -75,6 +75,7 @@ $section = $data['section'] ?? 'control_data';
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="dash.css">
   <script src="js/formValidation.js"></script>
+  <script src="../front office/js/chart.min.js"></script>
   <style>
     /* Styles pour la section Contrôle de Données */
     .control-data-section {
@@ -316,7 +317,7 @@ $section = $data['section'] ?? 'control_data';
                 <div class="activity-image">
                   <?php if (!empty($activity['image'])): ?>
                     <?php
-                      $imagePath = "../../" . htmlspecialchars($activity['image']);
+                      $imagePath = "../front office/" . htmlspecialchars($activity['image']);
                       error_log("Chemin de l'image pour l'activité {$activity['id']} : " . $imagePath);
                     ?>
                     <img src="<?php echo $imagePath; ?>" alt="<?php echo htmlspecialchars($activity['name']); ?>">
@@ -329,7 +330,7 @@ $section = $data['section'] ?? 'control_data';
                   <p><?php echo htmlspecialchars($activity['description']); ?></p>
                   <div class="activity-buttons">
                     <a href="dashboard.php?action=edit&id=<?php echo htmlspecialchars($activity['id']); ?>" class="edit-button">Modifier</a>
-                    <a href="dashboard.php?action=delete&id=<?php echo htmlspecialchars($activity['id']); ?>" class="delete-button" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette activité ?')">Supprimer</a>
+                    <a href="process_activity.php?operation=delete&id=<?php echo htmlspecialchars($activity['id']); ?>" class="delete-button" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette activité ?')">Supprimer</a>
                   </div>
                 </div>
               </div>
@@ -348,7 +349,8 @@ $section = $data['section'] ?? 'control_data';
         <?php if (isset($data['error'])): ?>
           <p style="color: red;"><?php echo htmlspecialchars($data['error']); ?></p>
         <?php endif; ?>
-        <form method="POST" enctype="multipart/form-data" novalidate>
+        <form method="POST" action="process_activity.php" enctype="multipart/form-data" novalidate>
+          <input type="hidden" name="operation" value="add">
           <div class="form-group">
             <label for="activityName">Nom de l'activité</label>
             <input type="text" id="activityName" name="name" placeholder="Ex: Yoga du matin" required>
@@ -414,7 +416,10 @@ $section = $data['section'] ?? 'control_data';
           <p style="color: red;"><?php echo htmlspecialchars($data['error']); ?></p>
         <?php endif; ?>
         <?php if (isset($data['activity']) && is_array($data['activity'])): ?>
-          <form method="POST" enctype="multipart/form-data" novalidate>
+          <form method="POST" action="process_activity.php" enctype="multipart/form-data" novalidate>
+            <input type="hidden" name="operation" value="edit">
+            <input type="hidden" name="id" value="<?php echo htmlspecialchars($data['activity']['id']); ?>">
+            <input type="hidden" name="current_image" value="<?php echo htmlspecialchars($data['activity']['image']); ?>">
             <div class="form-group">
               <label for="activityName">Nom de l'activité</label>
               <input type="text" id="activityName" name="name" value="<?php echo htmlspecialchars($data['activity']['name']); ?>" required>
@@ -441,6 +446,16 @@ $section = $data['section'] ?? 'control_data';
                 <option value="sport" <?php if ($data['activity']['category'] === 'sport') echo 'selected'; ?>>Sport</option>
                 <option value="bien-etre" <?php if ($data['activity']['category'] === 'bien-etre') echo 'selected'; ?>>Bien-être</option>
                 <option value="culture" <?php if ($data['activity']['category'] === 'culture') echo 'selected'; ?>>Culture</option>
+                <option value="Ateliers" <?php if ($data['activity']['category'] === 'Ateliers') echo 'selected'; ?>>Ateliers</option>
+                <option value="Aérien" <?php if ($data['activity']['category'] === 'Aérien') echo 'selected'; ?>>Aérien</option>
+                <option value="Aquatique" <?php if ($data['activity']['category'] === 'Aquatique') echo 'selected'; ?>>Aquatique</option>
+                <option value="Terestre" <?php if ($data['activity']['category'] === 'Terestre') echo 'selected'; ?>>Terrestre</option>
+                <option value="Insolite" <?php if ($data['activity']['category'] === 'Insolite') echo 'selected'; ?>>Insolite</option>
+                <option value="Détente" <?php if ($data['activity']['category'] === 'Détente') echo 'selected'; ?>>Détente</option>
+                <option value="nature" <?php if ($data['activity']['category'] === 'nature') echo 'selected'; ?>>Nature</option>
+                <option value="aventure" <?php if ($data['activity']['category'] === 'aventure') echo 'selected'; ?>>Aventure</option>
+                <option value="Famille" <?php if ($data['activity']['category'] === 'Famille') echo 'selected'; ?>>Famille</option>
+                <option value="Extreme" <?php if ($data['activity']['category'] === 'Extreme') echo 'selected'; ?>>Extrême</option>
                 <option value="autre" <?php if ($data['activity']['category'] === 'autre') echo 'selected'; ?>>Autre</option>
               </select>
             </div>
@@ -475,7 +490,7 @@ $section = $data['section'] ?? 'control_data';
           <p style="color: red;">Activité non trouvée.</p>
         <?php endif; ?>
       </div>
-
+      
     <?php elseif ($section === 'calendar'): ?>
       <div class="calendar">
         <h3>📅 Calendrier</h3>
@@ -818,16 +833,5 @@ $section = $data['section'] ?? 'control_data';
       animateCounter("count-cities", <?php echo (int)($data['stats']['total_cities'] ?? 0); ?>);
     });
   </script>
-
-  <!-- Inclure Chart.js localement -->
-  <script src="js/chart.min.js"></script>
-  <script>
-    if (typeof Chart !== 'undefined') {
-      console.log('Chart.js est chargé avec succès ! Version :', Chart.version);
-    } else {
-      console.error('Erreur : Chart.js n\'est pas chargé.');
-    }
-  </script>
-  <script src="js/formValidation.js"></script>
 </body>
 </html>

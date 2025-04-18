@@ -56,14 +56,39 @@
           $date = $_POST['date'];
           $category = $_POST['category'];
           $capacity = $_POST['capacity'];
+          $image = null;
 
-          // Insérer l'activité dans la base de données
-          $stmt = $conn->prepare("INSERT INTO activities (name, description, price, location, date, category, capacity) VALUES (?, ?, ?, ?, ?, ?, ?)");
-          $stmt->execute([$name, $description, $price, $location, $date, $category, $capacity]);
+          // Traitement de l'image
+          if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+            $uploadDir = '../../image/';
+            
+            if (!is_dir($uploadDir)) {
+                if (!mkdir($uploadDir, 0777, true)) {
+                    throw new Exception("Impossible de créer le répertoire d'images");
+                }
+            }
+            
+            // Générer un nom de fichier unique
+            $fileName = uniqid() . '_' . basename($_FILES['image']['name']);
+            $uploadFile = $uploadDir . $fileName;
+            
+            // Déplacer le fichier uploadé
+            if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile)) {
+                $image = 'image/' . $fileName;
+            } else {
+                throw new Exception("Echec de l'upload du fichier");
+            }
+          }
+
+          // Préparation de la requête avec l'image
+          $sql = "INSERT INTO activities (name, description, price, location, date, category, capacity, image) 
+                  VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+          $stmt = $conn->prepare($sql);
+          $stmt->execute([$name, $description, $price, $location, $date, $category, $capacity, $image]);
 
           echo '<p style="color: green;">Activité ajoutée avec succès !</p>';
           header("Refresh: 2; url=dashboard.php"); // Redirection après 2 secondes
-        } catch (PDOException $e) {
+        } catch (Exception $e) {
           echo '<p style="color: red;">Erreur : ' . $e->getMessage() . '</p>';
         }
         $conn = null;
@@ -103,6 +128,7 @@
             <option value="bien-etre">Bien-être</option>
             <option value="culture">Culture</option>
             <option value="Ateliers">Ateliers</option>
+            <option value="Nature">Nature</option>
             <option value="Aérien">Aérien</option>
             <option value="Aquatique">Aquatique</option>
             <option value="Terestre">Terestre</option>
@@ -120,9 +146,9 @@
         </div>
         <!-- Champ pour uploader une image -->
         <div class="form-group">
-          <label for="image">Image de l'activité *</label>
+          <label for="imageFile">Image de l'activité *</label>
           <div class="image-input-container">
-            <input type="file" id="imageFile" name="imageFile" accept="image/*">
+            <input type="file" id="imageFile" name="image" accept="image/*">
           </div>
           <div id="imagePreview" style="margin-top: 10px; display: none;">
             <img id="previewImg" src="" alt="Aperçu de l'image" style="max-width: 100%; max-height: 200px;">

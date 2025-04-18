@@ -5,7 +5,7 @@
     font-family: 'Poppins', sans-serif;
 }
 .header-activite {
-    background-image: url("images/groupe.jpg");
+    background-image: url("images/parc.jpg");
     background-size: cover;
     background-position: center;
     min-height: 100vh;
@@ -898,10 +898,10 @@ nav {
     object-fit: contain; /* garde le ratio sans déformer */
 }
 
-/* Spécifique au logo CB si besoin d’ajustement fin */
+/* Spécifique au logo CB si besoin d'ajustement fin */
 .cb-logo {
     transform: translateY(2px); /* ajuste légèrement verticalement */
-    width: 50px; /* assure qu’il ait la même taille */
+    width: 50px; /* assure qu'il ait la même taille */
 }
 
 
@@ -999,7 +999,7 @@ nav {
                 0 0 200px var(--color);
 }
 
-/* ✅ changer la couleur de l’icône en noir au survol */
+/* ✅ changer la couleur de l'icône en noir au survol */
 .icon:hover i {
     color: #050801;
 }
