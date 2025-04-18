@@ -214,4 +214,93 @@ class sponsor{
         }
 }
 
+class Offre {
+    private int $id_offre;
+    private string $titre_offre;
+    private string $description_offre;
+    private string $evenement;
+    private float $montant_offre;
+    private string $status;
+
+    public function __construct(
+        string $titre_offre,
+        string $description_offre,
+        string $evenement,
+        float $montant_offre,
+        string $status = 'libre'
+    ) {
+        $this->titre_offre = $titre_offre;
+        $this->description_offre = $description_offre;
+        $this->evenement = $evenement;
+        $this->montant_offre = $montant_offre;
+        $this->status = $status;
+    }
+
+    public function getId_offre()
+    {
+        return $this->id_offre;
+    }
+
+    public function setId_offre($id_offre)
+    {
+        $this->id_offre = $id_offre;
+        return $this;
+    }
+
+    public function getTitre_offre()
+    {
+        return $this->titre_offre;
+    }
+
+    public function setTitre_offre($titre_offre)
+    {
+        $this->titre_offre = $titre_offre;
+        return $this;
+    }
+
+    public function getDescription_offre()
+    {
+        return $this->description_offre;
+    }
+
+    public function setDescription_offre($description_offre)
+    {
+        $this->description_offre = $description_offre;
+        return $this;
+    }
+
+    public function getEvenement()
+    {
+        return $this->evenement;
+    }
+
+    public function setEvenement($evenement)
+    {
+        $this->evenement = $evenement;
+        return $this;
+    }
+
+    public function getMontant_offre()
+    {
+        return $this->montant_offre;
+    }
+
+    public function setMontant_offre($montant_offre)
+    {
+        $this->montant_offre = $montant_offre;
+        return $this;
+    }
+
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    public function setStatus($status)
+    {
+        $this->status = $status;
+        return $this;
+    }
+}
+
 ?>

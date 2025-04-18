@@ -656,9 +656,9 @@ $propositions = $controller->listSponser();
 </head>
 <body>
 
- 
+    <!-- Votre header existant -->
     
-  
+    <!-- Remplacez votre header actuel par ceci -->
 <header class="main-header">
     <div class="header-container">
         <nav class="navbar">
@@ -686,6 +686,7 @@ $propositions = $controller->listSponser();
     </div>
 </header>
     
+    <!-- Votre vidéo -->
     <div class="video-container">
         <video autoplay loop muted playsinline>
             <source src="video1.mp4" type="video/mp4">
@@ -693,7 +694,7 @@ $propositions = $controller->listSponser();
         </video>
     </div>
     
- 
+    <!-- Vos sponsors -->
     <div class="container">
         <h1>Nos sponsors</h1>
         <div class="grid">
@@ -739,7 +740,7 @@ $propositions = $controller->listSponser();
         </div>
     </div> 
 
-    
+    <!-- Vos sections principales -->
     <div class="container">
         <div class="options" id="options">
             <a href="#form-section" class="option-card">
@@ -811,7 +812,7 @@ $propositions = $controller->listSponser();
             <label for="duration">Durée du sponsoring</label>
             <input type="text" id="duration" name="duration" 
                    pattern="[0-9]+\s*(mois|an|ans|jours|semaines)" 
-                   placeholder="Ex: X + mois|an|ans|jours|semaines" required>
+                   placeholder="Ex: 3 mois, 1 an..." required>
             <small class="error-message"></small>
         </div>
         
@@ -882,79 +883,29 @@ $propositions = $controller->listSponser();
         <div class="sponsorships-section" id="sponsorships-section">
             <h2>Opportunités de Sponsoring Disponibles</h2>
             
-            <!-- Filtres  -->
-            <div class="filters">
-                <div class="form-group">
-                    <label for="eventType">Type d'événement</label>
-                    <select id="eventType" onchange="filterEvents()">
-                        <option value="">Tous</option>
-                        <option value="festival">Festival</option>
-                        <option value="sport">Sport</option>
-                        <option value="Parc">Parc</option>
-                        <option value="Soiree">Soiree</option>
-                        <option value="Culturel">Culturel</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="eventDate">Date</label>
-                    <select id="eventDate" onchange="filterEvents()">
-                        <option value="">Toutes les dates</option>
-                        <option value="Janvier">Janvier</option>
-                        <option value="Fevrier">Fevrier</option>
-                        <option value="Mars">Mars </option>
-                        <option value="Avril">Avril </option>
-                        <option value="Mai">Mai </option>
-                        <option value="Juin">Juin </option>
-                        <option value="Juillet">Juillet</option>
-                        <option value="Aout">Aout </option>
-                        <option value="Septembre">Septembre </option>
-                        <option value="Octobre">Octobre </option>
-                        <option value="Novembre">Novembre </option>
-                        <option value="Decembre">Decembre </option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="eventLocation">Lieu</label>
-                    <select id="eventLocation" onchange="filterEvents()">
-                        <option value="">Tous les lieux</option>
-                        <option value="parc">Parc des Expositions</option>
-                        <option value="complexe">Complexe Sportif</option>
-                        <option value="boite">Boite de nuit</option>
-                    </select>
-                </div>
-            </div>
-
             <div class="sponsorship-grid" id="events-grid">
-                <!-- Événement 1 -->
-                <div class="sponsorship-card">
-                    <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=800&auto=format&fit=crop" alt="Festival de Musique d'Été" class="event-image">
-                    <h3>Festival de Musique d'Été</h3>
-                    <p>Un festival de musique exceptionnel qui réunit plus de 20 artistes de renommée internationale sur 3 jours de festivités.</p>
-                    <div class="sponsorship-footer">
-                        <span>Durée: 3 jours</span>
-                        <span class="amount">5000dt</span>
-                    </div>
-                </div>
-
-                <!-- Événement 2 -->
-                <div class="sponsorship-card">
-                    <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&auto=format&fit=crop" alt="Tournoi de Sport Local" class="event-image">
-                    <h3>Tournoi de Sport Local</h3>
-                    <p>Un championnat sportif régional qui rassemble 16 équipes dans une compétition intense.</p>
-                    <div class="sponsorship-footer">
-                        <span>Durée: 2 jours</span>
-                        <span class="amount">3000dt</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <!-- Modal pour les détails d'événement -->
-        <div id="eventModal" class="event-modal">
-            <div class="event-modal-content">
-                <span class="close-modal" onclick="closeEventModal()">&times;</span>
-                <div id="modalEventContent"></div>
+                <?php
+                require_once(__DIR__ . "/../../controller/controller.php");
+                $controller = new sponsorController();
+                $offers = $controller->listOffers();
+                $displayedOffers = [];
+                foreach ($offers as $offer) {
+                    // Avoid duplicate display by checking unique id or title+event
+                    $key = $offer['titre_offre'] . '|' . $offer['evenement'];
+                    if (in_array($key, $displayedOffers)) {
+                        continue;
+                    }
+                    $displayedOffers[] = $key;
+                    echo '<div class="sponsorship-card">';
+                    echo '<h3>' . htmlspecialchars($offer['titre_offre']) . '</h3>';
+                    echo '<p>' . htmlspecialchars($offer['description_offre']) . '</p>';
+                    echo '<div class="sponsorship-footer">';
+                    echo '<span>Événement: ' . htmlspecialchars($offer['evenement']) . '</span>';
+                    echo '<span class="amount">' . htmlspecialchars($offer['montant_offre']) . ' dt</span>';
+                    echo '</div>';
+                    echo '</div>';
+                }
+                ?>
             </div>
         </div>
 
@@ -984,8 +935,8 @@ $propositions = $controller->listSponser();
         </div>
     <?php endforeach; ?>
 </div>
-    
-
+    <!-- Votre footer existant -->
+ <!-- Remplacez votre footer actuel par ceci -->
 <footer class="main-footer">
     <div class="footer-container">
         <div class="newsletter-section">
@@ -1049,113 +1000,7 @@ $propositions = $controller->listSponser();
 </footer>
 
     <script>
-        // Données des événements
-        const events = [
-    {
-        id: 1,
-        title: "Festival de Musique d'Été",
-        type: "festival",
-        date: "Juillet",
-        location: "parc",
-        image: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3",
-        description: "Un festival de musique exceptionnel qui réunit plus de 20 artistes de renommée internationale sur 3 jours de festivités.",
-        price: "5000dt",
-        duration: "3 jours",
-        benefits: ["Logo sur supports", "Billets VIP", "Espace stand"]
-    },
-    {
-        id: 2,
-        title: "Tournoi de Sport Local",
-        type: "sport",
-        date: "Septembre",
-        location: "complexe",
-        image: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211",
-        description: "Un championnat sportif régional qui rassemble 16 équipes dans une compétition intense.",
-        price: "3000dt",
-        duration: "2 jours",
-        benefits: ["Bannières publicitaires", "Mentions annonceurs", "Espace branding"]
-    }
-];
-
-        // Fonction pour filtrer les événements
-        function filterEvents() {
-            const type = document.getElementById('eventType').value;
-            const date = document.getElementById('eventDate').value;
-            const location = document.getElementById('eventLocation').value;
-            
-            const filteredEvents = events.filter(event => {
-                return (!type || event.type === type) &&
-                       (!date || event.date === date) &&
-                       (!location || event.location === location);
-            });
-            
-            renderEvents(filteredEvents);
-        }
-
-        // Fonction pour afficher les événements
-        function renderEvents(eventsToShow = events) {
-            const grid = document.getElementById('events-grid');
-            grid.innerHTML = eventsToShow.map(event => `
-                <div class="sponsorship-card" onclick="showEventDetails(${event.id})">
-                    <img src="${event.image}" alt="${event.title}" class="event-image">
-                    <h3>${event.title}</h3>
-                    <p>${event.description.substring(0, 100)}...</p>
-                    <div class="sponsorship-footer">
-                        <span>Durée: ${event.duration}</span>
-                        <span class="amount">${event.price}</span>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // Fonction pour afficher les détails d'un événement
-        function showEventDetails(eventId) {
-            const event = events.find(e => e.id === eventId);
-            document.getElementById('modalEventContent').innerHTML = `
-                <h2>${event.title}</h2>
-                <img src="${event.image}" alt="${event.title}" class="event-image">
-                <p class="event-description">${event.description}</p>
-                
-                <div class="event-details">
-                    <h4>Détails de l'événement</h4>
-                    <p><strong>Date:</strong> ${event.date}</p>
-                    <p><strong>Lieu:</strong> ${event.location}</p>
-                    <p><strong>Durée:</strong> ${event.duration}</p>
-                    <p><strong>Montant du sponsoring:</strong> ${event.price}</p>
-                </div>
-
-                <div class="event-details">
-                    <h4>Avantages du sponsoring</h4>
-                    <ul class="benefits-list">
-                        ${event.benefits.map(b => `<li>${b}</li>`).join('')}
-                    </ul>
-                </div>
-
-                <div class="divider"></div>
-
-                
-                
-            `;
-            
-            document.getElementById('eventModal').style.display = 'block';
-        }
-
-        // Fonction pour fermer le modal
-        function closeEventModal() {
-            document.getElementById('eventModal').style.display = 'none';
-        }
-
-        // Initialisation
-        document.addEventListener('DOMContentLoaded', () => {
-            renderEvents();
-            
-            // Fermer le modal en cliquant à l'extérieur
-            window.onclick = function(event) {
-                if (event.target == document.getElementById('eventModal')) {
-                    closeEventModal();
-                }
-            }
-        });
+        // Removed JavaScript for filtering and modal as per request
     </script>
 </body>
 </html>

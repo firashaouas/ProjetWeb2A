@@ -9,6 +9,26 @@ class sponsorController{
         return $result;
         
     }
+
+    public function listOffers() {
+        $db = config::getConnexion();
+        $sql = $db->prepare("SELECT * FROM offre");
+        $sql->execute();
+        $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    public function addOffer($offer) {
+        $db = config::getConnexion();
+        $sql = "INSERT INTO offre (titre_offre, description_offre, evenement, montant_offre, status) VALUES (:titre_offre, :description_offre, :evenement, :montant_offre, :status)";
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':titre_offre', $offer->getTitre_offre());
+        $stmt->bindValue(':description_offre', $offer->getDescription_offre());
+        $stmt->bindValue(':evenement', $offer->getEvenement());
+        $stmt->bindValue(':montant_offre', $offer->getMontant_offre());
+        $stmt->bindValue(':status', $offer->getStatus());
+        return $stmt->execute();
+    }
     public function addSponsor(sponsor $sponsor)
 {
     // Assuming you already have a PDO connection $pdo
