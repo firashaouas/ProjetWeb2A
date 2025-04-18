@@ -1786,3 +1786,1022 @@
 2025-04-15 23:33:28 - Database connected successfully
 2025-04-15 23:33:31 - Database connected successfully
 2025-04-15 23:33:33 - Database connected successfully
+2025-04-16 00:41:22 - Database connected successfully
+2025-04-16 00:41:35 - POST data: Array
+(
+)
+
+2025-04-16 00:41:35 - Database connected successfully
+2025-04-16 00:41:41 - POST data: Array
+(
+    [name] => Ballons
+    [price] => 230
+    [stock] => 65
+    [category] => Équipements Sportifs
+    [purchase_available] => no
+    [rental_available] => no
+    [action] => update
+    [id] => 43
+)
+
+2025-04-16 00:41:41 - Database connected successfully
+2025-04-16 00:41:52 - Database connected successfully
+2025-04-16 00:42:11 - POST data: Array
+(
+    [name] => Ballons
+    [price] => 230
+    [stock] => 65
+    [category] => Équipements Sportifs
+    [purchase_available] => no
+    [rental_available] => no
+    [action] => add
+)
+
+2025-04-16 00:42:11 - Database connected successfully
+2025-04-16 00:42:20 - POST data: Array
+(
+    [action] => delete
+    [id] => 82
+)
+
+2025-04-16 00:42:20 - Database connected successfully
+2025-04-16 00:42:51 - POST data: Array
+(
+    [name] => hyfjf
+    [price] => 658.00
+    [stock] => 85
+    [category] => Nutrition & Hydratation
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-16 00:42:51 - Database connected successfully
+2025-04-16 00:43:19 - POST data: Array
+(
+    [action] => delete
+    [id] => 83
+)
+
+2025-04-16 00:43:19 - Database connected successfully
+2025-04-16 00:52:19 - Database connected successfully
+2025-04-16 01:04:40 - Database connected successfully
+2025-04-16 01:16:34 - Database connected successfully
+2025-04-16 01:16:39 - Database connected successfully
+2025-04-16 01:16:40 - Database connected successfully
+2025-04-16 01:16:40 - Database connected successfully
+2025-04-16 01:16:42 - Database connected successfully
+2025-04-16 01:16:44 - Database connected successfully
+2025-04-16 01:16:44 - Database connected successfully
+2025-04-16 01:16:45 - Database connected successfully
+2025-04-16 01:16:55 - POST data: Array
+(
+)
+
+2025-04-16 01:16:55 - Database connected successfully
+2025-04-16 01:17:03 - POST data: Array
+(
+    [name] => Jeu de mémoire visuelle
+    [price] => 50
+    [stock] => 25
+    [category] => Univers du cerveau
+    [purchase_available] => no
+    [rental_available] => no
+    [action] => update
+    [id] => 77
+)
+
+2025-04-16 01:17:03 - Database connected successfully
+2025-04-16 01:17:09 - Database connected successfully
+2025-04-16 09:01:26 - Database connected successfully
+2025-04-16 09:48:24 - Database connected successfully
+2025-04-16 10:21:22 - POST data: Array
+(
+    [name] => Jeu de mémoire visuelle
+    [price] => 50
+    [stock] => 25
+    [category] => Univers du cerveau
+    [purchase_available] => no
+    [rental_available] => no
+    [action] => add
+)
+
+2025-04-16 10:21:22 - Database connected successfully
+2025-04-16 10:21:45 - POST data: Array
+(
+    [name] => EYA
+    [price] => 50
+    [stock] => 25
+    [category] => Univers du cerveau
+    [purchase_available] => no
+    [rental_available] => no
+    [action] => add
+)
+
+2025-04-16 10:21:45 - Database connected successfully
+2025-04-16 10:21:51 - POST data: Array
+(
+    [action] => delete
+    [id] => 85
+)
+
+2025-04-16 10:21:51 - Database connected successfully
+2025-04-16 10:21:54 - POST data: Array
+(
+    [action] => delete
+    [id] => 84
+)
+
+2025-04-16 10:21:54 - Database connected successfully
+2025-04-16 10:33:08 - POST data: Array
+(
+)
+
+2025-04-16 10:33:08 - Database connected successfully
+2025-04-16 10:33:08 - Database connected successfully
+2025-04-16 10:33:10 - POST data: Array
+(
+)
+
+2025-04-16 10:33:10 - Database connected successfully
+2025-04-16 10:33:10 - Database connected successfully
+2025-04-16 10:33:11 - POST data: Array
+(
+)
+
+2025-04-16 10:33:11 - Database connected successfully
+2025-04-16 10:33:11 - Database connected successfully
+2025-04-16 10:37:01 - POST data: Array
+(
+    [name] => EYA
+    [price] => 50
+    [stock] => 25
+    [category] => Univers du cerveau
+    [purchase_available] => no
+    [rental_available] => no
+    [action] => add
+)
+
+2025-04-16 10:37:01 - Database connected successfully
+2025-04-16 10:37:20 - POST data: Array
+(
+)
+
+2025-04-16 10:37:20 - Database connected successfully
+2025-04-16 10:37:20 - Database connected successfully
+2025-04-16 10:37:27 - POST data: Array
+(
+    [action] => delete
+    [id] => 86
+)
+
+2025-04-16 10:37:27 - Database connected successfully
+2025-04-16 10:38:19 - POST data: Array
+(
+)
+
+2025-04-16 10:38:19 - Database connected successfully
+2025-04-16 10:38:19 - Database connected successfully
+2025-04-16 10:52:16 - POST data: Array
+(
+)
+
+2025-04-16 10:52:16 - Database connected successfully
+2025-04-16 10:52:25 - POST data: Array
+(
+    [name] => Cube de Rubik
+    [price] => 65
+    [stock] => 53
+    [category] => Univers du cerveau
+    [purchase_available] => no
+    [rental_available] => no
+    [action] => update
+    [id] => 80
+)
+
+2025-04-16 10:52:25 - Database connected successfully
+2025-04-16 10:52:40 - POST data: Array
+(
+)
+
+2025-04-16 10:52:40 - Database connected successfully
+2025-04-16 10:52:40 - Database connected successfully
+2025-04-16 11:07:22 - POST data: Array
+(
+    [name] => rya''
+    [price] => 65
+    [stock] => 5
+    [category] => Vêtements et Accessoires
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-16 11:07:22 - Database connected successfully
+2025-04-16 11:07:28 - POST data: Array
+(
+    [action] => delete
+    [id] => 87
+)
+
+2025-04-16 11:07:28 - Database connected successfully
+2025-04-16 11:29:44 - POST data: Array
+(
+    [name] => eya
+    [price] => 20
+    [stock] => 20
+    [category] => Articles de Bien-être & Récupération
+    [purchase_available] => yes
+    [rental_available] => no
+    [action] => add
+)
+
+2025-04-16 11:29:44 - Database connected successfully
+2025-04-16 11:32:10 - POST data: Array
+(
+)
+
+2025-04-16 11:32:10 - Database connected successfully
+2025-04-16 11:32:16 - POST data: Array
+(
+    [name] => eya
+    [price] => 20.00
+    [stock] => 80
+    [category] => Articles de Bien-être & Récupération
+    [purchase_available] => no
+    [rental_available] => no
+    [action] => update
+    [id] => 88
+)
+
+2025-04-16 11:32:16 - Database connected successfully
+2025-04-16 11:33:04 - POST data: Array
+(
+)
+
+2025-04-16 11:33:04 - Database connected successfully
+2025-04-16 11:33:13 - POST data: Array
+(
+    [name] => eya
+    [price] => 20
+    [stock] => 80
+    [category] => Articles de Bien-être & Récupération
+    [purchase_available] => no
+    [rental_available] => no
+    [action] => update
+    [id] => 88
+)
+
+2025-04-16 11:33:13 - Database connected successfully
+2025-04-16 11:33:16 - POST data: Array
+(
+    [action] => delete
+    [id] => 88
+)
+
+2025-04-16 11:33:16 - Database connected successfully
+2025-04-16 11:33:34 - POST data: Array
+(
+)
+
+2025-04-16 11:33:34 - Database connected successfully
+2025-04-16 11:33:35 - POST data: Array
+(
+    [name] => Cube de Rubik
+    [price] => 65.00
+    [stock] => 53
+    [category] => Univers du cerveau
+    [purchase_available] => no
+    [rental_available] => no
+    [action] => update
+    [id] => 80
+)
+
+2025-04-16 11:33:35 - Database connected successfully
+2025-04-16 11:33:37 - POST data: Array
+(
+)
+
+2025-04-16 11:33:37 - Database connected successfully
+2025-04-16 11:33:42 - POST data: Array
+(
+    [name] => Cube de Rubik
+    [price] => 80
+    [stock] => 53
+    [category] => Univers du cerveau
+    [purchase_available] => no
+    [rental_available] => no
+    [action] => update
+    [id] => 80
+)
+
+2025-04-16 11:33:42 - Database connected successfully
+2025-04-16 11:33:48 - POST data: Array
+(
+)
+
+2025-04-16 11:33:48 - Database connected successfully
+2025-04-16 11:33:48 - Database connected successfully
+2025-04-16 18:21:02 - POST data: Array
+(
+)
+
+2025-04-16 18:21:02 - Database connected successfully
+2025-04-16 18:21:02 - Database connected successfully
+2025-04-16 18:25:21 - POST data: Array
+(
+)
+
+2025-04-16 18:25:21 - Database connected successfully
+2025-04-16 18:25:21 - Database connected successfully
+2025-04-16 18:46:47 - POST data: Array
+(
+)
+
+2025-04-16 18:46:47 - Database connected successfully
+2025-04-16 18:46:47 - Database connected successfully
+2025-04-16 18:47:36 - POST data: Array
+(
+)
+
+2025-04-16 18:47:36 - Database connected successfully
+2025-04-16 18:47:36 - Database connected successfully
+2025-04-16 18:48:58 - POST data: Array
+(
+)
+
+2025-04-16 18:48:58 - Database connected successfully
+2025-04-16 18:48:58 - Database connected successfully
+2025-04-16 18:55:24 - POST data: Array
+(
+)
+
+2025-04-16 18:55:24 - Database connected successfully
+2025-04-16 18:55:24 - Database connected successfully
+2025-04-16 20:43:12 - POST data: Array
+(
+)
+
+2025-04-16 20:43:12 - Database connected successfully
+2025-04-16 20:43:12 - Database connected successfully
+2025-04-16 20:43:19 - POST data: Array
+(
+)
+
+2025-04-16 20:43:19 - Database connected successfully
+2025-04-16 20:43:19 - Database connected successfully
+2025-04-16 21:07:54 - POST data: Array
+(
+)
+
+2025-04-16 21:07:54 - Database connected successfully
+2025-04-16 21:07:54 - Database connected successfully
+2025-04-16 21:58:56 - POST data: Array
+(
+)
+
+2025-04-16 21:58:56 - Database connected successfully
+2025-04-16 21:58:56 - Database connected successfully
+2025-04-16 22:06:26 - POST data: Array
+(
+)
+
+2025-04-16 22:06:26 - Database connected successfully
+2025-04-16 22:06:26 - Database connected successfully
+2025-04-16 22:07:03 - POST data: Array
+(
+)
+
+2025-04-16 22:07:03 - Database connected successfully
+2025-04-16 22:07:03 - Database connected successfully
+2025-04-16 22:20:43 - POST data: Array
+(
+)
+
+2025-04-16 22:20:43 - Database connected successfully
+2025-04-16 22:20:43 - Database connected successfully
+2025-04-16 22:31:37 - POST data: Array
+(
+)
+
+2025-04-16 22:31:37 - Database connected successfully
+2025-04-16 22:31:37 - Database connected successfully
+2025-04-16 22:31:43 - POST data: Array
+(
+)
+
+2025-04-16 22:31:43 - Database connected successfully
+2025-04-16 22:31:47 - POST data: Array
+(
+    [name] => Cube de Rubik
+    [price] => 90
+    [stock] => 53
+    [category] => Univers du cerveau
+    [purchase_available] => no
+    [rental_available] => no
+    [action] => update
+    [id] => 80
+)
+
+2025-04-16 22:31:47 - Database connected successfully
+2025-04-16 22:31:54 - POST data: Array
+(
+)
+
+2025-04-16 22:31:54 - Database connected successfully
+2025-04-16 22:31:54 - Database connected successfully
+2025-04-16 23:45:02 - POST data: Array
+(
+)
+
+2025-04-16 23:45:02 - Database connected successfully
+2025-04-16 23:45:02 - Database connected successfully
+2025-04-16 23:49:25 - POST data: Array
+(
+)
+
+2025-04-16 23:49:25 - Database connected successfully
+2025-04-16 23:49:25 - Database connected successfully
+2025-04-17 11:08:22 - POST data: Array
+(
+)
+
+2025-04-17 11:08:22 - Database connected successfully
+2025-04-17 11:08:22 - Database connected successfully
+2025-04-17 11:08:49 - POST data: Array
+(
+)
+
+2025-04-17 11:08:49 - Database connected successfully
+2025-04-17 11:08:49 - Database connected successfully
+2025-04-17 11:26:42 - POST data: Array
+(
+)
+
+2025-04-17 11:26:42 - Database connected successfully
+2025-04-17 11:26:42 - Database connected successfully
+2025-04-17 11:35:23 - POST data: Array
+(
+)
+
+2025-04-17 11:35:23 - Database connected successfully
+2025-04-17 11:35:23 - Database connected successfully
+2025-04-17 11:35:29 - POST data: Array
+(
+)
+
+2025-04-17 11:35:29 - Database connected successfully
+2025-04-17 11:35:29 - Database connected successfully
+2025-04-17 11:44:43 - POST data: Array
+(
+)
+
+2025-04-17 11:44:43 - Database connected successfully
+2025-04-17 11:44:43 - Database connected successfully
+2025-04-17 11:46:09 - POST data: Array
+(
+)
+
+2025-04-17 11:46:09 - Database connected successfully
+2025-04-17 11:46:09 - Database connected successfully
+2025-04-17 12:01:16 - POST data: Array
+(
+)
+
+2025-04-17 12:01:16 - Database connected successfully
+2025-04-17 12:01:16 - Database connected successfully
+2025-04-17 12:08:54 - POST data: Array
+(
+)
+
+2025-04-17 12:08:54 - Database connected successfully
+2025-04-17 12:08:54 - Database connected successfully
+2025-04-17 12:10:30 - POST data: Array
+(
+)
+
+2025-04-17 12:10:30 - Database connected successfully
+2025-04-17 12:10:30 - Database connected successfully
+2025-04-17 12:13:05 - POST data: Array
+(
+)
+
+2025-04-17 12:13:05 - Database connected successfully
+2025-04-17 12:13:05 - Database connected successfully
+2025-04-17 12:16:33 - POST data: Array
+(
+)
+
+2025-04-17 12:16:33 - Database connected successfully
+2025-04-17 12:16:33 - Database connected successfully
+2025-04-17 12:43:50 - POST data: Array
+(
+)
+
+2025-04-17 12:43:50 - Database connected successfully
+2025-04-17 12:43:50 - Database connected successfully
+2025-04-17 12:48:16 - POST data: Array
+(
+)
+
+2025-04-17 12:48:16 - Database connected successfully
+2025-04-17 12:48:16 - Database connected successfully
+2025-04-17 12:48:17 - POST data: Array
+(
+)
+
+2025-04-17 12:48:17 - Database connected successfully
+2025-04-17 12:48:17 - Database connected successfully
+2025-04-17 12:48:55 - POST data: Array
+(
+)
+
+2025-04-17 12:48:55 - Database connected successfully
+2025-04-17 12:48:55 - Database connected successfully
+2025-04-17 12:53:28 - POST data: Array
+(
+    [name] => Cube de Rubikk
+    [price] => 90
+    [stock] => 53
+    [category] => Univers du cerveau
+    [purchase_available] => no
+    [rental_available] => no
+    [action] => add
+)
+
+2025-04-17 12:53:28 - Database connected successfully
+2025-04-17 12:53:37 - POST data: Array
+(
+)
+
+2025-04-17 12:53:37 - Database connected successfully
+2025-04-17 12:53:37 - Database connected successfully
+2025-04-17 12:58:25 - POST data: Array
+(
+)
+
+2025-04-17 12:58:25 - Database connected successfully
+2025-04-17 12:58:33 - POST data: Array
+(
+    [name] => Cube de Rubik
+    [price] => 100
+    [stock] => 53
+    [category] => Univers du cerveau
+    [purchase_available] => no
+    [rental_available] => no
+    [action] => update
+    [id] => 80
+)
+
+2025-04-17 12:58:33 - Database connected successfully
+2025-04-17 12:58:41 - POST data: Array
+(
+)
+
+2025-04-17 12:58:41 - Database connected successfully
+2025-04-17 12:58:41 - Database connected successfully
+2025-04-17 12:59:39 - POST data: Array
+(
+    [name] => nnnn
+    [price] => 451
+    [stock] => 5
+    [category] => Équipements Sportifs
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-17 12:59:39 - Database connected successfully
+2025-04-17 13:01:46 - POST data: Array
+(
+)
+
+2025-04-17 13:01:46 - Database connected successfully
+2025-04-17 13:01:46 - Database connected successfully
+2025-04-17 13:02:52 - POST data: Array
+(
+    [name] => nnnn
+    [price] => 451
+    [stock] => 5
+    [category] => Vêtements et Accessoires
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-17 13:02:52 - Database connected successfully
+2025-04-17 13:03:45 - POST data: Array
+(
+)
+
+2025-04-17 13:03:45 - Database connected successfully
+2025-04-17 13:03:45 - Database connected successfully
+2025-04-17 13:04:34 - POST data: Array
+(
+    [name] => id 
+    [price] => 51
+    [stock] => 5
+    [category] => Vêtements et Accessoires
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-17 13:04:34 - Database connected successfully
+2025-04-17 13:09:25 - POST data: Array
+(
+)
+
+2025-04-17 13:09:25 - Database connected successfully
+2025-04-17 13:09:25 - Database connected successfully
+2025-04-17 13:10:35 - POST data: Array
+(
+    [name] => id 
+    [price] => 51
+    [stock] => 5
+    [category] => Vêtements et Accessoires
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-17 13:10:35 - Database connected successfully
+2025-04-17 13:11:02 - POST data: Array
+(
+    [name] => id 
+    [price] => 65
+    [stock] => 85
+    [category] => Vêtements et Accessoires
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-17 13:11:02 - Database connected successfully
+2025-04-17 13:11:34 - POST data: Array
+(
+)
+
+2025-04-17 13:11:34 - Database connected successfully
+2025-04-17 13:11:34 - Database connected successfully
+2025-04-17 13:11:36 - POST data: Array
+(
+)
+
+2025-04-17 13:11:36 - Database connected successfully
+2025-04-17 13:11:36 - Database connected successfully
+2025-04-17 13:26:40 - POST data: Array
+(
+    [name] => eyaml
+    [price] => 20
+    [stock] => 20
+    [category] => Vêtements et Accessoires
+    [purchase_available] => yes
+    [rental_available] => yes
+    [action] => add
+)
+
+2025-04-17 13:26:40 - Database connected successfully
+2025-04-17 13:26:57 - POST data: Array
+(
+    [action] => delete
+    [id] => 93
+)
+
+2025-04-17 13:26:57 - Database connected successfully
+2025-04-17 13:27:01 - POST data: Array
+(
+    [action] => delete
+    [id] => 92
+)
+
+2025-04-17 13:27:01 - Database connected successfully
+2025-04-17 13:27:05 - POST data: Array
+(
+    [action] => delete
+    [id] => 91
+)
+
+2025-04-17 13:27:05 - Database connected successfully
+2025-04-17 13:27:09 - POST data: Array
+(
+    [action] => delete
+    [id] => 94
+)
+
+2025-04-17 13:27:09 - Database connected successfully
+2025-04-17 13:27:13 - POST data: Array
+(
+    [action] => delete
+    [id] => 90
+)
+
+2025-04-17 13:27:13 - Database connected successfully
+2025-04-17 13:27:16 - POST data: Array
+(
+    [action] => delete
+    [id] => 89
+)
+
+2025-04-17 13:27:16 - Database connected successfully
+2025-04-17 13:28:55 - POST data: Array
+(
+    [action] => add
+    [name] => frty
+    [price] => 20
+    [stock] => 20
+    [category] => Équipements Sportifs
+    [purchase_available] => yes
+    [rental_available] => yes
+)
+
+2025-04-17 13:28:55 - Database connected successfully
+2025-04-17 13:29:04 - POST data: Array
+(
+)
+
+2025-04-17 13:29:04 - Database connected successfully
+2025-04-17 13:29:04 - Database connected successfully
+2025-04-17 13:29:32 - POST data: Array
+(
+)
+
+2025-04-17 13:29:32 - Database connected successfully
+2025-04-17 13:29:37 - POST data: Array
+(
+    [action] => update
+    [name] => yaya
+    [price] => 20.00
+    [stock] => 20
+    [category] => Équipements Sportifs
+    [purchase_available] => no
+    [rental_available] => no
+    [id] => 95
+)
+
+2025-04-17 13:29:37 - Database connected successfully
+2025-04-17 13:29:47 - POST data: Array
+(
+)
+
+2025-04-17 13:29:47 - Database connected successfully
+2025-04-17 13:29:47 - Database connected successfully
+2025-04-17 13:29:48 - POST data: Array
+(
+)
+
+2025-04-17 13:29:48 - Database connected successfully
+2025-04-17 13:29:48 - Database connected successfully
+2025-04-17 13:29:49 - POST data: Array
+(
+)
+
+2025-04-17 13:29:49 - Database connected successfully
+2025-04-17 13:29:49 - Database connected successfully
+2025-04-17 13:41:28 - POST data: Array
+(
+)
+
+2025-04-17 13:41:28 - Database connected successfully
+2025-04-17 13:41:28 - Database connected successfully
+2025-04-17 13:52:02 - POST data: Array
+(
+)
+
+2025-04-17 13:52:02 - Database connected successfully
+2025-04-17 13:52:02 - Database connected successfully
+2025-04-17 14:10:13 - POST data: Array
+(
+)
+
+2025-04-17 14:10:13 - Database connected successfully
+2025-04-17 14:10:13 - Database connected successfully
+2025-04-17 14:10:18 - POST data: Array
+(
+)
+
+2025-04-17 14:10:18 - Database connected successfully
+2025-04-17 14:10:18 - Database connected successfully
+2025-04-17 14:11:35 - POST data: Array
+(
+)
+
+2025-04-17 14:11:35 - Database connected successfully
+2025-04-17 14:11:35 - Database connected successfully
+2025-04-17 14:12:27 - POST data: Array
+(
+)
+
+2025-04-17 14:12:27 - Database connected successfully
+2025-04-17 14:12:27 - Database connected successfully
+2025-04-17 14:22:40 - POST data: Array
+(
+)
+
+2025-04-17 14:22:40 - Database connected successfully
+2025-04-17 14:22:40 - Database connected successfully
+2025-04-17 14:22:45 - POST data: Array
+(
+)
+
+2025-04-17 14:22:45 - Database connected successfully
+2025-04-17 14:22:45 - Database connected successfully
+2025-04-17 14:25:27 - POST data: Array
+(
+)
+
+2025-04-17 14:25:27 - Database connected successfully
+2025-04-17 14:25:27 - Database connected successfully
+2025-04-17 14:25:27 - POST data: Array
+(
+)
+
+2025-04-17 14:25:27 - Database connected successfully
+2025-04-17 14:25:27 - Database connected successfully
+2025-04-17 14:25:37 - POST data: Array
+(
+)
+
+2025-04-17 14:25:37 - Database connected successfully
+2025-04-17 14:25:37 - Database connected successfully
+2025-04-17 14:46:42 - POST data: Array
+(
+)
+
+2025-04-17 14:46:42 - Database connected successfully
+2025-04-17 14:46:42 - Database connected successfully
+2025-04-17 15:01:15 - POST data: Array
+(
+)
+
+2025-04-17 15:01:15 - Database connected successfully
+2025-04-17 15:01:15 - Database connected successfully
+2025-04-17 15:04:15 - POST data: Array
+(
+    [action] => add
+    [name] => yayao
+    [price] => 20.00
+    [stock] => 20
+    [category] => Équipements Sportifs
+    [purchase_available] => no
+    [rental_available] => no
+)
+
+2025-04-17 15:04:15 - Database connected successfully
+2025-04-17 15:04:35 - POST data: Array
+(
+)
+
+2025-04-17 15:04:35 - Database connected successfully
+2025-04-17 15:04:35 - Database connected successfully
+2025-04-17 15:04:48 - POST data: Array
+(
+)
+
+2025-04-17 15:04:48 - Database connected successfully
+2025-04-17 15:04:48 - Database connected successfully
+2025-04-17 15:05:55 - POST data: Array
+(
+)
+
+2025-04-17 15:05:55 - Database connected successfully
+2025-04-17 15:05:55 - Database connected successfully
+2025-04-17 15:10:04 - POST data: Array
+(
+)
+
+2025-04-17 15:10:04 - Database connected successfully
+2025-04-17 15:10:04 - Database connected successfully
+2025-04-17 15:13:18 - POST data: Array
+(
+)
+
+2025-04-17 15:13:18 - Database connected successfully
+2025-04-17 15:13:18 - Database connected successfully
+2025-04-17 15:15:43 - POST data: Array
+(
+)
+
+2025-04-17 15:15:43 - Database connected successfully
+2025-04-17 15:15:43 - Database connected successfully
+2025-04-17 15:22:14 - POST data: Array
+(
+)
+
+2025-04-17 15:22:14 - Database connected successfully
+2025-04-17 15:22:14 - Database connected successfully
+2025-04-17 15:27:44 - POST data: Array
+(
+)
+
+2025-04-17 15:27:44 - Database connected successfully
+2025-04-17 15:27:44 - Database connected successfully
+2025-04-17 15:34:10 - POST data: Array
+(
+)
+
+2025-04-17 15:34:10 - Database connected successfully
+2025-04-17 15:34:10 - Database connected successfully
+2025-04-17 15:38:05 - POST data: Array
+(
+    [action] => add
+    [name] => yayaopl
+    [price] => 20.00
+    [stock] => 20
+    [category] => Équipements Sportifs
+    [purchase_available] => no
+    [rental_available] => no
+)
+
+2025-04-17 15:38:05 - Database connected successfully
+2025-04-17 15:38:20 - POST data: Array
+(
+)
+
+2025-04-17 15:38:20 - Database connected successfully
+2025-04-17 15:38:20 - Database connected successfully
+2025-04-17 15:38:56 - POST data: Array
+(
+)
+
+2025-04-17 15:38:56 - Database connected successfully
+2025-04-17 15:38:56 - Database connected successfully
+2025-04-17 15:40:49 - POST data: Array
+(
+)
+
+2025-04-17 15:40:49 - Database connected successfully
+2025-04-17 15:40:49 - Database connected successfully
+2025-04-17 15:41:59 - POST data: Array
+(
+    [action] => delete
+    [id] => 97
+)
+
+2025-04-17 15:41:59 - Database connected successfully
+2025-04-17 15:42:21 - POST data: Array
+(
+)
+
+2025-04-17 15:42:21 - Database connected successfully
+2025-04-17 15:42:21 - Database connected successfully
+2025-04-17 15:49:59 - POST data: Array
+(
+)
+
+2025-04-17 15:49:59 - Database connected successfully
+2025-04-17 15:49:59 - Database connected successfully
+2025-04-17 16:01:34 - POST data: Array
+(
+)
+
+2025-04-17 16:01:34 - Database connected successfully
+2025-04-17 16:01:34 - Database connected successfully
+2025-04-17 18:31:34 - POST data: Array
+(
+)
+
+2025-04-17 18:31:34 - Database connected successfully
+2025-04-17 18:31:34 - Database connected successfully
+2025-04-17 18:34:31 - POST data: Array
+(
+    [action] => add
+    [name] => yayaopllopk
+    [price] => 20.00
+    [stock] => 20
+    [category] => Équipements Sportifs
+    [purchase_available] => no
+    [rental_available] => no
+)
+
+2025-04-17 18:34:31 - Database connected successfully
+2025-04-17 18:35:09 - POST data: Array
+(
+)
+
+2025-04-17 18:35:09 - Database connected successfully
+2025-04-17 18:35:09 - Database connected successfully
+2025-04-18 09:58:28 - POST data: Array
+(
+)
+
+2025-04-18 09:58:28 - Database connected successfully
+2025-04-18 09:58:28 - Database connected successfully
+2025-04-18 09:59:25 - POST data: Array
+(
+    [action] => add
+    [name] => yayaopllopklm
+    [price] => 20.00
+    [stock] => 20
+    [category] => Supports et accessoires d'atelier
+    [purchase_available] => no
+    [rental_available] => no
+)
+
+2025-04-18 09:59:25 - Database connected successfully
+2025-04-18 09:59:51 - POST data: Array
+(
+)
+
+2025-04-18 09:59:51 - Database connected successfully
+2025-04-18 09:59:51 - Database connected successfully

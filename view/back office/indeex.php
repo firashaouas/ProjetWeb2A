@@ -429,7 +429,7 @@ $products = $response['success'] ? $response['products'] : [];
           <p>25 produits</p>
         </div>
         <div class="category">
-          <h4>Supports et accessoires d’atelier</h4>
+          <h4>Supports et accessoires d'atelier</h4>
           <p>20 produits</p>
         </div>
         <div class="category">
@@ -619,6 +619,7 @@ $products = $response['success'] ? $response['products'] : [];
       </div>
       <div class="modal-body">
         <form id="productForm" action="../../Controller/produitcontroller.php" method="POST" enctype="multipart/form-data" novalidate>
+          <input type="hidden" name="action" value="add">
           <div class="form-group">
             <label for="productName">Nom</label>
             <input type="text" id="productName" name="name" required>

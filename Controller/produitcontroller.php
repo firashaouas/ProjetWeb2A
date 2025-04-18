@@ -5,17 +5,6 @@ require_once(__DIR__ . "/../model/produitmodel.php");
 
 require_once(__DIR__ . "../../config.php");
 
-
-if (isset($_GET['category'])) {
-    $categoryName = $_GET['category'];
-    $controller = new ProductController();
-    $products = $controller->getProductsByCategory($categoryName);
-    
-    header('Content-Type: application/json');
-    echo json_encode($products);
-    exit();
-}
-
 // For debugging
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -78,26 +67,19 @@ class ProductController {
             return ['error' => $e->getMessage()];
         }
     }
-    
-    
-    
-    
-
-
-    
 
     // Add a new product
     public function addProduct($name, $price, $stock, $category, $purchase_available, $rental_available) {
         try {
 
             // Gestion de l'image
-            $photoPath = 'images/products/logo.png'; // Valeur par défaut
+            $photoPath = 'images/products/logo.png'; 
             
             if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
                 $photoPath = $this->handleFileUpload('photo');
             }
 
-            // Conversion des valeurs booléennes
+            
             $purchase_available = ($purchase_available === 'yes') ? 1 : 0;
             $rental_available = ($rental_available === 'yes') ? 1 : 0;
 
@@ -321,14 +303,14 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'
     header('Content-Type: application/json');
     
     try {
-        // Get all products
+       
         if (isset($_GET['action']) && $_GET['action'] === 'get_all') {
             $products = $controller->getAllProducts();
             echo json_encode(['success' => true, 'products' => $products]);
             exit;
         }
         
-        // Get single product
+        
         if (isset($_GET['action']) && $_GET['action'] === 'get_one' && isset($_GET['id'])) {
             $product = $controller->getProductById($_GET['id']);
             echo json_encode(['success' => true, 'product' => $product]);
@@ -355,8 +337,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_POST['stock'],
                 $_POST['category'],
                 $_POST['purchase_available'],
-                $_POST['rental_available'],
-                $_POST['photo'] ?? null
+                $_POST['rental_available']
             );
             break;
 
@@ -372,8 +353,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_POST['stock'],
                 $_POST['category'],
                 $_POST['purchase_available'],
-                $_POST['rental_available'],
-                $_POST['photo'] ?? null
+                $_POST['rental_available']
             );
             break;
 
@@ -393,5 +373,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: ../view/back%20office/indeex.php?message=" . urlencode($message));
         exit;
     }
+}
+if (isset($_GET['category'])) {
+    $categoryName = $_GET['category'];
+    $controller = new ProductController();
+    $products = $controller->getProductsByCategory($categoryName);
+    
+    header('Content-Type: application/json');
+    echo json_encode($products);
+    exit();
 }
 ?>
