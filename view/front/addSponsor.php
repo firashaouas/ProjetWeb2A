@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($telephone)) {
         $fieldErrors['phone'] = "Le téléphone est obligatoire";
-    } elseif (!preg_match('/^[\+]{0,1}[0-9\s]{8,20}$/', $telephone)) {
+    } elseif (!preg_match('/^[\+]{0,1}[0-9\s]{8,8}$/', $telephone)) {
         $fieldErrors['phone'] = "Format de téléphone invalide (8-20 chiffres, + autorisé au début)";
     }
 

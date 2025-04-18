@@ -221,19 +221,22 @@ class Offre {
     private string $evenement;
     private float $montant_offre;
     private string $status;
+    private ?string $image; // New property for image filename
 
     public function __construct(
         string $titre_offre,
         string $description_offre,
         string $evenement,
         float $montant_offre,
-        string $status = 'libre'
+        string $status = 'libre',
+        ?string $image = null
     ) {
         $this->titre_offre = $titre_offre;
         $this->description_offre = $description_offre;
         $this->evenement = $evenement;
         $this->montant_offre = $montant_offre;
         $this->status = $status;
+        $this->image = $image;
     }
 
     public function getId_offre()
@@ -299,6 +302,17 @@ class Offre {
     public function setStatus($status)
     {
         $this->status = $status;
+        return $this;
+    }
+
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image)
+    {
+        $this->image = $image;
         return $this;
     }
 }

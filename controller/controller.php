@@ -20,13 +20,14 @@ class sponsorController{
 
     public function addOffer($offer) {
         $db = config::getConnexion();
-        $sql = "INSERT INTO offre (titre_offre, description_offre, evenement, montant_offre, status) VALUES (:titre_offre, :description_offre, :evenement, :montant_offre, :status)";
+        $sql = "INSERT INTO offre (titre_offre, description_offre, evenement, montant_offre, status, image) VALUES (:titre_offre, :description_offre, :evenement, :montant_offre, :status, :image)";
         $stmt = $db->prepare($sql);
         $stmt->bindValue(':titre_offre', $offer->getTitre_offre());
         $stmt->bindValue(':description_offre', $offer->getDescription_offre());
         $stmt->bindValue(':evenement', $offer->getEvenement());
         $stmt->bindValue(':montant_offre', $offer->getMontant_offre());
         $stmt->bindValue(':status', $offer->getStatus());
+        $stmt->bindValue(':image', $offer->getImage());
         return $stmt->execute();
     }
     public function addSponsor(sponsor $sponsor)
@@ -111,5 +112,41 @@ public function updateSponsor(sponsor $sponsor) {
 
     return $sql->execute();
 }
+    public function deleteOffer($id_offer) {
+        $db = config::getConnexion();
+        $sql = $db->prepare("DELETE FROM offre WHERE id_offre = :id");
+        $sql->bindValue(':id', $id_offer, PDO::PARAM_INT);
+        return $sql->execute();
+    }
+
+    public function getOfferById($id_offer) {
+        $db = config::getConnexion();
+        $sql = $db->prepare("SELECT * FROM offre WHERE id_offre = :id");
+        $sql->bindValue(':id', $id_offer, PDO::PARAM_INT);
+        $sql->execute();
+        return $sql->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function updateOffer(Offre $offer) {
+        $db = config::getConnexion();
+        $sql = $db->prepare("UPDATE offre SET 
+            titre_offre = :titre_offre,
+            description_offre = :description_offre,
+            evenement = :evenement,
+            montant_offre = :montant_offre,
+            status = :status,
+            image = :image
+            WHERE id_offre = :id");
+
+        $sql->bindValue(':id', $offer->getId_offre(), PDO::PARAM_INT);
+        $sql->bindValue(':titre_offre', $offer->getTitre_offre());
+        $sql->bindValue(':description_offre', $offer->getDescription_offre());
+        $sql->bindValue(':evenement', $offer->getEvenement());
+        $sql->bindValue(':montant_offre', $offer->getMontant_offre());
+        $sql->bindValue(':status', $offer->getStatus());
+        $sql->bindValue(':image', $offer->getImage());
+
+        return $sql->execute();
+    }
 }
 ?>

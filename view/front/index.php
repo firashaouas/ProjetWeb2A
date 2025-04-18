@@ -174,34 +174,42 @@ $propositions = $controller->listSponser();
         }
 
         .sponsorship-card {
-            background: rgb(250, 222, 228);
+            background: #fff;
             padding: 1.5rem;
-            border-radius: 0.75rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(193, 34, 193, 0.15);
             cursor: pointer;
-            transition: transform 0.2s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            border: 1px solid #c122c1;
         }
 
         .sponsorship-card:hover {
-            transform: translateY(-4px);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(193, 34, 193, 0.4);
         }
 
         .sponsorship-card h3 {
-            color: #420330;
-            font-size: 1.25rem;
-            margin-bottom: 1rem;
+            color: #a01aa0;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
         }
 
         .sponsorship-card p {
-            color: #000000;
+            color: #4b004b;
             margin-bottom: 1rem;
+            font-size: 1.1rem;
+            line-height: 1.4;
         }
 
         .benefits-list {
             list-style-type: disc;
             margin-left: 1.5rem;
             margin-bottom: 1rem;
-            color: #040406;
+            color: #4b004b;
         }
 
         .sponsorship-footer {
@@ -209,19 +217,22 @@ $propositions = $controller->listSponser();
             justify-content: space-between;
             align-items: center;
             margin-bottom: 1rem;
+            font-weight: 600;
+            color: #a01aa0;
         }
 
         .amount {
-            color: #3c0c3c;
-            font-weight: 600;
+            color: #7a007a;
+            font-weight: 700;
+            font-size: 1.2rem;
         }
 
         .event-image {
             width: 100%;
-            height: 300px;
+            height: 200px;
             object-fit: cover;
-            border-radius: 0.5rem;
-            margin-bottom: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
         }
 
         .event-description {
@@ -249,45 +260,59 @@ $propositions = $controller->listSponser();
         }
 
         .proposal-status {
-            padding: 0.5rem 1rem;
-            border-radius: 0.375rem;
-            font-weight: 500;
+            padding: 0.6rem 1.2rem;
+            border-radius: 12px;
+            font-weight: 600;
             text-align: center;
             margin-bottom: 1rem;
+            font-size: 0.9rem;
+            width: fit-content;
+            box-shadow: 0 0 8px rgba(193, 34, 193, 0.3);
         }
 
         .status-pending {
-            background: #FEF3C7;
+            background: #fff4e5;
             color: #d56621;
+            border: 1px solid #f0c36d;
         }
 
         .status-approved {
-            background: #D1FAE5;
+            background: #e6f4ea;
             color: #09513c;
+            border: 1px solid #7ed08a;
         }
 
         .status-rejected {
-            background: #FEE2E2;
+            background: #fbeaea;
             color: #ac1515;
+            border: 1px solid #f5a1a1;
         }
 
         .proposal-card {
             background: white;
             padding: 1.5rem;
-            border-radius: 0.75rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(193, 34, 193, 0.15);
             margin-bottom: 1.5rem;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .proposal-card:hover {
+            box-shadow: 0 15px 30px rgba(193, 34, 193, 0.3);
         }
 
         .proposal-card h3 {
-            color: #1F2937;
-            font-size: 1.25rem;
-            margin-bottom: 1rem;
+            color: #4b004b;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
         }
 
         .proposal-details {
             margin-bottom: 1rem;
-            color: #6B7280;
+            color: #6b7280;
+            font-size: 1rem;
+            line-height: 1.4;
         }
 
         .proposal-actions {
@@ -295,17 +320,24 @@ $propositions = $controller->listSponser();
             gap: 1rem;
         }
 
-        .proposal-actions button {
+        .proposal-actions a {
             flex: 1;
+            text-align: center;
+            padding: 0.75rem 0;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+            user-select: none;
+            background: #c122c1;
+            color: white;
+            box-shadow: 0 4px 12px rgba(193, 34, 193, 0.4);
         }
 
-        .button-secondary {
-            background: #E5E7EB;
-            color: #374151;
-        }
-
-        .button-secondary:hover {
-            background: #D1D5DB;
+        .proposal-actions a:hover {
+            background: #a01aa0;
+            box-shadow: 0 6px 20px rgba(160, 26, 160, 0.6);
         }
         * {
             margin: 0;
@@ -786,13 +818,14 @@ $propositions = $controller->listSponser();
             <small class="error-message"></small>
         </div>
         
-        <div class="form-group">
-            <label for="phone">Téléphone</label>
-            <input type="tel" id="phone" name="phone" 
-                   pattern="[\+]{0,1}[0-9\s]{8,20}" 
-                   title="Format: +216 XX XXX XXX ou XX XXX XXX" required>
-            <small class="error-message"></small>
-        </div>
+    <div class="form-group">
+        <label for="phone">Téléphone</label>
+        <input type="tel" id="phone" name="phone" 
+               pattern="(\+216\s)?[0-9]{8}" 
+               title="Format: +216 XXXXXXXX ou XXXXXXXX" required
+               value="+216 " maxlength="13" />
+        <small class="error-message"></small>
+    </div>
         
         <div class="form-group">
             <label for="description">Description du sponsoring</label>
@@ -896,8 +929,13 @@ $propositions = $controller->listSponser();
                         continue;
                     }
                     $displayedOffers[] = $key;
-                    echo '<div class="sponsorship-card">';
+                    echo '<div class="sponsorship-card" data-evenement="' . htmlspecialchars($offer['evenement']) . '">';
                     echo '<h3>' . htmlspecialchars($offer['titre_offre']) . '</h3>';
+                    if (!empty($offer['image'])) {
+                        echo '<img src="images/' . htmlspecialchars($offer['image']) . '" alt="Image de l\'offre" style="max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 12px;" />';
+                    } else {
+                        echo '<img src="images/default.png" alt="Image par défaut" style="max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 12px;" />';
+                    }
                     echo '<p>' . htmlspecialchars($offer['description_offre']) . '</p>';
                     echo '<div class="sponsorship-footer">';
                     echo '<span>Événement: ' . htmlspecialchars($offer['evenement']) . '</span>';
@@ -907,7 +945,7 @@ $propositions = $controller->listSponser();
                 }
                 ?>
             </div>
-        </div>
+        </div> 
 
         <!-- Section de suivi des propositions -->
         <div class="tracking-section" id="tracking-section">
@@ -1001,6 +1039,79 @@ $propositions = $controller->listSponser();
 
     <script>
         // Removed JavaScript for filtering and modal as per request
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const phoneInput = document.getElementById('phone');
+            if (!phoneInput) return;
+
+            // Set default value if empty or does not start with +216
+            if (!phoneInput.value.startsWith('+216 ')) {
+                phoneInput.value = '+216 ';
+            }
+
+            phoneInput.addEventListener('keydown', function(e) {
+                const allowedKeys = [
+                    'Backspace', 'ArrowLeft', 'ArrowRight', 'Delete', 'Tab'
+                ];
+                // Allow control keys
+                if (allowedKeys.includes(e.key)) {
+                    return;
+                }
+
+                // Prevent typing before prefix
+                if (phoneInput.selectionStart < 5) {
+                    e.preventDefault();
+                    phoneInput.setSelectionRange(5, 5);
+                    return;
+                }
+
+                // Allow only digits after prefix
+                if (!/\d/.test(e.key)) {
+                    e.preventDefault();
+                }
+
+                // Limit length to 13 characters (+216 + 8 digits)
+                if (phoneInput.value.length >= 13 && phoneInput.selectionStart === phoneInput.selectionEnd) {
+                    e.preventDefault();
+                }
+            });
+
+            phoneInput.addEventListener('input', function(e) {
+                // Remove any non-digit characters after prefix
+                let value = phoneInput.value;
+
+                // Ensure prefix is intact
+                if (!value.startsWith('+216 ')) {
+                    value = '+216 ';
+                }
+
+                // Remove invalid characters after prefix
+                let afterPrefix = value.slice(5).replace(/\D/g, '');
+
+                // Limit to 8 digits
+                afterPrefix = afterPrefix.slice(0, 8);
+
+                phoneInput.value = '+216 ' + afterPrefix;
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sponsorshipCards = document.querySelectorAll('.sponsorship-card');
+            const evenementInput = document.getElementById('evenement');
+
+            sponsorshipCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const evenement = card.getAttribute('data-evenement');
+                    if (evenementInput) {
+                        evenementInput.value = evenement;
+                        evenementInput.focus();
+                    }
+                    // Optionally scroll to the form
+                    document.getElementById('form-section').scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+        });
     </script>
 </body>
 </html>
