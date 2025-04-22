@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_POST['location'],
                 $_POST['imageUrl'],
                 $_POST['totalSeats'],
-                $_POST['reservedSeats']
+                $_POST['reservedSeats'] ?? 0
             );
             $controller->addEvent($event);
             break;
@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_POST['location'],
                 $_POST['imageUrl'],
                 $_POST['totalSeats'],
-                $_POST['reservedSeats']
+                $_POST['reservedSeats'] ?? 0
             );
             $controller->updateEvent($event, $_POST['id']);
             break;
@@ -59,7 +59,258 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <title>Gestion des événements</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <link href="add.css" rel="stylesheet">
+    <link rel="stylesheet" href="add.css">
+
+    <style>
+.seat-management {
+    margin: 20px;
+    padding: 25px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    border: 1px solid #e0e0e0;
+}
+
+.seat-management:hover {
+    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+}
+
+.seat-management h2 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    border-bottom: 2px solid #C83EFC;
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+.seat-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.seat-controls select {
+    padding: 10px 15px;
+    border-radius: 6px;
+    border: 1px solid #bdc3c7;
+    background-color: #f8f9fa;
+    font-size: 14px;
+    color: #2c3e50;
+    transition: all 0.3s;
+    min-width: 200px;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 15px;
+}
+
+.seat-controls select:focus {
+    outline: none;
+    border-color: #C83EFC;
+    box-shadow: 0 0 0 3px rgba(52,152,219,0.2);
+}
+
+.seat-stats {
+    font-weight: 600;
+    color: #2c3e50;
+    background: #f1f8fe;
+    padding: 10px 15px;
+    border-radius: 6px;
+    border-left: 4px solid #C83EFC;
+    margin-left: auto;
+}
+
+.seat-grid-container {
+    max-width: 100%;
+    overflow-x: auto;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.seat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+    gap: 12px;
+    padding: 15px;
+    transition: transform 0.3s;
+    min-height: 200px;
+    align-items: center;
+    justify-items: center;
+}
+
+.seat {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.seat::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.1);
+    transform: translateY(100%);
+    transition: transform 0.3s;
+}
+
+.seat:hover::before {
+    transform: translateY(0);
+}
+
+.seat:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.seat.libre { 
+    background-color: #2ecc71;
+    background-image: linear-gradient(135deg, #2ecc71, #27ae60);
+}
+
+.seat.reserve { 
+    background-color: #e74c3c;
+    background-image: linear-gradient(135deg, #e74c3c, #c0392b);
+}
+
+.seat.selected {
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+    animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    background: white;
+    margin: 10% auto;
+    padding: 30px;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 12px;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    animation: slideDown 0.4s;
+}
+
+@keyframes slideDown {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-content h3 {
+    margin-top: 0;
+    color: #2c3e50;
+    font-size: 1.5rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.modal-content .close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    cursor: pointer;
+    color: #7f8c8d;
+    transition: color 0.3s;
+}
+
+.modal-content .close:hover {
+    color: #e74c3c;
+}
+
+#seatDetails {
+    margin: 20px 0;
+    line-height: 1.6;
+}
+
+#seatDetails p {
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+#seatDetails strong {
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .seat-controls {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .seat-stats {
+        margin-left: 0;
+        width: 100%;
+    }
+    
+    .modal-content {
+        width: 95%;
+        margin: 20% auto;
+    }
+}
+
+/* Loading animation */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top: 4px solid #3498db;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+}
+</style>
+
 </head>
 <body>
     <div class="sidebar">
@@ -181,15 +432,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         echo "</td>";                        echo "<td>{$event['totalSeats']}</td>";
                         echo "<td>{$event['reservedSeats']}</td>";
                         echo "<td class='action-buttons'>
-                                <form method='post'>
-                                    <input type='hidden' name='edit_id' value='{$event['id']}'>
-                                    <button type='submit' name='action' value='edit' class='btn btn-primary'>Modifier</button>
-                                </form>
-                                <form method='post'>
-                                    <input type='hidden' name='id' value='{$event['id']}'>
-                                    <button type='submit' name='action' value='supp' class='btn btn-danger'>Supprimer</button>
-                                </form>
-                              </td>";
+                        <form method='post'>
+                            <input type='hidden' name='edit_id' value='{$event['id']}'>
+                            <button type='submit' name='action' value='edit' class='btn btn-primary'>Modifier</button>
+                        </form>
+                        <form method='post'>
+                            <input type='hidden' name='id' value='{$event['id']}'>
+                            <button type='submit' name='action' value='supp' class='btn btn-danger'>Supprimer</button>
+                        </form>
+                        <button onclick=\"document.getElementById('eventFilter').value = {$event['id']}; loadSeatsForEvent({$event['id']})\" class='btn btn-info'>Voir chaises</button>
+                      </td>";
                     }
                     echo "</tr>";
                 }
@@ -199,7 +451,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
 
         </div>
+        <div class="seat-management">
+    <h2>Gestion des chaises</h2>
+    <div class="seat-controls">
+        <select id="eventFilter" onchange="loadSeatsForEvent(this.value)">
+            <option value="">Sélectionner un événement</option>
+            <?php
+            $events = $controller->getEvents();
+            foreach ($events as $event) {
+                echo "<option value='{$event['id']}'>" . htmlspecialchars($event['name']) . "</option>";
+            }
+            ?>
+        </select>
+        <select id="statusFilter" onchange="filterSeats()">
+            <option value="all">Tous les statuts</option>
+            <option value="libre">Libre</option>
+            <option value="reserve">Réservé</option>
+        </select>
+        <div class="seat-stats" id="seatStats"></div>
+    </div>
+    <div class="seat-grid-container">
+        <div class="seat-grid" id="seatGrid"></div>
+    </div>
+</div>
 
+<!-- Modale pour les détails de la chaise -->
+<div id="seatModal" class="modal">
+    <div class="modal-content">
+        <span class="close">×</span>
+        <h3>Détails de la chaise</h3>
+        <div id="seatDetails"></div>
+    </div>
+</div>
         <!-- Panneau latéral droit -->
         <div class="add-panel" id="addPanel">
             <button class="close-panel" id="closePanel">&times;</button>
@@ -435,8 +718,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-   
-
     // Fonctions utilitaires
     function showError(element, message) {
         element.textContent = message;
@@ -504,6 +785,250 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+</script>
+<script>
+// Global variables
+let currentChaises = [];
+let currentChaiseId = null;
+let selectedSeat = null;
+
+// DOM Content Loaded
+document.addEventListener('DOMContentLoaded', function() {
+    initializeSeatManagement();
+    setupEventListeners();
+    
+    // Load seats for first event if available
+    const eventFilter = document.getElementById('eventFilter');
+    if (eventFilter.options.length > 1) {
+        eventFilter.value = eventFilter.options[1].value;
+        loadSeatsForEvent(eventFilter.value);
+    }
+});
+
+function initializeSeatManagement() {
+    // Add loading animation CSS
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .status-libre { color: #2ecc71; font-weight: bold; }
+        .status-reserve { color: #e74c3c; font-weight: bold; }
+        .error-message { color: #e74c3c; text-align: center; padding: 20px; }
+        .no-seats { text-align: center; color: #7f8c8d; padding: 20px; }
+        .stats-container { display: flex; gap: 15px; flex-wrap: wrap; align-items: center; }
+        .stat-item { text-align: center; padding: 5px 10px; }
+        .stat-value { font-size: 1.2rem; font-weight: bold; display: block; }
+        .stat-label { font-size: 0.8rem; color: #7f8c8d; }
+        .progress-container {
+            flex-grow: 1;
+            height: 8px;
+            background: #ecf0f1;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 0 10px;
+        }
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #e74c3c, #3498db);
+            transition: width 0.5s;
+        }
+        .percentage { font-size: 0.9rem; color: #7f8c8d; }
+    `;
+    document.head.appendChild(style);
+}
+
+function setupEventListeners() {
+    // Modal controls
+    document.querySelector('.modal .close').addEventListener('click', closeModal);
+    window.addEventListener('click', (event) => {
+        if (event.target === document.getElementById('seatModal')) {
+            closeModal();
+        }
+    });
+    
+    // Event filter change
+    document.getElementById('eventFilter').addEventListener('change', function() {
+        loadSeatsForEvent(this.value);
+    });
+    
+    // Status filter change
+    document.getElementById('statusFilter').addEventListener('change', filterSeats);
+}
+
+// Main functions
+function loadSeatsForEvent(eventId) {
+    const grid = document.getElementById('seatGrid');
+    const stats = document.getElementById('seatStats');
+    
+    if (!eventId) {
+        grid.innerHTML = '<p class="no-seats">Sélectionnez un événement</p>';
+        stats.innerHTML = '';
+        return;
+    }
+
+    showLoading(grid);
+    
+    fetch(`/projetWeb/mvcEvent/get_chaises.php?event_id=${eventId}`)
+        .then(handleResponse)
+        .then(data => {
+            if (data.status === 'success') {
+                currentChaises = data.chaises;
+                updateSeatGrid();
+                updateSeatStats(data.stats);
+                animateSeats();
+            } else {
+                throw new Error(data.message || 'Erreur serveur');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            grid.innerHTML = `<p class="error-message">${error.message}</p>`;
+        });
+}
+
+function handleResponse(response) {
+    if (!response.ok) {
+        if (response.status === 404) {
+            throw new Error('Service indisponible. Veuillez réessayer plus tard.');
+        }
+        throw new Error(`Erreur HTTP: ${response.status}`);
+    }
+    return response.json();
+}
+
+function showLoading(element) {
+    element.innerHTML = `
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100px;">
+            <div class="loading-spinner" style="
+                border: 4px solid rgba(52, 152, 219, 0.1);
+                border-radius: 50%;
+                border-top: 4px solid #3498db;
+                width: 40px;
+                height: 40px;
+                animation: spin 1s linear infinite;
+            "></div>
+            <p style="margin-top: 10px; color: #3498db;">Chargement...</p>
+        </div>
+    `;
+}
+
+function updateSeatGrid() {
+    const grid = document.getElementById('seatGrid');
+    const statusFilter = document.getElementById('statusFilter').value;
+    
+    grid.innerHTML = '';
+    
+    if (currentChaises.length === 0) {
+        grid.innerHTML = '<p class="no-seats">Aucune chaise disponible pour cet événement</p>';
+        return;
+    }
+
+    currentChaises.forEach(chaise => {
+        if (statusFilter === 'all' || chaise.statut === statusFilter) {
+            const seatEl = createSeatElement(chaise);
+            grid.appendChild(seatEl);
+        }
+    });
+}
+
+function createSeatElement(chaise) {
+    const seatEl = document.createElement('div');
+    seatEl.className = `seat ${chaise.statut}`;
+    seatEl.textContent = chaise.numero;
+    seatEl.dataset.id = chaise.id;
+    
+    // Add tooltip
+    seatEl.title = `Chaise #${chaise.numero} - ${chaise.statut === 'libre' ? 'Disponible' : 'Réservée'}`;
+    
+    seatEl.addEventListener('click', () => {
+        if (selectedSeat) {
+            selectedSeat.classList.remove('selected');
+        }
+        selectedSeat = seatEl;
+        selectedSeat.classList.add('selected');
+        showSeatDetails(chaise);
+    });
+    
+    return seatEl;
+}
+
+function animateSeats() {
+    setTimeout(() => {
+        document.querySelectorAll('.seat').forEach((seat, index) => {
+            seat.style.opacity = '0';
+            seat.style.transform = 'translateY(20px)';
+            seat.style.transition = 'none';
+            
+            setTimeout(() => {
+                seat.style.transition = 'opacity 0.3s, transform 0.3s';
+                seat.style.transitionDelay = `${index * 0.05}s`;
+                seat.style.opacity = '1';
+                seat.style.transform = 'translateY(0)';
+            }, 50);
+        });
+    }, 100);
+}
+
+function updateSeatStats(stats) {
+    const total = stats.total;
+    const reserved = stats.reserved;
+    const free = total - reserved;
+    const percentage = total > 0 ? Math.round((reserved / total) * 100) : 0;
+    
+    document.getElementById('seatStats').innerHTML = `
+        <div class="stats-container">
+            <div class="stat-item">
+                <span class="stat-value">${total}</span>
+                <span class="stat-label">Total</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value" style="color: #e74c3c">${reserved}</span>
+                <span class="stat-label">Réservées</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value" style="color: #2ecc71">${free}</span>
+                <span class="stat-label">Libres</span>
+            </div>
+            <div class="progress-container">
+                <div class="progress-bar" style="width: ${percentage}%"></div>
+            </div>
+            <span class="percentage">${percentage}% réservé</span>
+        </div>
+    `;
+}
+
+function filterSeats() {
+    updateSeatGrid();
+}
+
+// Modal functions
+function showSeatDetails(chaise) {
+    currentChaiseId = chaise.id;
+    const modal = document.getElementById('seatModal');
+    const details = document.getElementById('seatDetails');
+    
+    details.innerHTML = `
+        <p><strong>ID:</strong> <span>${chaise.id}</span></p>
+        <p><strong>Numéro:</strong> <span>${chaise.numero}</span></p>
+        <p><strong>Statut:</strong> <span class="status-${chaise.statut}">${chaise.statut === 'libre' ? 'Disponible' : 'Réservée'}</span></p>
+        <p><strong>Utilisateur:</strong> <span>${chaise.id_user || 'Aucun'}</span></p>
+    `;
+    
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+    const modal = document.getElementById('seatModal');
+    modal.style.animation = 'fadeOut 0.3s';
+    setTimeout(() => {
+        modal.style.display = 'none';
+        modal.style.animation = '';
+        document.body.style.overflow = '';
+    }, 300);
+}
 </script>
 </body>
 </html>

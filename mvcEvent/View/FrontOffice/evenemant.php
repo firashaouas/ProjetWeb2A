@@ -148,9 +148,9 @@ $categories = [
                                 <span>
                                     <h4><?= htmlspecialchars($event['name']) ?></h4>
                                     <p><?= htmlspecialchars($event['price']) ?> DT</p>
-                                    <a href="reservation.php?id=<?= $event['id'] ?>" class="register-btn">
-                                        Réserver
-                                    </a>
+                                    <a href="reservation.php?event_id=<?= $event['id'] ?>" class="register-btn">
+    Réserver
+</a>
                                 </span>
                             </div>
                         <?php endforeach; ?>

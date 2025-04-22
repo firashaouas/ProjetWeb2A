@@ -23,7 +23,8 @@ class Event {
          $location ,
          $imageUrl,
          $totalSeats ,
-         $reservedSeats ,
+       $reservedSeats = 0
+         ,
          
     ) {
         $this->category = $category;
