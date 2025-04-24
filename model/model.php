@@ -3,32 +3,34 @@
 class sponsor{
     private int $id_sponsor;
     private string $nom_entreprise;
-    private string $evenement;
     private string $email ; 
     private int $telephone ; 
     private float $montant ;
     private string $duree ;
     private string $avantage;
     private string $status;
+    private int $id_offre;  
+
     public function __construct(
         string $nom_entreprise,
-        string $evenement,
         string $email,
         int $telephone,
         float $montant,
         string $duree,
         string $avantage,
-        string $status
+        string $status,
+        int $id_offre  
     ) {
         $this->nom_entreprise = $nom_entreprise;
-        $this->evenement = $evenement;
         $this->email = $email;
         $this->telephone = $telephone;
         $this->montant = $montant;
         $this->duree = $duree;
         $this->avantage = $avantage;
         $this->status = $status;
+        $this->id_offre = $id_offre;
     }
+    
     
 
     /**
@@ -67,26 +69,6 @@ class sponsor{
     public function setNom_entreprise($nom_entreprise)
     {
         $this->nom_entreprise = $nom_entreprise;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of evenement
-     */ 
-    public function getEvenement()
-    {
-        return $this->evenement;
-    }
-
-    /**
-     * Set the value of evenement
-     *
-     * @return  self
-     */ 
-    public function setEvenement($evenement)
-    {
-        $this->evenement = $evenement;
 
         return $this;
     }
@@ -212,6 +194,26 @@ class sponsor{
 
                 return $this;
         }
+
+        /**
+         * Get the value of id_offre
+         */
+        public function getId_offre()
+        {
+                return $this->id_offre;
+        }
+
+        /**
+         * Set the value of id_offre
+         *
+         * @return self
+         */
+        public function setId_offre($id_offre)
+        {
+                $this->id_offre = $id_offre;
+
+                return $this;
+        }
 }
 
 class Offre {
@@ -221,19 +223,22 @@ class Offre {
     private string $evenement;
     private float $montant_offre;
     private string $status;
+    private ?string $image; 
 
     public function __construct(
         string $titre_offre,
         string $description_offre,
         string $evenement,
         float $montant_offre,
-        string $status = 'libre'
+        string $status = 'libre',
+        ?string $image = null
     ) {
         $this->titre_offre = $titre_offre;
         $this->description_offre = $description_offre;
         $this->evenement = $evenement;
         $this->montant_offre = $montant_offre;
         $this->status = $status;
+        $this->image = $image;
     }
 
     public function getId_offre()
@@ -299,6 +304,17 @@ class Offre {
     public function setStatus($status)
     {
         $this->status = $status;
+        return $this;
+    }
+
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image)
+    {
+        $this->image = $image;
         return $this;
     }
 }

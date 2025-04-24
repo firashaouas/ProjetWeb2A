@@ -60,6 +60,8 @@ $propositions = $controller->listSponser();
             text-align: center;
             cursor: pointer;
             transition: box-shadow 0.3s ease;
+            text-decoration: none;
+            color: inherit;
         }
 
         .option-card:hover {
@@ -89,6 +91,24 @@ $propositions = $controller->listSponser();
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             max-width: 800px;
             margin: 0 auto;
+        }
+        /* Override for sponsorships-section to span full width with small margins */
+        .sponsorships-section {
+            max-width: 100% !important;
+            margin: 0 1rem !important;
+            padding: 2rem 0 !important;
+        }
+        body {
+            padding-left: 1rem !important;
+            padding-right: 1rem !important;
+        }
+        .form-section h2, .sponsorships-section h2, .tracking-section h2 {
+            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: 700;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #a01aa0;
         }
 
         .back-button {
@@ -169,39 +189,47 @@ $propositions = $controller->listSponser();
 
         @media (min-width: 768px) {
             .sponsorship-grid {
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: repeat(3, 1fr);
             }
         }
 
         .sponsorship-card {
-            background: rgb(250, 222, 228);
+            background: #fff;
             padding: 1.5rem;
-            border-radius: 0.75rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(193, 34, 193, 0.15);
             cursor: pointer;
-            transition: transform 0.2s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            border: 1px solid #c122c1;
         }
 
         .sponsorship-card:hover {
-            transform: translateY(-4px);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(193, 34, 193, 0.4);
         }
 
         .sponsorship-card h3 {
-            color: #420330;
-            font-size: 1.25rem;
-            margin-bottom: 1rem;
+            color: #a01aa0;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
         }
 
         .sponsorship-card p {
-            color: #000000;
+            color: #4b004b;
             margin-bottom: 1rem;
+            font-size: 1.1rem;
+            line-height: 1.4;
         }
 
         .benefits-list {
             list-style-type: disc;
             margin-left: 1.5rem;
             margin-bottom: 1rem;
-            color: #040406;
+            color: #4b004b;
         }
 
         .sponsorship-footer {
@@ -209,19 +237,22 @@ $propositions = $controller->listSponser();
             justify-content: space-between;
             align-items: center;
             margin-bottom: 1rem;
+            font-weight: 600;
+            color: #a01aa0;
         }
 
         .amount {
-            color: #3c0c3c;
-            font-weight: 600;
+            color: #7a007a;
+            font-weight: 700;
+            font-size: 1.2rem;
         }
 
         .event-image {
             width: 100%;
-            height: 300px;
+            height: 200px;
             object-fit: cover;
-            border-radius: 0.5rem;
-            margin-bottom: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
         }
 
         .event-description {
@@ -249,45 +280,59 @@ $propositions = $controller->listSponser();
         }
 
         .proposal-status {
-            padding: 0.5rem 1rem;
-            border-radius: 0.375rem;
-            font-weight: 500;
+            padding: 0.6rem 1.2rem;
+            border-radius: 12px;
+            font-weight: 600;
             text-align: center;
             margin-bottom: 1rem;
+            font-size: 0.9rem;
+            width: fit-content;
+            box-shadow: 0 0 8px rgba(193, 34, 193, 0.3);
         }
 
         .status-pending {
-            background: #FEF3C7;
+            background: #fff4e5;
             color: #d56621;
+            border: 1px solid #f0c36d;
         }
 
         .status-approved {
-            background: #D1FAE5;
+            background: #e6f4ea;
             color: #09513c;
+            border: 1px solid #7ed08a;
         }
 
         .status-rejected {
-            background: #FEE2E2;
+            background: #fbeaea;
             color: #ac1515;
+            border: 1px solid #f5a1a1;
         }
 
         .proposal-card {
             background: white;
             padding: 1.5rem;
-            border-radius: 0.75rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(193, 34, 193, 0.15);
             margin-bottom: 1.5rem;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .proposal-card:hover {
+            box-shadow: 0 15px 30px rgba(193, 34, 193, 0.3);
         }
 
         .proposal-card h3 {
-            color: #1F2937;
-            font-size: 1.25rem;
-            margin-bottom: 1rem;
+            color: #4b004b;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
         }
 
         .proposal-details {
             margin-bottom: 1rem;
-            color: #6B7280;
+            color: #6b7280;
+            font-size: 1rem;
+            line-height: 1.4;
         }
 
         .proposal-actions {
@@ -295,17 +340,24 @@ $propositions = $controller->listSponser();
             gap: 1rem;
         }
 
-        .proposal-actions button {
+        .proposal-actions a {
             flex: 1;
+            text-align: center;
+            padding: 0.75rem 0;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+            user-select: none;
+            background: #c122c1;
+            color: white;
+            box-shadow: 0 4px 12px rgba(193, 34, 193, 0.4);
         }
 
-        .button-secondary {
-            background: #E5E7EB;
-            color: #374151;
-        }
-
-        .button-secondary:hover {
-            background: #D1D5DB;
+        .proposal-actions a:hover {
+            background: #a01aa0;
+            box-shadow: 0 6px 20px rgba(160, 26, 160, 0.6);
         }
         * {
             margin: 0;
@@ -742,91 +794,11 @@ $propositions = $controller->listSponser();
 
     <!-- Vos sections principales -->
     <div class="container">
-        <div class="options" id="options">
-            <a href="#form-section" class="option-card">
-                <img src="icon1.png" alt="Proposer">
-                <h2>Proposer un Sponsoring</h2>
-                <p>Soumettez votre propre proposition de sponsoring pour un événement</p>
-            </a>
-            <a href="#sponsorships-section" class="option-card">
-                <img src="icon2.png" alt="Choisir">
-                <h2>Choisir un Sponsoring</h2>
-                <p>Sélectionnez parmi nos opportunités de sponsoring existantes</p>
-            </a>
-            <a href="#tracking-section" class="option-card">
-                <img src="icon3.png" alt="Suivi">
-                <h2>Suivi des Propositions</h2>
-                <p>Consultez l'état de vos propositions de sponsoring</p>
-            </a>
+        <div class="options" id="options" style="display: flex; justify-content: center; gap: 2rem; margin-bottom: 3rem;">
+            <button id="btnShowSponsorships" class="option-button" type="button">Demande de Sponsoring</button>
+            <button id="btnShowTracking" class="option-button" type="button">Suivi des Propositions</button>
         </div>
 
-        <div class="form-section" id="form-section">
-    <h2>Proposer un Sponsoring</h2>
-    <form method="post" action="addSponsor.php" id="sponsorForm" novalidate>
-        <div class="form-group">
-            <label for="companyName">Nom de l'entreprise</label>
-            <input type="text" id="companyName" name="companyName" 
-                   pattern="[A-Za-z0-9\u00C0-\u017F\s\-&]{2,100}" 
-                   title="2-100 caractères alphanumériques" required>
-            <small class="error-message"></small>
-        </div>
-        
-        <div class="form-group">
-            <label for="evenement">Événement</label>
-            <input type="text" id="evenement" name="evenement" 
-                   pattern="[A-Za-z0-9\u00C0-\u017F\s\-\.,]{5,150}" 
-                   title="5-150 caractères" required>
-            <small class="error-message"></small>
-        </div>
-        
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" 
-                   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
-            <small class="error-message"></small>
-        </div>
-        
-        <div class="form-group">
-            <label for="phone">Téléphone</label>
-            <input type="tel" id="phone" name="phone" 
-                   pattern="[\+]{0,1}[0-9\s]{8,20}" 
-                   title="Format: +216 XX XXX XXX ou XX XXX XXX" required>
-            <small class="error-message"></small>
-        </div>
-        
-        <div class="form-group">
-            <label for="description">Description du sponsoring</label>
-            <textarea id="description" name="description" rows="4" 
-                      minlength="20" maxlength="1000" required></textarea>
-            <small class="error-message"></small>
-        </div>
-        
-        <div class="form-group">
-            <label for="amount">Montant proposé (dt)</label>
-            <input type="number" id="amount" name="amount" 
-                   min="100" step="1" required>
-            <small class="error-message"></small>
-        </div>
-        
-        <div class="form-group">
-            <label for="duration">Durée du sponsoring</label>
-            <input type="text" id="duration" name="duration" 
-                   pattern="[0-9]+\s*(mois|an|ans|jours|semaines)" 
-                   placeholder="Ex: 3 mois, 1 an..." required>
-            <small class="error-message"></small>
-        </div>
-        
-        <div class="form-group">
-            <label for="benefits">Avantages souhaités</label>
-            <textarea id="benefits" name="benefits" rows="4" 
-                      minlength="10" maxlength="500" 
-                      placeholder="Ex: Logo sur les affiches, mentions sur les réseaux sociaux..." required></textarea>
-            <small class="error-message"></small>
-        </div>
-        
-        <button type="submit">Envoyer la proposition</button>
-    </form>
-</div>
 
 <style>
     .error-message {
@@ -896,18 +868,216 @@ $propositions = $controller->listSponser();
                         continue;
                     }
                     $displayedOffers[] = $key;
-                    echo '<div class="sponsorship-card">';
+                    echo '<div class="sponsorship-card" data-evenement="' . htmlspecialchars($offer['evenement']) . '" data-id-offre="' . htmlspecialchars($offer['id_offre']) . '">';
                     echo '<h3>' . htmlspecialchars($offer['titre_offre']) . '</h3>';
+                    if (!empty($offer['image'])) {
+                        echo '<img src="images/' . htmlspecialchars($offer['image']) . '" alt="Image de l\'offre" style="max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 12px;" />';
+                    } else {
+                        echo '<img src="images/default.png" alt="Image par défaut" style="max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 12px;" />';
+                    }
                     echo '<p>' . htmlspecialchars($offer['description_offre']) . '</p>';
                     echo '<div class="sponsorship-footer">';
                     echo '<span>Événement: ' . htmlspecialchars($offer['evenement']) . '</span>';
                     echo '<span class="amount">' . htmlspecialchars($offer['montant_offre']) . ' dt</span>';
                     echo '</div>';
+                    echo '<button class="request-sponsor-btn" type="button">Demander ce sponsoring</button>';
                     echo '</div>';
                 }
                 ?>
             </div>
-        </div>
+
+            <!-- Modal for sponsor request form and offer details -->
+            <div id="sponsorRequestModal" class="event-modal" aria-hidden="true" role="dialog" aria-labelledby="modalTitle" aria-modal="true">
+                <div class="event-modal-content">
+                    <button class="close-modal" aria-label="Fermer">&times;</button>
+
+                    <!-- Offer details section -->
+                    <div id="offerDetailsSection">
+                        <h2 id="offerTitle"></h2>
+                        <img id="offerImage" src="" alt="" style="max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 12px;"/>
+                        <p id="offerDescription"></p>
+                        <p><strong>Événement:</strong> <span id="offerEvent"></span></p>
+                        <p><strong>Montant:</strong> <span id="offerAmount"></span> dt</p>
+                        <ul id="offerBenefits" class="benefits-list"></ul>
+                        <button id="btnGoToForm" type="button" style="background:#c122c1; color:white; padding:0.75rem 1.5rem; border:none; border-radius:0.375rem; cursor:pointer; margin-top:1rem;">Demander ce sponsoring</button>
+                    </div>
+
+                    <!-- Sponsorship request form section -->
+                    <form method="post" action="addSponsor.php" id="modalSponsorForm" novalidate style="display:none; margin-top: 1rem;">
+                        <h2 id="modalTitle">Formulaire de demande de sponsoring</h2>
+                        <div class="form-group">
+                            <label for="modalCompanyName">Nom de l'entreprise</label>
+                            <input type="text" id="modalCompanyName" name="companyName" pattern="[A-Za-z0-9\u00C0-\u017F\s\-&]{2,100}" title="2-100 caractères alphanumériques" required>
+                            <small class="error-message"></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="modalEmail">Email</label>
+                            <input type="email" id="modalEmail" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
+                            <small class="error-message"></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="modalPhone">Téléphone</label>
+                            <input type="tel" id="modalPhone" name="phone" pattern="^(\+216\s)?[0-9]{8}$" title="Format: +216 XXXXXXXX ou XXXXXXXX" required value="+216 " maxlength="13" />
+                            <small class="error-message"></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="modalIdOffre">Sélectionnez une offre</label>
+                            <select id="modalIdOffre" name="id_offre" required>
+                                <option value="">-- Choisissez une offre --</option>
+                                <?php
+                                foreach ($offers as $offer) {
+                                    echo '<option value="' . htmlspecialchars($offer['id_offre']) . '">' . htmlspecialchars($offer['titre_offre']) . '</option>';
+                                }
+                                ?>
+                            </select>
+                            <small class="error-message"></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="modalDescription">Description du sponsoring</label>
+                            <textarea id="modalDescription" name="description" rows="4" minlength="20" maxlength="1000" required></textarea>
+                            <small class="error-message"></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="modalAmount">Montant proposé (dt)</label>
+                            <input type="number" id="modalAmount" name="amount" min="100" step="1" required>
+                            <small class="error-message"></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="modalDuration">Durée du sponsoring</label>
+                            <input type="text" id="modalDuration" name="duration" pattern="[0-9]+\s*(mois|an|ans|jours|semaines)" placeholder="Ex: 3 mois, 1 an..." required>
+                            <small class="error-message"></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="modalBenefits">Avantages souhaités</label>
+                            <textarea id="modalBenefits" name="benefits" rows="4" minlength="10" maxlength="500" placeholder="Ex: Logo sur les affiches, mentions sur les réseaux sociaux..." required></textarea>
+                            <small class="error-message"></small>
+                        </div>
+                        <button type="submit">Envoyer la proposition</button>
+                    </form>
+                </div>
+            </div>
+
+            <style>
+                /* Modal styles */
+                .event-modal {
+                    display: none;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0,0,0,0.7);
+                    z-index: 1000;
+                    overflow-y: auto;
+                }
+                .event-modal.show {
+                    display: block;
+                }
+                .event-modal-content {
+                    background: white;
+                    margin: 2% auto;
+                    padding: 20px;
+                    width: 90%;
+                    max-width: 600px;
+                    border-radius: 10px;
+                    position: relative;
+                }
+                .close-modal {
+                    position: absolute;
+                    top: 15px;
+                    right: 15px;
+                    font-size: 24px;
+                    cursor: pointer;
+                    background: none;
+                    border: none;
+                }
+            </style>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const modal = document.getElementById('sponsorRequestModal');
+                    const closeModalBtn = modal.querySelector('.close-modal');
+                    const requestButtons = document.querySelectorAll('.request-sponsor-btn');
+                    const modalIdOffre = document.getElementById('modalIdOffre');
+
+                    const offerDetailsSection = document.getElementById('offerDetailsSection');
+                    const modalSponsorForm = document.getElementById('modalSponsorForm');
+                    const btnGoToForm = document.getElementById('btnGoToForm');
+
+                    function clearForm() {
+                        modalSponsorForm.reset();
+                    }
+
+                    function fillFormWithOffer(offerId) {
+                        modalIdOffre.value = offerId;
+                    }
+
+                    function showOfferDetails() {
+                        offerDetailsSection.style.display = 'block';
+                        modalSponsorForm.style.display = 'none';
+                    }
+
+                    function showForm() {
+                        offerDetailsSection.style.display = 'none';
+                        modalSponsorForm.style.display = 'block';
+                    }
+
+                    function populateOfferDetails(card) {
+                        const title = card.querySelector('h3').textContent;
+                        const description = card.querySelector('p').textContent;
+                        const event = card.querySelector('.sponsorship-footer span:first-child').textContent.replace('Événement: ', '');
+                        const amount = card.querySelector('.amount').textContent.replace(' dt', '');
+                        const img = card.querySelector('img');
+                        const imageSrc = img ? img.src : '';
+                        const imageAlt = img ? img.alt : '';
+
+                        document.getElementById('offerTitle').textContent = title;
+                        const offerImage = document.getElementById('offerImage');
+                        offerImage.src = imageSrc;
+                        offerImage.alt = imageAlt;
+                        document.getElementById('offerDescription').textContent = description;
+                        document.getElementById('offerEvent').textContent = event;
+                        document.getElementById('offerAmount').textContent = amount;
+
+                        // Benefits list is not currently in card, so clear it
+                        const benefitsList = document.getElementById('offerBenefits');
+                        benefitsList.innerHTML = '';
+                    }
+
+                    requestButtons.forEach(button => {
+                        button.addEventListener('click', () => {
+                            const card = button.closest('.sponsorship-card');
+                            if (!card) return;
+
+                            populateOfferDetails(card);
+                            clearForm();
+                            fillFormWithOffer(card.getAttribute('data-id-offre'));
+                            showOfferDetails();
+
+                            modal.classList.add('show');
+                            modal.setAttribute('aria-hidden', 'false');
+                        });
+                    });
+
+                    btnGoToForm.addEventListener('click', () => {
+                        showForm();
+                    });
+
+                    closeModalBtn.addEventListener('click', () => {
+                        modal.classList.remove('show');
+                        modal.setAttribute('aria-hidden', 'true');
+                    });
+
+                    // Close modal on outside click
+                    modal.addEventListener('click', (e) => {
+                        if (e.target === modal) {
+                            modal.classList.remove('show');
+                            modal.setAttribute('aria-hidden', 'true');
+                        }
+                    });
+                });
+            </script>
+        </div> 
 
         <!-- Section de suivi des propositions -->
         <div class="tracking-section" id="tracking-section">
@@ -1001,6 +1171,101 @@ $propositions = $controller->listSponser();
 
     <script>
         // Removed JavaScript for filtering and modal as per request
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const phoneInput = document.getElementById('phone');
+            if (!phoneInput) return;
+
+            // Set default value if empty or does not start with +216
+            if (!phoneInput.value.startsWith('+216 ')) {
+                phoneInput.value = '+216 ';
+            }
+
+            phoneInput.addEventListener('keydown', function(e) {
+                const allowedKeys = [
+                    'Backspace', 'ArrowLeft', 'ArrowRight', 'Delete', 'Tab'
+                ];
+                // Allow control keys
+                if (allowedKeys.includes(e.key)) {
+                    return;
+                }
+
+                // Prevent typing before prefix
+                if (phoneInput.selectionStart < 5) {
+                    e.preventDefault();
+                    phoneInput.setSelectionRange(5, 5);
+                    return;
+                }
+
+                // Allow only digits after prefix
+                if (!/\d/.test(e.key)) {
+                    e.preventDefault();
+                }
+
+                // Limit length to 13 characters (+216 + 8 digits)
+                if (phoneInput.value.length >= 13 && phoneInput.selectionStart === phoneInput.selectionEnd) {
+                    e.preventDefault();
+                }
+            });
+
+            phoneInput.addEventListener('input', function(e) {
+                // Remove any non-digit characters after prefix
+                let value = phoneInput.value;
+
+                // Ensure prefix is intact
+                if (!value.startsWith('+216 ')) {
+                    value = '+216 ';
+                }
+
+                // Remove invalid characters after prefix
+                let afterPrefix = value.slice(5).replace(/\D/g, '');
+
+                // Limit to 8 digits
+                afterPrefix = afterPrefix.slice(0, 8);
+
+                phoneInput.value = '+216 ' + afterPrefix;
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sponsorshipCards = document.querySelectorAll('.sponsorship-card');
+            const evenementInput = document.getElementById('evenement');
+
+            sponsorshipCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const evenement = card.getAttribute('data-evenement');
+                    if (evenementInput) {
+                        evenementInput.value = evenement;
+                        evenementInput.focus();
+                    }
+                    // Optionally scroll to the form
+                    document.getElementById('form-section').scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+
+            // New code for toggling sections
+            const btnShowSponsorships = document.getElementById('btnShowSponsorships');
+            const btnShowTracking = document.getElementById('btnShowTracking');
+            const sponsorshipsSection = document.getElementById('sponsorships-section');
+            const trackingSection = document.getElementById('tracking-section');
+
+            function showSponsorships() {
+                sponsorshipsSection.style.display = 'block';
+                trackingSection.style.display = 'none';
+            }
+
+            function showTracking() {
+                sponsorshipsSection.style.display = 'none';
+                trackingSection.style.display = 'block';
+            }
+
+            btnShowSponsorships.addEventListener('click', showSponsorships);
+            btnShowTracking.addEventListener('click', showTracking);
+
+            // Show sponsorships by default on page load
+            showSponsorships();
+        });
     </script>
 </body>
 </html>

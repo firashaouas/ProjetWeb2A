@@ -13,44 +13,54 @@ $id_sponsor = (int)$_GET['id'];
 $controller = new sponsorController();
 $sponsor = $controller->getSponsorById($id_sponsor);
 
+// Get offers list for id_offre select input
+$offers = $controller->listOffers();
+
 if (!$sponsor) {
     header("Location: index.php?error=sponsor_not_found");
     exit();
 }
 
-// Traitement du formulaire de modification
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Récupération et validation des données
     $nom_entreprise = htmlspecialchars($_POST['companyName']);
-    $evenement = htmlspecialchars($_POST['evenement']);
+    // Removed evenement as it no longer exists
     $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
     $telephone = (int)$_POST['phone'];
     $montant = (float)$_POST['amount'];
     $duree = htmlspecialchars($_POST['duration']);
     $avantage = htmlspecialchars($_POST['benefits']);
-    $status = htmlspecialchars($_POST['status']);
+    // Set status with default if not set to avoid undefined key
+    $status = isset($_POST['status']) ? htmlspecialchars($_POST['status']) : 'pending';
+    $id_offre = isset($_POST['id_offre']) ? (int)$_POST['id_offre'] : 0;
 
-    // Création de l'objet sponsor
-    $sponsorObj = new sponsor(
-        $nom_entreprise,
-        $evenement,
-        $email,
-        $telephone,
-        $montant,
-        $duree,
-        $avantage,
-        $status
-    );
-    $sponsorObj->setId_sponsor($id_sponsor);
-
-    // Mise à jour
-    $success = $controller->updateSponsor($sponsorObj);
-
-    if ($success) {
-        header("Location: index.php?update_success=1");
-        exit();
+    // Validate id_offre is in offers list
+    $validOfferIds = array_column($offers, 'id_offre');
+    if (!in_array($id_offre, $validOfferIds, true)) {
+        $error = "Veuillez sélectionner une offre valide.";
     } else {
-        $error = "Une erreur est survenue lors de la mise à jour.";
+        // Création de l'objet sponsor
+        $sponsorObj = new sponsor(
+            $nom_entreprise,
+            $email,
+            $telephone,
+            $montant,
+            $duree,
+            $avantage,
+            $status,
+            $id_offre
+        );
+        $sponsorObj->setId_sponsor($id_sponsor);
+
+        // Mise à jour
+        $success = $controller->updateSponsor($sponsorObj);
+
+        if ($success) {
+            header("Location: index.php?update_success=1");
+            exit();
+        } else {
+            $error = "Une erreur est survenue lors de la mise à jour.";
+        }
     }
 }
 ?>
@@ -156,10 +166,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="text" id="companyName" name="companyName" value="<?= htmlspecialchars($sponsor['nom_entreprise']) ?>" required>
         </div>
         
+        
+        <!--
         <div>
             <label for="contactPerson">Evenement:</label>
             <input type="text" id="evenement" name="evenement" value="<?= htmlspecialchars($sponsor['evenement']) ?>" required>
         </div>
+        -->
         
         <div>
             <label for="email">Email:</label>
@@ -185,6 +198,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label for="benefits">Avantages:</label>
             <textarea id="benefits" name="benefits" required><?= htmlspecialchars($sponsor['avantage']) ?></textarea>
         </div> 
+
+        <div>
+            <label for="id_offre">Offre associée</label>
+            <select id="id_offre" name="id_offre" required>
+                <option value="">-- Choisissez une offre --</option>
+                <?php foreach ($offers as $offer): ?>
+                    <option value="<?= htmlspecialchars($offer['id_offre']) ?>" <?= ($sponsor['id_offre'] == $offer['id_offre']) ? 'selected' : '' ?>>
+                        <?= htmlspecialchars($offer['titre_offre']) ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </div>
         
         <button type="submit">Mettre à jour</button>
         <a href="index.php">Annuler</a>

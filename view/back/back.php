@@ -5,51 +5,103 @@ $conn = config::getConnexion();
 require_once(__DIR__ . "/../../controller/controller.php");
 require_once(__DIR__ . "/../../model/model.php");
 
-// Handle form submission before any output
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['addOffer'])) {
-    $titre = $_POST['titre_offre'] ?? '';
-    $description = $_POST['description_offre'] ?? '';
-    $evenement = $_POST['evenement'] ?? '';
+    $titre = trim($_POST['titre_offre'] ?? '');
+    $description = trim($_POST['description_offre'] ?? '');
+    $evenement = trim($_POST['evenement'] ?? '');
     $montant = floatval($_POST['montant_offre'] ?? 0);
     $status = $_POST['status'] ?? 'libre';
 
-    if ($titre && $description && $evenement && $montant > 0) {
-        $offer = new Offre($titre, $description, $evenement, $montant, $status);
+    $errors = [];
+
+    if (empty($titre) || strlen($titre) < 3 || strlen($titre) > 100) {
+        $errors[] = "Le titre doit contenir entre 3 et 100 caractères.";
+    }
+    if (empty($description) || strlen($description) < 10 || strlen($description) > 1000) {
+        $errors[] = "La description doit contenir entre 10 et 1000 caractères.";
+    }
+    if (empty($evenement) || strlen($evenement) < 3 || strlen($evenement) > 150) {
+        $errors[] = "L'événement doit contenir entre 3 et 150 caractères.";
+    }
+    if ($montant <= 0) {
+        $errors[] = "Le montant doit être supérieur à zéro.";
+    }
+
+    // Handle image upload or selection
+    $imageFileName = null;
+    if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+        $uploadDir = __DIR__ . '/../../view/front/images/';
+        $tmpName = $_FILES['image']['tmp_name'];
+        $originalName = basename($_FILES['image']['name']);
+        $extension = strtolower(pathinfo($originalName, PATHINFO_EXTENSION));
+        $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+
+        if (!in_array($extension, $allowedExtensions)) {
+            $errors[] = "Le format de l'image n'est pas supporté. Formats acceptés: jpg, jpeg, png, gif.";
+        } else {
+            // Generate unique filename to avoid overwriting
+            $imageFileName = uniqid('offer_', true) . '.' . $extension;
+            $destination = $uploadDir . $imageFileName;
+
+            if (!move_uploaded_file($tmpName, $destination)) {
+                $errors[] = "Erreur lors de l'upload de l'image.";
+            }
+        }
+    } elseif (!empty($_POST['image'])) {
+        // If no file uploaded, check if an image was selected from dropdown
+        $selectedImage = $_POST['image'];
+        $imageDir = __DIR__ . '/../../view/front/images/';
+        if (file_exists($imageDir . $selectedImage)) {
+            $imageFileName = $selectedImage;
+        } else {
+            $errors[] = "L'image sélectionnée n'existe pas.";
+        }
+    }
+
+    if (empty($errors)) {
+        $offer = new Offre($titre, $description, $evenement, $montant, $status, $imageFileName);
         $controller = new sponsorController();
         $success = $controller->addOffer($offer);
         if ($success) {
-            // Redirect to avoid form resubmission
             header("Location: " . $_SERVER['PHP_SELF'] . "?added=1");
             exit();
         } else {
             $error_message = "Erreur lors de l'ajout de l'offre.";
         }
     } else {
-        $error_message = "Veuillez remplir tous les champs correctement.";
+        $error_message = implode("<br>", $errors);
     }
 }
 
 // Traitement Accepter / Refuser
-if (isset($_GET['action']) && isset($_GET['id'])) {
-    $id = $_GET['id'];
-    $action = $_GET['action'];
+    if (isset($_GET['action']) && isset($_GET['id'])) {
+        $id = $_GET['id'];
+        $action = $_GET['action'];
 
-    if ($action === 'accepter') {
-        $stmt = $conn->prepare("UPDATE sponsor SET status = 'accepté' WHERE id_sponsor = ?");
-        $stmt->execute([$id]);
-    } elseif ($action === 'refuser') {
-        $stmt = $conn->prepare("UPDATE sponsor SET status = 'refusé' WHERE id_sponsor = ?");
-        $stmt->execute([$id]);
+        if ($action === 'accepter') {
+            $stmt = $conn->prepare("UPDATE sponsor2 SET status = 'accepté' WHERE id_sponsor = ?");
+            $stmt->execute([$id]);
+            header("Location: " . strtok($_SERVER["REQUEST_URI"], '?') . "?success=accept");
+            exit();
+        } elseif ($action === 'refuser') {
+            $stmt = $conn->prepare("UPDATE sponsor2 SET status = 'refusé' WHERE id_sponsor = ?");
+            $stmt->execute([$id]);
+            header("Location: " . strtok($_SERVER["REQUEST_URI"], '?') . "?success=refuse");
+            exit();
+        }
     }
-}
 
-// Récupération des demandes
-$stmt = $conn->query("SELECT * FROM sponsor ORDER BY id_sponsor DESC");
-$sponsors = $stmt->fetchAll();
+    // Récupération des demandes
+    $stmt = $conn->query("SELECT * FROM sponsor2 ORDER BY id_sponsor DESC");
+    $sponsors = $stmt->fetchAll();
 
-// Récupération des offres
-$controller = new sponsorController();
-$offers = $controller->listOffers();
+    // Récupération des offres
+    $controller = new sponsorController();
+    $offers = $controller->listOffers();
+
+    // Récupération des sponsors acceptés groupés par offre
+    $stmt2 = $conn->query("SELECT id_offre, GROUP_CONCAT(nom_entreprise SEPARATOR ', ') AS sponsors FROM sponsor2 WHERE status = 'accepté' GROUP BY id_offre");
+    $acceptedSponsors = $stmt2->fetchAll(PDO::FETCH_KEY_PAIR);
 ?>
 
 <!DOCTYPE html>
@@ -59,98 +111,170 @@ $offers = $controller->listOffers();
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Dashboard Sponsors</title>
     <style>
+        /* Improved CSS for view/back/back.php */
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Inter', sans-serif;
         }
+
         body {
             background: #f6f4f0;
             display: flex;
+            color: #333;
         }
+
         .sidebar {
             width: 240px;
             background: white;
             padding: 20px;
             height: 100vh;
             position: fixed;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.1);
         }
+
         .menu-item {
-            padding: 10px 0;
+            padding: 12px 0;
             cursor: pointer;
             user-select: none;
-            color: black;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
         }
+
+        .menu-item:hover {
+            color: #a01aa0;
+        }
+
         .menu-item.active {
-            font-weight: bold;
+            font-weight: 700;
             color: #c122c1;
         }
+
         .dashboard {
             margin-left: 240px;
-            padding: 20px;
+            padding: 30px 40px;
             width: calc(100% - 240px);
+            background: #fff;
+            min-height: 100vh;
         }
+
         .tab-content {
             display: none;
         }
+
         .tab-content.active {
             display: block;
         }
+
         .card {
             background: white;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
             width: 100%;
             max-width: 800px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transition: box-shadow 0.3s ease;
         }
+
+        .card:hover {
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
         .card-actions {
             display: flex;
             justify-content: flex-end;
             margin-top: 20px;
-            gap: 10px;
+            gap: 12px;
         }
+
         .btn {
-            padding: 8px 16px;
-            border-radius: 5px;
+            padding: 10px 20px;
+            border-radius: 6px;
             cursor: pointer;
             border: none;
-            font-weight: 500;
+            font-weight: 600;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            user-select: none;
         }
+
         .btn-accepter {
-            background: #4CAF50;
+            background: #c122c1;
             color: white;
+            box-shadow: 0 4px 12px rgba(193, 34, 193, 0.4);
         }
+
+        .btn-accepter:hover {
+            background: #a01aa0;
+            box-shadow: 0 6px 20px rgba(160, 26, 160, 0.6);
+        }
+
         .btn-refuser {
             background: #f44336;
             color: white;
+            box-shadow: 0 4px 12px rgba(244, 67, 54, 0.4);
         }
+
+        .btn-refuser:hover {
+            background: #d32f2f;
+            box-shadow: 0 6px 20px rgba(211, 47, 47, 0.6);
+        }
+
         form {
             max-width: 600px;
+            background: #fff;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
         }
+
         .form-group {
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
+
         label {
             display: block;
-            margin-bottom: 0.3rem;
-        }
-        input, textarea, select {
-            width: 100%;
-            padding: 0.5rem;
-            border-radius: 4px;
-            border: 1px solid #ccc;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #444;
             font-size: 1rem;
         }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            border: 1.5px solid #ccc;
+            font-size: 1rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #c122c1;
+            box-shadow: 0 0 8px rgba(193, 34, 193, 0.4);
+        }
+
         button.btn-accepter {
             background-color: #c122c1;
             color: white;
             border: none;
-            padding: 0.75rem 1.5rem;
+            padding: 0.85rem 1.5rem;
             cursor: pointer;
-            border-radius: 4px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            width: 100%;
+        }
+
+        button.btn-accepter:hover {
+            background-color: #a01aa0;
+            box-shadow: 0 4px 15px rgba(160, 26, 160, 0.5);
         }
     </style>
 </head>
@@ -170,11 +294,11 @@ $offers = $controller->listOffers();
             <h1>Demandes de sponsoring</h1>
             <?php foreach($sponsors as $sponsor): ?>
             <div class="card">
-                <h3><?= htmlspecialchars($sponsor['nom_entreprise']) ?></h3>
-                <p>Contact: <?= htmlspecialchars($sponsor['evenement']) ?></p>
-                <p>Email: <?= htmlspecialchars($sponsor['email']) ?></p>
-                <p>Téléphone: <?= htmlspecialchars($sponsor['telephone']) ?></p>
-                <p>Montant: <?= htmlspecialchars($sponsor['montant']) ?> €</p>
+            <h3><?= htmlspecialchars($sponsor['nom_entreprise']) ?></h3>
+            <!-- Removed evenement display as it no longer exists -->
+            <p>Email: <?= htmlspecialchars($sponsor['email']) ?></p>
+            <p>Téléphone: <?= htmlspecialchars($sponsor['telephone']) ?></p>
+            <p>Montant: <?= htmlspecialchars($sponsor['montant']) ?> €</p>
                 <div class="card-actions">
                     <a href="?action=accepter&id=<?= $sponsor['id_sponsor'] ?>" class="btn btn-accepter">Accepter</a>
                     <a href="?action=refuser&id=<?= $sponsor['id_sponsor'] ?>" class="btn btn-refuser" onclick="return confirm('Êtes-vous sûr?')">Refuser</a>
@@ -184,22 +308,26 @@ $offers = $controller->listOffers();
         </div>
         <div id="tab-events" class="tab-content" tabindex="0">
             <h1>Ajouter une Offre de Sponsoring</h1>
-            <form method="post" action="">
+            <form method="post" action="" id="offerForm" novalidate enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="titre_offre">Titre de l'offre</label>
-                    <input type="text" id="titre_offre" name="titre_offre" required />
+                    <input type="text" id="titre_offre" name="titre_offre" required minlength="3" maxlength="100" />
+                    <small class="error-message"></small>
                 </div>
                 <div class="form-group">
                     <label for="description_offre">Description</label>
-                    <textarea id="description_offre" name="description_offre" rows="4" required></textarea>
+                    <textarea id="description_offre" name="description_offre" rows="4" required minlength="10" maxlength="1000"></textarea>
+                    <small class="error-message"></small>
                 </div>
                 <div class="form-group">
                     <label for="evenement">Événement</label>
-                    <input type="text" id="evenement" name="evenement" required />
+                    <input type="text" id="evenement" name="evenement" required minlength="3" maxlength="150" />
+                    <small class="error-message"></small>
                 </div>
                 <div class="form-group">
                     <label for="montant_offre">Montant (dt)</label>
-                    <input type="number" id="montant_offre" name="montant_offre" min="0" step="0.01" required />
+                    <input type="number" id="montant_offre" name="montant_offre" min="1" step="0.01" required />
+                    <small class="error-message"></small>
                 </div>
                 <div class="form-group">
                     <label for="status">Statut</label>
@@ -207,6 +335,20 @@ $offers = $controller->listOffers();
                         <option value="libre" selected>Libre</option>
                         <option value="occupé">Occupé</option>
                     </select>
+                </div>
+                <div class="form-group">
+                    <label for="image">Image de l'offre</label>
+                    <select id="image" name="image">
+                        <option value="">-- Sélectionnez une image --</option>
+                        <?php
+                        $imageDir = __DIR__ . '/../../view/front/images/';
+                        $images = array_diff(scandir($imageDir), array('.', '..'));
+                        foreach ($images as $img) {
+                            echo '<option value="' . htmlspecialchars($img) . '">' . htmlspecialchars($img) . '</option>';
+                        }
+                        ?>
+                    </select>
+                    <small class="error-message"></small>
                 </div>
                 <button type="submit" name="addOffer" class="btn btn-accepter">Ajouter l'offre</button>
             </form>
@@ -220,12 +362,20 @@ $offers = $controller->listOffers();
                         <p>Description: <?= htmlspecialchars($offer['description_offre']) ?></p>
                         <p>Événement: <?= htmlspecialchars($offer['evenement']) ?></p>
                         <p>Montant: <?= htmlspecialchars($offer['montant_offre']) ?> dt</p>
-                        <p>Statut: <?= htmlspecialchars($offer['status']) ?></p>
-                        <div class="card-actions">
-                            <a href="modifier.php?id=<?= $offer['id_offre'] ?>" class="btn btn-accepter">Modifier</a>
-                            <a href="delete.php?id=<?= $offer['id_offre'] ?>" class="btn btn-refuser" onclick="return confirm('Supprimer cette offre ?')">Supprimer</a>
-                        </div>
+                    <p>Statut: <?= htmlspecialchars($offer['status']) ?></p>
+                    <?php if (!empty($offer['image'])): ?>
+                        <img src="../../view/front/images/<?= htmlspecialchars($offer['image']) ?>" alt="Image de l'offre" style="max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 12px;" />
+                    <?php endif; ?>
+                    <?php if (isset($acceptedSponsors[$offer['id_offre']])): ?>
+                        <p><strong>Sponsors acceptés:</strong> <?= htmlspecialchars($acceptedSponsors[$offer['id_offre']]) ?></p>
+                    <?php else: ?>
+                        <p><em>Aucun sponsor accepté pour cette offre.</em></p>
+                    <?php endif; ?>
+                    <div class="card-actions">
+                        <a href="../front/modifierOffer.php?id=<?= $offer['id_offre'] ?>" class="btn btn-accepter">Modifier</a>
+                        <a href="../front/deleteOffer.php?id=<?= $offer['id_offre'] ?>" class="btn btn-refuser" onclick="return confirm('Supprimer cette offre ?')">Supprimer</a>
                     </div>
+                </div>
                 <?php endforeach; ?>
             <?php else: ?>
                 <p>Aucune offre disponible.</p>
@@ -268,6 +418,63 @@ $offers = $controller->listOffers();
                     item.click();
                 }
             });
+        });
+    </script>
+    <script>
+        // Client-side validation for offer form
+        document.getElementById('offerForm').addEventListener('submit', function(event) {
+            let form = event.target;
+            let errors = false;
+
+            // Clear previous error messages
+            form.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+
+            // Validate titre_offre
+            let titre = form.titre_offre.value.trim();
+            if (titre.length < 3 || titre.length > 100) {
+                form.titre_offre.nextElementSibling.textContent = 'Le titre doit contenir entre 3 et 100 caractères.';
+                errors = true;
+            }
+
+            // Validate description_offre
+            let description = form.description_offre.value.trim();
+            if (description.length < 10 || description.length > 1000) {
+                form.description_offre.nextElementSibling.textContent = 'La description doit contenir entre 10 et 1000 caractères.';
+                errors = true;
+            }
+
+            // Validate evenement
+            // Removed evenement validation as it is no longer used
+            /*
+            let evenement = form.evenement.value.trim();
+            if (evenement.length < 3 || evenement.length > 150) {
+                form.evenement.nextElementSibling.textContent = "L'événement doit contenir entre 3 et 150 caractères.";
+                errors = true;
+            }
+            */
+
+            // Validate montant_offre
+            let montant = parseFloat(form.montant_offre.value);
+            if (isNaN(montant) || montant <= 0) {
+                form.montant_offre.nextElementSibling.textContent = 'Le montant doit être un nombre supérieur à zéro.';
+                errors = true;
+            }
+
+            if (errors) {
+                event.preventDefault();
+            }
+        });
+    </script>
+    <script>
+        // Show confirmation popup if success parameter is present
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const success = urlParams.get('success');
+            if (success === 'accept') {
+                alert('La proposition a été acceptée avec succès.');
+            } else if (success === 'refuse') {
+                alert('La proposition a été refusée avec succès.');
+            }
         });
     </script>
 </body>

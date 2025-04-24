@@ -10,10 +10,17 @@ function sanitizeInput($data) {
 $errors = [];
 $fieldErrors = [];
 
+$controller = new SponsorController();
+$offers = $controller->listOffers();
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Debug output to verify offers and submitted id_offre
+    echo '<pre>Offers: '; print_r($offers); echo '</pre>';
+    echo '<pre>Submitted id_offre: '; var_dump($_POST['id_offre'] ?? null); echo '</pre>';
+
     // Récupération et assainissement des données
     $nom_entreprise = sanitizeInput($_POST['companyName'] ?? '');
-    $evenement = sanitizeInput($_POST['evenement'] ?? '');
+    // Removed evenement field as per user request
     $email = filter_var($_POST['email'] ?? '', FILTER_SANITIZE_EMAIL);
     $telephone = sanitizeInput($_POST['phone'] ?? '');
     $montant = (float) filter_var($_POST['amount'] ?? 0, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
@@ -21,6 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $avantage = sanitizeInput($_POST['benefits'] ?? '');
     $status = sanitizeInput($_POST['status'] ?? 'pending');
     $description = sanitizeInput($_POST['description'] ?? '');
+    $id_offre = (int)($_POST['id_offre'] ?? 0);  // Added id_offre from form
 
     // Validation des champs
     if (empty($nom_entreprise)) {
@@ -29,11 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $fieldErrors['companyName'] = "Le nom doit contenir entre 2 et 100 caractères (lettres, chiffres, espaces ou &-)";
     }
 
-    if (empty($evenement)) {
-        $fieldErrors['evenement'] = "Le nom de l'événement est obligatoire";
-    } elseif (!preg_match('/^[A-Za-z0-9À-ÿ\s\-\.,]{5,150}$/', $evenement)) {
-        $fieldErrors['evenement'] = "Le nom de l'événement doit contenir entre 5 et 150 caractères";
-    }
+    
 
     if (empty($email)) {
         $fieldErrors['email'] = "L'email est obligatoire";
@@ -43,8 +47,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($telephone)) {
         $fieldErrors['phone'] = "Le téléphone est obligatoire";
-    } elseif (!preg_match('/^[\+]{0,1}[0-9\s]{8,20}$/', $telephone)) {
-        $fieldErrors['phone'] = "Format de téléphone invalide (8-20 chiffres, + autorisé au début)";
+    } elseif (!preg_match('/^(\+216\s)?\d{8}$/', $telephone)) {
+        $fieldErrors['phone'] = "Format de téléphone invalide (doit être +216 XXXXXXXX ou XXXXXXXX)";
     }
 
     if (empty($montant)) {
@@ -73,24 +77,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $fieldErrors['description'] = "La description ne doit pas dépasser 1000 caractères";
     }
 
+    // Validate id_offre
+    $validOfferIds = array_map('intval', array_column($offers, 'id_offre'));
+    if ($id_offre === 0 || !in_array($id_offre, $validOfferIds, true)) {
+        $fieldErrors['id_offre'] = "Veuillez sélectionner une offre valide.";
+    }
+
     // Si aucune erreur, procéder à l'insertion
     if (empty($fieldErrors)) {
         try {
-            $sponsor = new sponsor(
-                $nom_entreprise,
-                $evenement,
-                $email,
-                (int)$telephone,
-                $montant,
-                $duree,
-                $avantage,
-                $status
-            );
+        $sponsor = new sponsor(
+            $nom_entreprise,
+            $email,
+            (int)$telephone,
+            $montant,
+            $duree,
+            $avantage,
+            $status,
+            $id_offre  
+        );
 
-            
+        
 
-            $controller = new SponsorController();
-            $success = $controller->addSponsor($sponsor);
+        $controller = new SponsorController();
+        $success = $controller->addSponsor($sponsor);
 
             if ($success) {
                 header("Location: index.php?success=1");
@@ -222,3 +232,26 @@ if (!empty($fieldErrors) || !empty($errors)) {
 http_response_code(405);
 echo "Accès refusé : méthode non autorisée";
 exit();
+?>
+
+<form method="post" action="" novalidate>
+    <!-- Other form fields -->
+
+    <div class="form-group">
+        <label for="id_offre">Sélectionnez une offre</label>
+        <select id="id_offre" name="id_offre" required>
+            <option value="">-- Choisissez une offre --</option>
+            <?php foreach ($offers as $offer): ?>
+                <option value="<?= htmlspecialchars($offer['id_offre']) ?>" <?= (isset($_POST['id_offre']) && $_POST['id_offre'] == $offer['id_offre']) ? 'selected' : '' ?>>
+                    <?= htmlspecialchars($offer['titre_offre']) ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+        <?php if (!empty($fieldErrors['id_offre'])): ?>
+            <span class="error"><?= htmlspecialchars($fieldErrors['id_offre']) ?></span>
+        <?php endif; ?>
+    </div>
+
+    <!-- Submit button -->
+    <button type="submit" name="submitSponsor">Envoyer</button>
+</form>

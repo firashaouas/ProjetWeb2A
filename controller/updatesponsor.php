@@ -15,6 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $duree = htmlspecialchars($_POST['duration']);
     $avantage = htmlspecialchars($_POST['benefits']);
     $status = htmlspecialchars($_POST['status']);
+    $id_offre = (int)$_POST['id_offre'];  // Added id_offre from POST
 
 
     try {
@@ -26,9 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $montant,
             $duree,
             $avantage,
-            $status 
-
-
+            $status,
+            $id_offre  
         );
         $sponsor->setId_sponsor($id_sponsor);
 
