@@ -223,7 +223,11 @@ class Offre {
     private string $evenement;
     private float $montant_offre;
     private string $status;
+<<<<<<< HEAD
     private ?string $image; 
+=======
+    private ?string $image; // New property for image filename
+>>>>>>> a2fab5823e23d27e778495a421b0f3aaed219ca1
 
     public function __construct(
         string $titre_offre,

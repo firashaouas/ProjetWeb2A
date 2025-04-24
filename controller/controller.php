@@ -20,7 +20,7 @@ class sponsorController{
 
     public function addOffer($offer) {
         $db = config::getConnexion();
-        $sql = "INSERT INTO offre2 (titre_offre, description_offre, evenement, montant_offre, status, image) VALUES (:titre_offre, :description_offre, :evenement, :montant_offre, :status, :image)";
+        $sql = "INSERT INTO offre (titre_offre, description_offre, evenement, montant_offre, status, image) VALUES (:titre_offre, :description_offre, :evenement, :montant_offre, :status, :image)";
         $stmt = $db->prepare($sql);
         $stmt->bindValue(':titre_offre', $offer->getTitre_offre());
         $stmt->bindValue(':description_offre', $offer->getDescription_offre());
@@ -112,18 +112,18 @@ public function getSponsorById($id_sponsor) {
         $sql->bindValue(':status', $sponsor->getStatus());
         $sql->bindValue(':id_offre', $sponsor->getId_offre(), PDO::PARAM_INT);
 
-        return $sql->execute();
-    }
+    return $sql->execute();
+}
     public function deleteOffer($id_offer) {
         $db = config::getConnexion();
-        $sql = $db->prepare("DELETE FROM offre2 WHERE id_offre = :id");
+        $sql = $db->prepare("DELETE FROM offre WHERE id_offre = :id");
         $sql->bindValue(':id', $id_offer, PDO::PARAM_INT);
         return $sql->execute();
     }
 
     public function getOfferById($id_offer) {
         $db = config::getConnexion();
-        $sql = $db->prepare("SELECT * FROM offre2 WHERE id_offre = :id");
+        $sql = $db->prepare("SELECT * FROM offre WHERE id_offre = :id");
         $sql->bindValue(':id', $id_offer, PDO::PARAM_INT);
         $sql->execute();
         return $sql->fetch(PDO::FETCH_ASSOC);
@@ -131,7 +131,7 @@ public function getSponsorById($id_sponsor) {
 
     public function updateOffer(Offre $offer) {
         $db = config::getConnexion();
-        $sql = $db->prepare("UPDATE offre2 SET 
+        $sql = $db->prepare("UPDATE offre SET 
             titre_offre = :titre_offre,
             description_offre = :description_offre,
             evenement = :evenement,

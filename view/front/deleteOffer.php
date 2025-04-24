@@ -18,4 +18,8 @@ if (isset($_GET['id'])) {
     header("Location: ../back/back.php?error=missing_id");
     exit();
 }
+<<<<<<< HEAD
 ?>
+=======
+?>
+>>>>>>> a2fab5823e23d27e778495a421b0f3aaed219ca1

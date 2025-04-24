@@ -366,11 +366,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['addOffer'])) {
                     <?php if (!empty($offer['image'])): ?>
                         <img src="../../view/front/images/<?= htmlspecialchars($offer['image']) ?>" alt="Image de l'offre" style="max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 12px;" />
                     <?php endif; ?>
+<<<<<<< HEAD
                     <?php if (isset($acceptedSponsors[$offer['id_offre']])): ?>
                         <p><strong>Sponsors acceptés:</strong> <?= htmlspecialchars($acceptedSponsors[$offer['id_offre']]) ?></p>
                     <?php else: ?>
                         <p><em>Aucun sponsor accepté pour cette offre.</em></p>
                     <?php endif; ?>
+=======
+>>>>>>> a2fab5823e23d27e778495a421b0f3aaed219ca1
                     <div class="card-actions">
                         <a href="../front/modifierOffer.php?id=<?= $offer['id_offre'] ?>" class="btn btn-accepter">Modifier</a>
                         <a href="../front/deleteOffer.php?id=<?= $offer['id_offre'] ?>" class="btn btn-refuser" onclick="return confirm('Supprimer cette offre ?')">Supprimer</a>
@@ -444,14 +447,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['addOffer'])) {
             }
 
             // Validate evenement
+<<<<<<< HEAD
             // Removed evenement validation as it is no longer used
             /*
+=======
+>>>>>>> a2fab5823e23d27e778495a421b0f3aaed219ca1
             let evenement = form.evenement.value.trim();
             if (evenement.length < 3 || evenement.length > 150) {
                 form.evenement.nextElementSibling.textContent = "L'événement doit contenir entre 3 et 150 caractères.";
                 errors = true;
             }
+<<<<<<< HEAD
             */
+=======
+>>>>>>> a2fab5823e23d27e778495a421b0f3aaed219ca1
 
             // Validate montant_offre
             let montant = parseFloat(form.montant_offre.value);
@@ -465,6 +474,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['addOffer'])) {
             }
         });
     </script>
+<<<<<<< HEAD
     <script>
         // Show confirmation popup if success parameter is present
         document.addEventListener('DOMContentLoaded', function() {
@@ -477,5 +487,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['addOffer'])) {
             }
         });
     </script>
+=======
+>>>>>>> a2fab5823e23d27e778495a421b0f3aaed219ca1
 </body>
 </html>

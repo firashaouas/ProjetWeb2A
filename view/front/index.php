@@ -799,6 +799,77 @@ $propositions = $controller->listSponser();
             <button id="btnShowTracking" class="option-button" type="button">Suivi des Propositions</button>
         </div>
 
+<<<<<<< HEAD
+=======
+        <div class="form-section" id="form-section">
+    <h2>Proposer un Sponsoring</h2>
+    <form method="post" action="addSponsor.php" id="sponsorForm" novalidate>
+        <div class="form-group">
+            <label for="companyName">Nom de l'entreprise</label>
+            <input type="text" id="companyName" name="companyName" 
+                   pattern="[A-Za-z0-9\u00C0-\u017F\s\-&]{2,100}" 
+                   title="2-100 caractères alphanumériques" required>
+            <small class="error-message"></small>
+        </div>
+        
+        <div class="form-group">
+            <label for="evenement">Événement</label>
+            <input type="text" id="evenement" name="evenement" 
+                   pattern="[A-Za-z0-9\u00C0-\u017F\s\-\.,]{5,150}" 
+                   title="5-150 caractères" required>
+            <small class="error-message"></small>
+        </div>
+        
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" 
+                   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
+            <small class="error-message"></small>
+        </div>
+        
+    <div class="form-group">
+        <label for="phone">Téléphone</label>
+        <input type="tel" id="phone" name="phone" 
+               pattern="(\+216\s)?[0-9]{8}" 
+               title="Format: +216 XXXXXXXX ou XXXXXXXX" required
+               value="+216 " maxlength="13" />
+        <small class="error-message"></small>
+    </div>
+        
+        <div class="form-group">
+            <label for="description">Description du sponsoring</label>
+            <textarea id="description" name="description" rows="4" 
+                      minlength="20" maxlength="1000" required></textarea>
+            <small class="error-message"></small>
+        </div>
+        
+        <div class="form-group">
+            <label for="amount">Montant proposé (dt)</label>
+            <input type="number" id="amount" name="amount" 
+                   min="100" step="1" required>
+            <small class="error-message"></small>
+        </div>
+        
+        <div class="form-group">
+            <label for="duration">Durée du sponsoring</label>
+            <input type="text" id="duration" name="duration" 
+                   pattern="[0-9]+\s*(mois|an|ans|jours|semaines)" 
+                   placeholder="Ex: 3 mois, 1 an..." required>
+            <small class="error-message"></small>
+        </div>
+        
+        <div class="form-group">
+            <label for="benefits">Avantages souhaités</label>
+            <textarea id="benefits" name="benefits" rows="4" 
+                      minlength="10" maxlength="500" 
+                      placeholder="Ex: Logo sur les affiches, mentions sur les réseaux sociaux..." required></textarea>
+            <small class="error-message"></small>
+        </div>
+        
+        <button type="submit">Envoyer la proposition</button>
+    </form>
+</div>
+>>>>>>> a2fab5823e23d27e778495a421b0f3aaed219ca1
 
 <style>
     .error-message {
@@ -868,7 +939,11 @@ $propositions = $controller->listSponser();
                         continue;
                     }
                     $displayedOffers[] = $key;
+<<<<<<< HEAD
                     echo '<div class="sponsorship-card" data-evenement="' . htmlspecialchars($offer['evenement']) . '" data-id-offre="' . htmlspecialchars($offer['id_offre']) . '">';
+=======
+                    echo '<div class="sponsorship-card" data-evenement="' . htmlspecialchars($offer['evenement']) . '">';
+>>>>>>> a2fab5823e23d27e778495a421b0f3aaed219ca1
                     echo '<h3>' . htmlspecialchars($offer['titre_offre']) . '</h3>';
                     if (!empty($offer['image'])) {
                         echo '<img src="images/' . htmlspecialchars($offer['image']) . '" alt="Image de l\'offre" style="max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 12px;" />';
@@ -885,6 +960,7 @@ $propositions = $controller->listSponser();
                 }
                 ?>
             </div>
+<<<<<<< HEAD
 
             <!-- Modal for sponsor request form and offer details -->
             <div id="sponsorRequestModal" class="event-modal" aria-hidden="true" role="dialog" aria-labelledby="modalTitle" aria-modal="true">
@@ -1077,6 +1153,8 @@ $propositions = $controller->listSponser();
                     });
                 });
             </script>
+=======
+>>>>>>> a2fab5823e23d27e778495a421b0f3aaed219ca1
         </div> 
 
         <!-- Section de suivi des propositions -->
@@ -1243,6 +1321,7 @@ $propositions = $controller->listSponser();
                     document.getElementById('form-section').scrollIntoView({ behavior: 'smooth' });
                 });
             });
+<<<<<<< HEAD
 
             // New code for toggling sections
             const btnShowSponsorships = document.getElementById('btnShowSponsorships');
@@ -1265,6 +1344,8 @@ $propositions = $controller->listSponser();
 
             // Show sponsorships by default on page load
             showSponsorships();
+=======
+>>>>>>> a2fab5823e23d27e778495a421b0f3aaed219ca1
         });
     </script>
 </body>

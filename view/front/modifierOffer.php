@@ -193,4 +193,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <a href="../back/back.php">Annuler</a>
     </form>
 </body>
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> a2fab5823e23d27e778495a421b0f3aaed219ca1
