@@ -19,15 +19,38 @@
     padding: 2rem;
 }
 
+
+
 .header {
-    min-height: 100vh;
-    width: 100%;
-    background: linear-gradient(rgba(0,0,0,0.4), 
-    rgba(0,0,0,0.6)),url('images/banner.png') center/cover no-repeat;
-    color: white;
-    position: relative;
-    z-index: 1;
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  color: white;
+  display: null !important;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
+
+.background-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  filter: brightness(0.6); /* pour l'effet sombre */
+}
+
+.header-content {
+  position: relative;
+  z-index: 1;
+}
+
+
+
 
 /* NAVIGATION - SIDE NAV */
 .header .navbar {
@@ -1823,3 +1846,102 @@ body {
   background-color: #f0f0f0;
 }
 
+
+.slider {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  background: white;
+  z-index: 1; /* garde le contenu au-dessus */
+}
+
+
+.slide {
+  width: 300px;
+  height: 200px;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  background: white;
+  transition: transform 0.3s ease;
+}
+
+.slider::before,
+.slider::after {
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 100%;
+  z-index: 0; /* en dessous des images */
+  pointer-events: none;
+  background: linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+}
+
+.slider::after {
+  right: 0;
+  top: 0;
+  transform: rotateZ(180deg);
+}
+
+.slider::before {
+  left: 0;
+  top: 0;
+}
+
+.slide-track {
+  display: flex;
+  gap: 20px; /* espace entre les slides */
+  padding: 0 20px;
+  width: max-content; /* pour que le slider prenne seulement ce qu’il faut */
+  animation: scroll 40s linear infinite;
+}
+
+.slider:hover .slide-track {
+  animation-play-state: paused; /* ça fait pause quand on survole le slider */
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-300px * 7)); }
+}
+
+.slide {
+  width: 300px;
+  height: 200px;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+  border-radius: 12px;
+}
+
+.slide .caption {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+  padding: 10px 0;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.slide:hover img {
+  transform: scale(1.05);
+}
+
+.slide:hover .caption {
+  transform: translateY(0);
+}

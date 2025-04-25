@@ -2,35 +2,9 @@
 require_once __DIR__ . '/../Config.php';
 require_once __DIR__ . '/../Model/User.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $full_name = $_POST['full_name'];
-    $email = $_POST['email'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-    $date_inscription = $_POST['date_inscription'];
-    $num_user = $_POST['num_user'];
-    $role = $_POST['role'];
-
-    $profile_picture = null;
-    if (!empty($_FILES['profile_picture']['name'])) {
-        $targetDir = "uploads/";
-        $fileName = basename($_FILES["profile_picture"]["name"]);
-        $targetFilePath = $targetDir . $fileName;
-        if (move_uploaded_file($_FILES["profile_picture"]["tmp_name"], $targetFilePath)) {
-            $profile_picture = $fileName;
-        }
-    }
-
-    // Appel méthode modèle
-    //User::addUser($db, $full_name, $email, $password, $date_inscription, $num_user, $role, $profile_picture, null);
-
-    // Redirection
-    header("Location: indeex.php");
-    exit;
-}
-
-
 class UserController {
     private $userModel;
+
 
     public function handleSocialLogin(array $socialUser, string $provider) {
         // Example implementation for handling social login
@@ -43,6 +17,25 @@ class UserController {
         // Example: Log the user data (replace with actual database logic)
         error_log("Social login via {$provider}: " . json_encode($socialUser));
     }
+
+    public function emailExists($email) {
+        // Example logic to check if the email exists in the database
+        $db = Config::getConnexion();
+        $query = $db->prepare("SELECT COUNT(*) FROM user WHERE email = :email");
+        $query->bindParam(':email', $email);
+        $query->execute();
+        return $query->fetchColumn() > 0;
+    }
+
+        // Method to check if a phone number exists
+        public function phoneExists($phone) {
+            // Replace with actual database logic
+            $db = Config::getConnexion();
+            $query = $db->prepare("SELECT COUNT(*) FROM user WHERE num_user = :num_user");
+            $query->bindParam(':num_user', $phone, PDO::PARAM_STR);
+            $query->execute();
+            return $query->fetchColumn() > 0;
+        }
 
         public function addUser() {
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -72,7 +65,101 @@ class UserController {
             }
         }
 
-      
+        public function debannirUser($id) {
+            $db = Config::getConnexion();
+            $user = User::findById($db, $id);
+        
+            if ($user) {
+                $user->setRole('user'); // ou autre selon l'ancien rôle
+                $user->setBanReason(null); // on supprime la raison
+        
+                if ($user->updateUser($db, $id)) {
+                    header("Location: indeex.php?unban_success=1&name=" . urlencode($user->getFullName()) . "&id=" . urlencode($user->getIdUser()));
+                    exit;
+                } else {
+                    echo "Échec de la mise à jour.";
+                }
+            } else {
+                echo "Utilisateur introuvable.";
+            }
+        }
+              
+
+        public function bannirUser($id, $raison) {
+            $db = Config::getConnexion();
+            $user = User::findById($db, $id);
+        
+            header('Content-Type: application/json'); // important pour JSON
+        
+            if ($user) {
+                $user->setRole('banni');
+                $user->setBanReason($raison);
+                $success = $user->updateUser($db, $id);
+        
+                if ($success) {
+                    echo json_encode([
+                        'success' => true,
+                        'message' => "Utilisateur banni avec succès.",
+                        'id' => $id,
+                        'raison' => $raison
+                    ]);
+                } else {
+                    echo json_encode([
+                        'success' => false,
+                        'message' => "Erreur lors de la mise à jour."
+                    ]);
+                }
+            } else {
+                echo json_encode([
+                    'success' => false,
+                    'message' => "Utilisateur non trouvé."
+                ]);
+            }
+        
+            exit;
+        }
+        
+        
+        
+        
+        
+        
+        
+
+        
+        public function changerRole($id, $nouveauRole) {
+            $db = Config::getConnexion();
+            $user = User::findById($db, $id);
+        
+            if ($user) {
+                if ($user->getRole() === $nouveauRole) {
+                    // Pas de changement
+                    header("Location: indeex.php?role_no_change=1&name=" . urlencode($user->getFullName()) . "&role=" . urlencode($nouveauRole));
+                    exit;
+                }
+        
+                $user->setRole($nouveauRole);
+        
+                // Si on débannit, on vide la raison
+                if ($nouveauRole !== 'banni') {
+                    $user->setBanReason(null);
+                }
+        
+                if ($user->updateUser($db, $id)) {
+                    header("Location: indeex.php?role_update_success=1&name=" . urlencode($user->getFullName()) . "&id=$id&role=" . urlencode($nouveauRole));
+                    exit;
+                } else {
+                    echo "❌ Échec de mise à jour.";
+                }
+            } else {
+                echo "Utilisateur non trouvé.";
+            }
+        }
+        
+        
+
+
+
       
 
 // This code block was removed because it was outside of a function and caused a syntax error.
@@ -157,7 +244,7 @@ public function index() {
                 // Erreur de contrainte d'intégrité (clé dupliquée)
                 if (strpos($e->getMessage(), 'email') !== false) {
                     $_SESSION['register_error'] = "Cet email est déjà utilisé.";
-                } elseif (strpos($e->getMessage(), 'phone') !== false) {
+                } elseif (strpos($e->getMessage(), 'num_user') !== false) {
                     $_SESSION['register_error'] = "Ce numéro de téléphone est déjà utilisé.";
                 } else {
                     $_SESSION['register_error'] = "Une donnée existe déjà en base.";
@@ -181,9 +268,14 @@ public function index() {
     
         try {
             $user = User::findByEmail($db, $email);
-            
+    
             if (!$user || !password_verify($password, $user->getPassword())) {
                 throw new Exception("Email ou mot de passe incorrect");
+            }
+    
+            if ($user->getRole() === 'banni') {
+                $raison = $user->getBanReason() ?? 'Aucune raison fournie.';
+                throw new Exception("Votre compte a été banni. Raison : $raison");
             }
     
             // Démarrer la session si elle n’est pas déjà démarrée
@@ -191,6 +283,7 @@ public function index() {
                 session_start();
             }
     
+            // Sauvegarder les infos utilisateur dans la session
             $_SESSION['user'] = [
                 'id_user' => $user->getIdUser(),
                 'full_name' => $user->getFullName(),
@@ -199,23 +292,23 @@ public function index() {
                 'num_user' => $user->getNumUser(),
                 'profile_picture' => $user->getProfilePicture()
             ];
-            
-            
-            // Déterminer la redirection selon le rôle
-            if ($user->getRole() === 'admin') {
-                $redirect = '/Projet%20Web/mvcUtilisateur/View/BackOffice/admin/dashboard.php';
-            } else {
-                $redirect = '/Projet%20Web/mvcUtilisateur/View/FrontOffice/index.php';
-            }
     
-            header("Location: $redirect");
+            // Redirection selon le rôle
+            if ($user->getRole() === 'admin') {
+                header("Location: /Projet%20Web/mvcUtilisateur/View/BackOffice/indeex.php");
+            } else {
+                header("Location: /Projet%20Web/mvcUtilisateur/View/FrontOffice/index.php");
+            }
             exit;
     
         } catch (Exception $e) {
-            header("Location: /Projet%20Web/View/BackOffice/login/login.php?error=" . urlencode($e->getMessage()));
+            // Redirection vers la page login avec le message d’erreur
+            header("Location: /Projet%20Web/mvcUtilisateur/View/BackOffice/login/login.php?error=" . urlencode($e->getMessage()));
             exit;
         }
     }
+    
+    
     
 
     public function handleFacebookLogin($facebookUser) {

@@ -33,7 +33,8 @@ $user = $_SESSION['user'];
 
 <h2>Modifier mon profil</h2>
 
-<form action="/Projet Web/mvcUtilisateur/Controller/AccountController.php?action=edit" method="post">
+<form action="/Projet%20Web/mvcUtilisateur/Controller/AccountController.php?action=update" method="post" enctype="multipart/form-data">
+
     <div class="form-group">
         <label>Nom complet</label>
         <input type="text" name="full_name" value="<?= htmlspecialchars($user['full_name']) ?>" required>

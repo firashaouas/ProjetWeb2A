@@ -224,9 +224,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['profile_picture'])) 
     </style>
 </head>
 <body>
-<a href="/Projet%20Web/mvcUtilisateur/View/FrontOffice/index.php" class="btn-secondary">
-    <i class="fas fa-arrow-left"></i> Retour à l'accueil
-</a>
+    <h1>Mon Profil</h1>
+    <p>Bienvenue sur votre page de profil, <?= htmlspecialchars($user['full_name']) ?>!</p>
+    
+    <?php
+    // Déterminer le lien de retour en fonction du rôle de l'utilisateur
+    $returnLink = '/Projet%20Web/mvcUtilisateur/View/FrontOffice/index.php';
+    if ($user['role'] === 'admin') {
+        $returnLink = '/Projet%20Web/mvcUtilisateur/View/BackOffice/indeex.php';
+    }
+    ?>
+<a href="<?php echo $returnLink; ?>" class="btn-secondary"> Retour à l'accueil</a>
+
     <div class="profile-container">
         <div class="profile-header">
             <form method="post" enctype="multipart/form-data" id="picture-form">

@@ -4,6 +4,7 @@ require_once __DIR__ . '/../config.php'; // Ensure this path points to the file 
 
 class User {
     private $id_user;
+    private $fullname;
     private $full_name;
     private $email;
     private $password;
@@ -12,11 +13,18 @@ class User {
     private $num_user;
     private $facebook_id;
     private $google_id;
-    private $profile_picture; 
+    private $profile_picture;
+    private $ban_reason; 
+
+    // Removed duplicate getBanReason method to avoid redeclaration error.
+    
+    public function setBanReason($ban_reason) {
+        $this->ban_reason = $ban_reason;
+    }
 
     public function __construct($id_user = null, $full_name = null, $email = null, 
                                 $password = null, $date_inscription = null, 
-                                $role = 'user', $num_user = null, $facebook_id = null, $google_id = null , $profile_picture = null) {
+                                $role = 'user', $num_user = null, $facebook_id = null, $google_id = null , $profile_picture = null, $ban_reason = null) {
         $this->id_user = $id_user;
         $this->full_name = $full_name;
         $this->email = $email;
@@ -27,6 +35,7 @@ class User {
         $this->facebook_id = $facebook_id;
         $this->google_id = $google_id;
         $this->profile_picture = $profile_picture;
+        $this->ban_reason = $ban_reason;
     }
 
     public function addUser($fullName, $email, $password, $dateInscription, $role, $numUser, $facebookId, $googleId, $profilePicture) {
@@ -117,9 +126,7 @@ class User {
         $this->num_user = $numUser;
     }
 
-    public function getRole() {
-        return $this->role;
-    }
+    // Removed duplicate getRole method to avoid redeclaration error.
 
     public function setRole($role) {
         $this->role = $role;
@@ -141,10 +148,77 @@ class User {
         $this->google_id = $googleId;
     }
 
+    public static function findById($db, $id) {
+        $stmt = $db->prepare("SELECT * FROM user WHERE id_user = ?");
+        $stmt->execute([$id]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+        if ($result) {
+            $user = new self();
+            $user->setIdUser($result['id_user']);
+            $user->setFullName($result['full_name']);
+            $user->setEmail($result['email']);
+            $user->setPassword($result['password']);
+            $user->setRole($result['role']);
+            $user->setNumUser($result['num_user']);
+            $user->setProfilePicture($result['profile_picture']);
+            $user->setBanReason($result['ban_reason']);
+            return $user;
+        }
+    
+        return null;
+    }
+
+    public function updateUser($db, $id_user) {
+        $stmt = $db->prepare("UPDATE user SET role = :role, ban_reason = :ban_reason WHERE id_user = :id_user");
+        $stmt->bindValue(':role', $this->getRole());
+        $stmt->bindValue(':ban_reason', $this->getBanReason());
+        $stmt->bindValue(':id_user', $id_user); // ✅ maintenant ça correspond parfaitement au nom dans la requête
+    
+        return $stmt->execute();
+    }
+    
+
+    public function getRole() {
+        return $this->role;
+    }
+    
+    public function getBanReason() {
+        return $this->ban_reason;
+    }
+    
+    
+    
+    
+    
+
+public static function getUserById($db, $id_user) {
+    $stmt = $db->prepare("SELECT * FROM user WHERE id_user = ?");
+    $stmt->execute([$id_user]);
+    $userData = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($userData) {
+        $user = new self();
+        $user->setIdUser($userData['id_user']);
+        $user->setFullName($userData['full_name']);
+        $user->setEmail($userData['email']);
+        $user->setPassword($userData['password']);
+        $user->setRole($userData['role']);
+        $user->setNumUser($userData['num_user']);
+        $user->setProfilePicture($userData['profile_picture']);
+        return $user;
+    }
+
+    return null;
+}
+
+
+
+
     public function save($db) {
         if ($this->id_user) {
             // Mise à jour
-            $stmt = $db->prepare("UPDATE users SET 
+            $stmt = $db->prepare("UPDATE user SET 
                 full_name = ?,
                 email = ?,
                 password = ?,
@@ -168,7 +242,7 @@ class User {
             ]);
         } else {
             // Insertion
-            $stmt = $db->prepare("INSERT INTO users 
+            $stmt = $db->prepare("INSERT INTO user 
                 (full_name, email, password, date_inscription, role, num_user, facebook_id, google_id, profile_picture) 
                 VALUES (?, ?, ?, NOW(), ?, ?, ?, ?, ?)");
                 
@@ -245,7 +319,8 @@ class User {
                 $data['num_user'],
                 $data['facebook_id'],
                 $data['google_id'],
-                $data['profile_picture'] // Added this line
+                $data['profile_picture'], // Added this line
+                $data['ban_reason']
             );
         }
         return null;

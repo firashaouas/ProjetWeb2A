@@ -94,7 +94,6 @@ function stringToColor($str) {
         display: block;
     }
     .search-bar {
-  display: flex;
   align-items: center;
   background: rgba(255, 255, 255, 0.1);
   border: 2px solid var(--spanish-gray);
@@ -107,6 +106,20 @@ function stringToColor($str) {
   height: 40px;
   margin-top: 400px !important; 
 }
+
+.background-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  filter: brightness(0.6); /* pour l'effet sombre */
+}
+
+
+
 </style>
 
 
@@ -114,6 +127,12 @@ function stringToColor($str) {
 <body>
 
     <div class="header">
+
+    <video autoplay muted loop playsinline class="background-video">
+    <source src="video/campfire.mp4" type="video/mp4">
+    Votre navigateur ne supporte pas les vidéos HTML5.
+  </video>
+
         <nav>
             <img src="images/logo.png" class="logo">
             <ul class="nav-links">
@@ -173,17 +192,112 @@ function stringToColor($str) {
 
     <div class="container">
         <h2 class="subtitle">ville</h2>
-        <div class="exclusives">
-            <!-- Reprise de 10 éléments identiques (Image 1) -->
-            <div><img src="images/beja.jpg" alt="Image 1"><span><h3>Beja</h3><p>200DT </p></span></div>
-            <div><img src="images/korbous.webp" alt="Image 1"><span><h3>Korbous</h3><p>180DT</p></span></div>
-            <div><img src="images/sousse.jpg" alt="Image 1"><span><h3>Sousse</h3><p>210DT </p></span></div>
-            <div><img src="images/tozeur.jpg" alt="Image 1"><span><h3>Tozeur</h3><p>400DT</p></span></div>
-            <div><img src="images/kef.jpg" alt="Image 1"><span><h3>Kef</h3><p>170DT </p></span></div>
-            <div><img src="images/zaghouen.jpg" alt="Image 1"><span><h3>Zaghouen</h3><p>165DT </p></span></div>
-            <div><img src="images/hamamet.jpg" alt="Image 1"><span><h3>Hammamet</h3><p>250DT </p></span></div>
-            <div><img src="images/bizerte.jpg" alt="Image 1"><span><h3>Bizerte</h3><p>140DT</p></span></div>
-            </div>
+        <div class="slider">
+  <div class="slide-track">
+    <div class="slide">
+      <img src="images/beja.jpg" alt="Beja" />
+      <div class="caption">
+        <h3>Beja</h3>
+        <p>200DT</p>
+      </div>
+    </div>
+    <div class="slide">
+      <img src="images/korbous.webp" alt="Korbous" />
+      <div class="caption">
+        <h3>Korbous</h3>
+        <p>180DT</p>
+      </div>
+    </div>
+    <div class="slide">
+      <img src="images/sousse.jpg" alt="Sousse" />
+      <div class="caption">
+        <h3>Sousse</h3>
+        <p>210DT</p>
+      </div>
+    </div>
+    <div class="slide">
+      <img src="images/tozeur.jpg" alt="Tozeur" />
+      <div class="caption">
+        <h3>Tozeur</h3>
+        <p>400DT</p>
+      </div>
+    </div>
+    <div class="slide">
+      <img src="images/kef.jpg" alt="Kef" />
+      <div class="caption">
+        <h3>Kef</h3>
+        <p>170DT</p>
+      </div>
+    </div>
+    <div class="slide">
+      <img src="images/zaghouen.jpg" alt="Zaghouen" />
+      <div class="caption">
+        <h3>Zaghouen</h3>
+        <p>165DT</p>
+      </div>
+    </div>
+    <div class="slide">
+      <img src="images/hamamet.jpg" alt="Hammamet" />
+      <div class="caption">
+        <h3>Hammamet</h3>
+        <p>250DT</p>
+      </div>
+    </div>
+    <div class="slide">
+      <img src="images/bizerte.jpg" alt="Bizerte" />
+      <div class="caption">
+        <h3>Bizerte</h3>
+        <p>140DT</p>
+      </div>
+    </div>
+
+    <!-- DUPLIQUER POUR BOUCLE INFINIE -->
+    <div class="slide">
+      <img src="images/beja.jpg" alt="Beja" />
+      <div class="caption">
+        <h3>Beja</h3>
+        <p>200DT</p>
+      </div>
+    </div>
+    <div class="slide">
+      <img src="images/korbous.webp" alt="Korbous" />
+      <div class="caption">
+        <h3>Korbous</h3>
+        <p>180DT</p>
+      </div>
+    </div>
+    <div class="slide">
+      <img src="images/sousse.jpg" alt="Sousse" />
+      <div class="caption">
+        <h3>Sousse</h3>
+        <p>210DT</p>
+      </div>
+    </div>
+    <div class="slide">
+      <img src="images/tozeur.jpg" alt="Tozeur" />
+      <div class="caption">
+        <h3>Tozeur</h3>
+        <p>400DT</p>
+      </div>
+    </div>
+    <div class="slide">
+      <img src="images/kef.jpg" alt="Kef" />
+      <div class="caption">
+        <h3>Kef</h3>
+        <p>170DT</p>
+      </div>
+    </div>
+    <div class="slide">
+      <img src="images/zaghouen.jpg" alt="Zaghouen" />
+      <div class="caption">
+        <h3>Zaghouen</h3>
+        <p>165DT</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
         <h2 class="subtitle">Catégories des activités</h2>
         <div class="trending">
