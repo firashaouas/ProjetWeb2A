@@ -20,14 +20,22 @@ $allProducts = $controller->getAllProducts(); // Cela retourne tous les produits
         .trending {
             display: flex;
             overflow-x: auto;
+<<<<<<< HEAD
             gap: 24px;
+=======
+            gap: 20px;
+>>>>>>> 3c3f2119bb40b1bf3989c4f7e0f85b069e0926de
             margin-bottom: 40px;
             white-space: nowrap;
             padding-bottom: 10px;
         }
 
         .activity-card {
+<<<<<<< HEAD
             flex: 0 0 240px;
+=======
+            flex: 0 0 200px;
+>>>>>>> 3c3f2119bb40b1bf3989c4f7e0f85b069e0926de
             background: white;
             border-radius: 10px;
             overflow: hidden;
@@ -53,7 +61,11 @@ $allProducts = $controller->getAllProducts(); // Cela retourne tous les produits
         .activity-card h4 {
             padding: 10px;
             margin: 0;
+<<<<<<< HEAD
             font-size: 16px;
+=======
+            font-size: 14px;
+>>>>>>> 3c3f2119bb40b1bf3989c4f7e0f85b069e0926de
             font-weight: 500;
             color: #222;
             text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
@@ -63,11 +75,16 @@ $allProducts = $controller->getAllProducts(); // Cela retourne tous les produits
             display: flex;
             align-items: center;
             justify-content: center;
+<<<<<<< HEAD
             min-height: 80px;
+=======
+            min-height: 60px;
+>>>>>>> 3c3f2119bb40b1bf3989c4f7e0f85b069e0926de
         }
 
         /* Styles pour l'affichage des produits par catégorie */
         .category-products {
+<<<<<<< HEAD
             display: flex;
             flex-wrap: wrap;
             gap: 25px;
@@ -86,10 +103,32 @@ $allProducts = $controller->getAllProducts(); // Cela retourne tous les produits
             height: 450px;
             position: relative;
             padding: 10px;
+=======
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+            justify-items: center;
+            width: 100%;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .product-item {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            width: 100%;
+            max-width: 250px;
+>>>>>>> 3c3f2119bb40b1bf3989c4f7e0f85b069e0926de
         }
         
         .product-item .image-container {
             width: 100%;
+<<<<<<< HEAD
             height: 280px;
             overflow: hidden;
             border-radius: 8px;
@@ -99,6 +138,9 @@ $allProducts = $controller->getAllProducts(); // Cela retourne tous les produits
         .product-item .image-container img {
             width: 100%;
             height: 100%;
+=======
+            height: 220px;
+>>>>>>> 3c3f2119bb40b1bf3989c4f7e0f85b069e0926de
             object-fit: cover;
         }
         
@@ -128,6 +170,7 @@ $allProducts = $controller->getAllProducts(); // Cela retourne tous les produits
         }
 
         .product-item .button-container {
+<<<<<<< HEAD
             position: absolute;
             bottom: 15px;
             left: 0;
@@ -142,10 +185,23 @@ $allProducts = $controller->getAllProducts(); // Cela retourne tous les produits
             flex: 0 1 auto;
             text-align: center;
             background: linear-gradient(90deg, #FF6F91, #D86AD8);
+=======
+            display: flex;
+            justify-content: space-between;
+            margin: 0 15px 15px;
+            gap: 10px;
+        }
+        
+        .product-item .register-btn {
+            flex: 1;
+            text-align: center;
+            background: linear-gradient(to left, #be3cf0, #dc46d7 17%, #ff50aa 68%, #ff6666);
+>>>>>>> 3c3f2119bb40b1bf3989c4f7e0f85b069e0926de
             color: white;
             padding: 8px 20px;
             border-radius: 20px;
             text-decoration: none;
+<<<<<<< HEAD
             transition: all 0.3s ease;
             font-size: 14px;
             font-weight: bold;
@@ -158,6 +214,13 @@ $allProducts = $controller->getAllProducts(); // Cela retourne tous les produits
             background: linear-gradient(90deg, #D86AD8, #FF6F91);
             transform: translateY(-2px) scale(1.05);
             box-shadow: 0 6px 20px rgba(216, 106, 216, 0.4);
+=======
+            transition: opacity 0.3s;
+        }
+        
+        .product-item .register-btn:hover {
+            opacity: 0.9;
+>>>>>>> 3c3f2119bb40b1bf3989c4f7e0f85b069e0926de
         }
         
         .category-title {
@@ -298,6 +361,7 @@ $allProducts = $controller->getAllProducts(); // Cela retourne tous les produits
                 max-width: 90%;
             }
         }
+<<<<<<< HEAD
 
         /* Styles pour les cartes de produits */
         .product-cards {
@@ -401,6 +465,8 @@ $allProducts = $controller->getAllProducts(); // Cela retourne tous les produits
                 max-width: 300px;
             }
         }
+=======
+>>>>>>> 3c3f2119bb40b1bf3989c4f7e0f85b069e0926de
     </style>
 </head>
 <body>
@@ -691,10 +757,14 @@ $allProducts = $controller->getAllProducts(); // Cela retourne tous les produits
                     let html = `<h2 class="category-title">${categoryName}</h2><div class="category-products">`;
                     
                     data.forEach(product => {
+<<<<<<< HEAD
                         const imagePath = product.image && product.image !== 'images/products/logo.png' 
                             ? `../../${product.image}` 
                             : 'images/products/logo.png';
 
+=======
+                        const imagePath = product.image || 'images/products/logo.png';
+>>>>>>> 3c3f2119bb40b1bf3989c4f7e0f85b069e0926de
                         html += `
                             <div class="product-item">
                                 <div class="image-container">
@@ -703,8 +773,13 @@ $allProducts = $controller->getAllProducts(); // Cela retourne tous les produits
                                 <h4>${product.name}</h4>
                                 <p>${product.price}</p>
                                 <div class="button-container">
+<<<<<<< HEAD
                                     <a href="acheter.html?id=${product.id}&produit=${encodeURIComponent(product.name)}&prix=${product.price.split(' ')[0]}&image=${imagePath}" class="best-seller-btn">Acheter</a>
                                     <a href="louer.php?id=${product.id}&produit=${encodeURIComponent(product.name)}&prix=${product.price.split(' ')[0]}&image=${imagePath}" class="best-seller-btn">Louer</a>
+=======
+                                    <a href="acheter.html?id=${product.id}&produit=${encodeURIComponent(product.name)}&prix=${product.price.split(' ')[0]}&image=../../${imagePath}" class="register-btn">Acheter</a>
+                                    <a href="louer.html?id=${product.id}&produit=${encodeURIComponent(product.name)}&prix=${product.price.split(' ')[0]}&image=../../${imagePath}" class="register-btn">Louer</a>
+>>>>>>> 3c3f2119bb40b1bf3989c4f7e0f85b069e0926de
                                 </div>
                             </div>
                         `;

@@ -1621,8 +1621,41 @@ $outOfStockData = $controller->getOutOfStockCount();
       <div class="categories">
         <?php foreach ($stats as $stat): ?>
         <div class="category">
+<<<<<<< HEAD
             <h4><?= htmlspecialchars($stat['category']) ?></h4>
             <p><?= $stat['product_count'] ?> produits</p>
+=======
+          <h4>Équipements Sportifs</h4>
+          <p>150 produits</p>
+        </div>
+        <div class="category">
+          <h4>Vêtements et Accessoires</h4>
+          <p>90 produits</p>
+        </div>
+        <div class="category">
+          <h4>Gadgets & Technologies</h4>
+          <p>60 produits</p>
+        </div>
+        <div class="category">
+          <h4>Articles de Bien-être & Récupération</h4>
+          <p>45 produits</p>
+        </div>
+        <div class="category">
+          <h4>Nutrition & Hydratation</h4>
+          <p>30 produits</p>
+        </div>
+        <div class="category">
+          <h4>Accessoires de Voyage & Mobilité</h4>
+          <p>25 produits</p>
+        </div>
+        <div class="category">
+          <h4>Supports et accessoires d'atelier</h4>
+          <p>20 produits</p>
+        </div>
+        <div class="category">
+          <h4>Univers du cerveau</h4>
+          <p>15 produits</p>
+>>>>>>> 3c3f2119bb40b1bf3989c4f7e0f85b069e0926de
         </div>
         <?php endforeach; ?>
       </div>

@@ -2,8 +2,11 @@
 require_once(__DIR__ . "/../model/produitmodel.php");
 require_once(__DIR__ . "../../config.php");
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 3c3f2119bb40b1bf3989c4f7e0f85b069e0926de
 // For debugging
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -579,8 +582,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 3c3f2119bb40b1bf3989c4f7e0f85b069e0926de
 if (isset($_GET['category'])) {
     $categoryName = $_GET['category'];
     $controller = new ProductController();
