@@ -242,5 +242,121 @@ class ChaiseController {
             throw new Exception('Erreur getEventSeatStats: ' . $e->getMessage());
         }
     }
+    public function updateReservation($eventId, $seatNumber) {
+        // Implémentez votre logique de mise à jour
+        // Par exemple :
+        $sql = "UPDATE chaise SET statut = 'reserve' 
+                WHERE event_id = :event_id AND numero = :numero";
+        
+        try {
+            $query = $this->db->prepare($sql);
+            return $query->execute([
+                ':event_id' => $eventId,
+                ':numero' => $seatNumber
+            ]);
+        } catch (Exception $e) {
+            throw new Exception('Erreur updateReservation: ' . $e->getMessage());
+        }
+    }
+    public function updateMultipleReservations($eventId, $seatNumbers) {
+        try {
+            $this->db->beginTransaction();
+
+            // Get current reserved seats for this event
+            $currentSeats = $this->getChaisesByEvent($eventId);
+            $currentReserved = array_filter($currentSeats, function($seat) {
+                return $seat['statut'] === 'reserve';
+            });
+            $currentReservedNumbers = array_column($currentReserved, 'numero');
+
+            // Determine seats to reserve and seats to free
+            $seatsToReserve = array_diff($seatNumbers, $currentReservedNumbers);
+            $seatsToFree = array_diff($currentReservedNumbers, $seatNumbers);
+
+            // Validate available seats
+            $eventStats = $this->getEventSeatStats($eventId);
+            $availableSeats = $eventStats['total'] - $eventStats['reserved'];
+            if (count($seatsToReserve) > $availableSeats) {
+                throw new Exception('Pas assez de sièges disponibles');
+            }
+
+            // Reserve new seats
+            foreach ($seatsToReserve as $seatNumber) {
+                $sql = "UPDATE chaise SET statut = 'reserve', id_user = :user_id 
+                        WHERE event_id = :event_id AND numero = :numero AND statut = 'libre'";
+                $query = $this->db->prepare($sql);
+                $query->execute([
+                    ':event_id' => $eventId,
+                    ':numero' => $seatNumber,
+                    ':user_id' => null // Replace with actual user ID if available
+                ]);
+                if ($query->rowCount() === 0) {
+                    throw new Exception("Le siège $seatNumber n'est pas disponible");
+                }
+            }
+
+            // Free removed seats
+            foreach ($seatsToFree as $seatNumber) {
+                $sql = "UPDATE chaise SET statut = 'libre', id_user = NULL 
+                        WHERE event_id = :event_id AND numero = :numero AND statut = 'reserve'";
+                $query = $this->db->prepare($sql);
+                $query->execute([
+                    ':event_id' => $eventId,
+                    ':numero' => $seatNumber
+                ]);
+            }
+
+            // Update reserved_seats in evenements table
+            $newReservedCount = count($seatNumbers);
+            $sql = "UPDATE evenements SET reserved_seats = :reserved_seats WHERE id = :event_id";
+            $query = $this->db->prepare($sql);
+            $query->execute([
+                ':event_id' => $eventId,
+                ':reserved_seats' => $newReservedCount
+            ]);
+
+            $this->db->commit();
+            return true;
+        } catch (Exception $e) {
+            $this->db->rollBack();
+            throw new Exception('Erreur updateMultipleReservations: ' . $e->getMessage());
+        }
+    }
+
+    public function cancelReservation($eventId) {
+        try {
+            $this->db->beginTransaction();
+
+            $sql = "UPDATE chaise SET statut = 'libre', id_user = NULL 
+                    WHERE event_id = :event_id AND statut = 'reserve'";
+            $query = $this->db->prepare($sql);
+            $query->execute([':event_id' => $eventId]);
+
+            // Reset reserved_seats in evenements table
+            $sql = "UPDATE evenements SET reserved_seats = 0 WHERE id = :event_id";
+            $query = $this->db->prepare($sql);
+            $query->execute([':event_id' => $eventId]);
+
+            $this->db->commit();
+            return true;
+        } catch (Exception $e) {
+            $this->db->rollBack();
+            throw new Exception('Erreur cancelReservation: ' . $e->getMessage());
+        }
+    }
+
+    /*public function cancelReservation($eventId) {
+        // Implémentez votre logique d'annulation
+        // Par exemple :
+        $sql = "UPDATE chaise SET statut = 'libre', id_user = NULL 
+                WHERE event_id = :event_id AND statut = 'reserve'";
+        
+        try {
+            $query = $this->db->prepare($sql);
+            return $query->execute([':event_id' => $eventId]);
+        } catch (Exception $e) {
+            throw new Exception('Erreur cancelReservation: ' . $e->getMessage());
+        }
+    }*/
 }
 ?>

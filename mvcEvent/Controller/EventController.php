@@ -223,5 +223,31 @@ class EventController {
             throw new Exception('Erreur getEventById: ' . $e->getMessage());
         }
     }
+    public function getAllReservations() {
+        $sql = "SELECT 
+                    e.id, 
+                    e.name, 
+                    e.date, 
+                    e.location, 
+                    e.price, 
+                    e.image_url AS image,
+                    GROUP_CONCAT(c.numero ORDER BY CAST(c.numero AS UNSIGNED)) AS seats,
+                    e.date > DATE_ADD(NOW(), INTERVAL 1 DAY) AS can_modify,
+                    e.date > DATE_ADD(NOW(), INTERVAL 1 DAY) AS can_cancel
+                FROM chaise c
+                JOIN evenements e ON c.event_id = e.id
+                WHERE c.statut = 'reserve'
+                GROUP BY e.id, e.name, e.date, e.location, e.price, e.image_url
+                ORDER BY e.date ASC";
+        
+        try {
+            $query = $this->db->prepare($sql);
+            $query->execute();
+            
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            throw new Exception('Erreur getAllReservations: ' . $e->getMessage());
+        }
+    }
 }
 ?>

@@ -33,8 +33,7 @@ $categories = [
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>event</title>
-    <link rel="stylesheet" href="style.css">
-
+    <link rel="stylesheet" href="style.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
@@ -229,61 +228,319 @@ $categories = [
         <p>Votre avis sera bientôt visible par toute la communauté.</p>
     </div>
 </div>
-<!-- Section existante des catégories et événements -->
-<div class="container">
-    <!-- Votre contenu existant -->
-</div>
-
-<!-- Section existante pour les avis -->
-<div class="review-container">
-    <!-- Contenu de la section des avis -->
-</div>
-
-<!-- Nouvelle section pour la réservation de sièges -->
-<div class="seat-reservation-section">
-    <div class="seat-reservation-header">
-        <h2 class="magic-text">Réservez votre place comme au théâtre ! <i class="fas fa-chair pulse"></i></h2>
-        <p class="subtitle">Choisissez votre siège pour vivre l'événement à votre façon, que ce soit au cœur de l'action ou en hauteur pour tout voir !</p>
-    </div>
-
-    <!-- Grille de sièges avec scène -->
-    <div class="seat-grid-container">
-        <!-- Scène -->
-        <div class="stage">
-            <div class="stage-label">Scène</div>
-            <div class="stage-lights">
-                <span class="light"></span>
-                <span class="light"></span>
-                <span class="light"></span>
-            </div>
-        </div>
-        <!-- Grille de sièges -->
-        <div class="seat-grid" id="seat-grid">
-            <!-- Les sièges seront générés dynamiquement via JavaScript -->
-        </div>
-        <div class="seat-legend">
-            <div class="legend-item">
-                <span class="seat available"></span> Disponible
-            </div>
-            <div class="legend-item">
-                <span class="seat reserved"></span> Réservé
-            </div>
-            <div class="legend-item">
-                <span class="seat selected"></span> Sélectionné
+<!-- Ajoutez cette section après la partie des avis -->
+<section class="reservations-section">
+    <div class="container">
+        <h2 class="magic-text">
+            <i class="fas fa-ticket-alt pulse"></i> Gestion des Réservations
+            <span class="badge" id="reservation-count">0</span>
+        </h2>
+        <p class="subtitle">Consultez, modifiez ou annulez vos réservations en toute simplicité</p>
+        <div class="reservations-list" id="reservations-list">
+            <div class="empty-state">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>Chargement des réservations...</p>
             </div>
         </div>
     </div>
+</section>
 
-    <!-- Bouton de confirmation -->
-    <button class="confirm-btn" id="confirm-btn" disabled>Confirmer ma réservation</button>
-
-    <!-- Message de confirmation (caché par défaut) -->
-    <div class="confirmation-message" id="confirmation-message">
-        <div class="confetti">🎉</div>
-        <h3>Votre place est réservée !</h3>
-        <p>Vous recevrez une confirmation par email. Profitez de l'événement !</p>
+<div class="reservation-modal" id="edit-modal">
+    <div class="modal-content">
+        <span class="close-modal" aria-label="Fermer">&times;</span>
+        <h3><i class="fas fa-edit"></i> Modifier la réservation</h3>
+        <div class="modal-body" id="edit-modal-body"></div>
     </div>
 </div>
+</div>
+<script>
+const API_BASE_URL = '/projetWeb/mvcEvent/reservations_api.php';
+
+window.loadAllReservations = async function() {
+    console.log("Loading reservations...");
+    try {
+        showLoadingState();
+        const response = await fetch(`${API_BASE_URL}?action=get_all`, { credentials: 'same-origin' });
+        console.log("API Response:", response);
+        if (!response.ok) throw new Error(`Erreur serveur: ${response.status}`);
+        const data = await response.json();
+        console.log("API Data:", data);
+        if (!data.success) throw new Error(data.message || 'Erreur inconnue');
+        displayReservations(data.reservations);
+        updateReservationCount(data.reservations.length);
+    } catch (error) {
+        console.error('Erreur:', error);
+        showErrorState(error.message);
+    }
+};
+
+function displayReservations(reservations) {
+    const container = document.getElementById('reservations-list');
+    if (!reservations || !reservations.length) {
+        container.innerHTML = `
+            <div class="empty-state">
+                <i class="fas fa-calendar-check"></i>
+                <p>Aucune réservation trouvée</p>
+            </div>`;
+        return;
+    }
+
+    container.innerHTML = reservations.map(reservation => `
+        <div class="reservation-card" data-id="${reservation.id}">
+            <div class="reservation-header">
+                <h3>${escapeHtml(reservation.title)}</h3>
+                <span class="price">${reservation.price} DT</span>
+            </div>
+            <div class="reservation-details">
+                <h4><i class="fas "></i> ${escapeHtml(reservation.name)}</h4>
+                <p><i class="fas fa-calendar-alt"></i> ${formatDate(reservation.date)}</p>
+                <p><i class="fas fa-map-marker-alt"></i> ${escapeHtml(reservation.location)}</p>
+                <p><i class="fas fa-chair"></i> ${getSeatsCount(reservation.seats)} place(s)</p>
+            </div>
+            <div class="reservation-actions">
+                <button class="btn-modifier" onclick="openEditModal(${reservation.id})">
+                    <i class="fas fa-edit"></i> Modifier
+                </button>
+                <button class="btn-annuler" onclick="confirmCancel(${reservation.id})">
+                    <i class="fas fa-times"></i> Annuler
+                </button>
+            </div>
+        </div>
+    `).join('');
+}
+
+window.openEditModal = async function(eventId) {
+    try {
+        showModalLoading();
+        document.getElementById('edit-modal').classList.add('active');
+        
+        const [eventResponse, seatsResponse, reservationResponse] = await Promise.all([
+            fetch(`${API_BASE_URL}?action=get_event&event_id=${eventId}`, { credentials: 'same-origin' }),
+            fetch(`${API_BASE_URL}?action=get_seats&event_id=${eventId}`, { credentials: 'same-origin' }),
+            fetch(`${API_BASE_URL}?action=get_reservation&event_id=${eventId}`, { credentials: 'same-origin' }) // New endpoint to get current reservation
+        ]);
+
+        if (!eventResponse.ok || !seatsResponse.ok || !reservationResponse.ok) {
+            throw new Error('Erreur lors du chargement des données');
+        }
+        const [eventData, seatsData, reservationData] = await Promise.all([
+            eventResponse.json(),
+            seatsResponse.json(),
+            reservationResponse.json()
+        ]);
+        if (!eventData.success || !seatsData.success || !reservationData.success) {
+            throw new Error(eventData.message || seatsData.message || reservationData.message || 'Erreur inconnue');
+        }
+
+        // Get currently reserved seats for this reservation
+        const reservedSeats = reservationData.reservation?.seats || [];
+
+        document.getElementById('edit-modal-body').innerHTML = `
+            <div class="modal-event-info">
+                <img src="${escapeHtml(eventData.event.imageUrl)}" alt="${escapeHtml(eventData.event.name)}">
+                <div class="modal-event-text">
+<h4>${escapeHtml(eventData.event.name)}</h4>
+                    <p><i class="fas fa-calendar-alt"></i> ${formatDate(eventData.event.date)}</p>
+                    <p><i class="fas fa-map-marker-alt"></i> ${escapeHtml(eventData.event.location)}</p>
+                </div>
+            </div>
+          <div class="seat-selection">
+        <h5>Choisissez vos sièges (<span id="selected-count">${reservedSeats.length}</span> sélectionné(s))</h5>
+        <div class="stage-mini">SCÈNE</div>
+        <div class="available-seats">
+            ${seatsData.seats.map(seat => `
+                <div class="seat-option 
+                    ${seat.status === 'reserve' && !reservedSeats.includes(seat.number) ? 'reserved' : ''}
+                    ${reservedSeats.includes(seat.number) ? 'selected' : 'available'}" 
+                    data-seat="${seat.number}" 
+                    data-status="${seat.status}">
+                    <i class="fas fa-chair"></i>
+                    ${seat.number}
+                    ${seat.status === 'reserve' && !reservedSeats.includes(seat.number) ? '<span>(réservé)</span>' : ''}
+                </div>
+            `).join('')}
+        </div>
+    </div>
+            <div class="modal-actions">
+                <button class="confirm-btn" onclick="updateReservation(${eventId})">
+                    <i class="fas fa-check"></i> Confirmer
+                </button>
+            </div>
+        `;
+        initSeatSelection();
+    } catch (error) {
+        console.error('Erreur:', error);
+        document.getElementById('edit-modal-body').innerHTML = `
+            <div class="error-state">
+                <i class="fas fa-exclamation-triangle"></i>
+                <p>${escapeHtml(error.message)}</p>
+            </div>`;
+    }
+};
+window.updateReservation = async function(eventId) {
+    const selectedSeats = Array.from(document.querySelectorAll('.seat-option.selected')).map(seat => seat.dataset.seat);
+    if (selectedSeats.length === 0) {
+        showModalError('Veuillez sélectionner au moins un siège');
+        return;
+    }
+
+    try {
+        const response = await fetch(`${API_BASE_URL}?action=update`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'same-origin',
+            body: JSON.stringify({
+                event_id: eventId,
+                seat_numbers: selectedSeats
+            })
+        });
+
+        const data = await response.json();
+        if (!data.success) throw new Error(data.message || 'Erreur inconnue');
+        
+        showModalSuccess('Réservation mise à jour avec succès!');
+        setTimeout(() => {
+            closeModal();
+            loadAllReservations();
+        }, 1500);
+    } catch (error) {
+        console.error('Erreur:', error);
+        showModalError('Erreur: ' + error.message);
+    }
+};
+window.confirmCancel = function(eventId) {
+    if (confirm('Êtes-vous sûr de vouloir annuler cette réservation?')) {
+        cancelReservation(eventId);
+    }
+};
+
+async function cancelReservation(eventId) {
+    try {
+        const response = await fetch(`${API_BASE_URL}?action=cancel`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'same-origin',
+            body: JSON.stringify({ event_id: eventId })
+        });
+
+        const data = await response.json();
+        if (!data.success) throw new Error(data.message || 'Erreur inconnue');
+        
+        showModalSuccess('Réservation annulée avec succès!');
+        setTimeout(loadAllReservations, 1500);
+    } catch (error) {
+        console.error('Erreur:', error);
+        showModalError('Erreur: ' + error.message);
+    }
+}
+
+function showModalLoading() {
+    document.getElementById('edit-modal-body').innerHTML = `
+        <div class="loading-state">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Chargement des détails...</p>
+        </div>`;
+    document.getElementById('edit-modal').classList.add('active');
+}
+
+function showModalError(message) {
+    const modalBody = document.getElementById('edit-modal-body');
+    modalBody.innerHTML = `
+        <div class="error-state">
+            <i class="fas fa-exclamation-triangle"></i>
+            <p>${escapeHtml(message)}</p>
+        </div>`;
+    setTimeout(closeModal, 3000);
+}
+
+function showModalSuccess(message) {
+    const modalBody = document.getElementById('edit-modal-body');
+    modalBody.innerHTML = `
+        <div class="confirmation-message">
+            <div class="confetti">🎉</div>
+            <h3>${escapeHtml(message)}</h3>
+        </div>`;
+}
+
+function formatDate(dateString) {
+    if (!dateString) return 'Date non spécifiée';
+    return new Date(dateString).toLocaleDateString('fr-FR', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+}
+
+function getSeatsCount(seats) {
+    if (!seats) return 0;
+    return typeof seats === 'string' ? seats.split(',').length : seats.length;
+}
+
+function escapeHtml(unsafe) {
+    return unsafe?.toString()
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;") || '';
+}
+
+function showLoadingState() {
+    document.getElementById('reservations-list').innerHTML = `
+        <div class="empty-state">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Chargement en cours...</p>
+        </div>`;
+}
+
+function showErrorState(message) {
+    document.getElementById('reservations-list').innerHTML = `
+        <div class="error-state">
+            <i class="fas fa-exclamation-triangle"></i>
+            <p>${escapeHtml(message)}</p>
+            <button onclick="loadAllReservations()" class="retry-btn">
+                <i class="fas fa-sync-alt"></i> Réessayer
+            </button>
+        </div>`;
+}
+
+function updateReservationCount(count) {
+    document.getElementById('reservation-count').textContent = count || 0;
+}
+
+function closeModal() {
+    document.getElementById('edit-modal').classList.remove('active');
+}
+
+function initSeatSelection() {
+    const seats = document.querySelectorAll('.seat-option');
+    const selectedCount = document.getElementById('selected-count');
+
+    seats.forEach(seat => {
+        if (seat.classList.contains('reserved') && !seat.classList.contains('selected')) {
+            return; // Skip seats reserved by others
+        }
+        seat.addEventListener('click', function() {
+            if (this.classList.contains('reserved') && !this.classList.contains('selected')) {
+                return; // Prevent clicking reserved seats
+            }
+            this.classList.toggle('selected');
+            const selectedSeats = document.querySelectorAll('.seat-option.selected').length;
+            selectedCount.textContent = selectedSeats;
+        });
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelector('.close-modal').addEventListener('click', closeModal);
+    document.getElementById('edit-modal').addEventListener('click', function(e) {
+        if (e.target === this) closeModal();
+    });
+    loadAllReservations();
+});
+</script>
+
     <script>
         // Gestion de l'ouverture/fermeture des sous-événements
        // Gestion de l'ouverture/fermeture des sous-événements
@@ -365,59 +622,7 @@ document.querySelectorAll('.activity-card').forEach(card => {
         document.querySelector('.thank-you-message').style.display = 'block';
     });
     </script>
-    <script>
-        // Génération de la grille de sièges
-        const seatGrid = document.getElementById('seat-grid');
-        const confirmBtn = document.getElementById('confirm-btn');
-        const confirmationMessage = document.getElementById('confirmation-message');
-        const totalSeats = 50; // 5 rangées x 10 colonnes
-        const reservedSeats = [5, 12, 15, 28, 42]; // Sièges déjà réservés (exemple)
-        let selectedSeats = [];
-        
-        function generateSeatGrid() {
-            for (let i = 1; i <= totalSeats; i++) {
-                const seat = document.createElement('div');
-                seat.classList.add('seat');
-                seat.textContent = i;
-        
-                if (reservedSeats.includes(i)) {
-                    seat.classList.add('reserved');
-                } else {
-                    seat.classList.add('available');
-                    seat.addEventListener('click', () => toggleSeatSelection(seat, i));
-                }
-        
-                seatGrid.appendChild(seat);
-            }
-        }
-        
-        function toggleSeatSelection(seat, seatNumber) {
-            if (seat.classList.contains('selected')) {
-                seat.classList.remove('selected');
-                selectedSeats = selectedSeats.filter(num => num !== seatNumber);
-            } else {
-                seat.classList.add('selected');
-                selectedSeats.push(seatNumber);
-            }
-        
-            confirmBtn.disabled = selectedSeats.length === 0;
-        }
-        
-        function confirmReservation() {
-            seatGrid.style.display = 'none';
-            confirmBtn.style.display = 'none';
-            confirmationMessage.style.display = 'block';
-        
-            // Simuler l'envoi des sièges réservés (vous pouvez ajouter une requête vers un backend ici)
-            console.log('Sièges réservés :', selectedSeats);
-        }
-        
-        // Initialisation de la grille
-        generateSeatGrid();
-        
-        // Gestion de la confirmation
-        confirmBtn.addEventListener('click', confirmReservation);
-        </script>
+    
 <script>
 class EventNotifier {
     constructor() {

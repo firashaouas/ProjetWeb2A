@@ -1962,3 +1962,436 @@ nav {
         max-width: 100%;
     }
 }
+/* ===== GESTION DES RÉSERVATIONS ===== */
+.reservations-section {
+    max-width: 1200px;
+    margin: 4rem auto;
+    padding: 0 20px;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+}
+
+.reservations-section .magic-text {
+    font-size: 2.8em;
+    font-weight: bold;
+    background: linear-gradient(45deg, #be3cf0, #ff50aa, #ff6666);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradient 8s ease infinite;
+    background-size: 300% 300%;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.reservations-section .magic-text i {
+    color: #ff50aa;
+}
+
+.badge {
+    background: linear-gradient(to right, #be3cf0, #ff50aa);
+    color: white;
+    border-radius: 15px;
+    padding: 5px 12px;
+    font-size: 0.9rem;
+    margin-left: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.badge:hover {
+    transform: scale(1.1);
+}
+
+.reservations-section .subtitle {
+    font-size: 1.2em;
+    color: #666;
+    margin-top: 10px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.reservations-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.reservation-card {
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s;
+    position: relative;
+    overflow: hidden;
+}
+
+.reservation-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 12px 30px rgba(255, 80, 170, 0.2);
+    background: linear-gradient(135deg, #ffe6f0, #fff);
+}
+
+.reservation-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.reservation-header h3 {
+    font-size: 1.3rem;
+    color: #333;
+    font-weight: 600;
+}
+
+.reservation-header .price {
+    background: linear-gradient(to right, #ff50aa, #ff6666);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+}
+
+.reservation-details p {
+    font-size: 0.95rem;
+    color: #666;
+    margin: 8px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.reservation-details i {
+    color: #ff50aa;
+    font-size: 1.1rem;
+}
+
+.reservation-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.btn-modifier, .btn-annuler {
+    padding: 8px 15px;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.btn-modifier {
+    background: linear-gradient(to right, #be3cf0, #ff50aa);
+    color: white;
+    border: none;
+}
+
+.btn-modifier:hover {
+    background: linear-gradient(to left, #be3cf0, #ff50aa);
+    transform: scale(1.05);
+}
+
+.btn-annuler {
+    background: linear-gradient(to right, #ff6666, #ff8888);
+    color: white;
+    border: none;
+}
+
+.btn-annuler:hover {
+    background: linear-gradient(to left, #ff6666, #ff8888);
+    transform: scale(1.05);
+}
+
+.empty-state, .error-state {
+    text-align: center;
+    padding: 2rem;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.empty-state i, .error-state i {
+    font-size: 2rem;
+    color: #ff50aa;
+    margin-bottom: 10px;
+}
+
+.empty-state p, .error-state p {
+    font-size: 1.1rem;
+    color: #666;
+}
+
+.retry-btn {
+    background: linear-gradient(to right, #be3cf0, #ff50aa);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: all 0.3s;
+}
+
+.retry-btn:hover {
+    background: linear-gradient(to left, #be3cf0, #ff50aa);
+    transform: scale(1.05);
+}
+
+.reservation-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.reservation-modal.active {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    transform: translateY(20px);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.reservation-modal.active .modal-content {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.modal-content h3 {
+    font-size: 1.8em;
+    font-weight: bold;
+    background: linear-gradient(45deg, #be3cf0, #ff50aa, #ff6666);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.close-modal {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close-modal:hover {
+    color: #ff50aa;
+}
+
+.modal-body {
+    padding: 2rem;
+}
+
+.modal-event-info {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #eee;
+}
+
+.modal-event-info img {
+    width: 200px;
+    height: 150px;
+    border-radius: 15px;
+    object-fit: cover;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.modal-event-info h4 {
+    font-size: 1.3rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.modal-event-info p {
+    color: #666;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.modal-event-info i {
+    color: #ff50aa;
+}
+
+.seat-selection h5 {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.stage-mini {
+    width: 100%;
+    height: 40px;
+    background: linear-gradient(to bottom, #333, #555);
+    border-radius: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.available-seats {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.seat-option {
+    padding: 12px;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+}
+
+.seat-option.available {
+    background: #ddd;
+    color: #333;
+}
+
+.seat-option.available:hover {
+    background: linear-gradient(to right, #ff50aa, #ff6666);
+    color: white;
+    transform: scale(1.1);
+}
+
+.seat-option.reserved {
+    background: #666;
+    color: white;
+    cursor: not-allowed;
+}
+
+.seat-option.selected {
+    background: linear-gradient(to right, #be3cf0, #ff50aa);
+    color: white;
+    transform: scale(1.1);
+    box-shadow: 0 5px 15px rgba(255, 80, 170, 0.4);
+}
+
+.seat-option i {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 1.2rem;
+}
+
+.modal-actions {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.confirm-btn {
+    background: linear-gradient(to right, #be3cf0, #ff50aa, #ff6666);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.confirm-btn:hover {
+    background: linear-gradient(to left, #be3cf0, #ff50aa, #ff6666);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .reservations-section {
+        max-width: 100%;
+        padding: 0 1rem;
+    }
+    .reservations-list {
+        grid-template-columns: 1fr;
+    }
+    .modal-content {
+        width: 95%;
+        max-width: 95%;
+    }
+}
+.seat-selection h5 {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.seat-selection h5 #selected-count {
+    color: #ff50aa;
+    font-weight: bold;
+}
+
+.seat-option {
+    padding: 12px;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+}
+
+.seat-option.available {
+    background: #ddd;
+    color: #333;
+}
+
+.seat-option.available:hover {
+    background: linear-gradient(to right, #ff50aa, #ff6666);
+    color: white;
+    transform: scale(1.1);
+}
+
+.seat-option.reserved {
+    background: #666;
+    color: white;
+    cursor: not-allowed;
+}
+
+.seat-option.selected {
+    background: linear-gradient(to right, #be3cf0, #ff50aa);
+    color: white;
+    transform: scale(1.1);
+    box-shadow: 0 5px 15px rgba(255, 80, 170, 0.4);
+}
