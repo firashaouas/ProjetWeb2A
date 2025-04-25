@@ -1,20 +1,8 @@
 <?php
 require_once(__DIR__ . "/../model/produitmodel.php");
-
-
-
 require_once(__DIR__ . "../../config.php");
 
 
-if (isset($_GET['category'])) {
-    $categoryName = $_GET['category'];
-    $controller = new ProductController();
-    $products = $controller->getProductsByCategory($categoryName);
-    
-    header('Content-Type: application/json');
-    echo json_encode($products);
-    exit();
-}
 
 // For debugging
 error_reporting(E_ALL);
@@ -37,7 +25,41 @@ class ProductController {
             die('Erreur de connexion à la base de données: ' . $e->getMessage());
         }
     }
+    public function rentProduct($productId, $quantity) {
+        try {
+            // Vérifier si le stock est suffisant
+            $product = $this->getProductById($productId);
+            if ($product['stock'] < $quantity) {
+                throw new Exception("Stock insuffisant pour la location du produit ID $productId");
+            }
+    
+            // Réduire le stock du produit
+            return $this->decreaseStock($productId, $quantity);
+        } catch (Exception $e) {
+            error_log("Erreur dans rentProduct: " . $e->getMessage());
+            return false;
+        }
+    }
+    
+public function decreaseStock($productId, $quantity) {
+    try {
+        $sql = "UPDATE products SET stock = stock - :quantity WHERE id = :id AND stock >= :quantity";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([
+            ':quantity' => $quantity,
+            ':id' => $productId
+        ]);
 
+        if ($stmt->rowCount() === 0) {
+            throw new Exception("Stock insuffisant pour le produit ID $productId");
+        }
+
+        return true;
+    } catch (Exception $e) {
+        error_log("Erreur dans decreaseStock: " . $e->getMessage());
+        return false;
+    }
+}
 
 
 
@@ -59,7 +81,8 @@ class ProductController {
                 return ['error' => 'Catégorie invalide'];
             }
     
-            $stmt = $this->pdo->prepare("SELECT name, price, photo as image FROM products WHERE category = ?");
+            // Ajouter 'id' dans la sélection
+            $stmt = $this->pdo->prepare("SELECT id, name, price, photo as image FROM products WHERE category = ?");
             $stmt->execute([$categoryName]);
             
             $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -67,6 +90,7 @@ class ProductController {
             // Formatage cohérent des données
             return array_map(function($product) {
                 return [
+                    'id' => $product['id'], // Inclure l'ID
                     'name' => $product['name'],
                     'price' => number_format($product['price'], 2) . ' TND',
                     'image' => $product['image'] ?? 'images/default-product.jpg'
@@ -78,26 +102,19 @@ class ProductController {
             return ['error' => $e->getMessage()];
         }
     }
-    
-    
-    
-    
-
-
-    
 
     // Add a new product
     public function addProduct($name, $price, $stock, $category, $purchase_available, $rental_available) {
         try {
 
             // Gestion de l'image
-            $photoPath = 'images/products/logo.png'; // Valeur par défaut
+            $photoPath = 'images/products/logo.png'; 
             
             if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
                 $photoPath = $this->handleFileUpload('photo');
             }
 
-            // Conversion des valeurs booléennes
+            
             $purchase_available = ($purchase_available === 'yes') ? 1 : 0;
             $rental_available = ($rental_available === 'yes') ? 1 : 0;
 
@@ -272,11 +289,41 @@ class ProductController {
                     'category' => $row['category'],
                     'purchase_available' => (bool)$row['purchase_available'],
                     'rental_available' => (bool)$row['rental_available'],
-                    'photo' => $row['photo'] // Assurez-vous que ce champ est inclus
+                    'photo' => $row['photo']
                 ];
             }
             
             return ['success' => true, 'products' => $products];
+        } catch (PDOException $e) {
+            return ['success' => false, 'error' => $e->getMessage()];
+        }
+    }
+
+    public function getCategoryStats() {
+        try {
+            $sql = "SELECT 
+                    category,
+                    COUNT(*) as product_count,
+                    SUM(stock) as total_stock,
+                    SUM(price * stock) as total_value
+                FROM products 
+                GROUP BY category
+                ORDER BY product_count DESC";
+            
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
+            
+            $stats = [];
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $stats[] = [
+                    'category' => $row['category'],
+                    'product_count' => (int)$row['product_count'],
+                    'total_stock' => (int)$row['total_stock'],
+                    'total_value' => (float)$row['total_value']
+                ];
+            }
+            
+            return ['success' => true, 'stats' => $stats];
         } catch (PDOException $e) {
             return ['success' => false, 'error' => $e->getMessage()];
         }
@@ -309,6 +356,146 @@ class ProductController {
             throw new Exception('Erreur : ' . $e->getMessage());
         }
     }
+
+    public function getGlobalStats() {
+        try {
+            $sql = "SELECT 
+                    SUM(stock) as total_stock,
+                    SUM(price * stock) as total_value
+                FROM products";
+            
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
+            
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            return [
+                'success' => true,
+                'total_stock' => (int)$row['total_stock'],
+                'total_value' => (float)$row['total_value']
+            ];
+        } catch (PDOException $e) {
+            return ['success' => false, 'error' => $e->getMessage()];
+        }
+    }
+
+    public function getOrdersStats() {
+        try {
+            // Compter les commandes d'achat
+            $sqlPurchases = "SELECT COUNT(*) as purchase_count FROM commandes";
+            $stmtPurchases = $this->pdo->prepare($sqlPurchases);
+            $stmtPurchases->execute();
+            $purchaseCount = $stmtPurchases->fetch(PDO::FETCH_ASSOC)['purchase_count'];
+
+            // Compter les locations
+            $sqlRentals = "SELECT COUNT(*) as rental_count FROM louer";
+            $stmtRentals = $this->pdo->prepare($sqlRentals);
+            $stmtRentals->execute();
+            $rentalCount = $stmtRentals->fetch(PDO::FETCH_ASSOC)['rental_count'];
+
+            // Total des commandes
+            $totalOrders = $purchaseCount + $rentalCount;
+
+            return [
+                'success' => true,
+                'total_orders' => $totalOrders,
+                'purchase_count' => $purchaseCount,
+                'rental_count' => $rentalCount
+            ];
+        } catch (PDOException $e) {
+            return ['success' => false, 'error' => $e->getMessage()];
+        }
+    }
+
+    public function getTopProducts($period = 'today') {
+        try {
+            $query = "SELECT p.*, COUNT(c.id_commande) as total_ventes 
+                     FROM products p 
+                     LEFT JOIN commandes c ON p.id = c.id_produit ";
+
+            switch($period) {
+                case 'today':
+                    $query .= "AND DATE(c.date_commande) = CURDATE() ";
+                    break;
+                case 'week':
+                    $query .= "AND c.date_commande >= DATE_SUB(CURDATE(), INTERVAL 1 WEEK) ";
+                    break;
+                case 'month':
+                    $query .= "AND c.date_commande >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH) ";
+                    break;
+                default:
+                    $query .= "AND DATE(c.date_commande) = CURDATE() ";
+            }
+
+            $query .= "GROUP BY p.id, p.name, p.category, p.stock, p.price 
+                      ORDER BY total_ventes DESC 
+                      LIMIT 3";
+
+            $stmt = $this->pdo->prepare($query);
+            $stmt->execute();
+            
+            // Debug: Afficher la requête et les résultats
+            error_log("Query: " . $query);
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            error_log("Results: " . print_r($results, true));
+
+            return [
+                'success' => true,
+                'products' => $results
+            ];
+        } catch (PDOException $e) {
+            error_log("Error in getTopProducts: " . $e->getMessage());
+            return [
+                'success' => false,
+                'error' => $e->getMessage()
+            ];
+        }
+    }
+
+    public function getRecentActivities() {
+        try {
+            $query = "SELECT 
+                        name as product_name,
+                        stock as quantity,
+                        created_at as date,
+                        'add' as type
+                    FROM products 
+                    ORDER BY created_at DESC 
+                    LIMIT 5";
+
+            $stmt = $this->pdo->prepare($query);
+            $stmt->execute();
+            $activities = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            return [
+                'success' => true,
+                'activities' => $activities
+            ];
+        } catch (PDOException $e) {
+            return [
+                'success' => false,
+                'error' => $e->getMessage()
+            ];
+        }
+    }
+
+    public function getOutOfStockCount() {
+        try {
+            $sql = "SELECT COUNT(*) as count FROM products WHERE stock = 0";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
+            
+            return [
+                'success' => true,
+                'count' => (int)$stmt->fetch(PDO::FETCH_ASSOC)['count']
+            ];
+        } catch (PDOException $e) {
+            return [
+                'success' => false,
+                'error' => $e->getMessage()
+            ];
+        }
+    }
 }
 
 // Create controller instance
@@ -321,14 +508,14 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'
     header('Content-Type: application/json');
     
     try {
-        // Get all products
+       
         if (isset($_GET['action']) && $_GET['action'] === 'get_all') {
             $products = $controller->getAllProducts();
             echo json_encode(['success' => true, 'products' => $products]);
             exit;
         }
         
-        // Get single product
+        
         if (isset($_GET['action']) && $_GET['action'] === 'get_one' && isset($_GET['id'])) {
             $product = $controller->getProductById($_GET['id']);
             echo json_encode(['success' => true, 'product' => $product]);
@@ -355,8 +542,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_POST['stock'],
                 $_POST['category'],
                 $_POST['purchase_available'],
-                $_POST['rental_available'],
-                $_POST['photo'] ?? null
+                $_POST['rental_available']
             );
             break;
 
@@ -372,8 +558,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_POST['stock'],
                 $_POST['category'],
                 $_POST['purchase_available'],
-                $_POST['rental_available'],
-                $_POST['photo'] ?? null
+                $_POST['rental_available']
             );
             break;
 
@@ -386,12 +571,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Stocke les erreurs en session par exemple
         session_start();
         $_SESSION['form_errors'] = $result['errors'];
-        header("Location: ../view/back%20office/indeex.php");
+        header("Location: ../view/back%20office/indeex.php#products");
         exit;
     } else {
         $message = is_array($result) ? $result['message'] : $result;
-        header("Location: ../view/back%20office/indeex.php?message=" . urlencode($message));
+        header("Location: ../view/back%20office/indeex.php#products?message=" . urlencode($message));
         exit;
     }
+}
+
+
+if (isset($_GET['category'])) {
+    $categoryName = $_GET['category'];
+    $controller = new ProductController();
+    $products = $controller->getProductsByCategory($categoryName);
+    
+    header('Content-Type: application/json');
+    echo json_encode($products);
+    exit();
 }
 ?>

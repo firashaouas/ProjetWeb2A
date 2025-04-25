@@ -1,5 +1,6 @@
 // Chart.js Configurations for Dashboard
 function initializeCharts() {
+    // Graphique en anneau pour la répartition du stock
     const stockDonut = new Chart(document.getElementById('stockDonut'), {
       type: 'doughnut',
       data: {
@@ -67,6 +68,7 @@ function initializeCharts() {
       }
     });
   
+    // Graphique des ventes par catégorie
     const categorySalesBar = new Chart(document.getElementById('categorySalesBar'), {
       type: 'bar',
       data: {
@@ -74,7 +76,7 @@ function initializeCharts() {
         datasets: [{
           label: 'Ventes (TND)',
           data: [5000, 3000, 2000, 1500],
-          backgroundColor: ['#ff6b6b', '#4b6cb7', '#ff8fa3', '#82cffa'],
+          backgroundColor: ['#FF69B4', '#9370DB', '#ff8fa3', '#82cffa'],
           borderWidth: 0,
           borderRadius: 10,
           barThickness: 30
@@ -103,7 +105,84 @@ function initializeCharts() {
         }
       }
     });
-  }
+
+    // Graphique des statistiques par catégorie
+    new Chart(document.getElementById('categoryStats'), {
+      type: 'radar',
+      data: {
+        labels: [
+          'Équipements Sportifs',
+          'Vêtements et Accessoires',
+          'Gadgets & Technologies',
+          'Articles de Bien-être',
+          'Nutrition & Hydratation',
+          'Accessoires de Voyage',
+          'Supports d\'atelier',
+          'Univers du cerveau'
+        ],
+        datasets: [{
+          label: 'Nombre de produits',
+          data: [42, 35, 28, 25, 20, 18, 15, 12],
+          backgroundColor: 'rgba(147, 112, 219, 0.4)',
+          borderColor: '#9370DB',
+          pointBackgroundColor: '#FF69B4',
+          pointBorderColor: '#fff',
+          pointHoverBackgroundColor: '#fff',
+          pointHoverBorderColor: '#FF69B4',
+          borderWidth: 2,
+          pointRadius: 4,
+          pointHoverRadius: 6
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        elements: {
+          line: {
+            tension: 0.4
+          }
+        },
+        plugins: {
+          legend: {
+            position: 'top',
+            labels: {
+              font: {
+                size: 14,
+                family: 'Inter'
+              },
+              color: '#333'
+            }
+          }
+        },
+        scales: {
+          r: {
+            angleLines: {
+              color: 'rgba(147, 112, 219, 0.2)'
+            },
+            grid: {
+              color: 'rgba(147, 112, 219, 0.1)'
+            },
+            pointLabels: {
+              font: {
+                size: 12,
+                weight: '600',
+                family: 'Inter'
+              },
+              color: '#333'
+            },
+            ticks: {
+              backdropColor: 'transparent',
+              color: '#666'
+            }
+          }
+        },
+        animation: {
+          duration: 2000,
+          easing: 'easeOutQuart'
+        }
+      }
+    });
+}
   
   function initializeNavigation() {
     const menuItems = document.querySelectorAll('.menu-item');
@@ -283,4 +362,90 @@ function initializeCharts() {
         };
         reader.readAsDataURL(file);
     }
+});
+
+function handleFormSubmit(formId, action) {
+    const form = document.getElementById(formId);
+    if (!form) return;
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(form);
+        formData.append('action', action);
+
+        fetch('../Controller/produitcontroller.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+            // Rediriger vers la section des produits
+            window.location.href = 'indeex.php#products';
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+}
+
+// Initialisation du graphique des commandes
+function initOrdersChart() {
+    const ctx = document.getElementById('ordersStats');
+    if (!ctx) return;
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Commandes d\'achat', 'Locations'],
+            datasets: [{
+                label: 'Nombre de commandes',
+                data: [
+                    parseInt(document.querySelector('.stat-details').textContent.match(/Achats: (\d+)/)[1]),
+                    parseInt(document.querySelector('.stat-details').textContent.match(/Locations: (\d+)/)[1])
+                ],
+                backgroundColor: [
+                    'rgba(216, 27, 96, 0.7)',  // Rose pour les achats
+                    'rgba(2, 136, 209, 0.7)'   // Bleu pour les locations
+                ],
+                borderColor: [
+                    'rgb(216, 27, 96)',
+                    'rgb(2, 136, 209)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                },
+                title: {
+                    display: true,
+                    text: 'Répartition des Commandes',
+                    font: {
+                        family: 'Inter',
+                        size: 16,
+                        weight: 'bold'
+                    }
+                }
+            }
+        }
+    });
+}
+
+// Appeler l'initialisation du graphique des commandes
+document.addEventListener('DOMContentLoaded', function() {
+    // ... existing code ...
+    initOrdersChart();
 });

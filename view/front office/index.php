@@ -379,7 +379,8 @@ $allProducts = $controller->getAllProducts(); // Cela retourne tous les produits
 
     <script>
         // Fonction pour afficher les produits par catégorie
-        function showCategory(categoryName) {
+        function showCategory(categoryName)
+         {
     fetch('../../Controller/produitcontroller.php?category=' + encodeURIComponent(categoryName))
         .then(response => {
             if (!response.ok) throw new Error('Erreur réseau');
@@ -413,18 +414,18 @@ $allProducts = $controller->getAllProducts(); // Cela retourne tous les produits
             
             // Construction de l'affichage
             let html = `<h2 class="category-title">${categoryName}</h2><div class="category-products">`;
-            
             data.forEach(product => {
                 html += `
 <div class="product-item">
-    <img src="../../${product.image}" style="width: 100%; height: auto;" alt="${product.name}">
+    <img src="<?= !empty($product['image']) ? '../../' . $product['image'] : './images/logo.png'?>" style="width: 100%; height: auto;" alt="${product.name}">
     <h4>${product.name}</h4>
     <p>${product.price}</p>
-    <a href="acheter.html?produit=${encodeURIComponent(product.name)}&prix=${product.price.split(' ')[0]}&image=../../${product.image}" class="register-btn">Acheter</a>
-    <a href="louer.html?produit=${encodeURIComponent(product.name)}&prix=${product.price.split(' ')[0]}&image=../../${product.image}" class="register-btn">Louer</a>
+    <a href="acheter.html?id=${product.id}&produit=${encodeURIComponent(product.name)}&prix=${product.price.split(' ')[0]}&image=../../${product.image}" class="register-btn">Acheter</a>
+   <a href="louer.php?id=${product.id}&produit=${encodeURIComponent(product.name)}&prix=${product.price.split(' ')[0]}&image=../../${product.image}" class="register-btn">Louer</a>
+
 </div>
 `;
-            });
+});
             
             html += '</div>';
             categoryDisplay.innerHTML = html;
