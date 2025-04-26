@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulaire Conducteur</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* === FOND D'ÉCRAN === */
+    body {
+      background-image: url('re.jpeg'); /* Remplace avec ton image */
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      height: 100vh;
+      margin: 0;
+      font-family: sans-serif;
+    }
+
+    /* === GRADIENT PERSONNALISÉ === */
+    .elsa-gradient-primary {
+      background: linear-gradient(to right, #be3cf0, #dc46d7 17%, #ff50aa 68%, #ff6666);
+    }
+
+    .elsa-gradient-primary-hover:hover {
+      background: linear-gradient(to left, #be3cf0, #dc46d7 17%, #ff50aa 68%, #ff6666);
+    }
+
+    /* === STYLE GÉNÉRAL DU FORMULAIRE === */
+    .form-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .form-wrapper {
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      border-radius: 15px;
+      width: 400px;
+      height: 650px; /* Augmenté pour tout inclure */
+      border: 2px solid #be3cf0;
+      transition: 0.3s;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .form-wrapper:hover {
+      border-color: #ff50aa;
+      box-shadow: 0 0 15px #be3cf0, 0 0 30px #dc46d7, 0 0 45px #ff50aa;
+    }
+
+    .form-wrapper h2 {
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    .form-wrapper label {
+      font-size: 14px;
+      color: #555;
+    }
+
+    .form-wrapper input,
+    .form-wrapper textarea {
+      width: 100%;
+      padding: 8px;
+      margin: 6px 0 12px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 13px;
+      transition: 0.3s;
+    }
+
+    .form-wrapper input:hover,
+    .form-wrapper textarea:hover {
+      border-color: #ffadc8;
+      box-shadow: 0 0 6px #ffa3c2aa;
+    }
+
+    .form-wrapper button {
+      padding: 8px 18px;
+      font-size: 13px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      display: block;
+      margin: 0 auto;
+      color: white;
+      transition: 0.3s ease;
+      background-color: #be3cf0;
+    }
+
+    .form-wrapper button:hover {
+      background-color: #ff50aa;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 12px;
+      display: none;
+      margin-top: -10px;
+      margin-bottom: 8px;
+    }
+
+    .error-message.animate {
+      animation: shake 0.3s ease;
+      display: block !important;
+    }
+
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      50% { transform: translateX(5px); }
+      75% { transform: translateX(-5px); }
+      100% { transform: translateX(0); }
+    }
+
+    #success-message {
+      position: fixed;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #ffffffdd;
+      border: 2px solid #be3cf0;
+      padding: 15px 20px;
+      border-radius: 15px;
+      font-weight: bold;
+      color: #be3cf0;
+      font-size: 16px;
+      display: none;
+      box-shadow: 0 0 15px #be3cf0aa;
+      text-align: center;
+      z-index: 9999;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ✅ MESSAGE DE SUCCÈS -->
+  <div id="success-message">✅ Formulaire soumis avec succès !</div>
+
+  <!-- ✅ FORMULAIRE CONDUCTEUR -->
+  <div class="form-container">
+    <div class="form-wrapper">
+      <h2>Formulaire Conducteur</h2>
+      <form id="conducteurForm" action="#" method="POST">
+        <div class="mb-4">
+          <label for="nom">Nom et Prénom :</label>
+          <input type="text" id="nom" name="nom" placeholder="Votre nom complet">
+          <div class="error-message" id="error-nom">Veuillez entrer votre nom complet</div>
+        </div>
+
+        <div class="mb-4">
+          <label for="email">Email :</label>
+          <input type="email" id="email" name="email" placeholder="Votre email">
+          <div class="error-message" id="error-email">Email invalide</div>
+        </div>
+
+        <div class="mb-4">
+          <label for="matricule">Matricule du véhicule :</label>
+          <input type="text" id="matricule" name="matricule" placeholder="Matricule de votre véhicule">
+          <div class="error-message" id="error-matricule">Veuillez entrer le matricule du véhicule</div>
+        </div>
+
+        <div class="mb-4">
+          <label for="etat">État du véhicule :</label>
+          <input type="text" id="etat" name="etat" placeholder="État de votre véhicule">
+          <div class="error-message" id="error-etat">Veuillez entrer l'état de votre véhicule</div>
+        </div>
+
+        <div class="mb-4">
+          <label for="type">Type de véhicule :</label>
+          <input type="text" id="type" name="type" placeholder="Type de véhicule">
+          <div class="error-message" id="error-type">Veuillez entrer le type de votre véhicule</div>
+        </div>
+
+        <div class="mb-4">
+          <label for="origine">Lieu d'origine :</label>
+          <input type="text" id="origine" name="origine" placeholder="Lieu d'origine">
+          <div class="error-message" id="error-origine">Veuillez entrer le lieu d'origine</div>
+        </div>
+
+        <div class="mb-4">
+          <label for="destination">Destination :</label>
+          <input type="text" id="destination" name="destination" placeholder="Destination">
+          <div class="error-message" id="error-destination">Veuillez entrer la destination</div>
+        </div>
+
+        <div class="mb-4">
+          <label for="message">Message :</label>
+          <textarea id="message" name="message" rows="3" placeholder="Message (optionnel)"></textarea>
+          <div class="error-message" id="error-message">Veuillez entrer un message</div>
+        </div>
+
+        <button type="submit">Soumettre</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ✅ SCRIPT DE VALIDATION -->
+  <script>
+    document.getElementById('conducteurForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      let valid = true;
+
+      // Récupération des valeurs du formulaire conducteur
+      const nom = document.getElementById('nom').value;
+      const email = document.getElementById('email').value;
+      const matricule = document.getElementById('matricule').value;
+      const etat = document.getElementById('etat').value;
+      const type = document.getElementById('type').value;
+      const origine = document.getElementById('origine').value;
+      const destination = document.getElementById('destination').value;
+      const message = document.getElementById('message').value;
+
+      // Validation du formulaire conducteur
+      if (!nom) {
+        document.getElementById('error-nom').classList.add('animate');
+        valid = false;
+      } else {
+        document.getElementById('error-nom').classList.remove('animate');
+      }
+
+      if (!email || !/\S+@\S+\.\S+/.test(email)) {
+        document.getElementById('error-email').classList.add('animate');
+        valid = false;
+      } else {
+        document.getElementById('error-email').classList.remove('animate');
+      }
+
+      if (!matricule) {
+        document.getElementById('error-matricule').classList.add('animate');
+        valid = false;
+      } else {
+        document.getElementById('error-matricule').classList.remove('animate');
+      }
+
+      if (!etat) {
+        document.getElementById('error-etat').classList.add('animate');
+        valid = false;
+      } else {
+        document.getElementById('error-etat').classList.remove('animate');
+      }
+
+      if (!type) {
+        document.getElementById('error-type').classList.add('animate');
+        valid = false;
+      } else {
+        document.getElementById('error-type').classList.remove('animate');
+      }
+
+      if (!origine) {
+        document.getElementById('error-origine').classList.add('animate');
+        valid = false;
+      } else {
+        document.getElementById('error-origine').classList.remove('animate');
+      }
+
+      if (!destination) {
+        document.getElementById('error-destination').classList.add('animate');
+        valid = false;
+      } else {
+        document.getElementById('error-destination').classList.remove('animate');
+      }
+
+      if (!message) {
+        document.getElementById('error-message').classList.add('animate');
+        valid = false;
+      } else {
+        document.getElementById('error-message').classList.remove('animate');
+      }
+
+      // Si tout est valide
+      if (valid) {
+        document.getElementById('success-message').style.display = 'block';
+        setTimeout(() => document.getElementById('success-message').style.display = 'none', 3000);
+        this.reset();  // Réinitialiser le formulaire
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Réclamation</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* === FOND D'ÉCRAN === */
+    body {
+      background-image: url('re.jpeg'); /* Remplace avec ton image */
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      height: 100vh;
+      margin: 0;
+      font-family: sans-serif;
+    }
+
+    /* === GRADIENT PERSONNALISÉ === */
+    .elsa-gradient-primary {
+      background: linear-gradient(to right, #be3cf0, #dc46d7 17%, #ff50aa 68%, #ff6666);
+    }
+    .elsa-gradient-primary-hover:hover {
+      background: linear-gradient(to left, #be3cf0, #dc46d7 17%, #ff50aa 68%, #ff6666);
+    }
+
+    /* === CONTENEUR FORMULAIRE === */
+    .form-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .form-wrapper {
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 30px;
+      border-radius: 15px;
+      width: 100%;
+      max-width: 500px;
+      border: 2px solid #be3cf0;
+      transition: 0.3s;
+    }
+
+    .form-wrapper:hover {
+      border-color: #ff50aa;
+      box-shadow: 0 0 15px #be3cf0, 0 0 30px #dc46d7, 0 0 45px #ff50aa;
+    }
+
+    .form-wrapper h2 {
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .form-wrapper label {
+      font-size: 16px;
+      color: #555;
+    }
+
+    .form-wrapper input,
+    .form-wrapper textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    .form-wrapper input:hover,
+    .form-wrapper textarea:hover {
+      border-color: #ffadc8;
+      box-shadow: 0 0 6px #ffa3c2aa;
+    }
+
+    .form-wrapper button {
+      padding: 10px 20px;
+      font-size: 14px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      display: block;
+      margin: 0 auto;
+      color: white;
+      transition: 0.3s ease;
+    }
+
+    /* MESSAGE ERREUR */
+    .error-message {
+      color: red;
+      font-size: 13px;
+      display: none;
+      margin-top: -10px;
+      margin-bottom: 10px;
+    }
+
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      50% { transform: translateX(5px); }
+      75% { transform: translateX(-5px); }
+      100% { transform: translateX(0); }
+    }
+
+    .error-message.animate {
+      animation: shake 0.3s ease;
+      display: block !important;
+    }
+
+    /* MESSAGE DE SUCCÈS */
+    #success-message {
+      position: fixed;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #ffffffdd;
+      border: 2px solid #be3cf0;
+      padding: 20px 30px;
+      border-radius: 20px;
+      font-weight: bold;
+      color: #be3cf0;
+      font-size: 18px;
+      display: none;
+      box-shadow: 0 0 15px #be3cf0aa;
+      text-align: center;
+      z-index: 9999;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ✅ MESSAGE DE SUCCÈS -->
+  <div id="success-message">✅ Réclamation envoyée avec succès !</div>
+
+  <!-- ✅ FORMULAIRE -->
+  <div class="form-container">
+    <div class="form-wrapper">
+      <h2>Formulaire de Réclamation</h2>
+      <form id="reclamationForm" action="#" method="POST">
+        <div class="mb-4">
+          <label for="nom" class="block">Nom et Prénom :</label>
+          <input type="text" id="nom" name="nom" placeholder="Votre nom complet">
+          <div class="error-message" id="error-nom">Veuillez entrer votre nom complet</div>
+        </div>
+
+        <div class="mb-4">
+          <label for="email" class="block">Email :</label>
+          <input type="email" id="email" name="email" placeholder="Votre email">
+          <div class="error-message" id="error-email">Email invalide</div>
+        </div>
+
+        <div class="mb-4">
+          <label for="objet" class="block">Objet de la réclamation :</label>
+          <input type="text" id="objet" name="objet" placeholder="L'objet de votre réclamation">
+          <div class="error-message" id="error-objet">Veuillez entrer l'objet</div>
+        </div>
+
+        <div class="mb-4">
+          <label for="message" class="block">Détails de la réclamation :</label>
+          <textarea id="message" name="message" rows="4" placeholder="Décrivez votre réclamation ici..."></textarea>
+          <div class="error-message" id="error-message">Veuillez décrire votre réclamation</div>
+        </div>
+
+        <button type="submit" class="elsa-gradient-primary elsa-gradient-primary-hover">
+          Envoyer la réclamation
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ✅ SCRIPT DE VALIDATION -->
+  <script>
+    const form = document.getElementById('reclamationForm');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      let valid = true;
+
+      const nom = document.getElementById('nom');
+      const email = document.getElementById('email');
+      const objet = document.getElementById('objet');
+      const message = document.getElementById('message');
+
+      const errorNom = document.getElementById('error-nom');
+      const errorEmail = document.getElementById('error-email');
+      const errorObjet = document.getElementById('error-objet');
+      const errorMessage = document.getElementById('error-message');
+
+      const errorFields = [errorNom, errorEmail, errorObjet, errorMessage];
+      errorFields.forEach(error => {
+        error.style.display = 'none';
+        error.classList.remove('animate');
+      });
+
+      if (nom.value.trim() === '') {
+        errorNom.classList.add('animate');
+        valid = false;
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!emailRegex.test(email.value.trim())) {
+        errorEmail.classList.add('animate');
+        valid = false;
+      }
+
+      if (objet.value.trim() === '') {
+        errorObjet.classList.add('animate');
+        valid = false;
+      }
+
+      if (message.value.trim() === '') {
+        errorMessage.classList.add('animate');
+        valid = false;
+      }
+
+      if (valid) {
+        const success = document.getElementById('success-message');
+        success.style.display = 'block';
+
+        setTimeout(() => {
+          success.style.display = 'none';
+          form.reset();
+        }, 2000);
+      }
+    });
+  </script>
+</body>
+</html>
