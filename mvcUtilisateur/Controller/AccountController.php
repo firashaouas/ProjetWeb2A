@@ -57,7 +57,7 @@ if ($action === 'delete') {
 
 // ------------------------------------------------------------
 if ($action === 'update') {
-    
+
     if (!isset($_SESSION['user'])) {
         header("Location: /Projet%20Web/index.php");
         exit;
@@ -69,30 +69,43 @@ if ($action === 'update') {
     $email = $_POST['email'];
     $numUser = $_POST['num_user'];
 
-    // Ancien mot de passe pour vérification (changer l'email OU mot de passe)
-    $currentPassword = $_POST['confirm_password_for_email'] ?? $_POST['old_password'] ?? '';
-
-    // Nouveau mot de passe s'il y en a un
-    $newPassword = $_POST['new_password'] ?? '';
-
+    $originalEmail = $user['email'];
     $profilePicturePath = $user['profile_picture'] ?? null;
 
-    // Vérification du mot de passe actuel
-    if (!User::verifyPassword($db, $user['email'], $currentPassword)) {
-        $_SESSION['error'] = "Mot de passe actuel incorrect.";
-        header("Location: /Projet%20Web/mvcUtilisateur/View/FrontOffice/edit_profile.php");
-        exit;
+    $updatePassword = false;
+    $updateEmail = false;
+    $newPassword = '';
+    $passwordHash = $user['password'];
+
+    // Si l'utilisateur veut changer son email
+    if ($email !== $originalEmail) {
+        if (empty($_POST['confirm_password_for_email'])) {
+            $_SESSION['error'] = "Mot de passe requis pour changer l'email.";
+            header("Location: /Projet%20Web/mvcUtilisateur/View/FrontOffice/edit_profile.php");
+            exit;
+        }
+        if (!User::verifyPassword($db, $originalEmail, $_POST['confirm_password_for_email'])) {
+            $_SESSION['error'] = "Mot de passe incorrect pour changer l'email.";
+            header("Location: /Projet%20Web/mvcUtilisateur/View/FrontOffice/edit_profile.php");
+            exit;
+        }
+        $updateEmail = true;
     }
 
-    // Gestion du nouveau mot de passe si fourni
-    $passwordToUpdate = $user['password'];
-    if (!empty($newPassword)) {
-        $passwordToUpdate = password_hash($newPassword, PASSWORD_DEFAULT);
+    // Si utilisateur veut changer son mot de passe
+    if (!empty($_POST['old_password']) && !empty($_POST['new_password'])) {
+        if (!User::verifyPassword($db, $originalEmail, $_POST['old_password'])) {
+            $_SESSION['error'] = "Mot de passe actuel incorrect.";
+            header("Location: /Projet%20Web/mvcUtilisateur/View/FrontOffice/edit_profile.php");
+            exit;
+        }
+        $newPassword = password_hash($_POST['new_password'], PASSWORD_DEFAULT);
+        $updatePassword = true;
     }
 
-    // Gestion de la photo de profil
+    // Gestion de l'upload photo
     if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] === UPLOAD_ERR_OK) {
-        $uploadDir = __DIR__ . '/../Public/uploads/';
+        $uploadDir = __DIR__ . '/../../View/FrontOffice/uploads/';
         if (!file_exists($uploadDir)) {
             mkdir($uploadDir, 0777, true);
         }
@@ -101,35 +114,49 @@ if ($action === 'update') {
         $destination = $uploadDir . $fileName;
 
         if (move_uploaded_file($tmpName, $destination)) {
-            $profilePicturePath = "/Projet%20Web/mvcUtilisateur/Public/uploads/$fileName";
+            $profilePicturePath = 'uploads/' . $fileName;
         }
     }
 
-    // Mise à jour de l'utilisateur via le modèle
+    // Mise à jour dans la base
     $userModel = new User();
     $userModel->setIdUser($userId);
     $userModel->setFullName($fullName);
-    $userModel->setEmail($email);
     $userModel->setNumUser($numUser);
-    $userModel->setPassword($passwordToUpdate);
     $userModel->setProfilePicture($profilePicturePath);
+
+    if ($updateEmail) {
+        $userModel->setEmail($email);
+    } else {
+        $userModel->setEmail($originalEmail);
+    }
+
+    if ($updatePassword) {
+        $userModel->setPassword($newPassword);
+    } else {
+        $userModel->setPassword($passwordHash);
+    }
 
     $result = $userModel->updateUserInfo($db);
 
     if ($result) {
-        // Mise à jour de la session
         $_SESSION['user']['full_name'] = $fullName;
-        $_SESSION['user']['email'] = $email;
         $_SESSION['user']['num_user'] = $numUser;
         $_SESSION['user']['profile_picture'] = $profilePicturePath;
-        $_SESSION['user']['password'] = $passwordToUpdate;
+
+        if ($updateEmail) {
+            $_SESSION['user']['email'] = $email;
+        }
+
+        if ($updatePassword) {
+            $_SESSION['user']['password'] = $newPassword;
+        }
 
         $_SESSION['success'] = "Profil mis à jour avec succès !";
     } else {
         $_SESSION['error'] = "Erreur lors de la mise à jour.";
     }
 
-    // Redirection vers la page du profil
     header("Location: /Projet%20Web/mvcUtilisateur/View/FrontOffice/profile.php");
     exit;
 }

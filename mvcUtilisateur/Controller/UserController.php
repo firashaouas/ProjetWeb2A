@@ -369,6 +369,82 @@ public function index() {
             exit;
         }
     }
+
+    public function countUsers()
+    {
+        $db = config::getConnexion();
+        $query = $db->query("SELECT COUNT(*) as total FROM user");
+        $result = $query->fetch();
+        return $result['total'];
+    }
+
+    public function countUsersByRole()
+    {
+        $db = config::getConnexion();
+        $query = $db->query("SELECT role, COUNT(*) as total FROM user GROUP BY role");
+        return $query->fetchAll();
+    }
+
+    public function getInscriptionTrends($period = '1 MONTH')
+    {
+        $db = config::getConnexion();
+        $select = "";
+        $groupBy = "";
+        $intervalSQL = $period; // valeur par défaut
+    
+        switch ($period) {
+            case '7 DAY':
+                $select = "DATE_FORMAT(date_inscription, '%d %b') AS label";
+                $groupBy = "DATE(date_inscription)";
+                $intervalSQL = '7 DAY';
+                break;
+    
+                case '1 MONTH':
+                    $select = "CONCAT('Semaine ', WEEK(date_inscription), '/', YEAR(date_inscription)) AS label";
+                    $groupBy = "WEEK(date_inscription), YEAR(date_inscription)";
+                    $intervalSQL = '1 MONTH';
+                    break;
+                
+    
+            case '4 MONTH':
+            case '6 MONTH':
+                $select = "DATE_FORMAT(date_inscription, '%b %Y') AS label";
+                $groupBy = "YEAR(date_inscription), MONTH(date_inscription)";
+                // intervalSQL reste identique
+                break;
+    
+            case '1 YEAR':
+                $select = "CONCAT('T', QUARTER(date_inscription), '-', YEAR(date_inscription)) AS label";
+                $groupBy = "YEAR(date_inscription), QUARTER(date_inscription)";
+                break;
+    
+            case '3 YEAR':
+                $select = "YEAR(date_inscription) AS label";
+                $groupBy = "YEAR(date_inscription)";
+                break;
+    
+            default:
+                $select = "CONCAT('Semaine ', WEEK(date_inscription)) AS label";
+                $groupBy = "WEEK(date_inscription)";
+                break;
+        }
+    
+        $stmt = $db->prepare("
+            SELECT 
+                $select,
+                COUNT(*) AS total
+            FROM user
+            WHERE date_inscription >= DATE_SUB(CURDATE(), INTERVAL $intervalSQL)
+            GROUP BY $groupBy
+            ORDER BY MIN(date_inscription) ASC
+        ");
+        
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
+    
+
 }
 
 // Traitement des requêtes
@@ -405,4 +481,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: /View/BackOffice/login/login.php?error=" . urlencode($e->getMessage()));
         exit;
     }
+
+
+    
+    
 }
+

@@ -1,0 +1,14 @@
+Array
+(
+    [period] => 1 MONTH
+    [result] => Array
+        (
+            [0] => Array
+                (
+                    [label] => Semaine 16
+                    [total] => 5
+                )
+
+        )
+
+)

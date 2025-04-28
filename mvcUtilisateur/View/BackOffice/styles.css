@@ -733,4 +733,10 @@
     resize: none; padding: 8px; border-radius: 5px; border: 1px solid #ccc;
   }
   
+  .chart-card, .some-div-class {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    padding: 20px;
+    background: white;
+  }
   

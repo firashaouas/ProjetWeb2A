@@ -96,4 +96,26 @@ const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 const isValidPhone = (phone) => /^\d{8}$/.test(phone);
 const isStrongPassword = (password) => /^(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{8,}$/.test(password);
 
+const userRolesLabels = JSON.parse('<?= json_encode($labels) ?>');
+const userRolesData = JSON.parse('<?= json_encode($data) ?>');
 
+
+const ctx = document.getElementById('userRoleDonut').getContext('2d');
+new Chart(ctx, {
+  type: 'doughnut',
+  data: {
+    labels: userRolesLabels,
+    datasets: [{
+      data: userRolesData,
+      backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'],
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'bottom',
+      }
+    }
+  }
+});
