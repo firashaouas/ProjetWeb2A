@@ -45,16 +45,19 @@ try {
         $time = date('H:i', strtotime($msg['created_at']));
         $seenBy = !empty($msg['seen_by']) ? explode(',', $msg['seen_by']) : [];
 
-        if ($currentUserId != $authorId && !in_array($currentUserId, $seenBy)) {
-            $seenBy[] = $currentUserId;
-            $newSeenBy = implode(',', $seenBy);
 
-            $updateStmt = $db->prepare("UPDATE chat_messages SET seen_by = :seen WHERE id = :id");
-            $updateStmt->execute([
-                'seen' => $newSeenBy,
-                'id' => $messageId
-            ]);
-        }
+// Seulement les messages reçus, pas encore vus
+if ($currentUserId != $authorId && !in_array($currentUserId, $seenBy)) {
+    $seenBy[] = $currentUserId;
+    $newSeenBy = implode(',', array_unique($seenBy));
+
+    $updateStmt = $db->prepare("UPDATE chat_messages SET seen_by = :seen WHERE id = :id");
+    $updateStmt->execute([
+        'seen' => $newSeenBy,
+        'id' => $messageId
+    ]);
+}
+
 
         $relativePath = 'View/FrontOffice/' . $msg['profile_picture'];
         $absolutePath = realpath(__DIR__ . '/../../' . $relativePath);
@@ -63,18 +66,61 @@ try {
         echo "<div class='chat-line' data-id='{$messageId}' data-time='$time'>";
 
 
+
+
+
+
+
+
+
         // Bouton options (⋮)
         echo "<div class='chat-options'>";
+
+
+
+               // 🎧 Bouton Écouter aligné à droite
+               if (!empty($text)) {
+                echo "<div style='margin-left: auto; display: flex; align-items: center; gap: 8px;'>
+                        <button onclick=\"readMessage('" . htmlspecialchars($msg['message'], ENT_QUOTES) . "')\" style='
+                            background-color: #8e44ad;
+                            color: white;
+                            border: none;
+                            padding: 5px 10px;
+                            border-radius: 6px;
+                            cursor: pointer;
+                            font-size: 14px;
+                        '>🎧</button>
+                      </div>";
+            }
+
+    
+
+
+
+          
+
+
         echo "<button class='options-btn' onclick='toggleOptions(this)'>⋮</button>";
+
+ 
+
+
         echo "<div class='options-menu'>";
+
+
+
         
         if (!empty($text) && empty($msg['file_path'])) {
           echo "<button onclick='editMessage({$msg['id']})'>✏️ Modifier</button>";
       }
       
         echo "<button onclick='deleteMessage($messageId)'>🗑️ Supprimer</button>";
+
+        
         
         echo "</div></div>"; // chat-options
+
+
 
         // Avatar
         if ($hasPhoto) {

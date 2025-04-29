@@ -1,12 +1,17 @@
 <?php
-ini_set('session.cookie_path', '/');
-session_start();
-
-if (!isset($_SESSION['user']['id_user'])) {
-  header('Location: login.php');
-  exit();
+// Configuration session propre
+if (session_status() === PHP_SESSION_NONE) {
+    ini_set('session.cookie_path', '/');
+    session_start();
 }
 
+// Vérification utilisateur connecté
+if (!isset($_SESSION['user']['id_user'])) {
+    header('Location: login.php');
+    exit();
+}
+
+// Récupération infos user
 $photoPath = $_SESSION['user']['profile_picture'] ?? '';
 $fullName = $_SESSION['user']['full_name'] ?? 'Utilisateur';
 
@@ -15,14 +20,55 @@ $absolutePath = realpath(__DIR__ . '/' . $photoRelativePath);
 $showPhoto = !empty($photoPath) && $absolutePath && file_exists($absolutePath);
 
 function stringToColor($str) {
-  $Colors = ['#FF6B6B', '#FF8E53', '#6B5B95', '#88B04B', '#F7CAC9', '#92A8D1', '#955251', '#B565A7', '#DD4124', '#D65076'];
-  $hash = 0;
-  for ($i = 0; $i < strlen($str); $i++) {
-    $hash = ord($str[$i]) + (($hash << 5) - $hash);
-  }
-  return $Colors[abs($hash) % count($Colors)];
+    $Colors = ['#FF6B6B', '#FF8E53', '#6B5B95', '#88B04B', '#F7CAC9', '#92A8D1', '#955251', '#B565A7', '#DD4124', '#D65076'];
+    $hash = 0;
+    for ($i = 0; $i < strlen($str); $i++) {
+        $hash = ord($str[$i]) + (($hash << 5) - $hash);
+    }
+    return $Colors[abs($hash) % count($Colors)];
+}
+
+require_once(__DIR__ . "/../../config.php");
+
+$currentUserId = $_SESSION['user']['id_user'];
+
+if (isset($_GET['idChatbox'])) {
+    $chatboxId = (int)$_GET['idChatbox'];
+
+    $db = Config::getConnexion();
+
+    $stmt = $db->prepare("
+        SELECT id, seen_by, user_id
+        FROM chat_messages
+        WHERE chatbox_id = :chatboxId
+        ORDER BY created_at DESC
+        LIMIT 1
+    ");
+    $stmt->execute(['chatboxId' => $chatboxId]);
+    $lastMessage = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($lastMessage) {
+        $seenByArray = array_filter(explode(',', $lastMessage['seen_by'] ?? ''));
+
+        // 📌 Correction : tjib user_id même si c'est son propre message
+        if (!in_array($currentUserId, $seenByArray)) {
+            $seenByArray[] = $currentUserId;
+            $newSeenBy = implode(',', array_unique($seenByArray));
+
+            $updateStmt = $db->prepare("
+                UPDATE chat_messages
+                SET seen_by = :seenBy
+                WHERE id = :messageId
+            ");
+            $updateStmt->execute([
+                'seenBy' => $newSeenBy,
+                'messageId' => $lastMessage['id']
+            ]);
+        }
+    }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -193,7 +239,94 @@ function stringToColor($str) {
   <?php endif; ?>
 </div>
 
+<style>
+#voiceBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 14px;
+    background-color: #8e44ad;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+#voiceBtn:hover {
+    background-color: #732d91;
+    transform: scale(1.05);
+}
+</style>
+
+
+
+
 <script>
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const voiceBtn = document.getElementById('voiceBtn');
+    const messageInput = document.getElementById('message');
+
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = new SpeechRecognition();
+        recognition.lang = 'fr-FR'; // Français
+        recognition.continuous = false;
+        recognition.interimResults = false;
+
+        let isRecording = false; // ✅ Variable pour savoir si enregistrement actif
+
+        voiceBtn.addEventListener('click', () => {
+            if (!isRecording) {
+                recognition.start();
+                voiceBtn.style.backgroundColor = '#e74c3c'; // 🔴 Enregistrement (rouge)
+                voiceBtn.textContent = '🛑 Arrêter';
+                isRecording = true;
+            } else {
+                recognition.stop();
+                voiceBtn.style.backgroundColor = '#8e44ad'; // 🟣 Normal
+                voiceBtn.textContent = '🖋️ ';
+                isRecording = false;
+            }
+        });
+
+        recognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript;
+            messageInput.innerText += ' ' + transcript;
+        };
+
+        recognition.onerror = (event) => {
+            console.error('Erreur reconnaissance vocale:', event.error);
+            // Reset bouton si erreur
+            voiceBtn.style.backgroundColor = '#8e44ad';
+            voiceBtn.textContent = '🖋️ ';
+            isRecording = false;
+        };
+
+        recognition.onend = () => {
+            if (isRecording) {
+                // Si l'utilisateur n'a pas cliqué Stop, continue rien faire
+                voiceBtn.style.backgroundColor = '#8e44ad';
+                voiceBtn.textContent = '🖋️ ';
+                isRecording = false;
+            }
+        };
+
+    } else {
+        voiceBtn.disabled = true;
+        alert('Reconnaissance vocale non supportée sur ce navigateur.');
+    }
+});
+
+
+
+
+
 // Fonction pour ouvrir/fermer le menu
 function toggleDropdown() {
   const menu = document.getElementById('dropdownMenu');
@@ -258,6 +391,22 @@ document.addEventListener('click', function(event) {
   cursor: pointer;
   transition: background-color 0.3s;
 ">😂</button>
+
+
+<button type="button" id="voiceBtn" style="
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background-color: #8e44ad;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+">
+  🖋️ 
+</button>
 
 
   <button type="button" id="recordBtn" style="background-color: #8e44ad; color: white; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer;">🎤</button>
@@ -658,6 +807,14 @@ function deleteMessage(messageId) {
 }
 
 
+function readMessage(text) {
+  const synth = window.speechSynthesis;
+  const utterance = new SpeechSynthesisUtterance(text);
+  synth.speak(utterance);
+}
+
+
+
 </script>
 </body>
 </html>
@@ -756,7 +913,8 @@ document.addEventListener('DOMContentLoaded', function() {
       document.querySelectorAll('.options-menu').forEach(m => m.style.display = 'none');
     }
   });
-
+  
+  
   // Clic sur messages pour afficher l'heure
   function activateClickOnMessages() {
     document.querySelectorAll('.chat-line').forEach(line => {

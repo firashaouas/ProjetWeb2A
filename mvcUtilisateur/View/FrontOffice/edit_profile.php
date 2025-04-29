@@ -20,7 +20,7 @@ function stringToColor($str) {
     return $Colors[abs($hash) % count($Colors)];
 }
 
-$relativePhotoPath = 'View/FrontOffice/' . $user['profile_picture'];
+$relativePhotoPath = '/View/FrontOffice/uploads/profiles' . $user['profile_picture'];
 $absolutePhotoPath = realpath(__DIR__.'/../../'.$relativePhotoPath);
 $photoUrl = '/Projet Web/mvcUtilisateur/' . $relativePhotoPath;
 ?>
