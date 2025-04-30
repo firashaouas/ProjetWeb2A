@@ -403,14 +403,16 @@
 <body>
   <div class="container">
     <div class="preview">
-      <img src="https://via.placeholder.com/220x220.png?text=Produit" alt="Produit" id="productImage">
-      <h3 id="previewNom">Produit</h3>
+      <img src="images/panier.jpg" alt="Panier" id="productImage">
+      <h3 id="previewNom">Votre Panier</h3>
       <div class="price" id="previewPrix">-- TND</div>
     </div>
 
     <div class="achat-form">
       <h2>Validation d'achat</h2>
-      <form id="achatForm"   method="post" novalidate>
+      <form id="achatForm" action="../../Controller/commandeController.php" method="post" novalidate>
+        <input type="hidden" name="action" value="ajouter_commande">
+        <input type="hidden" id="panier_data" name="panier_data" value="">
         <div class="form-group">
           <label>Nom</label>
           <input type="text" name="nom" id="nom" placeholder="Votre nom">
@@ -431,13 +433,14 @@
     
         <div class="form-group">
           <label>Quantité</label>
-          <input type="number" name="quantite" id="quantite" min="1" value="1">
+          <input type="number" name="quantite" id="quantite" min="1" value="1" class="readonly" disabled>
           <span class="error" id="quantite_error">La quantité doit être un nombre positif (minimum 1).</span>
         </div>
     
         <div class="form-group">
           <label>Prix total (TND)</label>
           <input type="text" name="prix_total" id="prix_total" class="readonly" readonly>
+          <input type="hidden" name="prix_total_value" id="prix_total_value">
         </div>
     
         <div class="form-group">
@@ -456,10 +459,6 @@
         </div>
       </form>
 
-<<<<<<< HEAD
-      
-=======
->>>>>>> 3c3f2119bb40b1bf3989c4f7e0f85b069e0926de
       <div class="result-section" id="resultSection">
         <button class="back-button" onclick="goBack()">← Retour</button>
         <h3>Récapitulatif de votre commande</h3>
@@ -494,12 +493,12 @@
       const telephoneInput = document.getElementById('telephone');
       const quantiteInput = document.getElementById('quantite');
       const paiementRadios = document.querySelectorAll('input[name="paiement"]');
-      
+      const panierDataInput = document.getElementById('panier_data');
+
       // Activer la validation en temps réel
       nomInput.addEventListener('input', validateNom);
       prenomInput.addEventListener('input', validatePrenom);
       telephoneInput.addEventListener('input', validateTelephone);
-      quantiteInput.addEventListener('input', validateQuantite);
       
       // Valider les radios quand l'utilisateur clique
       paiementRadios.forEach(radio => {
@@ -510,7 +509,6 @@
       nomInput.addEventListener('blur', validateNom);
       prenomInput.addEventListener('blur', validatePrenom);
       telephoneInput.addEventListener('blur', validateTelephone);
-      quantiteInput.addEventListener('blur', validateQuantite);
       
       // Fonctions de validation
       function validateNom() {
@@ -552,19 +550,6 @@
         }
       }
       
-      function validateQuantite() {
-        const value = parseInt(quantiteInput.value);
-        const errorElement = document.getElementById('quantite_error');
-        
-        if (isNaN(value) || value < 1) {
-          errorElement.style.display = 'inline';
-          return false;
-        } else {
-          errorElement.style.display = 'none';
-          return true;
-        }
-      }
-      
       function validatePaiement() {
         const checked = document.querySelector('input[name="paiement"]:checked');
         const errorElement = document.getElementById('paiement_error');
@@ -583,153 +568,47 @@
         const isNomValid = validateNom();
         const isPrenomValid = validatePrenom();
         const isTelephoneValid = validateTelephone();
-        const isQuantiteValid = validateQuantite();
         const isPaiementValid = validatePaiement();
         
-        if (!isNomValid || !isPrenomValid || !isTelephoneValid || !isQuantiteValid || !isPaiementValid) {
+        if (!isNomValid || !isPrenomValid || !isTelephoneValid || !isPaiementValid) {
           event.preventDefault();
           
           // Faire défiler jusqu'au premier champ invalide
           if (!isNomValid) nomInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
           else if (!isPrenomValid) prenomInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
           else if (!isTelephoneValid) telephoneInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          else if (!isQuantiteValid) quantiteInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
           else if (!isPaiementValid) paiementRadios[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
-<<<<<<< HEAD
           return;
         }
-        event.preventDefault(); 
-=======
-        }
->>>>>>> 3c3f2119bb40b1bf3989c4f7e0f85b069e0926de
       });
-    });
 
-    function getQueryParam(param) {
-      const urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get(param);
-    }
-
-    // Récupérer les paramètres
-    const produit = getQueryParam('produit') || 'Produit inconnu';
-    const prixUnitaire = parseFloat(getQueryParam('prix')) || 0;
-<<<<<<< HEAD
-    const imageUrl = getQueryParam('image') || './images/logo.png';
-=======
-    const imageUrl = getQueryParam('image') || 'https://via.placeholder.com/220x220.png?text=Produit';
->>>>>>> 3c3f2119bb40b1bf3989c4f7e0f85b069e0926de
-
-    // Sélectionner les éléments
-    const prixTotalInput = document.getElementById('prix_total');
-    const quantiteInput = document.getElementById('quantite');
-    const productImage = document.getElementById('productImage');
-    const previewNom = document.getElementById('previewNom');
-    const previewPrix = document.getElementById('previewPrix');
-
-    // Mettre à jour la prévisualisation
-    previewNom.textContent = decodeURIComponent(produit);
-    previewPrix.textContent = prixUnitaire.toFixed(2) + ' TND';
-
-    // Gérer l'image
-    try {
-      const decodedImageUrl = decodeURIComponent(imageUrl);
-      productImage.src = decodedImageUrl;
-      productImage.onerror = () => {
-        console.error('Erreur de chargement de l\'image:', decodedImageUrl);
-        productImage.src = './images/logo.png';
-      };
-    } catch (e) {
-      console.error('Erreur de décodage de l\'URL de l\'image:', e);
-      productImage.src = './images/logo.png';
-    }
-
-    function recalculerPrixTotal() {
-      const quantite = parseInt(quantiteInput.value, 10) || 1;
-      const prixTotal = quantite * prixUnitaire;
-      prixTotalInput.value = prixTotal.toFixed(2) + ' TND';
-    }
-
-    quantiteInput.addEventListener('input', recalculerPrixTotal);
-    recalculerPrixTotal();
-
-    const form = document.getElementById('achatForm');
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      // Récupérer les valeurs du formulaire
-      const nom = document.getElementById('nom').value;
-      const prenom = document.getElementById('prenom').value;
-      const telephone = document.getElementById('telephone').value;
-      const quantite = document.getElementById('quantite').value;
-      const prixTotal = document.getElementById('prix_total').value;
-      const paiement = document.querySelector('input[name="paiement"]:checked').value;
-
-      // Récupérer les informations du produit
-<<<<<<< HEAD
-      const produitId = getQueryParam('id');
-      const produit = {
-        id: produitId,
-=======
-      const produit = {
-        id: getQueryParam('id'),
->>>>>>> 3c3f2119bb40b1bf3989c4f7e0f85b069e0926de
-        nom: document.getElementById('previewNom').textContent,
-        prix: parseFloat(document.getElementById('previewPrix').textContent.replace(' TND', '')),
-        image: document.getElementById('productImage').src,
-        quantite: parseInt(quantite)
-      };
-<<<<<<< HEAD
-
-      // Ajouter au panier
-      let panier = JSON.parse(localStorage.getItem('panier')) || [];
-      
-      // Vérifier si le produit existe déjà dans le panier
-      const produitExistantIndex = panier.findIndex(p => p.id === produitId);
-      
-      if (produitExistantIndex !== -1) {
-        // Si le produit existe, mettre à jour la quantité
-        panier[produitExistantIndex].quantite += parseInt(quantite);
-      } else {
-        // Si le produit n'existe pas, l'ajouter au panier
-        panier.push(produit);
+      // Récupérer les paramètres de l'URL
+      function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
       }
-      
-      localStorage.setItem('panier', JSON.stringify(panier));
 
-      // Rediriger vers le panier
-      window.location.href = 'panier.php';
-=======
+      const quantite = parseInt(getQueryParam('quantite')) || 1;
+      const prixTotal = parseFloat(getQueryParam('prix_total')) || 0;
 
-      // Ajouter au panier
-      const panier = JSON.parse(localStorage.getItem('panier')) || [];
-      panier.push(produit);
-      localStorage.setItem('panier', JSON.stringify(panier));
+      // Mettre à jour les champs avec les valeurs du panier
+      quantiteInput.value = quantite;
+      const prixTotalInput = document.getElementById('prix_total');
+      const prixTotalValueInput = document.getElementById('prix_total_value');
+      if (prixTotalInput && prixTotalValueInput) {
+      prixTotalInput.value = prixTotal.toFixed(2) + ' TND';
+        prixTotalValueInput.value = prixTotal.toFixed(2);
+      }
 
-      // Afficher les résultats
-      document.getElementById('resultNom').textContent = nom;
-      document.getElementById('resultPrenom').textContent = prenom;
-      document.getElementById('resultTelephone').textContent = telephone;
-      document.getElementById('resultQuantite').textContent = quantite;
-      document.getElementById('resultPrixTotal').textContent = prixTotal;
-      document.getElementById('resultPaiement').textContent = paiement;
+      // Mettre à jour la prévisualisation
+      const previewPrix = document.getElementById('previewPrix');
+      if (previewPrix) {
+      previewPrix.textContent = prixTotal.toFixed(2) + ' TND';
+      }
 
-      // Afficher la section des résultats
-      const resultSection = document.getElementById('resultSection');
-      resultSection.style.display = 'block';
-      setTimeout(() => {
-        resultSection.classList.add('active');
-      }, 50);
-
-      // Ajouter un bouton pour voir le panier
-      const panierButton = document.createElement('button');
-      panierButton.className = 'checkout-btn';
-      panierButton.style.marginTop = '20px';
-      panierButton.textContent = 'Voir mon panier';
-      panierButton.onclick = function() {
-        window.location.href = 'panier.html';
-      };
-      resultSection.appendChild(panierButton);
->>>>>>> 3c3f2119bb40b1bf3989c4f7e0f85b069e0926de
+      // Récupérer le panier depuis localStorage et le transmettre dans le formulaire
+      let panier = JSON.parse(localStorage.getItem('panier')) || [];
+      panierDataInput.value = JSON.stringify(panier);
     });
 
     function goBack() {

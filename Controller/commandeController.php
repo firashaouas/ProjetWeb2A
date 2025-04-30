@@ -105,45 +105,54 @@ class CommandController {
     }
 
     // Si la méthode est POST et que le panier est disponible
-    // Si la méthode est POST et que le panier est disponible
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['panier_data'])) {
-    $panierData = json_decode($_POST['panier_data'], true);
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Sauvegarder les informations du formulaire
+        $_SESSION['form_data'] = [
+            'nom' => $_POST['nom'] ?? '',
+            'prenom' => $_POST['prenom'] ?? '',
+            'email' => $_POST['email'] ?? '',
+            'telephone' => $_POST['telephone'] ?? '',
+            'adresse' => $_POST['adresse'] ?? ''
+        ];
 
-    if (!empty($panierData)) {
-        $idUtilisateur = 1; // Adapté à ton système d'authentification
-        error_reporting(E_ALL);
-        ini_set('display_errors', 1);
+        if (isset($_POST['panier_data'])) {
+            $panierData = json_decode($_POST['panier_data'], true);
 
-        try {
-            // Si la commande a été créée avec succès
-            if (CommandModel::creerCommandeDepuisTableau($idUtilisateur, $panierData, $this->db)) {
-          
-                // Marque le succès de la commande
-                $_SESSION['commande_success'] = true;
-                
-                // Redirige vers la page de succès de commande
-                header('Location: ../view/front%20office/commande_success.php');
-                exit();
+            if (!empty($panierData)) {
+                $idUtilisateur = 1; // Adapté à ton système d'authentification
+                error_reporting(E_ALL);
+                ini_set('display_errors', 1);
+
+                try {
+                    // Si la commande a été créée avec succès
+                    if (CommandModel::creerCommandeDepuisTableau($idUtilisateur, $panierData, $this->db)) {
+                        // Sauvegarder le panier dans la session
+                        $_SESSION['panier'] = $panierData;
+                        
+                        // Marque le succès de la commande
+                        $_SESSION['commande_success'] = true;
+                        
+                        // Redirige vers la page de succès de commande
+                        header('Location: ../view/front%20office/commande_success.php');
+                        exit();
+                    } else {
+                        header('Location: ../../view/front office/panier.php?error=erreur_commande');
+                        exit();
+                    }
+                } catch (Exception $e) {
+                    header('Location: ../../view/front office/panier.php?error=' . urlencode($e->getMessage()));
+                    error_log("Erreur lors de la création de la commande : " . $e->getMessage());
+                }
             } else {
-                // La création de la commande a échoué
-                header('Location: ../../view/front office/panier.php?error=erreur_commande');
+                header('Location: ../../view/front office/panier.php?error=panier_vide');
                 exit();
             }
-        } catch (Exception $e) {
-            // En cas d'erreur, on redirige vers le panier avec un message d'erreur
-            header('Location: ../../view/front office/panier.php?error=' . urlencode($e->getMessage()));
-            error_log("Erreur lors de la création de la commande : " . $e->getMessage());
+        } else {
+            header('Location: ../../view/front office/panier.php');
+            exit();
         }
-    } else {
-        // Si le panier est vide
-        header('Location: ../../view/front office/panier.php?error=panier_vide');
-        exit();
     }
-} else {
-    // Si la requête n'est pas une POST ou les données du panier sont absentes
-    header('Location: ../../view/front office/panier.php');
-    exit();
-}}
+}
           
 }
 

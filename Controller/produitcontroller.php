@@ -2,17 +2,8 @@
 require_once(__DIR__ . "/../model/produitmodel.php");
 require_once(__DIR__ . "../../config.php");
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 3c3f2119bb40b1bf3989c4f7e0f85b069e0926de
-// For debugging
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-
-// Log the POST data to a file for debugging
-file_put_contents('../debug_log.txt', date('Y-m-d H:i:s') . ' - POST data: ' . print_r($_POST, true) . "\n", FILE_APPEND);
 
 class ProductController {
     private $pdo;
@@ -20,55 +11,15 @@ class ProductController {
     public function __construct() {
         try {
             $this->pdo = Config::getConnexion();
-            // Log successful connection
             file_put_contents('../debug_log.txt', date('Y-m-d H:i:s') . ' - Database connected successfully' . "\n", FILE_APPEND);
         } catch (Exception $e) {
-            // Log database connection error
             file_put_contents('../debug_log.txt', date('Y-m-d H:i:s') . ' - Database connection error: ' . $e->getMessage() . "\n", FILE_APPEND);
             die('Erreur de connexion à la base de données: ' . $e->getMessage());
         }
     }
-    public function rentProduct($productId, $quantity) {
-        try {
-            // Vérifier si le stock est suffisant
-            $product = $this->getProductById($productId);
-            if ($product['stock'] < $quantity) {
-                throw new Exception("Stock insuffisant pour la location du produit ID $productId");
-            }
-    
-            // Réduire le stock du produit
-            return $this->decreaseStock($productId, $quantity);
-        } catch (Exception $e) {
-            error_log("Erreur dans rentProduct: " . $e->getMessage());
-            return false;
-        }
-    }
-    
-public function decreaseStock($productId, $quantity) {
-    try {
-        $sql = "UPDATE products SET stock = stock - :quantity WHERE id = :id AND stock >= :quantity";
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([
-            ':quantity' => $quantity,
-            ':id' => $productId
-        ]);
-
-        if ($stmt->rowCount() === 0) {
-            throw new Exception("Stock insuffisant pour le produit ID $productId");
-        }
-
-        return true;
-    } catch (Exception $e) {
-        error_log("Erreur dans decreaseStock: " . $e->getMessage());
-        return false;
-    }
-}
-
-
 
     public function getProductsByCategory($categoryName) {
         try {
-            // Nettoyer et valider la catégorie
             $allowedCategories = [
                 'Équipements Sportifs',
                 'Vêtements et Accessoires',
@@ -84,19 +35,19 @@ public function decreaseStock($productId, $quantity) {
                 return ['error' => 'Catégorie invalide'];
             }
     
-            // Ajouter 'id' dans la sélection
-            $stmt = $this->pdo->prepare("SELECT id, name, price, photo as image FROM products WHERE category = ?");
+            // Ajout de la condition stock > 0
+            $stmt = $this->pdo->prepare("SELECT id, name, price, photo as image, stock FROM products WHERE category = ? ");
             $stmt->execute([$categoryName]);
             
             $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
             
-            // Formatage cohérent des données
             return array_map(function($product) {
                 return [
-                    'id' => $product['id'], // Inclure l'ID
+                    'id' => $product['id'],
                     'name' => $product['name'],
                     'price' => number_format($product['price'], 2) . ' TND',
-                    'image' => $product['image'] ?? 'images/default-product.jpg'
+                    'image' => $product['image'] ?? 'images/default-product.jpg',
+                    'stock' => $product['stock']
                 ];
             }, $products);
     
@@ -106,22 +57,120 @@ public function decreaseStock($productId, $quantity) {
         }
     }
 
-    // Add a new product
+    public function getAllProducts() {
+        try {
+            // Ajout de la condition stock > 0
+            $sql = "SELECT id, name, price, stock, category, purchase_available, rental_available, photo FROM products   ORDER BY created_at DESC";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
+            
+            $products = [];
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $products[] = [
+                    'id' => $row['id'],
+                    'name' => $row['name'],
+                    'price' => (float)$row['price'],
+                    'stock' => (int)$row['stock'],
+                    'category' => $row['category'],
+                    'purchase_available' => (bool)$row['purchase_available'],
+                    'rental_available' => (bool)$row['rental_available'],
+                    'photo' => $row['photo']
+                ];
+            }
+            
+            return ['success' => true, 'products' => $products];
+        } catch (PDOException $e) {
+            return ['success' => false, 'error' => $e->getMessage()];
+        }
+    }
+
+    public function getProductById($id) {
+        try {
+            $sql = "SELECT * FROM products WHERE id = :id ";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([':id' => $id]);
+            
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            if (!$row) {
+                throw new Exception('Produit non trouvé ou en rupture de stock');
+            }
+            
+            return [
+                'id' => $row['id'],
+                'name' => $row['name'],
+                'price' => $row['price'],
+                'stock' => $row['stock'],
+                'category' => $row['category'],
+                'purchase_available' => $row['purchase_available'],
+                'rental_available' => $row['rental_available'],
+                'photo' => $row['photo']
+            ];
+        } catch (PDOException $e) {
+            throw new Exception('Erreur : ' . $e->getMessage());
+        }
+    }
+
+    // Fonction pour vérifier le stock disponible
+    public function checkStock($productId, $quantity) {
+        try {
+            $sql = "SELECT stock FROM products WHERE id = :id";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([':id' => $productId]);
+            $stock = $stmt->fetchColumn();
+            
+            return $stock >= $quantity;
+        } catch (PDOException $e) {
+            error_log("Erreur checkStock: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    // Les autres méthodes restent inchangées
+    public function rentProduct($productId, $quantity) {
+        try {
+            if (!$this->checkStock($productId, $quantity)) {
+                throw new Exception("Stock insuffisant pour la location du produit ID $productId");
+            }
+    
+            return $this->decreaseStock($productId, $quantity);
+        } catch (Exception $e) {
+            error_log("Erreur dans rentProduct: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function decreaseStock($productId, $quantity) {
+        try {
+            $sql = "UPDATE products SET stock = stock - :quantity WHERE id = :id AND stock >= :quantity";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([
+                ':quantity' => $quantity,
+                ':id' => $productId
+            ]);
+
+            if ($stmt->rowCount() === 0) {
+                throw new Exception("Stock insuffisant pour le produit ID $productId");
+            }
+
+            return true;
+        } catch (Exception $e) {
+            error_log("Erreur dans decreaseStock: " . $e->getMessage());
+            return false;
+        }
+    }
+
     public function addProduct($name, $price, $stock, $category, $purchase_available, $rental_available) {
         try {
-
-            // Gestion de l'image
             $photoPath = 'images/products/logo.png'; 
             
             if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
                 $photoPath = $this->handleFileUpload('photo');
             }
 
-            
             $purchase_available = ($purchase_available === 'yes') ? 1 : 0;
             $rental_available = ($rental_available === 'yes') ? 1 : 0;
 
-            // Requête SQL
             $sql = "INSERT INTO products 
                     (name, price, stock, category, purchase_available, rental_available, photo, created_at) 
                     VALUES (:name, :price, :stock, :category, :purchase, :rental, :photo, NOW())";
@@ -145,22 +194,17 @@ public function decreaseStock($productId, $quantity) {
         }
     }
 
-
-
     private function handleFileUpload($fileInputName) {
-        // 1. Vérifier si un fichier a été uploadé
         if (!isset($_FILES[$fileInputName])) {
             throw new Exception("Aucun fichier n'a été uploadé");
         }
     
         $file = $_FILES[$fileInputName];
     
-        // 2. Vérifier les erreurs d'upload
         if ($file['error'] !== UPLOAD_ERR_OK) {
             throw new Exception("Erreur lors de l'upload: " . $this->getUploadError($file['error']));
         }
     
-        // 3. Vérifier le type MIME réel du fichier
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
         $mimeType = finfo_file($finfo, $file['tmp_name']);
         finfo_close($finfo);
@@ -176,29 +220,24 @@ public function decreaseStock($productId, $quantity) {
             throw new Exception("Type de fichier non autorisé. Seuls JPG, PNG, GIF et WebP sont acceptés.");
         }
     
-        // 4. Vérifier la taille du fichier (max 2MB)
-        $maxFileSize = 2 * 1024 * 1024; // 2MB
+        $maxFileSize = 2 * 1024 * 1024;
         if ($file['size'] > $maxFileSize) {
             throw new Exception("La taille du fichier ne doit pas dépasser 2MB");
         }
     
-        // 5. Préparer le répertoire de destination
         $uploadDir = '../images/products/';
         if (!file_exists($uploadDir)) {
             mkdir($uploadDir, 0755, true);
         }
     
-        // 6. Générer un nom de fichier unique
         $extension = $allowedMimeTypes[$mimeType];
         $filename = uniqid('prod_', true) . '.' . $extension;
         $destination = $uploadDir . $filename;
     
-        // 7. Déplacer le fichier uploadé
         if (!move_uploaded_file($file['tmp_name'], $destination)) {
             throw new Exception("Impossible de déplacer le fichier uploadé");
         }
     
-        // 8. Retourner le chemin relatif (important pour le stockage en base)
         return 'images/products/' . $filename;
     }
     
@@ -215,9 +254,6 @@ public function decreaseStock($productId, $quantity) {
         return $errors[$errorCode] ?? 'Erreur inconnue';
     }
 
-
-
-    // Delete a product
     public function deleteProduct($id) {
         try {
             $sql = "DELETE FROM products WHERE id = :id";
@@ -231,21 +267,17 @@ public function decreaseStock($productId, $quantity) {
 
     public function updateProduct($id, $name, $price, $stock, $category, $purchase_available, $rental_available) {
         try {
-            // Conversion des valeurs booléennes
             $purchase_available = ($purchase_available === 'yes') ? 1 : 0;
             $rental_available = ($rental_available === 'yes') ? 1 : 0;
     
-            // Vérifier si une nouvelle image a été uploadée
             if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
                 $photoPath = $this->handleFileUpload('photo');
             } else {
-                // Si aucune image uploadée, conserver l'ancienne photo
                 $stmt = $this->pdo->prepare("SELECT photo FROM products WHERE id = :id");
                 $stmt->execute([':id' => $id]);
                 $photoPath = $stmt->fetchColumn();
             }
     
-            // Requête de mise à jour
             $sql = "UPDATE products SET 
                         name = :name, 
                         price = :price, 
@@ -274,33 +306,6 @@ public function decreaseStock($productId, $quantity) {
             return 'Erreur : ' . $e->getMessage();
         }
     }
-    
-    // Get all products
-    public function getAllProducts() {
-        try {
-            $sql = "SELECT * FROM products ORDER BY created_at DESC";
-            $stmt = $this->pdo->prepare($sql);
-            $stmt->execute();
-            
-            $products = [];
-            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                $products[] = [
-                    'id' => $row['id'],
-                    'name' => $row['name'],
-                    'price' => (float)$row['price'],
-                    'stock' => (int)$row['stock'],
-                    'category' => $row['category'],
-                    'purchase_available' => (bool)$row['purchase_available'],
-                    'rental_available' => (bool)$row['rental_available'],
-                    'photo' => $row['photo']
-                ];
-            }
-            
-            return ['success' => true, 'products' => $products];
-        } catch (PDOException $e) {
-            return ['success' => false, 'error' => $e->getMessage()];
-        }
-    }
 
     public function getCategoryStats() {
         try {
@@ -310,6 +315,7 @@ public function decreaseStock($productId, $quantity) {
                     SUM(stock) as total_stock,
                     SUM(price * stock) as total_value
                 FROM products 
+                WHERE stock > 0
                 GROUP BY category
                 ORDER BY product_count DESC";
             
@@ -332,40 +338,13 @@ public function decreaseStock($productId, $quantity) {
         }
     }
 
-    // Get a single product by ID
-    public function getProductById($id) {
-        try {
-            $sql = "SELECT * FROM products WHERE id = :id";
-            $stmt = $this->pdo->prepare($sql);
-            $stmt->execute([':id' => $id]);
-            
-            $row = $stmt->fetch(PDO::FETCH_ASSOC);
-            
-            if (!$row) {
-                throw new Exception('Produit non trouvé');
-            }
-            
-            return [
-                'id' => $row['id'],
-                'name' => $row['name'],
-                'price' => $row['price'],
-                'stock' => $row['stock'],
-                'category' => $row['category'],
-                'purchase_available' => $row['purchase_available'],
-                'rental_available' => $row['rental_available'],
-                'photo' => $row['photo']
-            ];
-        } catch (PDOException $e) {
-            throw new Exception('Erreur : ' . $e->getMessage());
-        }
-    }
-
     public function getGlobalStats() {
         try {
             $sql = "SELECT 
                     SUM(stock) as total_stock,
                     SUM(price * stock) as total_value
-                FROM products";
+                FROM products
+                WHERE stock > 0";
             
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute();
@@ -384,19 +363,16 @@ public function decreaseStock($productId, $quantity) {
 
     public function getOrdersStats() {
         try {
-            // Compter les commandes d'achat
             $sqlPurchases = "SELECT COUNT(*) as purchase_count FROM commandes";
             $stmtPurchases = $this->pdo->prepare($sqlPurchases);
             $stmtPurchases->execute();
             $purchaseCount = $stmtPurchases->fetch(PDO::FETCH_ASSOC)['purchase_count'];
 
-            // Compter les locations
             $sqlRentals = "SELECT COUNT(*) as rental_count FROM louer";
             $stmtRentals = $this->pdo->prepare($sqlRentals);
             $stmtRentals->execute();
             $rentalCount = $stmtRentals->fetch(PDO::FETCH_ASSOC)['rental_count'];
 
-            // Total des commandes
             $totalOrders = $purchaseCount + $rentalCount;
 
             return [
@@ -414,7 +390,8 @@ public function decreaseStock($productId, $quantity) {
         try {
             $query = "SELECT p.*, COUNT(c.id_commande) as total_ventes 
                      FROM products p 
-                     LEFT JOIN commandes c ON p.id = c.id_produit ";
+                     LEFT JOIN commandes c ON p.id = c.id_produit 
+                     WHERE p.stock > 0 ";
 
             switch($period) {
                 case 'today':
@@ -437,7 +414,6 @@ public function decreaseStock($productId, $quantity) {
             $stmt = $this->pdo->prepare($query);
             $stmt->execute();
             
-            // Debug: Afficher la requête et les résultats
             error_log("Query: " . $query);
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
             error_log("Results: " . print_r($results, true));
@@ -463,6 +439,7 @@ public function decreaseStock($productId, $quantity) {
                         created_at as date,
                         'add' as type
                     FROM products 
+                    WHERE stock > 0
                     ORDER BY created_at DESC 
                     LIMIT 5";
 
@@ -499,25 +476,45 @@ public function decreaseStock($productId, $quantity) {
             ];
         }
     }
+    public function getBestSellers() {
+        try {
+            $sql = "SELECT p.* 
+                    FROM products p
+                    JOIN commandes c ON p.id = c.id_produit
+                    -- WHERE c.statut_commande IN ('confirmee', 'livree')
+                    GROUP BY p.id
+                    ORDER BY SUM(c.quantite) DESC
+                    LIMIT 6";
+            
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
+            
+            $products = [];
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $products[] = Product::fromArray($row);
+            }
+            
+            return $products;
+        } catch (PDOException $e) {
+            error_log("Erreur dans getBestSellers: " . $e->getMessage());
+            return [];
+        }
+    }
 }
 
-// Create controller instance
 $controller = new ProductController();
 
-// Handle API requests - check if it's an AJAX request (for get_products or get_product)
 if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest' || 
     (isset($_GET['action']) && ($_GET['action'] === 'get_all' || $_GET['action'] === 'get_one'))) {
     
     header('Content-Type: application/json');
     
     try {
-       
         if (isset($_GET['action']) && $_GET['action'] === 'get_all') {
             $products = $controller->getAllProducts();
             echo json_encode(['success' => true, 'products' => $products]);
             exit;
         }
-        
         
         if (isset($_GET['action']) && $_GET['action'] === 'get_one' && isset($_GET['id'])) {
             $product = $controller->getProductById($_GET['id']);
@@ -531,7 +528,6 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'
     }
 }
 
-// Handle form submissions
 $message = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -571,7 +567,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (is_array($result) && !$result['success']) {
-        // Stocke les erreurs en session par exemple
         session_start();
         $_SESSION['form_errors'] = $result['errors'];
         header("Location: ../view/back%20office/indeex.php#products");
@@ -582,18 +577,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 }
-<<<<<<< HEAD
 
-
-=======
->>>>>>> 3c3f2119bb40b1bf3989c4f7e0f85b069e0926de
 if (isset($_GET['category'])) {
     $categoryName = $_GET['category'];
-    $controller = new ProductController();
     $products = $controller->getProductsByCategory($categoryName);
     
     header('Content-Type: application/json');
     echo json_encode($products);
     exit();
 }
+
 ?>

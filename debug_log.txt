@@ -2805,7 +2805,6 @@
 
 2025-04-18 09:59:51 - Database connected successfully
 2025-04-18 09:59:51 - Database connected successfully
-<<<<<<< HEAD
 2025-04-19 17:21:39 - POST data: Array
 (
 )
@@ -8037,43 +8036,1387 @@
 
 2025-04-24 23:53:30 - Database connected successfully
 2025-04-24 23:53:30 - Database connected successfully
-2025-04-25 10:44:20 - POST data: Array
-(
-    [action] => delete
-    [id] => 69
-)
-
-2025-04-25 10:44:20 - Database connected successfully
-2025-04-25 10:44:25 - POST data: Array
-(
-    [action] => delete
-    [id] => 68
-)
-
-2025-04-25 10:44:25 - Database connected successfully
-2025-04-25 10:44:43 - POST data: Array
-(
-    [action] => add
-    [name] => nano
-    [price] => 55
-    [stock] => 89
-    [category] => Articles de Bien-être & Récupération
-    [purchase_available] => yes
-    [rental_available] => yes
-)
-
-2025-04-25 10:44:43 - Database connected successfully
-2025-04-25 10:45:20 - POST data: Array
+2025-04-25 17:38:18 - POST data: Array
 (
 )
 
-2025-04-25 10:45:20 - Database connected successfully
-2025-04-25 10:45:20 - Database connected successfully
-2025-04-25 10:47:23 - POST data: Array
+2025-04-25 17:38:18 - Database connected successfully
+2025-04-25 17:38:18 - Database connected successfully
+2025-04-25 17:38:20 - POST data: Array
 (
 )
 
-2025-04-25 10:47:23 - Database connected successfully
-2025-04-25 10:47:23 - Database connected successfully
-=======
->>>>>>> 3c3f2119bb40b1bf3989c4f7e0f85b069e0926de
+2025-04-25 17:38:20 - Database connected successfully
+2025-04-25 17:38:20 - Database connected successfully
+2025-04-25 17:48:30 - POST data: Array
+(
+)
+
+2025-04-25 17:48:30 - Database connected successfully
+2025-04-25 17:48:30 - Database connected successfully
+2025-04-25 17:48:31 - POST data: Array
+(
+)
+
+2025-04-25 17:48:31 - Database connected successfully
+2025-04-25 17:48:31 - Database connected successfully
+2025-04-25 17:48:32 - POST data: Array
+(
+)
+
+2025-04-25 17:48:32 - Database connected successfully
+2025-04-25 17:48:32 - Database connected successfully
+2025-04-25 18:03:53 - POST data: Array
+(
+)
+
+2025-04-25 18:03:53 - Database connected successfully
+2025-04-25 18:03:53 - Database connected successfully
+2025-04-25 18:08:11 - POST data: Array
+(
+)
+
+2025-04-25 18:08:11 - Database connected successfully
+2025-04-25 18:08:11 - Database connected successfully
+2025-04-25 18:08:33 - POST data: Array
+(
+)
+
+2025-04-25 18:08:33 - Database connected successfully
+2025-04-25 18:08:33 - Database connected successfully
+2025-04-25 18:08:35 - POST data: Array
+(
+)
+
+2025-04-25 18:08:35 - Database connected successfully
+2025-04-25 18:08:35 - Database connected successfully
+2025-04-25 18:18:43 - POST data: Array
+(
+)
+
+2025-04-25 18:18:43 - Database connected successfully
+2025-04-25 18:18:43 - Database connected successfully
+2025-04-25 18:29:33 - POST data: Array
+(
+)
+
+2025-04-25 18:29:33 - Database connected successfully
+2025-04-25 18:29:34 - Database connected successfully
+2025-04-25 18:38:48 - POST data: Array
+(
+)
+
+2025-04-25 18:38:48 - Database connected successfully
+2025-04-25 18:38:48 - Database connected successfully
+2025-04-25 18:39:59 - POST data: Array
+(
+)
+
+2025-04-25 18:39:59 - Database connected successfully
+2025-04-25 18:39:59 - Database connected successfully
+2025-04-25 18:43:28 - POST data: Array
+(
+)
+
+2025-04-25 18:43:28 - Database connected successfully
+2025-04-25 18:43:28 - Database connected successfully
+2025-04-25 18:50:55 - POST data: Array
+(
+)
+
+2025-04-25 18:50:55 - Database connected successfully
+2025-04-25 18:50:55 - Database connected successfully
+2025-04-25 18:51:35 - POST data: Array
+(
+)
+
+2025-04-25 18:51:35 - Database connected successfully
+2025-04-25 18:51:35 - Database connected successfully
+2025-04-25 18:51:41 - POST data: Array
+(
+)
+
+2025-04-25 18:51:41 - Database connected successfully
+2025-04-25 18:51:41 - Database connected successfully
+2025-04-25 18:51:42 - POST data: Array
+(
+)
+
+2025-04-25 18:51:42 - Database connected successfully
+2025-04-25 18:51:42 - Database connected successfully
+2025-04-25 18:52:09 - POST data: Array
+(
+)
+
+2025-04-25 18:52:09 - Database connected successfully
+2025-04-25 18:52:09 - Database connected successfully
+2025-04-25 18:54:30 - POST data: Array
+(
+)
+
+2025-04-25 18:54:30 - Database connected successfully
+2025-04-25 18:54:30 - Database connected successfully
+2025-04-25 18:55:51 - POST data: Array
+(
+)
+
+2025-04-25 18:55:51 - Database connected successfully
+2025-04-25 18:55:51 - Database connected successfully
+2025-04-25 18:56:57 - POST data: Array
+(
+)
+
+2025-04-25 18:56:57 - Database connected successfully
+2025-04-25 18:56:57 - Database connected successfully
+2025-04-25 18:57:40 - POST data: Array
+(
+)
+
+2025-04-25 18:57:40 - Database connected successfully
+2025-04-25 18:57:40 - Database connected successfully
+2025-04-25 18:57:46 - POST data: Array
+(
+)
+
+2025-04-25 18:57:46 - Database connected successfully
+2025-04-25 18:57:46 - Database connected successfully
+2025-04-25 18:58:44 - POST data: Array
+(
+)
+
+2025-04-25 18:58:44 - Database connected successfully
+2025-04-25 18:58:44 - Database connected successfully
+2025-04-25 18:59:26 - POST data: Array
+(
+)
+
+2025-04-25 18:59:26 - Database connected successfully
+2025-04-25 18:59:26 - Database connected successfully
+2025-04-25 19:00:10 - POST data: Array
+(
+)
+
+2025-04-25 19:00:10 - Database connected successfully
+2025-04-25 19:00:10 - Database connected successfully
+2025-04-25 19:00:17 - POST data: Array
+(
+)
+
+2025-04-25 19:00:17 - Database connected successfully
+2025-04-25 19:00:17 - Database connected successfully
+2025-04-25 19:01:00 - POST data: Array
+(
+)
+
+2025-04-25 19:01:00 - Database connected successfully
+2025-04-25 19:01:00 - Database connected successfully
+2025-04-25 19:01:38 - POST data: Array
+(
+)
+
+2025-04-25 19:01:38 - Database connected successfully
+2025-04-25 19:01:38 - Database connected successfully
+2025-04-25 19:01:48 - POST data: Array
+(
+)
+
+2025-04-25 19:01:48 - Database connected successfully
+2025-04-25 19:01:48 - Database connected successfully
+2025-04-25 19:02:46 - POST data: Array
+(
+)
+
+2025-04-25 19:02:46 - Database connected successfully
+2025-04-25 19:02:46 - Database connected successfully
+2025-04-25 19:02:55 - POST data: Array
+(
+)
+
+2025-04-25 19:02:55 - Database connected successfully
+2025-04-25 19:02:55 - Database connected successfully
+2025-04-25 19:09:20 - POST data: Array
+(
+)
+
+2025-04-25 19:09:20 - Database connected successfully
+2025-04-25 19:09:20 - Database connected successfully
+2025-04-25 19:10:38 - POST data: Array
+(
+)
+
+2025-04-25 19:10:38 - Database connected successfully
+2025-04-25 19:10:38 - Database connected successfully
+2025-04-25 19:21:07 - POST data: Array
+(
+)
+
+2025-04-25 19:21:07 - Database connected successfully
+2025-04-25 19:21:07 - Database connected successfully
+2025-04-25 19:27:45 - POST data: Array
+(
+)
+
+2025-04-25 19:27:45 - Database connected successfully
+2025-04-25 19:27:54 - POST data: Array
+(
+)
+
+2025-04-25 19:27:54 - Database connected successfully
+2025-04-25 19:28:04 - POST data: Array
+(
+)
+
+2025-04-25 19:28:04 - Database connected successfully
+2025-04-25 19:28:04 - Database connected successfully
+2025-04-25 19:34:57 - POST data: Array
+(
+)
+
+2025-04-25 19:34:57 - Database connected successfully
+2025-04-25 19:34:57 - Database connected successfully
+2025-04-25 20:24:10 - POST data: Array
+(
+)
+
+2025-04-25 20:24:10 - Database connected successfully
+2025-04-25 20:24:10 - Database connected successfully
+2025-04-25 23:02:43 - Database connected successfully
+2025-04-25 23:02:49 - Database connected successfully
+2025-04-25 23:02:54 - Database connected successfully
+2025-04-25 23:02:58 - Database connected successfully
+2025-04-25 23:02:58 - Database connected successfully
+2025-04-25 23:03:04 - Database connected successfully
+2025-04-25 23:03:04 - Database connected successfully
+2025-04-25 23:03:05 - Database connected successfully
+2025-04-25 23:03:05 - Database connected successfully
+2025-04-25 23:03:11 - Database connected successfully
+2025-04-25 23:03:11 - Database connected successfully
+2025-04-25 23:03:11 - Database connected successfully
+2025-04-25 23:03:11 - Database connected successfully
+2025-04-25 23:03:11 - Database connected successfully
+2025-04-25 23:03:12 - Database connected successfully
+2025-04-25 23:03:12 - Database connected successfully
+2025-04-25 23:03:12 - Database connected successfully
+2025-04-25 23:03:12 - Database connected successfully
+2025-04-25 23:03:12 - Database connected successfully
+2025-04-25 23:03:12 - Database connected successfully
+2025-04-25 23:03:12 - Database connected successfully
+2025-04-25 23:03:13 - Database connected successfully
+2025-04-25 23:03:13 - Database connected successfully
+2025-04-25 23:03:13 - Database connected successfully
+2025-04-25 23:03:13 - Database connected successfully
+2025-04-25 23:03:14 - Database connected successfully
+2025-04-25 23:03:14 - Database connected successfully
+2025-04-25 23:03:21 - Database connected successfully
+2025-04-25 23:03:22 - Database connected successfully
+2025-04-25 23:03:22 - Database connected successfully
+2025-04-25 23:03:22 - Database connected successfully
+2025-04-25 23:03:22 - Database connected successfully
+2025-04-25 23:03:23 - Database connected successfully
+2025-04-25 23:03:24 - Database connected successfully
+2025-04-25 23:03:26 - Database connected successfully
+2025-04-25 23:03:26 - Database connected successfully
+2025-04-25 23:03:26 - Database connected successfully
+2025-04-25 23:03:29 - Database connected successfully
+2025-04-25 23:03:31 - Database connected successfully
+2025-04-25 23:03:32 - Database connected successfully
+2025-04-25 23:03:32 - Database connected successfully
+2025-04-25 23:03:34 - Database connected successfully
+2025-04-25 23:03:34 - Database connected successfully
+2025-04-25 23:03:37 - Database connected successfully
+2025-04-25 23:04:05 - Database connected successfully
+2025-04-25 23:04:08 - Database connected successfully
+2025-04-25 23:04:12 - Database connected successfully
+2025-04-25 23:04:12 - Database connected successfully
+2025-04-25 23:04:27 - Database connected successfully
+2025-04-25 23:04:29 - Database connected successfully
+2025-04-25 23:05:01 - Database connected successfully
+2025-04-25 23:05:40 - Database connected successfully
+2025-04-25 23:05:40 - Database connected successfully
+2025-04-25 23:05:40 - Database connected successfully
+2025-04-25 23:05:40 - Database connected successfully
+2025-04-25 23:05:41 - Database connected successfully
+2025-04-25 23:05:42 - Database connected successfully
+2025-04-25 23:05:42 - Database connected successfully
+2025-04-25 23:05:42 - Database connected successfully
+2025-04-25 23:05:43 - Database connected successfully
+2025-04-25 23:05:43 - Database connected successfully
+2025-04-25 23:05:44 - Database connected successfully
+2025-04-25 23:05:44 - Database connected successfully
+2025-04-25 23:05:46 - Database connected successfully
+2025-04-25 23:05:47 - Database connected successfully
+2025-04-25 23:05:47 - Database connected successfully
+2025-04-25 23:05:50 - Database connected successfully
+2025-04-25 23:05:50 - Database connected successfully
+2025-04-25 23:05:50 - Database connected successfully
+2025-04-25 23:05:50 - Database connected successfully
+2025-04-25 23:05:50 - Database connected successfully
+2025-04-25 23:05:51 - Database connected successfully
+2025-04-25 23:05:51 - Database connected successfully
+2025-04-25 23:05:51 - Database connected successfully
+2025-04-25 23:05:51 - Database connected successfully
+2025-04-25 23:05:55 - Database connected successfully
+2025-04-25 23:05:57 - Database connected successfully
+2025-04-25 23:05:58 - Database connected successfully
+2025-04-25 23:05:58 - Database connected successfully
+2025-04-25 23:05:59 - Database connected successfully
+2025-04-25 23:05:59 - Database connected successfully
+2025-04-25 23:05:59 - Database connected successfully
+2025-04-25 23:05:59 - Database connected successfully
+2025-04-25 23:05:59 - Database connected successfully
+2025-04-25 23:05:59 - Database connected successfully
+2025-04-25 23:06:00 - Database connected successfully
+2025-04-25 23:11:51 - Database connected successfully
+2025-04-25 23:11:54 - Database connected successfully
+2025-04-25 23:11:57 - Database connected successfully
+2025-04-25 23:11:57 - Database connected successfully
+2025-04-25 23:12:05 - Database connected successfully
+2025-04-25 23:12:05 - Database connected successfully
+2025-04-25 23:12:09 - Database connected successfully
+2025-04-25 23:12:09 - Database connected successfully
+2025-04-25 23:12:17 - Database connected successfully
+2025-04-25 23:12:20 - Database connected successfully
+2025-04-25 23:12:28 - Database connected successfully
+2025-04-25 23:12:29 - Database connected successfully
+2025-04-25 23:12:33 - Database connected successfully
+2025-04-25 23:12:38 - Database connected successfully
+2025-04-25 23:12:39 - Database connected successfully
+2025-04-25 23:12:40 - Database connected successfully
+2025-04-25 23:12:55 - Database connected successfully
+2025-04-25 23:15:44 - Database connected successfully
+2025-04-25 23:15:49 - Database connected successfully
+2025-04-25 23:15:53 - Database connected successfully
+2025-04-25 23:15:53 - Database connected successfully
+2025-04-25 23:15:57 - Database connected successfully
+2025-04-25 23:15:57 - Database connected successfully
+2025-04-25 23:16:08 - Database connected successfully
+2025-04-25 23:16:18 - Database connected successfully
+2025-04-25 23:16:21 - Database connected successfully
+2025-04-25 23:16:28 - Database connected successfully
+2025-04-25 23:16:34 - Database connected successfully
+2025-04-25 23:16:35 - Database connected successfully
+2025-04-25 23:16:37 - Database connected successfully
+2025-04-25 23:16:37 - Database connected successfully
+2025-04-25 23:16:37 - Database connected successfully
+2025-04-25 23:16:37 - Database connected successfully
+2025-04-25 23:16:54 - Database connected successfully
+2025-04-25 23:18:55 - Database connected successfully
+2025-04-25 23:18:59 - Database connected successfully
+2025-04-25 23:19:03 - Database connected successfully
+2025-04-25 23:19:03 - Database connected successfully
+2025-04-25 23:19:07 - Database connected successfully
+2025-04-25 23:19:07 - Database connected successfully
+2025-04-25 23:19:12 - Database connected successfully
+2025-04-25 23:19:16 - Database connected successfully
+2025-04-25 23:19:21 - Database connected successfully
+2025-04-25 23:19:25 - Database connected successfully
+2025-04-25 23:19:33 - Database connected successfully
+2025-04-25 23:19:38 - Database connected successfully
+2025-04-25 23:19:39 - Database connected successfully
+2025-04-25 23:19:39 - Database connected successfully
+2025-04-25 23:19:54 - Database connected successfully
+2025-04-25 23:19:59 - Database connected successfully
+2025-04-26 12:12:43 - Database connected successfully
+2025-04-26 12:13:45 - Database connected successfully
+2025-04-26 12:16:20 - Database connected successfully
+2025-04-26 12:17:14 - Database connected successfully
+2025-04-26 12:17:19 - Database connected successfully
+2025-04-26 12:17:50 - Database connected successfully
+2025-04-26 12:31:07 - Database connected successfully
+2025-04-26 12:31:11 - Database connected successfully
+2025-04-26 12:31:14 - Database connected successfully
+2025-04-26 12:31:18 - Database connected successfully
+2025-04-26 12:31:18 - Database connected successfully
+2025-04-26 12:31:22 - Database connected successfully
+2025-04-26 12:31:22 - Database connected successfully
+2025-04-26 12:31:44 - Database connected successfully
+2025-04-26 12:31:47 - Database connected successfully
+2025-04-26 13:00:29 - Database connected successfully
+2025-04-26 13:00:32 - Database connected successfully
+2025-04-26 13:01:59 - Database connected successfully
+2025-04-26 13:02:12 - Database connected successfully
+2025-04-26 13:02:17 - Database connected successfully
+2025-04-26 13:02:23 - Database connected successfully
+2025-04-26 13:03:05 - Database connected successfully
+2025-04-26 13:03:13 - Database connected successfully
+2025-04-26 13:04:43 - Database connected successfully
+2025-04-26 13:05:27 - Database connected successfully
+2025-04-26 13:05:34 - Database connected successfully
+2025-04-26 13:05:44 - Database connected successfully
+2025-04-26 13:05:49 - Database connected successfully
+2025-04-26 13:06:12 - Database connected successfully
+2025-04-26 13:06:15 - Database connected successfully
+2025-04-26 13:06:19 - Database connected successfully
+2025-04-26 13:06:19 - Database connected successfully
+2025-04-26 13:06:41 - Database connected successfully
+2025-04-26 13:06:43 - Database connected successfully
+2025-04-26 13:07:13 - Database connected successfully
+2025-04-26 13:09:58 - Database connected successfully
+2025-04-26 13:10:01 - Database connected successfully
+2025-04-26 13:10:07 - Database connected successfully
+2025-04-26 13:10:13 - Database connected successfully
+2025-04-26 13:10:27 - Database connected successfully
+2025-04-26 13:10:32 - Database connected successfully
+2025-04-26 13:10:36 - Database connected successfully
+2025-04-26 13:10:36 - Database connected successfully
+2025-04-26 13:10:41 - Database connected successfully
+2025-04-26 13:10:41 - Database connected successfully
+2025-04-26 13:11:08 - Database connected successfully
+2025-04-26 13:11:12 - Database connected successfully
+2025-04-26 13:57:38 - Database connected successfully
+2025-04-26 13:57:43 - Database connected successfully
+2025-04-26 18:06:47 - Database connected successfully
+2025-04-26 18:15:09 - Database connected successfully
+2025-04-26 18:15:09 - Database connected successfully
+2025-04-26 18:15:12 - Database connected successfully
+2025-04-26 18:15:45 - Database connected successfully
+2025-04-26 18:15:47 - Database connected successfully
+2025-04-26 18:16:04 - Database connected successfully
+2025-04-26 18:16:07 - Database connected successfully
+2025-04-26 18:16:18 - Database connected successfully
+2025-04-26 18:17:20 - Database connected successfully
+2025-04-26 18:21:26 - Database connected successfully
+2025-04-26 18:21:26 - Database connected successfully
+2025-04-26 18:23:05 - Database connected successfully
+2025-04-26 18:23:18 - Database connected successfully
+2025-04-26 18:24:00 - Database connected successfully
+2025-04-26 18:24:03 - Database connected successfully
+2025-04-26 18:24:14 - Database connected successfully
+2025-04-26 18:24:19 - Database connected successfully
+2025-04-26 18:24:27 - Database connected successfully
+2025-04-26 18:24:29 - Database connected successfully
+2025-04-26 20:08:28 - Database connected successfully
+2025-04-26 20:08:54 - Database connected successfully
+2025-04-26 20:08:56 - Database connected successfully
+2025-04-26 20:09:04 - Database connected successfully
+2025-04-26 20:09:05 - Database connected successfully
+2025-04-26 20:09:05 - Database connected successfully
+2025-04-26 20:09:05 - Database connected successfully
+2025-04-26 20:09:06 - Database connected successfully
+2025-04-26 20:09:06 - Database connected successfully
+2025-04-26 20:09:06 - Database connected successfully
+2025-04-26 20:09:07 - Database connected successfully
+2025-04-26 20:09:07 - Database connected successfully
+2025-04-26 20:09:07 - Database connected successfully
+2025-04-26 20:09:08 - Database connected successfully
+2025-04-26 20:09:08 - Database connected successfully
+2025-04-26 20:09:08 - Database connected successfully
+2025-04-26 20:09:09 - Database connected successfully
+2025-04-26 20:09:09 - Database connected successfully
+2025-04-26 20:09:10 - Database connected successfully
+2025-04-26 20:09:11 - Database connected successfully
+2025-04-26 20:09:11 - Database connected successfully
+2025-04-26 20:09:12 - Database connected successfully
+2025-04-26 20:09:12 - Database connected successfully
+2025-04-26 20:09:12 - Database connected successfully
+2025-04-26 20:09:13 - Database connected successfully
+2025-04-26 20:09:13 - Database connected successfully
+2025-04-26 20:11:17 - Database connected successfully
+2025-04-26 20:11:23 - Database connected successfully
+2025-04-26 21:58:52 - Database connected successfully
+2025-04-26 21:58:55 - Database connected successfully
+2025-04-26 21:58:58 - Database connected successfully
+2025-04-26 21:58:59 - Database connected successfully
+2025-04-26 21:59:01 - Database connected successfully
+2025-04-26 21:59:04 - Database connected successfully
+2025-04-26 21:59:05 - Database connected successfully
+2025-04-26 21:59:07 - Database connected successfully
+2025-04-26 22:04:37 - Database connected successfully
+2025-04-26 22:11:22 - Database connected successfully
+2025-04-26 22:11:34 - Database connected successfully
+2025-04-26 22:11:51 - Database connected successfully
+2025-04-26 22:15:32 - Database connected successfully
+2025-04-26 23:13:03 - Database connected successfully
+2025-04-26 23:17:31 - Database connected successfully
+2025-04-26 23:17:46 - Database connected successfully
+2025-04-26 23:17:50 - Database connected successfully
+2025-04-27 08:50:31 - Database connected successfully
+2025-04-27 08:50:33 - Database connected successfully
+2025-04-27 08:51:54 - Database connected successfully
+2025-04-27 08:51:55 - Database connected successfully
+2025-04-27 08:57:47 - Database connected successfully
+2025-04-27 08:57:48 - Database connected successfully
+2025-04-27 08:57:52 - Database connected successfully
+2025-04-27 08:57:52 - Database connected successfully
+2025-04-27 09:02:38 - Database connected successfully
+2025-04-27 09:02:40 - Database connected successfully
+2025-04-27 09:04:39 - Database connected successfully
+2025-04-27 09:04:41 - Database connected successfully
+2025-04-27 09:06:46 - Database connected successfully
+2025-04-27 09:06:48 - Database connected successfully
+2025-04-27 09:10:03 - Database connected successfully
+2025-04-27 09:10:04 - Database connected successfully
+2025-04-27 09:10:06 - Database connected successfully
+2025-04-27 09:12:51 - Database connected successfully
+2025-04-27 09:17:02 - Database connected successfully
+2025-04-27 09:17:03 - Database connected successfully
+2025-04-27 09:25:10 - Database connected successfully
+2025-04-27 09:25:11 - Database connected successfully
+2025-04-27 09:27:33 - Database connected successfully
+2025-04-27 09:27:34 - Database connected successfully
+2025-04-27 09:31:08 - Database connected successfully
+2025-04-27 09:32:35 - Database connected successfully
+2025-04-27 09:56:06 - Database connected successfully
+2025-04-27 09:56:09 - Database connected successfully
+2025-04-27 09:58:10 - Database connected successfully
+2025-04-27 09:58:12 - Database connected successfully
+2025-04-27 09:58:14 - Database connected successfully
+2025-04-27 09:58:18 - Database connected successfully
+2025-04-27 09:58:18 - Database connected successfully
+2025-04-27 10:02:30 - Database connected successfully
+2025-04-27 10:02:31 - Database connected successfully
+2025-04-27 10:06:07 - Database connected successfully
+2025-04-27 10:06:56 - Database connected successfully
+2025-04-27 10:06:58 - Database connected successfully
+2025-04-27 10:06:59 - Database connected successfully
+2025-04-27 10:07:00 - Database connected successfully
+2025-04-27 10:07:42 - Database connected successfully
+2025-04-27 10:07:43 - Database connected successfully
+2025-04-27 10:09:56 - Database connected successfully
+2025-04-27 10:10:02 - Database connected successfully
+2025-04-27 10:10:07 - Database connected successfully
+2025-04-27 10:10:15 - Database connected successfully
+2025-04-27 10:10:15 - Database connected successfully
+2025-04-27 10:10:18 - Database connected successfully
+2025-04-27 10:10:20 - Database connected successfully
+2025-04-27 10:10:21 - Database connected successfully
+2025-04-27 10:12:51 - Database connected successfully
+2025-04-27 10:12:54 - Database connected successfully
+2025-04-27 10:13:00 - Database connected successfully
+2025-04-27 10:13:55 - Database connected successfully
+2025-04-27 10:20:22 - Database connected successfully
+2025-04-27 10:20:23 - Database connected successfully
+2025-04-27 10:20:27 - Database connected successfully
+2025-04-27 10:20:31 - Database connected successfully
+2025-04-27 10:21:43 - Database connected successfully
+2025-04-27 10:21:46 - Database connected successfully
+2025-04-27 10:21:51 - Database connected successfully
+2025-04-27 10:21:54 - Database connected successfully
+2025-04-27 10:21:57 - Database connected successfully
+2025-04-27 10:22:00 - Database connected successfully
+2025-04-27 10:22:57 - Database connected successfully
+2025-04-27 10:23:01 - Database connected successfully
+2025-04-27 10:23:03 - Database connected successfully
+2025-04-27 10:23:05 - Database connected successfully
+2025-04-27 10:23:10 - Database connected successfully
+2025-04-27 10:25:51 - Database connected successfully
+2025-04-27 10:26:27 - Database connected successfully
+2025-04-27 10:28:37 - Database connected successfully
+2025-04-27 10:28:40 - Database connected successfully
+2025-04-27 10:28:59 - Database connected successfully
+2025-04-27 10:34:36 - Database connected successfully
+2025-04-27 10:34:52 - Database connected successfully
+2025-04-27 10:36:34 - Database connected successfully
+2025-04-27 10:42:16 - Database connected successfully
+2025-04-27 10:45:13 - Database connected successfully
+2025-04-27 10:48:13 - Database connected successfully
+2025-04-27 10:48:35 - Database connected successfully
+2025-04-27 10:48:42 - Database connected successfully
+2025-04-27 10:49:30 - Database connected successfully
+2025-04-27 10:49:32 - Database connected successfully
+2025-04-27 10:49:32 - Database connected successfully
+2025-04-27 10:49:35 - Database connected successfully
+2025-04-27 10:49:44 - Database connected successfully
+2025-04-27 10:49:44 - Database connected successfully
+2025-04-27 10:50:06 - Database connected successfully
+2025-04-27 10:50:10 - Database connected successfully
+2025-04-27 10:50:15 - Database connected successfully
+2025-04-27 10:50:15 - Database connected successfully
+2025-04-27 10:50:16 - Database connected successfully
+2025-04-27 10:50:16 - Database connected successfully
+2025-04-27 10:50:16 - Database connected successfully
+2025-04-27 10:50:17 - Database connected successfully
+2025-04-27 10:50:17 - Database connected successfully
+2025-04-27 10:52:51 - Database connected successfully
+2025-04-27 10:56:29 - Database connected successfully
+2025-04-27 10:56:41 - Database connected successfully
+2025-04-27 10:56:46 - Database connected successfully
+2025-04-27 10:56:50 - Database connected successfully
+2025-04-27 10:58:14 - Database connected successfully
+2025-04-27 10:58:18 - Database connected successfully
+2025-04-27 10:58:22 - Database connected successfully
+2025-04-27 10:58:25 - Database connected successfully
+2025-04-27 10:58:29 - Database connected successfully
+2025-04-27 10:58:33 - Database connected successfully
+2025-04-27 10:58:33 - Database connected successfully
+2025-04-27 10:58:36 - Database connected successfully
+2025-04-27 10:58:40 - Database connected successfully
+2025-04-27 10:58:49 - Database connected successfully
+2025-04-27 10:58:52 - Database connected successfully
+2025-04-27 10:58:52 - Database connected successfully
+2025-04-27 10:58:53 - Database connected successfully
+2025-04-27 10:58:54 - Database connected successfully
+2025-04-27 10:58:54 - Database connected successfully
+2025-04-27 10:58:54 - Database connected successfully
+2025-04-27 10:58:56 - Database connected successfully
+2025-04-27 10:58:56 - Database connected successfully
+2025-04-27 11:01:23 - Database connected successfully
+2025-04-27 11:01:26 - Database connected successfully
+2025-04-27 11:01:28 - Database connected successfully
+2025-04-27 11:01:29 - Database connected successfully
+2025-04-27 11:01:39 - Database connected successfully
+2025-04-27 11:01:39 - Database connected successfully
+2025-04-27 11:02:15 - Database connected successfully
+2025-04-27 11:02:18 - Database connected successfully
+2025-04-27 11:02:22 - Database connected successfully
+2025-04-27 11:02:47 - Database connected successfully
+2025-04-27 11:02:48 - Database connected successfully
+2025-04-27 11:05:16 - Database connected successfully
+2025-04-27 11:05:18 - Database connected successfully
+2025-04-27 11:05:21 - Database connected successfully
+2025-04-27 11:05:24 - Database connected successfully
+2025-04-27 11:07:22 - Database connected successfully
+2025-04-27 11:07:24 - Database connected successfully
+2025-04-27 11:07:26 - Database connected successfully
+2025-04-27 11:08:51 - Database connected successfully
+2025-04-27 11:08:52 - Database connected successfully
+2025-04-27 11:10:19 - Database connected successfully
+2025-04-27 11:10:21 - Database connected successfully
+2025-04-27 11:10:24 - Database connected successfully
+2025-04-27 11:10:25 - Database connected successfully
+2025-04-27 11:10:27 - Database connected successfully
+2025-04-27 11:10:30 - Database connected successfully
+2025-04-27 11:13:55 - Database connected successfully
+2025-04-27 11:16:29 - Database connected successfully
+2025-04-27 11:16:32 - Database connected successfully
+2025-04-27 11:16:35 - Database connected successfully
+2025-04-27 11:19:06 - Database connected successfully
+2025-04-27 11:19:09 - Database connected successfully
+2025-04-27 11:19:16 - Database connected successfully
+2025-04-27 11:19:19 - Database connected successfully
+2025-04-27 11:19:21 - Database connected successfully
+2025-04-27 11:19:23 - Database connected successfully
+2025-04-27 11:19:25 - Database connected successfully
+2025-04-27 11:22:16 - Database connected successfully
+2025-04-27 11:22:18 - Database connected successfully
+2025-04-27 11:22:21 - Database connected successfully
+2025-04-27 11:22:54 - Database connected successfully
+2025-04-27 11:22:55 - Database connected successfully
+2025-04-27 11:24:51 - Database connected successfully
+2025-04-27 11:24:53 - Database connected successfully
+2025-04-27 11:24:56 - Database connected successfully
+2025-04-27 11:28:06 - Database connected successfully
+2025-04-27 11:28:08 - Database connected successfully
+2025-04-27 11:28:12 - Database connected successfully
+2025-04-27 11:28:14 - Database connected successfully
+2025-04-27 11:31:39 - Database connected successfully
+2025-04-27 11:31:41 - Database connected successfully
+2025-04-27 11:31:44 - Database connected successfully
+2025-04-27 11:31:47 - Database connected successfully
+2025-04-27 11:33:39 - Database connected successfully
+2025-04-27 11:33:41 - Database connected successfully
+2025-04-27 11:33:43 - Database connected successfully
+2025-04-27 11:33:45 - Database connected successfully
+2025-04-27 11:33:47 - Database connected successfully
+2025-04-27 11:35:52 - Database connected successfully
+2025-04-27 11:35:54 - Database connected successfully
+2025-04-27 11:35:59 - Database connected successfully
+2025-04-27 11:36:01 - Database connected successfully
+2025-04-27 11:36:03 - Database connected successfully
+2025-04-27 11:36:03 - Database connected successfully
+2025-04-27 11:36:10 - Database connected successfully
+2025-04-27 11:36:14 - Database connected successfully
+2025-04-27 11:38:50 - Database connected successfully
+2025-04-27 11:38:52 - Database connected successfully
+2025-04-27 11:38:55 - Database connected successfully
+2025-04-27 11:38:57 - Database connected successfully
+2025-04-27 11:38:59 - Database connected successfully
+2025-04-27 11:39:02 - Database connected successfully
+2025-04-27 11:39:02 - Database connected successfully
+2025-04-27 11:40:44 - Database connected successfully
+2025-04-27 11:40:46 - Database connected successfully
+2025-04-27 11:40:49 - Database connected successfully
+2025-04-27 11:40:51 - Database connected successfully
+2025-04-27 11:40:53 - Database connected successfully
+2025-04-27 11:42:24 - Database connected successfully
+2025-04-27 11:42:26 - Database connected successfully
+2025-04-27 11:42:31 - Database connected successfully
+2025-04-27 11:42:34 - Database connected successfully
+2025-04-27 11:42:36 - Database connected successfully
+2025-04-27 11:42:38 - Database connected successfully
+2025-04-27 11:44:27 - Database connected successfully
+2025-04-27 11:44:29 - Database connected successfully
+2025-04-27 11:44:31 - Database connected successfully
+2025-04-27 11:44:33 - Database connected successfully
+2025-04-27 11:44:36 - Database connected successfully
+2025-04-27 11:46:14 - Database connected successfully
+2025-04-27 11:46:16 - Database connected successfully
+2025-04-27 11:46:19 - Database connected successfully
+2025-04-27 11:46:21 - Database connected successfully
+2025-04-27 11:46:24 - Database connected successfully
+2025-04-27 11:46:26 - Database connected successfully
+2025-04-27 11:46:30 - Database connected successfully
+2025-04-27 11:46:32 - Database connected successfully
+2025-04-27 11:46:34 - Database connected successfully
+2025-04-27 11:48:28 - Database connected successfully
+2025-04-27 11:48:29 - Database connected successfully
+2025-04-27 11:48:31 - Database connected successfully
+2025-04-27 11:48:33 - Database connected successfully
+2025-04-27 11:48:36 - Database connected successfully
+2025-04-27 11:48:42 - Database connected successfully
+2025-04-27 11:48:44 - Database connected successfully
+2025-04-27 11:48:45 - Database connected successfully
+2025-04-27 11:51:16 - Database connected successfully
+2025-04-27 11:51:18 - Database connected successfully
+2025-04-27 11:51:20 - Database connected successfully
+2025-04-27 11:51:22 - Database connected successfully
+2025-04-27 11:51:24 - Database connected successfully
+2025-04-27 11:51:27 - Database connected successfully
+2025-04-27 11:53:36 - Database connected successfully
+2025-04-27 11:53:38 - Database connected successfully
+2025-04-27 11:53:41 - Database connected successfully
+2025-04-27 11:53:44 - Database connected successfully
+2025-04-27 11:53:45 - Database connected successfully
+2025-04-27 11:53:48 - Database connected successfully
+2025-04-27 11:53:51 - Database connected successfully
+2025-04-27 11:53:53 - Database connected successfully
+2025-04-27 12:23:17 - Database connected successfully
+2025-04-27 12:23:18 - Database connected successfully
+2025-04-27 12:23:20 - Database connected successfully
+2025-04-27 12:23:23 - Database connected successfully
+2025-04-27 12:23:26 - Database connected successfully
+2025-04-27 12:23:28 - Database connected successfully
+2025-04-27 12:24:05 - Database connected successfully
+2025-04-27 12:24:08 - Database connected successfully
+2025-04-27 12:27:40 - Database connected successfully
+2025-04-27 12:27:42 - Database connected successfully
+2025-04-27 12:27:45 - Database connected successfully
+2025-04-27 12:27:47 - Database connected successfully
+2025-04-27 12:27:49 - Database connected successfully
+2025-04-27 12:27:51 - Database connected successfully
+2025-04-27 12:27:53 - Database connected successfully
+2025-04-27 12:27:56 - Database connected successfully
+2025-04-27 12:30:11 - Database connected successfully
+2025-04-27 12:30:11 - Database connected successfully
+2025-04-27 12:32:33 - Database connected successfully
+2025-04-27 12:32:35 - Database connected successfully
+2025-04-27 12:32:37 - Database connected successfully
+2025-04-27 12:32:40 - Database connected successfully
+2025-04-27 12:32:42 - Database connected successfully
+2025-04-27 12:32:42 - Database connected successfully
+2025-04-27 12:33:31 - Database connected successfully
+2025-04-27 12:33:35 - Database connected successfully
+2025-04-27 12:33:50 - Database connected successfully
+2025-04-27 12:33:53 - Database connected successfully
+2025-04-27 12:33:59 - Database connected successfully
+2025-04-27 12:34:03 - Database connected successfully
+2025-04-27 12:34:13 - Database connected successfully
+2025-04-27 12:34:16 - Database connected successfully
+2025-04-27 12:37:57 - Database connected successfully
+2025-04-27 12:37:58 - Database connected successfully
+2025-04-27 12:38:00 - Database connected successfully
+2025-04-27 12:38:02 - Database connected successfully
+2025-04-27 12:38:06 - Database connected successfully
+2025-04-27 12:38:08 - Database connected successfully
+2025-04-27 12:38:08 - Database connected successfully
+2025-04-27 12:38:11 - Database connected successfully
+2025-04-27 12:39:36 - Database connected successfully
+2025-04-27 12:39:38 - Database connected successfully
+2025-04-27 12:39:40 - Database connected successfully
+2025-04-27 12:41:55 - Database connected successfully
+2025-04-27 12:41:57 - Database connected successfully
+2025-04-27 12:42:01 - Database connected successfully
+2025-04-27 12:42:03 - Database connected successfully
+2025-04-27 12:44:42 - Database connected successfully
+2025-04-27 12:44:45 - Database connected successfully
+2025-04-27 12:44:47 - Database connected successfully
+2025-04-27 12:44:51 - Database connected successfully
+2025-04-27 12:44:54 - Database connected successfully
+2025-04-27 12:50:19 - Database connected successfully
+2025-04-27 12:50:21 - Database connected successfully
+2025-04-27 12:50:23 - Database connected successfully
+2025-04-27 12:50:54 - Database connected successfully
+2025-04-27 12:56:55 - Database connected successfully
+2025-04-27 13:02:37 - Database connected successfully
+2025-04-27 13:03:51 - Database connected successfully
+2025-04-27 13:04:00 - Database connected successfully
+2025-04-27 13:05:03 - Database connected successfully
+2025-04-27 13:05:47 - Database connected successfully
+2025-04-27 13:07:10 - Database connected successfully
+2025-04-27 13:07:43 - Database connected successfully
+2025-04-27 13:07:44 - Database connected successfully
+2025-04-27 13:07:48 - Database connected successfully
+2025-04-27 13:09:28 - Database connected successfully
+2025-04-27 13:09:44 - Database connected successfully
+2025-04-27 13:10:01 - Database connected successfully
+2025-04-27 13:10:09 - Database connected successfully
+2025-04-27 13:10:22 - Database connected successfully
+2025-04-27 13:10:25 - Database connected successfully
+2025-04-27 13:10:30 - Database connected successfully
+2025-04-27 13:10:38 - Database connected successfully
+2025-04-27 13:16:22 - Database connected successfully
+2025-04-27 13:16:26 - Database connected successfully
+2025-04-27 13:16:41 - Database connected successfully
+2025-04-27 13:18:15 - Database connected successfully
+2025-04-27 13:20:05 - Database connected successfully
+2025-04-27 13:20:12 - Database connected successfully
+2025-04-27 13:20:27 - Database connected successfully
+2025-04-27 13:20:28 - Database connected successfully
+2025-04-27 13:20:31 - Database connected successfully
+2025-04-27 13:20:34 - Database connected successfully
+2025-04-27 13:20:36 - Database connected successfully
+2025-04-27 13:20:42 - Database connected successfully
+2025-04-27 13:20:42 - Database connected successfully
+2025-04-27 13:20:42 - Database connected successfully
+2025-04-27 13:20:43 - Database connected successfully
+2025-04-27 13:20:43 - Database connected successfully
+2025-04-27 13:20:43 - Database connected successfully
+2025-04-27 13:20:44 - Database connected successfully
+2025-04-27 13:20:44 - Database connected successfully
+2025-04-27 13:20:44 - Database connected successfully
+2025-04-27 13:20:45 - Database connected successfully
+2025-04-27 13:20:45 - Database connected successfully
+2025-04-27 13:20:45 - Database connected successfully
+2025-04-27 13:20:46 - Database connected successfully
+2025-04-27 13:20:46 - Database connected successfully
+2025-04-27 13:20:46 - Database connected successfully
+2025-04-27 13:20:47 - Database connected successfully
+2025-04-27 13:20:47 - Database connected successfully
+2025-04-27 13:20:47 - Database connected successfully
+2025-04-27 13:20:48 - Database connected successfully
+2025-04-27 13:20:48 - Database connected successfully
+2025-04-27 13:20:48 - Database connected successfully
+2025-04-27 13:20:49 - Database connected successfully
+2025-04-27 13:20:49 - Database connected successfully
+2025-04-27 13:20:49 - Database connected successfully
+2025-04-27 13:20:50 - Database connected successfully
+2025-04-27 13:20:50 - Database connected successfully
+2025-04-27 13:20:50 - Database connected successfully
+2025-04-27 13:20:51 - Database connected successfully
+2025-04-27 13:20:52 - Database connected successfully
+2025-04-27 13:22:25 - Database connected successfully
+2025-04-27 13:22:30 - Database connected successfully
+2025-04-27 13:22:35 - Database connected successfully
+2025-04-27 13:22:39 - Database connected successfully
+2025-04-27 13:22:44 - Database connected successfully
+2025-04-27 13:22:48 - Database connected successfully
+2025-04-27 13:22:58 - Database connected successfully
+2025-04-27 13:23:02 - Database connected successfully
+2025-04-27 13:23:15 - Database connected successfully
+2025-04-27 13:25:06 - Database connected successfully
+2025-04-27 13:25:07 - Database connected successfully
+2025-04-27 13:25:10 - Database connected successfully
+2025-04-27 13:26:55 - Database connected successfully
+2025-04-27 13:30:17 - Database connected successfully
+2025-04-27 13:30:19 - Database connected successfully
+2025-04-27 13:30:22 - Database connected successfully
+2025-04-27 13:31:14 - Database connected successfully
+2025-04-27 13:31:15 - Database connected successfully
+2025-04-27 13:34:34 - Database connected successfully
+2025-04-27 13:34:37 - Database connected successfully
+2025-04-27 13:34:39 - Database connected successfully
+2025-04-27 13:35:13 - Database connected successfully
+2025-04-27 13:36:45 - Database connected successfully
+2025-04-27 13:38:04 - Database connected successfully
+2025-04-27 13:38:58 - Database connected successfully
+2025-04-27 13:39:58 - Database connected successfully
+2025-04-27 13:42:30 - Database connected successfully
+2025-04-27 13:44:33 - Database connected successfully
+2025-04-27 13:44:35 - Database connected successfully
+2025-04-27 13:44:38 - Database connected successfully
+2025-04-27 13:45:10 - Database connected successfully
+2025-04-27 13:48:29 - Database connected successfully
+2025-04-27 13:49:20 - Database connected successfully
+2025-04-27 13:52:58 - Database connected successfully
+2025-04-27 13:55:12 - Database connected successfully
+2025-04-27 13:55:14 - Database connected successfully
+2025-04-27 13:55:19 - Database connected successfully
+2025-04-27 13:55:20 - Database connected successfully
+2025-04-27 13:55:20 - Database connected successfully
+2025-04-27 13:55:44 - Database connected successfully
+2025-04-27 13:58:49 - Database connected successfully
+2025-04-27 14:00:53 - Database connected successfully
+2025-04-27 14:03:04 - Database connected successfully
+2025-04-27 14:05:03 - Database connected successfully
+2025-04-27 14:07:25 - Database connected successfully
+2025-04-27 14:07:27 - Database connected successfully
+2025-04-27 14:07:29 - Database connected successfully
+2025-04-27 14:07:56 - Database connected successfully
+2025-04-27 14:07:58 - Database connected successfully
+2025-04-27 14:09:47 - Database connected successfully
+2025-04-27 14:12:14 - Database connected successfully
+2025-04-27 14:12:16 - Database connected successfully
+2025-04-27 14:12:18 - Database connected successfully
+2025-04-27 14:15:48 - Database connected successfully
+2025-04-27 14:15:55 - Database connected successfully
+2025-04-27 14:16:01 - Database connected successfully
+2025-04-27 14:16:01 - Database connected successfully
+2025-04-27 14:16:01 - Database connected successfully
+2025-04-27 14:16:01 - Database connected successfully
+2025-04-27 14:16:02 - Database connected successfully
+2025-04-27 14:16:02 - Database connected successfully
+2025-04-27 14:16:02 - Database connected successfully
+2025-04-27 14:16:03 - Database connected successfully
+2025-04-27 14:16:03 - Database connected successfully
+2025-04-27 14:16:03 - Database connected successfully
+2025-04-27 14:16:04 - Database connected successfully
+2025-04-27 14:16:04 - Database connected successfully
+2025-04-27 14:16:04 - Database connected successfully
+2025-04-27 14:16:05 - Database connected successfully
+2025-04-27 14:16:05 - Database connected successfully
+2025-04-27 14:16:05 - Database connected successfully
+2025-04-27 14:16:06 - Database connected successfully
+2025-04-27 14:16:06 - Database connected successfully
+2025-04-27 14:16:06 - Database connected successfully
+2025-04-27 14:16:07 - Database connected successfully
+2025-04-27 14:16:07 - Database connected successfully
+2025-04-27 14:16:08 - Database connected successfully
+2025-04-27 14:16:08 - Database connected successfully
+2025-04-27 14:16:08 - Database connected successfully
+2025-04-27 14:16:09 - Database connected successfully
+2025-04-27 14:16:09 - Database connected successfully
+2025-04-27 14:16:09 - Database connected successfully
+2025-04-27 14:16:10 - Database connected successfully
+2025-04-27 14:16:10 - Database connected successfully
+2025-04-27 14:16:10 - Database connected successfully
+2025-04-27 14:16:11 - Database connected successfully
+2025-04-27 14:16:11 - Database connected successfully
+2025-04-27 14:16:11 - Database connected successfully
+2025-04-27 14:16:12 - Database connected successfully
+2025-04-27 14:16:12 - Database connected successfully
+2025-04-27 14:16:13 - Database connected successfully
+2025-04-27 14:16:13 - Database connected successfully
+2025-04-27 14:16:13 - Database connected successfully
+2025-04-27 14:16:14 - Database connected successfully
+2025-04-27 17:04:57 - Database connected successfully
+2025-04-27 17:05:11 - Database connected successfully
+2025-04-27 17:06:52 - Database connected successfully
+2025-04-27 17:07:46 - Database connected successfully
+2025-04-27 17:10:40 - Database connected successfully
+2025-04-27 17:12:27 - Database connected successfully
+2025-04-27 17:57:05 - Database connected successfully
+2025-04-27 17:57:08 - Database connected successfully
+2025-04-27 17:57:13 - Database connected successfully
+2025-04-27 17:57:23 - Database connected successfully
+2025-04-27 17:57:27 - Database connected successfully
+2025-04-27 17:57:37 - Database connected successfully
+2025-04-27 17:57:40 - Database connected successfully
+2025-04-27 18:02:03 - Database connected successfully
+2025-04-27 18:03:51 - Database connected successfully
+2025-04-27 18:03:57 - Database connected successfully
+2025-04-27 18:04:03 - Database connected successfully
+2025-04-27 18:04:16 - Database connected successfully
+2025-04-27 18:11:01 - Database connected successfully
+2025-04-27 18:12:52 - Database connected successfully
+2025-04-27 18:12:55 - Database connected successfully
+2025-04-27 18:12:59 - Database connected successfully
+2025-04-27 18:13:04 - Database connected successfully
+2025-04-27 18:14:18 - Database connected successfully
+2025-04-27 18:14:19 - Database connected successfully
+2025-04-27 18:14:20 - Database connected successfully
+2025-04-27 18:14:21 - Database connected successfully
+2025-04-27 18:52:02 - Database connected successfully
+2025-04-27 18:52:03 - Database connected successfully
+2025-04-27 18:52:06 - Database connected successfully
+2025-04-27 18:53:21 - Database connected successfully
+2025-04-27 18:53:26 - Database connected successfully
+2025-04-27 22:48:42 - Database connected successfully
+2025-04-27 23:12:07 - Database connected successfully
+2025-04-27 23:12:09 - Database connected successfully
+2025-04-27 23:13:37 - Database connected successfully
+2025-04-27 23:13:39 - Database connected successfully
+2025-04-27 23:13:42 - Database connected successfully
+2025-04-27 23:13:44 - Database connected successfully
+2025-04-27 23:34:23 - Database connected successfully
+2025-04-27 23:34:35 - Database connected successfully
+2025-04-28 00:16:38 - Database connected successfully
+2025-04-28 00:16:40 - Database connected successfully
+2025-04-28 00:16:43 - Database connected successfully
+2025-04-28 00:18:33 - Database connected successfully
+2025-04-28 00:18:34 - Database connected successfully
+2025-04-28 00:18:35 - Database connected successfully
+2025-04-28 00:18:39 - Database connected successfully
+2025-04-28 00:20:16 - Database connected successfully
+2025-04-28 00:20:18 - Database connected successfully
+2025-04-28 00:20:21 - Database connected successfully
+2025-04-28 00:21:04 - Database connected successfully
+2025-04-28 00:21:06 - Database connected successfully
+2025-04-28 00:23:59 - Database connected successfully
+2025-04-28 00:24:01 - Database connected successfully
+2025-04-28 00:24:24 - Database connected successfully
+2025-04-28 00:24:26 - Database connected successfully
+2025-04-28 00:24:29 - Database connected successfully
+2025-04-28 00:30:00 - Database connected successfully
+2025-04-28 00:30:02 - Database connected successfully
+2025-04-28 00:30:05 - Database connected successfully
+2025-04-28 00:35:36 - Database connected successfully
+2025-04-28 00:35:39 - Database connected successfully
+2025-04-28 00:36:34 - Database connected successfully
+2025-04-28 00:37:14 - Database connected successfully
+2025-04-28 12:25:23 - Database connected successfully
+2025-04-28 12:25:26 - Database connected successfully
+2025-04-28 12:25:29 - Database connected successfully
+2025-04-28 12:25:53 - Database connected successfully
+2025-04-28 12:25:56 - Database connected successfully
+2025-04-28 12:27:49 - Database connected successfully
+2025-04-28 12:27:50 - Database connected successfully
+2025-04-28 20:32:06 - Database connected successfully
+2025-04-28 20:39:14 - Database connected successfully
+2025-04-28 20:39:19 - Database connected successfully
+2025-04-28 21:21:41 - Database connected successfully
+2025-04-28 21:21:42 - Database connected successfully
+2025-04-28 21:21:45 - Database connected successfully
+2025-04-28 21:23:27 - Database connected successfully
+2025-04-28 21:52:33 - Database connected successfully
+2025-04-28 21:52:36 - Database connected successfully
+2025-04-28 21:52:42 - Database connected successfully
+2025-04-28 21:52:42 - Database connected successfully
+2025-04-28 21:52:43 - Database connected successfully
+2025-04-28 21:52:43 - Database connected successfully
+2025-04-28 21:52:43 - Database connected successfully
+2025-04-28 21:52:43 - Database connected successfully
+2025-04-28 21:52:43 - Database connected successfully
+2025-04-28 21:52:44 - Database connected successfully
+2025-04-28 21:52:44 - Database connected successfully
+2025-04-28 21:52:44 - Database connected successfully
+2025-04-28 21:52:44 - Database connected successfully
+2025-04-28 21:52:45 - Database connected successfully
+2025-04-28 21:52:45 - Database connected successfully
+2025-04-28 21:52:45 - Database connected successfully
+2025-04-28 21:52:45 - Database connected successfully
+2025-04-28 21:52:45 - Database connected successfully
+2025-04-28 21:52:46 - Database connected successfully
+2025-04-28 21:52:46 - Database connected successfully
+2025-04-28 21:52:46 - Database connected successfully
+2025-04-28 21:52:46 - Database connected successfully
+2025-04-28 21:52:46 - Database connected successfully
+2025-04-28 21:52:47 - Database connected successfully
+2025-04-28 21:52:47 - Database connected successfully
+2025-04-28 21:52:47 - Database connected successfully
+2025-04-28 21:52:47 - Database connected successfully
+2025-04-28 21:52:47 - Database connected successfully
+2025-04-28 21:52:48 - Database connected successfully
+2025-04-28 21:52:48 - Database connected successfully
+2025-04-28 21:52:48 - Database connected successfully
+2025-04-28 21:52:48 - Database connected successfully
+2025-04-28 21:52:48 - Database connected successfully
+2025-04-28 21:52:49 - Database connected successfully
+2025-04-28 21:52:49 - Database connected successfully
+2025-04-28 21:52:49 - Database connected successfully
+2025-04-28 21:52:49 - Database connected successfully
+2025-04-28 21:52:49 - Database connected successfully
+2025-04-28 21:52:49 - Database connected successfully
+2025-04-28 21:52:50 - Database connected successfully
+2025-04-28 21:52:50 - Database connected successfully
+2025-04-28 21:52:50 - Database connected successfully
+2025-04-28 21:52:50 - Database connected successfully
+2025-04-28 21:52:51 - Database connected successfully
+2025-04-28 21:52:51 - Database connected successfully
+2025-04-28 21:52:51 - Database connected successfully
+2025-04-28 22:11:10 - Database connected successfully
+2025-04-28 22:34:40 - Database connected successfully
+2025-04-29 16:20:18 - AvisController: Database connected successfully
+2025-04-29 16:29:54 - Database connected successfully
+2025-04-29 16:30:03 - Database connected successfully
+2025-04-29 16:30:15 - AvisController: Database connected successfully
+2025-04-29 17:31:36 - AvisController: Database connected successfully
+2025-04-29 17:31:36 - AvisController: Database connected successfully
+2025-04-29 18:11:51 - AvisController: Database connected successfully
+2025-04-29 18:15:37 - AvisController: Database connected successfully
+2025-04-29 19:13:21 - AvisController: Database connected successfully
+2025-04-29 19:22:36 - AvisController: Database connected successfully
+2025-04-29 19:23:09 - AvisController: Database connected successfully
+2025-04-29 19:23:11 - AvisController: Database connected successfully
+2025-04-29 19:26:32 - AvisController: Database connected successfully
+2025-04-29 19:27:36 - AvisController: Database connected successfully
+2025-04-29 19:28:06 - AvisController: Database connected successfully
+2025-04-29 19:28:14 - AvisController: Database connected successfully
+2025-04-29 19:28:29 - AvisController: Database connected successfully
+2025-04-29 19:28:49 - AvisController: Database connected successfully
+2025-04-29 19:29:02 - AvisController: Database connected successfully
+2025-04-29 19:29:04 - AvisController: Database connected successfully
+2025-04-29 19:35:47 - AvisController: Database connected successfully
+2025-04-29 19:36:28 - AvisController: Database connected successfully
+2025-04-29 19:36:44 - AvisController: Database connected successfully
+2025-04-29 19:36:47 - AvisController: Database connected successfully
+2025-04-29 19:36:52 - AvisController: Database connected successfully
+2025-04-29 19:36:54 - AvisController: Database connected successfully
+2025-04-29 19:37:56 - AvisController: Database connected successfully
+2025-04-29 19:37:58 - AvisController: Database connected successfully
+2025-04-29 19:38:05 - AvisController: Database connected successfully
+2025-04-29 19:38:07 - AvisController: Database connected successfully
+2025-04-29 19:47:24 - AvisController: Database connected successfully
+2025-04-29 19:47:26 - AvisController: Database connected successfully
+2025-04-29 19:50:09 - AvisController: Database connected successfully
+2025-04-29 19:50:15 - AvisController: Database connected successfully
+2025-04-29 19:50:29 - AvisController: Database connected successfully
+2025-04-29 19:50:30 - AvisController: Database connected successfully
+2025-04-29 19:50:51 - AvisController: Database connected successfully
+2025-04-29 19:50:52 - AvisController: Database connected successfully
+2025-04-29 19:55:22 - Database connected successfully
+2025-04-29 19:55:25 - Database connected successfully
+2025-04-29 19:55:25 - Database connected successfully
+2025-04-29 19:55:28 - Database connected successfully
+2025-04-29 19:55:32 - Database connected successfully
+2025-04-29 20:18:48 - AvisController: Database connected successfully
+2025-04-29 20:21:32 - AvisController: Database connected successfully
+2025-04-29 20:21:32 - AvisController: Database connected successfully
+2025-04-29 20:22:10 - AvisController: Database connected successfully
+2025-04-29 20:22:10 - AvisController: Database connected successfully
+2025-04-29 20:22:37 - AvisController: Database connected successfully
+2025-04-29 20:22:39 - AvisController: Database connected successfully
+2025-04-29 20:22:39 - AvisController: Database connected successfully
+2025-04-29 20:23:09 - AvisController: Database connected successfully
+2025-04-29 20:23:13 - AvisController: Database connected successfully
+2025-04-29 20:23:13 - AvisController: Database connected successfully
+2025-04-29 21:52:51 - AvisController: Database connected successfully
+2025-04-29 21:52:51 - AvisController: Database connected successfully
+2025-04-29 21:52:54 - AvisController: Database connected successfully
+2025-04-29 21:52:54 - AvisController: Database connected successfully
+2025-04-29 21:53:37 - AvisController: Database connected successfully
+2025-04-29 21:53:43 - AvisController: Database connected successfully
+2025-04-29 21:53:43 - AvisController: Database connected successfully
+2025-04-29 21:53:47 - AvisController: Database connected successfully
+2025-04-29 21:53:48 - AvisController: Database connected successfully
+2025-04-29 21:53:48 - AvisController: Database connected successfully
+2025-04-29 21:56:03 - Database connected successfully
+2025-04-29 21:56:04 - Database connected successfully
+2025-04-29 22:01:36 - AvisController: Database connected successfully
+2025-04-29 22:01:40 - AvisController: Database connected successfully
+2025-04-29 22:01:40 - AvisController: Database connected successfully
+2025-04-29 22:01:44 - AvisController: Database connected successfully
+2025-04-29 22:01:45 - AvisController: Database connected successfully
+2025-04-29 22:01:45 - AvisController: Database connected successfully
+2025-04-29 22:01:47 - AvisController: Database connected successfully
+2025-04-29 22:01:47 - AvisController: Database connected successfully
+2025-04-29 22:01:47 - AvisController: Database connected successfully
+2025-04-29 22:04:49 - AvisController: Database connected successfully
+2025-04-29 22:04:49 - AvisController: Database connected successfully
+2025-04-29 22:04:53 - AvisController: Database connected successfully
+2025-04-29 22:04:55 - AvisController: Database connected successfully
+2025-04-29 22:04:55 - AvisController: Database connected successfully
+2025-04-29 22:04:56 - AvisController: Database connected successfully
+2025-04-29 22:04:56 - AvisController: Database connected successfully
+2025-04-29 22:08:58 - AvisController: Database connected successfully
+2025-04-29 22:08:58 - AvisController: Database connected successfully
+2025-04-29 22:09:42 - AvisController: Database connected successfully
+2025-04-29 22:09:48 - AvisController: Database connected successfully
+2025-04-29 22:09:49 - AvisController: Database connected successfully
+2025-04-29 22:09:54 - AvisController: Database connected successfully
+2025-04-29 22:09:55 - AvisController: Database connected successfully
+2025-04-29 22:09:55 - AvisController: Database connected successfully
+2025-04-29 22:11:16 - Database connected successfully
+2025-04-29 22:11:18 - Database connected successfully
+2025-04-29 22:11:20 - Database connected successfully
+2025-04-29 22:11:22 - Database connected successfully
+2025-04-29 22:12:45 - AvisController: Database connected successfully
+2025-04-29 22:12:45 - AvisController: Database connected successfully
+2025-04-29 22:13:21 - AvisController: Database connected successfully
+2025-04-29 22:13:21 - AvisController: Database connected successfully
+2025-04-29 22:13:48 - AvisController: Database connected successfully
+2025-04-29 22:13:48 - AvisController: Database connected successfully
+2025-04-29 22:14:12 - AvisController: Database connected successfully
+2025-04-29 22:14:12 - AvisController: Database connected successfully
+2025-04-29 22:14:16 - AvisController: Database connected successfully
+2025-04-29 22:14:16 - AvisController: Database connected successfully
+2025-04-29 22:14:28 - AvisController: Database connected successfully
+2025-04-29 22:14:28 - AvisController: Database connected successfully
+2025-04-29 22:17:20 - AvisController: Database connected successfully
+2025-04-29 22:17:20 - AvisController: Database connected successfully
+2025-04-29 22:18:01 - AvisController: Database connected successfully
+2025-04-29 22:18:01 - AvisController: Database connected successfully
+2025-04-29 22:18:11 - AvisController: Database connected successfully
+2025-04-29 22:18:15 - AvisController: Database connected successfully
+2025-04-29 22:18:15 - AvisController: Database connected successfully
+2025-04-29 22:18:18 - AvisController: Database connected successfully
+2025-04-29 22:18:19 - AvisController: Database connected successfully
+2025-04-29 22:18:19 - AvisController: Database connected successfully
+2025-04-29 22:18:57 - AvisController: Database connected successfully
+2025-04-29 22:19:37 - AvisController: Database connected successfully
+2025-04-29 22:20:11 - AvisController: Database connected successfully
+2025-04-29 22:20:14 - AvisController: Database connected successfully
+2025-04-29 22:20:14 - AvisController: Database connected successfully
+2025-04-29 22:20:18 - AvisController: Database connected successfully
+2025-04-29 22:20:19 - AvisController: Database connected successfully
+2025-04-29 22:20:19 - AvisController: Database connected successfully
+2025-04-29 22:20:20 - AvisController: Database connected successfully
+2025-04-29 22:20:21 - AvisController: Database connected successfully
+2025-04-29 22:20:21 - AvisController: Database connected successfully
+2025-04-29 22:20:23 - AvisController: Database connected successfully
+2025-04-29 22:20:24 - AvisController: Database connected successfully
+2025-04-29 22:20:24 - AvisController: Database connected successfully
+2025-04-29 22:25:59 - Database connected successfully
+2025-04-29 22:26:03 - Database connected successfully
+2025-04-29 22:26:07 - Database connected successfully
+2025-04-29 22:26:08 - Database connected successfully
+2025-04-29 22:26:08 - Database connected successfully
+2025-04-29 22:26:08 - Database connected successfully
+2025-04-29 22:26:08 - Database connected successfully
+2025-04-29 22:26:09 - Database connected successfully
+2025-04-29 22:26:09 - Database connected successfully
+2025-04-29 22:26:09 - Database connected successfully
+2025-04-29 22:26:09 - Database connected successfully
+2025-04-29 22:26:09 - Database connected successfully
+2025-04-29 22:26:10 - Database connected successfully
+2025-04-29 22:26:10 - Database connected successfully
+2025-04-29 22:26:10 - Database connected successfully
+2025-04-29 22:26:10 - Database connected successfully
+2025-04-29 22:26:10 - Database connected successfully
+2025-04-29 22:26:10 - Database connected successfully
+2025-04-29 22:26:11 - Database connected successfully
+2025-04-29 22:26:19 - AvisController: Database connected successfully
+2025-04-29 22:26:19 - AvisController: Database connected successfully
+2025-04-29 22:26:23 - Database connected successfully
+2025-04-29 22:26:26 - Database connected successfully
+2025-04-29 22:26:26 - AvisController: Database connected successfully
+2025-04-29 22:26:26 - AvisController: Database connected successfully
+2025-04-29 22:26:36 - Database connected successfully
+2025-04-29 22:26:36 - Database connected successfully
+2025-04-29 22:26:37 - Database connected successfully
+2025-04-29 22:26:37 - Database connected successfully
+2025-04-29 22:26:37 - Database connected successfully
+2025-04-29 22:26:37 - Database connected successfully
+2025-04-29 22:26:38 - Database connected successfully
+2025-04-29 22:26:38 - Database connected successfully
+2025-04-29 22:26:38 - Database connected successfully
+2025-04-29 22:26:38 - Database connected successfully
+2025-04-29 22:26:39 - Database connected successfully
+2025-04-29 22:26:39 - Database connected successfully
+2025-04-29 22:26:39 - Database connected successfully
+2025-04-29 22:26:39 - Database connected successfully
+2025-04-29 22:26:39 - Database connected successfully
+2025-04-29 22:26:40 - Database connected successfully
+2025-04-29 22:26:40 - Database connected successfully
+2025-04-29 22:26:40 - Database connected successfully
+2025-04-29 22:26:40 - Database connected successfully
+2025-04-29 22:26:41 - Database connected successfully
+2025-04-29 22:26:41 - Database connected successfully
+2025-04-29 22:26:41 - Database connected successfully
+2025-04-29 22:26:42 - Database connected successfully
+2025-04-29 22:26:42 - Database connected successfully
+2025-04-29 22:26:42 - Database connected successfully
+2025-04-29 22:26:42 - Database connected successfully
+2025-04-29 22:26:43 - Database connected successfully
+2025-04-29 22:26:43 - Database connected successfully
+2025-04-29 22:26:43 - Database connected successfully
+2025-04-29 22:26:43 - Database connected successfully
+2025-04-29 22:26:44 - Database connected successfully
+2025-04-29 22:26:44 - Database connected successfully
+2025-04-29 22:26:44 - Database connected successfully
+2025-04-29 22:26:44 - Database connected successfully
+2025-04-29 22:26:44 - Database connected successfully
+2025-04-29 22:26:45 - Database connected successfully
+2025-04-29 22:26:45 - Database connected successfully
+2025-04-29 22:26:45 - Database connected successfully
+2025-04-29 22:26:45 - Database connected successfully
+2025-04-29 22:28:15 - AvisController: Database connected successfully
+2025-04-29 22:28:44 - AvisController: Database connected successfully
+2025-04-29 22:28:47 - AvisController: Database connected successfully
+2025-04-29 22:28:47 - AvisController: Database connected successfully
+2025-04-29 22:28:50 - AvisController: Database connected successfully
+2025-04-29 22:28:51 - AvisController: Database connected successfully
+2025-04-29 22:28:51 - AvisController: Database connected successfully
+2025-04-29 22:28:53 - AvisController: Database connected successfully
+2025-04-29 22:28:53 - AvisController: Database connected successfully
+2025-04-29 22:28:53 - AvisController: Database connected successfully
+2025-04-29 22:28:58 - AvisController: Database connected successfully
+2025-04-29 22:28:58 - AvisController: Database connected successfully
+2025-04-29 22:35:06 - Database connected successfully
+2025-04-29 22:35:10 - Database connected successfully
+2025-04-29 22:35:12 - Database connected successfully
+2025-04-29 22:35:15 - Database connected successfully
+2025-04-29 22:38:04 - AvisController: Database connected successfully
+2025-04-29 22:38:08 - AvisController: Database connected successfully
+2025-04-29 22:38:08 - AvisController: Database connected successfully
+2025-04-29 22:38:13 - AvisController: Database connected successfully
+2025-04-29 22:38:14 - AvisController: Database connected successfully
+2025-04-29 22:38:14 - AvisController: Database connected successfully
+2025-04-29 23:05:31 - AvisController: Database connected successfully
+2025-04-29 23:05:53 - AvisController: Database connected successfully
+2025-04-29 23:05:56 - AvisController: Database connected successfully
+2025-04-29 23:05:56 - AvisController: Database connected successfully
+2025-04-29 23:07:01 - AvisController: Database connected successfully
+2025-04-29 23:07:01 - AvisController: Database connected successfully
+2025-04-29 23:09:30 - Database connected successfully
+2025-04-29 23:09:43 - Database connected successfully
+2025-04-29 23:11:28 - Database connected successfully
+2025-04-29 23:11:46 - Database connected successfully
+2025-04-29 23:13:29 - Database connected successfully
+2025-04-29 23:14:08 - AvisController: Database connected successfully
+2025-04-29 23:14:08 - AvisController: Database connected successfully
+2025-04-29 23:16:21 - Database connected successfully
+2025-04-29 23:16:31 - Database connected successfully
+2025-04-29 23:16:38 - Database connected successfully
+2025-04-29 23:17:26 - Database connected successfully
+2025-04-29 23:17:29 - Database connected successfully
+2025-04-29 23:17:33 - Database connected successfully
+2025-04-29 23:17:35 - Database connected successfully
+2025-04-29 23:18:06 - Database connected successfully
+2025-04-29 23:18:59 - Database connected successfully
+2025-04-29 23:20:32 - AvisController: Database connected successfully
+2025-04-29 23:20:32 - AvisController: Database connected successfully
+2025-04-29 23:21:05 - Database connected successfully
+2025-04-29 23:21:05 - AvisController: Database connected successfully
+2025-04-29 23:21:05 - AvisController: Database connected successfully
+2025-04-29 23:21:09 - AvisController: Database connected successfully
+2025-04-29 23:21:09 - AvisController: Database connected successfully
+2025-04-29 23:21:19 - AvisController: Database connected successfully
+2025-04-29 23:21:19 - AvisController: Database connected successfully
+2025-04-29 23:21:35 - AvisController: Database connected successfully
+2025-04-29 23:21:35 - AvisController: Database connected successfully
+2025-04-29 23:21:52 - AvisController: Database connected successfully
+2025-04-29 23:21:52 - AvisController: Database connected successfully
+2025-04-29 23:22:01 - AvisController: Database connected successfully
+2025-04-29 23:22:04 - AvisController: Database connected successfully
+2025-04-29 23:22:06 - AvisController: Database connected successfully
+2025-04-29 23:22:10 - AvisController: Database connected successfully
+2025-04-29 23:22:10 - AvisController: Database connected successfully
+2025-04-29 23:23:04 - AvisController: Database connected successfully
+2025-04-29 23:23:04 - AvisController: Database connected successfully
+2025-04-29 23:23:19 - AvisController: Database connected successfully
+2025-04-29 23:23:19 - AvisController: Database connected successfully
+2025-04-29 23:27:26 - AvisController: Database connected successfully
+2025-04-29 23:27:26 - AvisController: Database connected successfully
+2025-04-29 23:29:21 - AvisController: Database connected successfully
+2025-04-29 23:29:21 - AvisController: Database connected successfully
+2025-04-29 23:29:27 - AvisController: Database connected successfully
+2025-04-29 23:29:27 - AvisController: Database connected successfully
+2025-04-29 23:32:21 - AvisController: Database connected successfully
+2025-04-29 23:32:21 - AvisController: Database connected successfully
+2025-04-29 23:33:42 - AvisController: Database connected successfully
+2025-04-29 23:33:42 - AvisController: Database connected successfully
+2025-04-29 23:34:30 - AvisController: Database connected successfully
+2025-04-29 23:34:33 - AvisController: Database connected successfully
+2025-04-29 23:34:33 - AvisController: Database connected successfully
+2025-04-29 23:34:56 - AvisController: Database connected successfully
+2025-04-29 23:34:56 - AvisController: Database connected successfully
+2025-04-29 23:35:18 - Database connected successfully
+2025-04-29 23:35:21 - Database connected successfully
+2025-04-29 23:35:22 - AvisController: Database connected successfully
+2025-04-29 23:35:22 - AvisController: Database connected successfully
+2025-04-29 23:35:37 - AvisController: Database connected successfully
+2025-04-29 23:35:37 - AvisController: Database connected successfully
+2025-04-30 00:25:55 - AvisController: Database connected successfully
+2025-04-30 00:25:55 - AvisController: Database connected successfully
+2025-04-30 00:25:56 - AvisController: Database connected successfully
+2025-04-30 00:25:56 - AvisController: Database connected successfully
+2025-04-30 00:29:07 - AvisController: Database connected successfully
+2025-04-30 00:29:07 - AvisController: Database connected successfully
+2025-04-30 00:29:08 - AvisController: Database connected successfully
+2025-04-30 00:29:08 - AvisController: Database connected successfully
+2025-04-30 00:29:42 - Database connected successfully
+2025-04-30 00:29:44 - Database connected successfully
+2025-04-30 00:29:47 - Database connected successfully
+2025-04-30 00:30:04 - AvisController: Database connected successfully
+2025-04-30 00:30:04 - AvisController: Database connected successfully
+2025-04-30 00:30:23 - Database connected successfully
+2025-04-30 00:30:28 - Database connected successfully
+2025-04-30 09:54:41 - AvisController: Database connected successfully
+2025-04-30 09:54:41 - AvisController: Database connected successfully
+2025-04-30 10:00:26 - AvisController: Database connected successfully
+2025-04-30 10:00:26 - AvisController: Database connected successfully
+2025-04-30 10:17:39 - Database connected successfully
+2025-04-30 10:17:41 - Database connected successfully
+2025-04-30 10:17:44 - Database connected successfully
+2025-04-30 10:17:46 - Database connected successfully
+2025-04-30 10:20:39 - AvisController: Database connected successfully
+2025-04-30 10:20:39 - AvisController: Database connected successfully
+2025-04-30 10:20:47 - AvisController: Database connected successfully
+2025-04-30 10:21:02 - AvisController: Database connected successfully
+2025-04-30 10:21:03 - AvisController: Database connected successfully
+2025-04-30 10:21:14 - AvisController: Database connected successfully
+2025-04-30 10:21:14 - AvisController: Database connected successfully
+2025-04-30 10:22:11 - Database connected successfully
+2025-04-30 10:25:38 - Database connected successfully
+2025-04-30 10:45:14 - Database connected successfully
+2025-04-30 10:45:16 - Database connected successfully

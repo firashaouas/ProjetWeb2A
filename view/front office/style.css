@@ -911,17 +911,72 @@ nav {
 }
 
 /* Style pour la barre de recherche */
-.search-bar {
-    text-align: center;
+.search-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin: 20px auto;
+    gap: 2px;
+    max-width: 1000px;
+}
+
+.search-bar {
+    flex: 1;
+    text-align: center;
+    margin-right: 2px;
 }
 
 .search-bar input {
-    width: 60%;
-    padding: 10px;
-    font-size: 16px;
+    width: 99%;
+    padding: 10px 20px;
+    font-size: 15px;
     border: 1px solid #ccc;
     border-radius: 6px;
+}
+
+.cart-icon {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    background: linear-gradient(to right, #be3cf0, #dc46d7 17%, #ff50aa 68%, #ff6666);
+    padding: 10px 20px;
+    border-radius: 25px;
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.cart-icon:hover {
+    background: linear-gradient(to left, #be3cf0, #dc46d7 17%, #ff50aa 68%, #ff6666);
+    transform: scale(1.05);
+}
+
+.cart-icon i {
+    font-size: 1.1em;
+    color: white;
+    transition: transform 0.3s ease;
+}
+
+.cart-icon:hover i {
+    transform: scale(1.1);
+}
+
+.cart-count {
+    background: white;
+    color: #ff50aa;
+    padding: 2px 6px;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: bold;
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    min-width: 18px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 /* Style pour les cartes de catégorie */
@@ -1065,9 +1120,13 @@ nav {
 }
 
 
-.promo-section {
-    margin-top: 40px;
-    text-align: center;
+.promo-section,
+.promo-tag,
+.promo-slide,
+.promo-text,
+.promo-input-container,
+.add-promo-btn {
+    /* Suppression des styles */
 }
 
 .show-promo-btn {
@@ -1169,8 +1228,8 @@ nav {
 }
 
 .promo-container {
+    margin: 15px 0;
     text-align: center;
-    padding: 20px;
 }
 .promo-row {
     display: flex;
@@ -1671,4 +1730,459 @@ nav {
 .product-item .register-btn:hover {
     background: linear-gradient(to left, #be3cf0, #dc46d7 17%, #ff50aa 68%, #ff6666);
     transform: scale(1.05);
+}
+
+.gift-button-container {
+    margin: 15px 0;
+    text-align: center;
+}
+
+.gift-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.3s;
+}
+
+.gift-btn:hover {
+    background-color: #45a049;
+}
+
+.gift-btn i {
+    font-size: 18px;
+}
+
+/* Styles pour le code promo */
+.promo-container {
+    margin: 15px 0;
+    text-align: center;
+}
+
+.promo-message {
+    color: #ff50aa;
+    cursor: pointer;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+.promo-message:hover {
+    text-decoration: underline;
+}
+
+.promo-input-box {
+    display: none;
+    margin: 10px auto;
+    max-width: 300px;
+}
+
+.promo-input-box input {
+    width: 100%;
+    padding: 8px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.promo-input-box input:focus {
+    outline: none;
+    border-color: #ff50aa;
+    box-shadow: 0 0 5px rgba(255, 80, 170, 0.2);
+}
+
+/* Styles pour la section code promo */
+.promo-code-section {
+    margin: 20px 0;
+    position: relative;
+    height: 50px;
+    overflow: hidden;
+}
+
+.promo-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #ff50aa15, #be3cf015);
+    padding: 12px 25px;
+    border-radius: 25px;
+    cursor: pointer;
+    transform: translateY(0);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.promo-message:hover {
+    background: linear-gradient(135deg, #ff50aa25, #be3cf025);
+    transform: translateY(-2px);
+}
+
+.promo-icon {
+    font-size: 20px;
+    animation: bounce 1s infinite;
+}
+
+.promo-text {
+    text-align: center;
+    color: #ff50aa;
+    margin: 15px 0;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.promo-text:hover {
+    text-decoration: underline;
+}
+
+.promo-input-wrapper {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(100%);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 280px;
+}
+
+.promo-input {
+    flex: 1;
+    padding: 12px 20px;
+    border: 2px solid #ff50aa;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    background: white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.promo-input:focus {
+    outline: none;
+    border-color: #be3cf0;
+    box-shadow: 0 0 0 3px rgba(190, 60, 240, 0.1);
+}
+
+.validate-promo {
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ff50aa, #be3cf0);
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.validate-promo:hover {
+    transform: scale(1.1);
+    box-shadow: 0 3px 10px rgba(190, 60, 240, 0.3);
+}
+
+.validate-promo.success {
+    background: #4CAF50;
+}
+
+/* Animation de l'icône cadeau */
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+}
+
+/* Animation shake pour input invalide */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+.promo-input.shake {
+    animation: shake 0.3s ease-in-out;
+    border-color: #ff4444;
+}
+
+/* État affiché du champ de saisie */
+.promo-code-section.show-input .promo-message {
+    transform: translateY(-100%);
+    opacity: 0;
+}
+
+.promo-code-section.show-input .promo-input-wrapper {
+    transform: translateX(-50%) translateY(0);
+}
+
+.promo-input-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.promo-input-container input {
+    padding: 8px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 200px;
+}
+
+.promo-input-container input:focus {
+    outline: none;
+    border-color: #ff50aa;
+    box-shadow: 0 0 5px rgba(255, 80, 170, 0.2);
+}
+
+.add-promo-btn {
+    background: linear-gradient(to right, #ff50aa, #be3cf0);
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.add-promo-btn:hover {
+    background: linear-gradient(to left, #ff50aa, #be3cf0);
+    transform: scale(1.05);
+}
+
+/* Styles pour la nouvelle section code promo */
+.promo-section {
+    margin: 20px auto;
+    max-width: 400px;
+    position: relative;
+}
+
+.promo-tag {
+    background: linear-gradient(135deg, #ff50aa, #be3cf0);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 25px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 80, 170, 0.2);
+}
+
+.promo-tag:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 80, 170, 0.3);
+}
+
+.promo-tag i {
+    font-size: 18px;
+}
+
+.promo-slide {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    width: 100%;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transform: translateY(-10px);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 100;
+}
+
+.promo-section.active .promo-slide {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+}
+
+.promo-slide input {
+    width: 100%;
+    padding: 12px 20px;
+    border: 2px solid #eee;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+    margin-bottom: 15px;
+}
+
+.promo-slide input:focus {
+    outline: none;
+    border-color: #ff50aa;
+    box-shadow: 0 0 0 3px rgba(255, 80, 170, 0.1);
+}
+
+.promo-slide button {
+    width: 100%;
+    background: linear-gradient(135deg, #ff50aa, #be3cf0);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.promo-slide button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 80, 170, 0.3);
+}
+
+.promo-slide button i {
+    font-size: 16px;
+}
+
+/* Animation pour le bouton lors de la validation */
+@keyframes validationSuccess {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.promo-slide button.success {
+    background: #4CAF50;
+    animation: validationSuccess 0.4s ease;
+}
+
+.promo-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 15px auto;
+    padding: 12px 25px;
+    background: white;
+    border: 2px solid #ff50aa;
+    color: #ff50aa;
+    border-radius: 25px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.promo-btn:hover {
+    background: #ff50aa;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 80, 170, 0.2);
+}
+
+.promo-btn i {
+    font-size: 18px;
+}
+
+/* Suppression des anciens styles qui ne sont plus nécessaires */
+.promo-btn-content,
+.promo-btn::before,
+.promo-btn::after {
+    display: none;
+}
+
+/* Styles pour la section de gestion */
+.gestion-features {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 50px 20px;
+    margin: 40px auto;
+    max-width: 1200px;
+    background: linear-gradient(135deg, #fff5f8, #f8f0ff);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(255, 80, 170, 0.1);
+}
+
+.feature-item {
+    text-align: center;
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+.feature-item:hover {
+    transform: translateY(-5px);
+}
+
+.feature-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 5px 15px rgba(255, 80, 170, 0.15);
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-icon::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #ff50aa, #be3cf0);
+    opacity: 0.1;
+    transition: opacity 0.3s ease;
+}
+
+.feature-icon i {
+    font-size: 32px;
+    background: linear-gradient(135deg, #ff50aa, #be3cf0);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    transition: transform 0.3s ease;
+}
+
+.feature-item:hover .feature-icon::before {
+    opacity: 0.2;
+}
+
+.feature-item:hover .feature-icon i {
+    transform: scale(1.1);
+}
+
+.feature-item h3 {
+    font-size: 18px;
+    color: #333;
+    margin-top: 15px;
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .gestion-features {
+        flex-direction: column;
+        gap: 30px;
+        padding: 30px 20px;
+    }
+
+    .feature-item {
+        width: 100%;
+        max-width: 300px;
+    }
 }

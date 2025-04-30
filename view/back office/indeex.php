@@ -1,11 +1,22 @@
 <?php
 session_start();
 require_once '../../Controller/produitcontroller.php';
+require_once '../../Controller/AvisController.php'; // Include AvisController
+
 $pdo = new PDO("mysql:host=localhost;dbname=projet web", "root", "");
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $controller = new ProductController();
 $response = $controller->getAllProducts();
 $products = $response['success'] ? $response['products'] : [];
+$avisController = new AvisController();
+$pendingReviews = $avisController->getPendingReviewsCount();
+$pendingCount = $pendingReviews['success'] ? $pendingReviews['pending_count'] : 0;
+
+// Trier les produits par stock (du plus petit au plus grand)
+usort($products, function($a, $b) {
+    return $a['stock'] - $b['stock'];
+});
+
 $categoryStats = $controller->getCategoryStats();
 $stats = $categoryStats['success'] ? $categoryStats['stats'] : [];
 $globalStats = $controller->getGlobalStats();
@@ -15,6 +26,30 @@ $topProductsData = $controller->getTopProducts($period);
 $topProducts = $topProductsData['success'] ? $topProductsData['products'] : [];
 $recentActivities = $controller->getRecentActivities();
 $outOfStockData = $controller->getOutOfStockCount();
+// Fetch all reviews
+$avisResponse = $avisController->getAllAvis();
+$avis = $avisResponse['success'] ? $avisResponse['avis'] : [];
+
+// Calculate stats for stat card and satisfaction overview
+$reviewCount = count($avis);
+$averageRating = $reviewCount > 0 ? round(array_sum(array_column($avis, 'stars')) / $reviewCount, 1) : 0;
+
+// Récupérer les commandes d'achat par jour (7 derniers jours)
+$achatStats = $pdo->query("
+    SELECT DATE(date_commande) as date, COUNT(*) as total
+    FROM commandes
+    GROUP BY DATE(date_commande)
+    ORDER BY date DESC
+    LIMIT 7
+")->fetchAll(PDO::FETCH_ASSOC);
+// Récupérer les locations par jour (7 derniers jours)
+$locationStats = $pdo->query("
+    SELECT DATE(date_location) as date, COUNT(*) as total
+    FROM louer
+    GROUP BY DATE(date_location)
+    ORDER BY date DESC
+    LIMIT 7
+")->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -27,6 +62,12 @@ $outOfStockData = $controller->getOutOfStockCount();
   <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
   <link rel="stylesheet" href="styles.css">
   <style>
+    .btn:disabled {
+  background-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
     /* Styles existants pour les cartes de produits (inchangés) */
     .product-cards {
         display: grid;
@@ -1262,6 +1303,58 @@ $outOfStockData = $controller->getOutOfStockCount();
       border-radius: 4px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
+    .notification-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    background: #ff4d4d;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 10px;
+    margin-left: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.notification-badge:hover {
+    transform: scale(1.1);
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.menu-item:hover {
+    background: rgba(255, 77, 77, 0.1);
+}
+
+.reviews-stats {
+  margin: 20px 0;
+  display: flex;
+  gap: 20px;
+}
+.stat-badge {
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 14px;
+}
+.stat-badge.approved {
+  background-color: #E8F5E9;
+  color: #2E7D32;
+}
+.stat-badge.rejected {
+  background-color: #FFEBEE;
+  color: #C62828;
+}
   </style>
 </head>
 <body>
@@ -1281,17 +1374,25 @@ $outOfStockData = $controller->getOutOfStockCount();
 
   <div class="sidebar">
     <div>
-      <img src="logo.png" alt="Logo" class="logo">
-      <h1>Click'N'go</h1>
-      <div class="menu-item active" data-section="overview">🏠 Tableau de Bord</div>
-      <div class="menu-item" data-section="products">📦 Produits</div>
-      <div class="menu-item" data-section="orders">📋 Commandes</div>
-      <div class="menu-item" data-section="promos">🎁 Promotions</div>
-      <div class="menu-item" data-section="reviews">⭐ Avis</div>
-      <div class="menu-item" data-section="settings">⚙️ Réglages</div>
+        <img src="logo.png" alt="Logo" class="logo">
+        <h1>Click'N'go</h1>
+        <div class="menu-item active" data-section="overview">🏠 Tableau de Bord</div>
+        <div class="menu-item" data-section="products">📦 Produits</div>
+        <div class="menu-item" data-section="orders">📋 Commandes</div>
+        <div class="menu-item" data-section="reviews">
+            ⭐ Avis
+            <?php
+            $pendingReviews = $avisController->getPendingReviewsCount();
+            $pendingCount = $pendingReviews['success'] ? $pendingReviews['pending_count'] : 0;
+            if ($pendingCount > 0):
+            ?>
+                <span class="notification-badge"><?php echo $pendingCount; ?></span>
+            <?php endif; ?>
+        </div>
+        <div class="menu-item" data-section="settings">⚙️ Réglages</div>
     </div>
     <div class="menu-item">🚪 Déconnexion</div>
-  </div>
+</div>
 
   <div class="dashboard">
     <!-- Overview Section (Tableau de Bord) -->
@@ -1329,7 +1430,7 @@ $outOfStockData = $controller->getOutOfStockCount();
         <div class="stat-card">
           <div class="stat-icon">⭐</div>
           <h3>Avis</h3>
-          <p class="stat-value">5</p>
+          <p class="stat-value"><?= $reviewCount ?></p>
         </div>
       </div>
 
@@ -1338,45 +1439,78 @@ $outOfStockData = $controller->getOutOfStockCount();
         <div class="category-chart-container">
             <canvas id="categoryStats"></canvas>
         </div>
-        </div>
-
+      </div>
       <div class="trends-dashboard">
         <h3>Aperçu des Produits</h3>
         <div class="insights-grid">
             <!-- Top Produits -->
             <div class="insight-card featured">
                 <div class="insight-header">
-                    <h4>🌟 Produits les plus vendus</h4>
+                    <h4>⭐ Derniers avis clients</h4>
                 </div>
-                <div class="products-showcase">
-                    <?php if (empty($topProducts)): ?>
+                <div class="reviews-list">
+                    <?php if (empty($avis)): ?>
                         <div class="empty-state">
-                            <p>Aucune vente enregistrée</p>
+                            <p>Aucun avis disponible</p>
                         </div>
                     <?php else: 
-                        foreach ($topProducts as $index => $product):
-                            $progressWidth = ($product['stock'] / 100) * 100;
+                        $recentAvis = array_slice($avis, 0, 5); // Prendre les 5 derniers avis
+                        foreach ($recentAvis as $review):
                     ?>
-                        <div class="showcase-item">
-                            <div class="product-rank">#<?= $index + 1 ?></div>
-                            <div class="product-details">
-                                <h5><?= htmlspecialchars($product['name']) ?></h5>
-                                <div class="product-meta">
-                                    <span class="category-tag"><?= htmlspecialchars($product['category']) ?></span>
-                                    <span class="sales-tag"><?= $product['total_ventes'] ?> ventes</span>
-                                </div>
-                                <div class="stock-progress">
-                                    <div class="progress-bar">
-                                        <div class="progress-fill" style="width: <?= min(100, $progressWidth) ?>%"></div>
-                                    </div>
-                                    <span class="stock-count"><?= $product['stock'] ?> en stock</span>
+                        <div class="review-item">
+                            <div class="review-header">
+                                <div class="stars"><?= str_repeat('⭐', $review['stars']) ?></div>
+                                <div class="status <?= $review['status'] ?>">
+                                    <?= $review['status'] === 'approved' ? '✅' : ($review['status'] === 'pending' ? '⏳' : '❌') ?>
                                 </div>
                             </div>
+                            <div class="review-content">
+                                <strong><?= htmlspecialchars($review['product_name']) ?></strong>
+                                <p><?= htmlspecialchars($review['comment'] ?? 'Aucun commentaire') ?></p>
+                            </div>
                         </div>
-                    <?php endforeach;
-                    endif; ?>
+                    <?php endforeach; endif; ?>
                 </div>
             </div>
+
+            <style>
+                .reviews-list {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+                    padding: 10px;
+                }
+                .review-item {
+                    background: #f8f9fa;
+                    border-radius: 8px;
+                    padding: 12px;
+                    border-left: 3px solid #FF69B4;
+                }
+                .review-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 8px;
+                }
+                .review-content {
+                    font-size: 0.9em;
+                }
+                .review-content strong {
+                    color: #333;
+                    display: block;
+                    margin-bottom: 4px;
+                }
+                .review-content p {
+                    color: #666;
+                    margin: 0;
+                }
+                .status {
+                    font-size: 1.2em;
+                }
+                .stars {
+                    letter-spacing: 2px;
+                }
+            </style>
 
             <!-- Alertes Stock -->
             <div class="insight-card warning">
@@ -1621,41 +1755,8 @@ $outOfStockData = $controller->getOutOfStockCount();
       <div class="categories">
         <?php foreach ($stats as $stat): ?>
         <div class="category">
-<<<<<<< HEAD
             <h4><?= htmlspecialchars($stat['category']) ?></h4>
             <p><?= $stat['product_count'] ?> produits</p>
-=======
-          <h4>Équipements Sportifs</h4>
-          <p>150 produits</p>
-        </div>
-        <div class="category">
-          <h4>Vêtements et Accessoires</h4>
-          <p>90 produits</p>
-        </div>
-        <div class="category">
-          <h4>Gadgets & Technologies</h4>
-          <p>60 produits</p>
-        </div>
-        <div class="category">
-          <h4>Articles de Bien-être & Récupération</h4>
-          <p>45 produits</p>
-        </div>
-        <div class="category">
-          <h4>Nutrition & Hydratation</h4>
-          <p>30 produits</p>
-        </div>
-        <div class="category">
-          <h4>Accessoires de Voyage & Mobilité</h4>
-          <p>25 produits</p>
-        </div>
-        <div class="category">
-          <h4>Supports et accessoires d'atelier</h4>
-          <p>20 produits</p>
-        </div>
-        <div class="category">
-          <h4>Univers du cerveau</h4>
-          <p>15 produits</p>
->>>>>>> 3c3f2119bb40b1bf3989c4f7e0f85b069e0926de
         </div>
         <?php endforeach; ?>
       </div>
@@ -1668,7 +1769,7 @@ $outOfStockData = $controller->getOutOfStockCount();
         <div class="profile-container">
           <input class="search" type="text" placeholder="Rechercher par ID" id="orderSearch">
           <div class="profile">
-            <img src="images/products/logo.png" alt="Profile Picture">
+            <img src="Sarah.webp" alt="Profile Picture">
           </div>
         </div>
       </div>
@@ -1748,127 +1849,127 @@ $outOfStockData = $controller->getOutOfStockCount();
       </div>
     </div>
 
-    <!-- Promos Section -->
-    <div class="dashboard-section" id="promos">
-      <div class="header">
-        <h2>Gestion des Promotions 🎁</h2>
-        <div class="profile-container">
-          <input class="search" type="text" placeholder="Rechercher une promotion...">
-          <div class="profile">
-            <img src="images/products/logo.png" alt="Profile Picture">
-          </div>
-        </div>
-      </div>
 
-      <div class="add-product-nav">
-        <button class="btn add-button" onclick="openPromoModal()">Ajouter</button>
-      </div>
-
-      <div class="product-cards">
-        <?php
-        require_once '../../Controller/promotioncontroller.php';
-        $promoController = new PromotionController();
-        $promotions = $promoController->getAllPromotions();
-        
-        if ($promotions['success'] && !empty($promotions['promotions'])) {
-            foreach ($promotions['promotions'] as $promo) {
-        ?>
-            <div class="card">
-                <div class="product-image">
-                    <img src="../../<?= htmlspecialchars($promo['photo']) ?>" alt="<?= htmlspecialchars($promo['nom_produit']) ?>">
-                </div>
-                <div class="product-details">
-                    <h3><?= htmlspecialchars($promo['nom_produit']) ?></h3>
-                    <p>Prix Original: <?= number_format($promo['prix_original'], 2) ?> TND</p>
-                    <p>Prix Promotion: <?= number_format($promo['prix_promotion'], 2) ?> TND</p>
-                    <p>Date Début: <?= $promo['date_debut'] ?></p>
-                    <p>Date Fin: <?= $promo['date_fin'] ?></p>
-                    <p>Statut: <?= htmlspecialchars($promo['statut']) ?></p>
-                    <div class="card-buttons">
-                        <button class="btn edit-button" onclick="editPromo(<?= $promo['id_promotion'] ?>)">Modifier</button>
-                        <button class="btn delete-button" onclick="deletePromo(<?= $promo['id_promotion'] ?>)">Supprimer</button>
-                    </div>
-                </div>
-            </div>
-        <?php
-            }
-        } else {
-            echo "<p class='no-products'>Aucune promotion disponible</p>";
-        }
-        ?>
+<!-- Reviews Section -->
+<div class="dashboard-section" id="reviews">
+  <div class="header">
+    <h2>Gestion des Avis ⭐</h2>
+    <div class="profile-container">
+      <input class="search" type="text" placeholder="Rechercher un avis..." id="reviewSearch">
+      <div class="profile">
+        <img src="Sarah.webp" alt="Profile Picture">
       </div>
     </div>
+  </div>
 
-    <!-- Reviews Section -->
-    <div class="dashboard-section" id="reviews">
-      <div class="header">
-        <h2>Gestion des Avis ⭐</h2>
-        <div class="profile-container">
-          <input class="search" type="text" placeholder="Rechercher un avis...">
-          <div class="profile">
-            <img src="images/products/logo.png" alt="Profile Picture">
-          </div>
-        </div>
-      </div>
-
-      <div class="reviews-table">
-        <h3>Liste des Avis</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>Produit</th>
-              <th>Client</th>
-              <th>Note</th>
-              <th>Commentaire</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Montre connectée</td>
-              <td>Ahmed</td>
-              <td>★★★★☆</td>
-              <td>Super produit !</td>
-              <td class="action-cell">
-                <button class="btn" onclick="approveReview(this)">Approuver</button>
-                <button class="btn" onclick="rejectReview(this)">Rejeter</button>
-              </td>
-            </tr>
-            <tr>
-              <td>Tapis de yoga</td>
-              <td>Sarah</td>
-              <td>★★★☆☆</td>
-              <td>Correct mais fragile.</td>
-              <td class="action-cell">
-                <button class="btn" onclick="approveReview(this)">Approuver</button>
-                <button class="btn" onclick="rejectReview(this)">Rejeter</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="satisfaction-overview">
-        <div class="metric-card customer-satisfaction">
-          <div class="metric-icon">⭐</div>
-          <div class="metric-content">
-            <h4>Satisfaction Client</h4>
-            <div class="satisfaction-score">
-              <div class="score">4.8<span>/5</span></div>
-              <div class="reviews-count">Basé sur 150 avis</div>
-            </div>
-          </div>
-        </div>
-      </div>
+  <div class="reviews-table">
+    <h3>Liste des Avis</h3>
+    <?php
+    // Compter les avis approuvés et rejetés
+    $approvedCount = 0;
+    $rejectedCount = 0;
+    foreach ($avis as $review) {
+      if ($review['status'] === 'approved') {
+        $approvedCount++;
+      } elseif ($review['status'] === 'rejected') {
+        $rejectedCount++;
+      }
+    }
+    ?>
+    <div class="reviews-stats">
+      <span class="stat-badge approved"><?= $approvedCount ?> approuvé<?= $approvedCount > 1 ? 's' : '' ?></span>
+      <span class="stat-badge rejected"><?= $rejectedCount ?> rejeté<?= $rejectedCount > 1 ? 's' : '' ?></span>
     </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Produit</th>
+          <th>Client</th>
+          <th>Note</th>
+          <th>Commentaire</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="reviewsTableBody">
+  <?php if (empty($avis)): ?>
+    <tr>
+      <td colspan="5" style="text-align: center;">Aucun avis disponible</td>
+    </tr>
+  <?php else: ?>
+    <?php foreach ($avis as $review): ?>
+      <tr data-review-id="<?= $review['id'] ?>">
+        <td><?= htmlspecialchars($review['product_name']) ?></td>
+        <td><?= htmlspecialchars($review['email']) ?></td>
+        <td><?= str_repeat('★', $review['stars']) . str_repeat('☆', 5 - $review['stars']) ?></td>
+        <td><?= htmlspecialchars($review['comment'] ?? 'Aucun commentaire') ?></td>
+        <td class="action-cell">
+          <?php if ($review['status'] === 'pending'): ?>
+            <button class="btn approve-btn" data-review-id="<?= $review['id'] ?>" onclick="approveReview(<?= $review['id'] ?>)">Approuver</button>
+            <button class="btn reject-btn" data-review-id="<?= $review['id'] ?>" onclick="openRejectModal(<?= $review['id'] ?>)">Rejeter</button>
+          <?php elseif ($review['status'] === 'approved'): ?>
+            <span>Approuvé</span>
+          <?php elseif ($review['status'] === 'rejected'): ?>
+            <span>Rejeté</span>
+          <?php endif; ?>
+        </td>
+      </tr>
+    <?php endforeach; ?>
+  <?php endif; ?>
+</tbody>
+    </table>
+  </div>
 
+  <style>
+    .reviews-stats {
+      margin: 20px 0;
+      display: flex;
+      gap: 20px;
+    }
+    .stat-badge {
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .stat-badge.approved {
+      background-color: #E8F5E9;
+      color: #2E7D32;
+    }
+    .stat-badge.rejected {
+      background-color: #FFEBEE;
+      color: #C62828;
+    }
+  </style>
+</div>
+
+<!-- Reject Reason Modal -->
+<div class="modal" id="rejectReviewModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>Raison du Rejet</h3>
+    </div>
+    <div class="modal-body">
+      <form id="rejectReviewForm">
+        <input type="hidden" id="rejectReviewId" name="review_id">
+        <div class="form-group">
+          <label for="rejectionReason">Raison du rejet (facultatif)</label>
+          <textarea id="rejectionReason" name="rejection_reason" rows="4" style="width: 100%; padding: 8px;"></textarea>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="close-btn" onclick="closeRejectModal()">Annuler</button>
+      <button type="button" class="save-btn" onclick="submitRejectReview()">Confirmer</button>
+    </div>
+  </div>
+</div>
     <!-- Settings Section -->
     <div class="dashboard-section" id="settings">
       <div class="header">
         <h2>Réglages ⚙️</h2>
         <div class="profile-container">
           <div class="profile">
-            <img src="user.webp" alt="Profile Picture">
+            <img src="Sarah.webp" alt="Profile Picture">
           </div>
         </div>
       </div>
@@ -1998,6 +2099,142 @@ $outOfStockData = $controller->getOutOfStockCount();
 
   <script src="scripts.js"></script>
   <script>
+    // Fonction pour approuver un avis
+function approveReview(reviewId) {
+  if (confirm('Voulez-vous vraiment approuver cet avis ?')) {
+    fetch('../../Controller/AvisController.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'X-Requested-With': 'XMLHttpRequest'
+      },
+      body: `action=approve&id=${reviewId}`
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        alert(data.message);
+        refreshReviews();
+      } else {
+        alert('Erreur : ' + data.error);
+      }
+    })
+    .catch(error => {
+      console.error('Erreur:', error);
+      alert('Une erreur est survenue lors de l\'approbation.');
+    });
+  }
+}
+
+// Fonction pour ouvrir le modal de rejet
+function openRejectModal(reviewId) {
+  document.getElementById('rejectReviewId').value = reviewId;
+  document.getElementById('rejectionReason').value = '';
+  document.getElementById('rejectReviewModal').style.display = 'block';
+}
+
+// Fonction pour fermer le modal de rejet
+function closeRejectModal() {
+  document.getElementById('rejectReviewModal').style.display = 'none';
+}
+
+// Fonction pour soumettre le rejet
+function submitRejectReview() {
+  const reviewId = document.getElementById('rejectReviewId').value;
+  const rejectionReason = document.getElementById('rejectionReason').value;
+
+  fetch('../../Controller/AvisController.php', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'X-Requested-With': 'XMLHttpRequest'
+    },
+    body: `action=reject&id=${reviewId}&rejection_reason=${encodeURIComponent(rejectionReason)}`
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      alert(data.message);
+      closeRejectModal();
+      refreshReviews();
+    } else {
+      alert('Erreur : ' + data.error);
+    }
+  })
+  .catch(error => {
+    console.error('Erreur:', error);
+    alert('Une erreur est survenue lors du rejet.');
+  });
+}
+
+// Fonction pour rafraîchir la liste des avis
+// Fonction pour rafraîchir la liste des avis
+// Fonction pour rafraîchir la liste des avis
+function refreshReviews() {
+  fetch('../../Controller/AvisController.php?action=get_all', {
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest'
+    }
+  })
+  .then(response => response.json())
+  .then(data => {
+    const tbody = document.getElementById('reviewsTableBody');
+    tbody.innerHTML = '';
+
+    if (data.success && data.avis.length > 0) {
+      data.avis.forEach(review => {
+        let actionCellContent = '';
+        if (review.status === 'pending') {
+          actionCellContent = `
+            <button class="btn approve-btn" data-review-id="${review.id}" onclick="approveReview(${review.id})">Approuver</button>
+            <button class="btn reject-btn" data-review-id="${review.id}" onclick="openRejectModal(${review.id})">Rejeter</button>
+          `;
+        } else if (review.status === 'approved') {
+          actionCellContent = `<span>Approuvé</span>`;
+        } else if (review.status === 'rejected') {
+          actionCellContent = `<span>Rejeté</span>`;
+        }
+
+        const row = `
+          <tr data-review-id="${review.id}">
+            <td>${review.product_name}</td>
+            <td>${review.email}</td>
+            <td>${'★'.repeat(review.stars) + '☆'.repeat(5 - review.stars)}</td>
+            <td>${review.comment || 'Aucun commentaire'}</td>
+            <td class="action-cell">${actionCellContent}</td>
+          </tr>`;
+        tbody.insertAdjacentHTML('beforeend', row);
+      });
+    } else {
+      tbody.innerHTML = '<tr><td colspan="5" style="text-align: center;">Aucun avis disponible</td></tr>';
+    }
+  })
+  .catch(error => {
+    console.error('Erreur:', error);
+    alert('Erreur lors du chargement des avis.');
+  });
+}
+
+// Recherche dans les avis
+document.getElementById('reviewSearch').addEventListener('input', function(e) {
+  const searchValue = e.target.value.toLowerCase();
+  const rows = document.querySelectorAll('#reviewsTableBody tr');
+
+  rows.forEach(row => {
+    const productName = row.cells[0].textContent.toLowerCase();
+    const email = row.cells[1].textContent.toLowerCase();
+    const comment = row.cells[3].textContent.toLowerCase();
+
+    if (productName.includes(searchValue) || email.includes(searchValue) || comment.includes(searchValue)) {
+      row.style.display = '';
+    } else {
+      row.style.display = 'none';
+    }
+  });
+});
+
+// Charger les avis en attente au démarrage
+document.addEventListener('DOMContentLoaded', refreshReviews);
     document.addEventListener('DOMContentLoaded', function() {
       // Activer la section promotions si #promos est dans l'URL
       if (window.location.hash === '#promos') {
@@ -2291,6 +2528,219 @@ $outOfStockData = $controller->getOutOfStockCount();
         reader.readAsDataURL(file);
       }
     });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Navigation rapide pour la barre de recherche
+        const searchInput = document.querySelector('#overview .search');
+        
+        searchInput.addEventListener('input', function(e) {
+            const searchValue = e.target.value.toLowerCase();
+            
+            if (searchValue === 's') {
+                document.querySelector('.categories-stats').scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            } else if (searchValue === 'a') {
+                document.querySelector('.trends-dashboard').scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            } else if (searchValue === 'o') {
+                document.querySelector('.categories-overview').scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // Reste du code existant
+    document.addEventListener('DOMContentLoaded', function() {
+        const ctx = document.getElementById('categoryStats').getContext('2d');
+        const categoryStats = <?php echo json_encode($stats); ?>;
+        
+        // Préparer les données pour le graphique
+        const labels = categoryStats.map(stat => stat.category);
+        const productCounts = categoryStats.map(stat => stat.product_count);
+        
+        // Calculer un pas approprié pour l'échelle
+        const maxCount = Math.max(...productCounts);
+        const step = Math.ceil(maxCount / 5); // Diviser l'échelle en 5 intervalles
+
+        new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Nombre de produits',
+                    data: productCounts,
+                    backgroundColor: 'rgba(255, 105, 180, 0.4)',
+                    borderColor: '#FF1493',
+                    borderWidth: 2,
+                    pointBackgroundColor: '#9370DB',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: '#FF69B4',
+                    pointRadius: 5,
+                    pointHoverRadius: 7,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        angleLines: {
+                            color: 'rgba(255, 105, 180, 0.2)'
+                        },
+                        grid: {
+                            color: 'rgba(147, 112, 219, 0.2)'
+                        },
+                        pointLabels: {
+                            font: {
+                                size: 12,
+                                family: 'Inter'
+                            },
+                            color: '#333'
+                        },
+                        ticks: {
+                            backdropColor: 'transparent',
+                            color: '#666',
+                            stepSize: step,
+                            font: {
+                                size: 10
+                            },
+                            callback: function(value) {
+                                return value + ' produits';
+                            }
+                        },
+                        min: 0,
+                        max: (Math.ceil(maxCount / step) * step), // Arrondir au multiple de step supérieur
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                        titleColor: '#333',
+                        titleFont: {
+                            size: 14,
+                            weight: 'bold',
+                            family: 'Inter'
+                        },
+                        bodyColor: '#666',
+                        bodyFont: {
+                            size: 13,
+                            family: 'Inter'
+                        },
+                        borderColor: '#FF69B4',
+                        borderWidth: 1,
+                        padding: 10,
+                        callbacks: {
+                            label: function(context) {
+                                const categoryIndex = context.dataIndex;
+                                const category = categoryStats[categoryIndex];
+                                return [
+                                    `Produits: ${category.product_count}`,
+                                    `Stock total: ${category.total_stock}`,
+                                    `Valeur: ${category.total_value.toFixed(2)} TND`
+                                ];
+                            }
+                        }
+                    }
+                },
+                animation: {
+                    duration: 2000,
+                    easing: 'easeOutQuart'
+                }
+            }
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // Données PHP vers JS
+      const achatStats = <?php echo json_encode(array_reverse($achatStats)); ?>;
+      const locationStats = <?php echo json_encode(array_reverse($locationStats)); ?>;
+
+      // Achat
+      const achatLabels = achatStats.map(item => item.date);
+      const achatData = achatStats.map(item => item.total);
+
+      new Chart(document.getElementById('achatChart').getContext('2d'), {
+        type: 'bar',
+        data: {
+          labels: achatLabels,
+          datasets: [{
+            label: 'Achats',
+            data: achatData,
+            backgroundColor: '#FF69B4'
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: { legend: { display: false } },
+          scales: { y: { beginAtZero: true } }
+        }
+      });
+
+      // Location
+      const locationLabels = locationStats.map(item => item.date);
+      const locationData = locationStats.map(item => item.total);
+
+      new Chart(document.getElementById('locationChart').getContext('2d'), {
+        type: 'bar',
+        data: {
+          labels: locationLabels,
+          datasets: [{
+            label: 'Locations',
+            data: locationData,
+            backgroundColor: '#9370DB'
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: { legend: { display: false } },
+          scales: { y: { beginAtZero: true } }
+        }
+      });
+    });
+    function updatePendingReviewsCount() {
+    fetch('../../Controller/AvisController.php?action=get_pending_count', {
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        const badge = document.querySelector('.notification-badge');
+        if (data.success && data.pending_count > 0) {
+            if (!badge) {
+                const reviewsMenu = document.querySelector('.menu-item[data-section="reviews"]');
+                reviewsMenu.insertAdjacentHTML('beforeend', `<span class="notification-badge">${data.pending_count}</span>`);
+            } else {
+                badge.textContent = data.pending_count;
+            }
+        } else if (badge) {
+            badge.remove();
+        }
+    })
+    .catch(error => console.error('Erreur lors de la mise à jour du compte des avis:', error));
+}
+
+// Appeler au chargement de la page
+document.addEventListener('DOMContentLoaded', updatePendingReviewsCount);
+
+// Rafraîchir après chaque action (exemple)
+document.addEventListener('click', (e) => {
+    if (e.target.closest('.approve-btn') || e.target.closest('.reject-btn')) {
+        setTimeout(updatePendingReviewsCount, 500);
+    }
+});
   </script>
 </body>
 </html>

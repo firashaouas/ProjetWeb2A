@@ -125,6 +125,17 @@ class LouerController {
                         $updateStockStmt = $this->pdo->prepare("UPDATE products SET stock = stock - 1 WHERE id = :produit_id");
                         $updateStockStmt->bindParam(':produit_id', $produitId);
                         if ($updateStockStmt->execute()) {
+                            // Stocker les données de location dans la session
+                            $_SESSION['location_data'] = [
+                                'nom' => $nom,
+                                'prenom' => $prenom,
+                                'produit' => $produit,
+                                'date_location' => $dateLocation,
+                                'heure_debut' => $heureDebut,
+                                'heure_fin' => $heureFin,
+                                'telephone' => $telephone,
+                                'carte_identite' => $carteIdentite
+                            ];
                             $_SESSION['location_success'] = 'Location effectuée avec succès!';
                             header("Location: confirmation.php");
                             exit;
