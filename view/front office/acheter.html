@@ -1,16 +1,20 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
   <title>Achat</title>
-  <style>@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;500&display=swap');
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;500&display=swap');
 
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-  
+
     body {
       font-family: 'Roboto', sans-serif;
       background: linear-gradient(145deg, #ffeaf2, #d9e4ff);
@@ -20,7 +24,7 @@
       min-height: 100vh;
       overflow-x: hidden;
     }
-  
+
     .container {
       display: flex;
       background: rgba(255, 255, 255, 0.95);
@@ -32,12 +36,12 @@
       transform: translateY(0);
       animation: slideIn 0.8s ease-out;
     }
-  
+
     @keyframes slideIn {
       from { transform: translateY(50px); opacity: 0; }
       to { transform: translateY(0); opacity: 1; }
     }
-  
+
     .preview {
       width: 45%;
       background: linear-gradient(135deg, #fff0f5, #f0f7ff);
@@ -50,7 +54,7 @@
       position: relative;
       overflow: hidden;
     }
-  
+
     .preview::before {
       content: '';
       position: absolute;
@@ -61,7 +65,7 @@
       background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.1"><circle cx="10" cy="10" r="2" fill="%23ff8fa3"/><circle cx="90" cy="90" r="3" fill="%23c084fc"/><circle cx="50" cy="20" r="2" fill="%23ff8fa3"/><circle cx="80" cy="50" r="2" fill="%23c084fc"/></svg>') repeat;
       z-index: 0;
     }
-  
+
     .preview::after {
       content: '✨';
       position: absolute;
@@ -71,7 +75,7 @@
       opacity: 0.5;
       z-index: 1;
     }
-  
+
     .preview img {
       width: 220px;
       height: 220px;
@@ -83,12 +87,12 @@
       z-index: 1;
       border: 3px solid #fff;
     }
-  
+
     .preview img:hover {
       transform: scale(1.08) rotate(1deg);
       box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
     }
-  
+
     .preview h3 {
       font-family: 'Playfair Display', serif;
       font-size: 30px;
@@ -98,7 +102,7 @@
       z-index: 1;
       position: relative;
     }
-  
+
     .preview h3::after {
       content: '';
       display: block;
@@ -108,7 +112,7 @@
       margin: 8px auto;
       border-radius: 1px;
     }
-  
+
     .preview .price {
       font-size: 22px;
       font-weight: 500;
@@ -120,11 +124,11 @@
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
       transition: transform 0.3s ease;
     }
-  
+
     .preview .price:hover {
       transform: translateY(-2px);
     }
-  
+
     .achat-form {
       width: 55%;
       padding: 50px;
@@ -133,11 +137,7 @@
       position: relative;
       overflow: visible;
     }
-  
-    .achat-form.slide-left {
-      transform: translateX(-100%);
-    }
-  
+
     .achat-form h2 {
       font-family: 'Playfair Display', serif;
       font-size: 36px;
@@ -146,7 +146,7 @@
       margin-bottom: 30px;
       position: relative;
     }
-  
+
     .achat-form h2::after {
       content: '';
       width: 60px;
@@ -158,7 +158,7 @@
       transform: translateX(-50%);
       border-radius: 2px;
     }
-  
+
     .achat-form label {
       display: block;
       margin: 20px 0 10px;
@@ -166,7 +166,7 @@
       color: #333;
       font-size: 16px;
     }
-  
+
     .achat-form input[type="text"],
     .achat-form input[type="email"],
     .achat-form input[type="number"] {
@@ -178,27 +178,27 @@
       background: #f9f9f9;
       transition: all 0.3s ease;
     }
-  
+
     .achat-form input:focus {
       border-color: #ff8fa3;
       box-shadow: 0 0 0 3px rgba(255, 143, 163, 0.2);
       outline: none;
       background: #fff;
     }
-  
+
     .achat-form .readonly {
       background: #f0f0f0;
       color: #666;
       cursor: not-allowed;
     }
-  
+
     .radio-group {
       margin: 20px 0;
       display: flex;
       gap: 25px;
       flex-wrap: wrap;
     }
-  
+
     .radio-group label {
       display: flex;
       align-items: center;
@@ -208,15 +208,15 @@
       cursor: pointer;
       transition: color 0.3s ease;
     }
-  
+
     .radio-group input[type="radio"] {
       accent-color: #ff8fa3;
     }
-  
+
     .radio-group label:hover {
       color: #ff8fa3;
     }
-  
+
     .achat-form button {
       width: 100%;
       padding: 16px;
@@ -228,14 +228,14 @@
       cursor: pointer;
       transition: all 0.3s ease;
     }
-  
+
     .register-btn {
       background: linear-gradient(90deg, #ff8fa3, #c084fc);
       color: #fff;
       position: relative;
       overflow: hidden;
     }
-  
+
     .register-btn::before {
       content: '';
       position: absolute;
@@ -246,57 +246,74 @@
       background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
       transition: 0.5s;
     }
-  
+
     .register-btn:hover::before {
       left: 100%;
     }
-  
+
     .register-btn:hover {
       transform: translateY(-3px);
       box-shadow: 0 8px 25px rgba(255, 143, 163, 0.4);
     }
-  
+
     .register-btn.cancel {
       background: #e0e0e0;
       color: #444;
     }
-  
+
     .register-btn.cancel:hover {
       background: #d0d0d0;
       transform: translateY(-2px);
       box-shadow: none;
     }
-  
+
     .error {
       color: #e63946;
       font-size: 13px;
       margin-top: 5px;
       display: none;
     }
-  
+
     .invalid {
       border-color: #e63946;
       box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.2);
     }
-  
+
+    #stripe-section {
+      margin-top: 20px;
+      padding: 20px;
+      background: #f9f9f9;
+      border-radius: 12px;
+      display: none;
+    }
+
+    #stripe-section.active {
+      display: block;
+    }
+
+    #card-errors {
+      color: #e63946;
+      font-size: 13px;
+      display: none;
+    }
+
     @media (max-width: 768px) {
       .container {
         flex-direction: column;
         width: 95%;
       }
-  
+
       .preview,
       .achat-form {
         width: 100%;
       }
-  
+
       .preview img {
         width: 180px;
         height: 180px;
       }
     }
 
-    /* Styles pour la section des résultats */
     .result-section {
       display: none;
       position: absolute;
@@ -410,7 +427,7 @@
 
     <div class="achat-form">
       <h2>Validation d'achat</h2>
-      <form id="achatForm" action="../../Controller/commandeController.php" method="post" novalidate>
+      <form id="achatForm" method="post" novalidate>
         <input type="hidden" name="action" value="ajouter_commande">
         <input type="hidden" id="panier_data" name="panier_data" value="">
         <div class="form-group">
@@ -418,31 +435,31 @@
           <input type="text" name="nom" id="nom" placeholder="Votre nom">
           <span class="error" id="nom_error">Le nom doit contenir uniquement des lettres (min 2 caractères).</span>
         </div>
-    
+
         <div class="form-group">
           <label>Prénom</label>
           <input type="text" name="prenom" id="prenom" placeholder="Votre prénom">
           <span class="error" id="prenom_error">Le prénom doit contenir uniquement des lettres (min 2 caractères).</span>
         </div>
-    
+
         <div class="form-group">
           <label>Numéro de téléphone</label>
           <input type="text" name="telephone" id="telephone" placeholder="Votre numéro de téléphone">
           <span class="error" id="telephone_error">Veuillez entrer un numéro de téléphone valide.</span>
         </div>
-    
+
         <div class="form-group">
           <label>Quantité</label>
-          <input type="number" name="quantite" id="quantite" min="1" value="1" class="readonly" disabled>
+          <input type="number" name="quantite" id="quantite" min="1" value="1" class="readonly" readonly>
           <span class="error" id="quantite_error">La quantité doit être un nombre positif (minimum 1).</span>
         </div>
-    
+
         <div class="form-group">
           <label>Prix total (TND)</label>
           <input type="text" name="prix_total" id="prix_total" class="readonly" readonly>
           <input type="hidden" name="prix_total_value" id="prix_total_value">
         </div>
-    
+
         <div class="form-group">
           <label>Mode de paiement</label>
           <div class="radio-group">
@@ -452,7 +469,11 @@
           </div>
           <span class="error" id="paiement_error">Veuillez sélectionner un mode de paiement.</span>
         </div>
-    
+
+        <div id="stripe-section">
+          <span class="error" id="card-errors"></span>
+        </div>
+
         <div class="form-buttons">
           <button type="submit" class="register-btn">Valider l'achat</button>
           <button type="button" class="register-btn cancel" onclick="window.location.href='produit.php'">Annuler</button>
@@ -465,27 +486,25 @@
         <div class="result-info">
           <div class="result-label">Nom :</div>
           <div class="result-value" id="resultNom"></div>
-          
           <div class="result-label">Prénom :</div>
           <div class="result-value" id="resultPrenom"></div>
-          
           <div class="result-label">Téléphone :</div>
           <div class="result-value" id="resultTelephone"></div>
-          
           <div class="result-label">Quantité :</div>
           <div class="result-value" id="resultQuantite"></div>
-          
           <div class="result-label">Prix total :</div>
           <div class="result-value" id="resultPrixTotal"></div>
-          
           <div class="result-label">Mode de paiement :</div>
           <div class="result-value" id="resultPaiement"></div>
         </div>
       </div>
     </div>
   </div>
-    
+
+  <script src="https://js.stripe.com/v3/"></script>
   <script>
+    const stripe = Stripe('pk_test_51RJL0sQabomDz0Baxnej9s98KKxxRyqRzsJUCLkHaveIB3FGVPF2rhdi8jLPCydMO4lF95QJotwMvL0QjOXjAud200GjafxVKG');
+
     document.addEventListener('DOMContentLoaded', function() {
       const form = document.getElementById('achatForm');
       const nomInput = document.getElementById('nom');
@@ -494,66 +513,68 @@
       const quantiteInput = document.getElementById('quantite');
       const paiementRadios = document.querySelectorAll('input[name="paiement"]');
       const panierDataInput = document.getElementById('panier_data');
+      const cardErrors = document.getElementById('card-errors');
 
-      // Activer la validation en temps réel
+      paiementRadios.forEach(radio => {
+        radio.addEventListener('change', function() {
+          cardErrors.style.display = 'none';
+          validatePaiement();
+        });
+      });
+
       nomInput.addEventListener('input', validateNom);
       prenomInput.addEventListener('input', validatePrenom);
       telephoneInput.addEventListener('input', validateTelephone);
-      
-      // Valider les radios quand l'utilisateur clique
-      paiementRadios.forEach(radio => {
-        radio.addEventListener('change', validatePaiement);
-      });
-      
-      // Valider au blur aussi
+
       nomInput.addEventListener('blur', validateNom);
       prenomInput.addEventListener('blur', validatePrenom);
       telephoneInput.addEventListener('blur', validateTelephone);
-      
-      // Fonctions de validation
+
       function validateNom() {
         const value = nomInput.value.trim();
         const errorElement = document.getElementById('nom_error');
-        
         if (value.length < 2 || !/^[a-zA-ZÀ-ÖØ-öø-ÿ\s'-]+$/.test(value)) {
           errorElement.style.display = 'inline';
+          nomInput.classList.add('invalid');
           return false;
         } else {
           errorElement.style.display = 'none';
+          nomInput.classList.remove('invalid');
           return true;
         }
       }
-      
+
       function validatePrenom() {
         const value = prenomInput.value.trim();
         const errorElement = document.getElementById('prenom_error');
-        
         if (value.length < 2 || !/^[a-zA-ZÀ-ÖØ-öø-ÿ\s'-]+$/.test(value)) {
           errorElement.style.display = 'inline';
+          prenomInput.classList.add('invalid');
           return false;
         } else {
           errorElement.style.display = 'none';
+          prenomInput.classList.remove('invalid');
           return true;
         }
       }
-      
+
       function validateTelephone() {
         const value = telephoneInput.value.trim();
         const errorElement = document.getElementById('telephone_error');
-        
         if (!/^\d{8,15}$/.test(value)) {
           errorElement.style.display = 'inline';
+          telephoneInput.classList.add('invalid');
           return false;
         } else {
           errorElement.style.display = 'none';
+          telephoneInput.classList.remove('invalid');
           return true;
         }
       }
-      
+
       function validatePaiement() {
         const checked = document.querySelector('input[name="paiement"]:checked');
         const errorElement = document.getElementById('paiement_error');
-        
         if (!checked) {
           errorElement.style.display = 'inline';
           return false;
@@ -562,27 +583,103 @@
           return true;
         }
       }
-      
-      // Validation finale avant soumission
-      form.addEventListener('submit', function(event) {
+
+      form.addEventListener('submit', async function(event) {
+        event.preventDefault();
+
         const isNomValid = validateNom();
         const isPrenomValid = validatePrenom();
         const isTelephoneValid = validateTelephone();
         const isPaiementValid = validatePaiement();
-        
+
         if (!isNomValid || !isPrenomValid || !isTelephoneValid || !isPaiementValid) {
-          event.preventDefault();
-          
-          // Faire défiler jusqu'au premier champ invalide
           if (!isNomValid) nomInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
           else if (!isPrenomValid) prenomInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
           else if (!isTelephoneValid) telephoneInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
           else if (!isPaiementValid) paiementRadios[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
           return;
         }
+
+        const paiement = document.querySelector('input[name="paiement"]:checked').value;
+
+        // Store order details for receipt (for all payment methods)
+        const panier = JSON.parse(panierDataInput.value || '[]');
+        const orderDetails = {
+          nom: nomInput.value.trim(),
+          prenom: prenomInput.value.trim(),
+          telephone: telephoneInput.value.trim(),
+          quantite: parseInt(quantiteInput.value),
+          prix_total: parseFloat(document.getElementById('prix_total_value').value),
+          panier: panier,
+          paiement: paiement
+        };
+
+        // Send order details to store in session
+        try {
+          await fetch('../../Controller/store_order_details.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(orderDetails),
+          });
+        } catch (err) {
+          console.error('Error storing order details:', err);
+        }
+
+        if (paiement === 'Carte') {
+          const submitBtn = form.querySelector('.register-btn');
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Processing...';
+
+          // Send panier_data and prix_total to Stripe
+          const formData = new FormData();
+          formData.append('panier_data', panierDataInput.value);
+          formData.append('prix_total', document.getElementById('prix_total_value').value);
+
+          try {
+            const response = await fetch('../../Controller/create-checkout-session.php', {
+              method: 'POST',
+              body: formData,
+            });
+
+            if (!response.ok) {
+              throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const result = await response.json();
+
+            if (result.error) {
+              cardErrors.textContent = result.error;
+              cardErrors.style.display = 'block';
+              submitBtn.disabled = false;
+              submitBtn.textContent = 'Valider l\'achat';
+              return;
+            }
+
+            console.log('Redirecting to Checkout with session ID:', result.id);
+
+            const { error } = await stripe.redirectToCheckout({ sessionId: result.id });
+            if (error) {
+              console.error('Stripe redirect error:', error);
+              cardErrors.textContent = error.message || 'Failed to redirect to payment page.';
+              cardErrors.style.display = 'block';
+              submitBtn.disabled = false;
+              submitBtn.textContent = 'Valider l\'achat';
+            }
+          } catch (err) {
+            console.error('Fetch error:', err);
+            cardErrors.textContent = 'Network error: Unable to connect to payment provider.';
+            cardErrors.style.display = 'block';
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Valider l\'achat';
+          }
+        } else {
+          // Submit form to commandeController.php for non-card payments
+          form.action = '../../Controller/commandeController.php';
+          form.method = 'POST';
+          form.submit();
+        }
       });
 
-      // Récupérer les paramètres de l'URL
       function getQueryParam(param) {
         const urlParams = new URLSearchParams(window.location.search);
         return urlParams.get(param);
@@ -591,24 +688,26 @@
       const quantite = parseInt(getQueryParam('quantite')) || 1;
       const prixTotal = parseFloat(getQueryParam('prix_total')) || 0;
 
-      // Mettre à jour les champs avec les valeurs du panier
       quantiteInput.value = quantite;
       const prixTotalInput = document.getElementById('prix_total');
-      const prixTotalValueInput = document.getElementById('prix_total_value');
-      if (prixTotalInput && prixTotalValueInput) {
-      prixTotalInput.value = prixTotal.toFixed(2) + ' TND';
-        prixTotalValueInput.value = prixTotal.toFixed(2);
+      const prix_total_value = document.getElementById('prix_total_value');
+      if (prixTotalInput && prix_total_value) {
+        prixTotalInput.value = prixTotal.toFixed(2) + ' TND';
+        prix_total_value.value = prixTotal.toFixed(2);
       }
 
-      // Mettre à jour la prévisualisation
       const previewPrix = document.getElementById('previewPrix');
       if (previewPrix) {
-      previewPrix.textContent = prixTotal.toFixed(2) + ' TND';
+        previewPrix.textContent = prixTotal.toFixed(2) + ' TND';
       }
 
-      // Récupérer le panier depuis localStorage et le transmettre dans le formulaire
       let panier = JSON.parse(localStorage.getItem('panier')) || [];
       panierDataInput.value = JSON.stringify(panier);
+
+      if (getQueryParam('error')) {
+        cardErrors.textContent = 'Le paiement a échoué. Veuillez réessayer.';
+        cardErrors.style.display = 'block';
+      }
     });
 
     function goBack() {

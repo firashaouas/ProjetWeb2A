@@ -1,20 +1,49 @@
 <?php
-
 session_start();
+require_once '../../config.php';
 
-// Vérifiez si la session de succès est configurée
+// Handle Stripe payment success
+if (isset($_GET['session_id'])) {
+    try {
+        $stripe = Config::getStripe();
+        $session = $stripe->checkout->sessions->retrieve($_GET['session_id']);
+
+        if ($session->payment_status === 'paid') {
+            $_SESSION['commande_success'] = true;
+            // Store order details for receipt
+            $_SESSION['derniere_commande'] = [
+                'client' => [
+                    'nom' => $_SESSION['order_details']['nom'] ?? 'N/A',
+                    'prenom' => $_SESSION['order_details']['prenom'] ?? 'N/A',
+                    'telephone' => $_SESSION['order_details']['telephone'] ?? 'N/A',
+                ],
+                'produits' => $_SESSION['order_details']['panier'] ?? [],
+                'total' => $session->amount_total / 1000, // Convert millimes to TND
+                'paiement' => 'Carte'
+            ];
+        } else {
+            header("Location: panier.php?error=payment_failed");
+            exit;
+        }
+    } catch (\Stripe\Exception\ApiErrorException $e) {
+        error_log('Stripe API Error: ' . $e->getMessage());
+        header("Location: panier.php?error=invalid_session");
+        exit;
+    }
+}
+
+// Check for non-Stripe payment success (set by commandeController.php)
 if (!isset($_SESSION['commande_success'])) {
-    // Si la session n'est pas configurée, redirigez vers la page d'accueil.
     header("Location: produit.php");
     exit;
 }
 
-// Créer une session spécifique pour le reçu
+// Create a session for the receipt
 $_SESSION['allow_recu'] = true;
 
-// Supprimez la variable de session pour ne pas afficher le message à nouveau lors d'une actualisation
+// Clear the cart and session data
 unset($_SESSION['commande_success']);
-
+unset($_SESSION['order_details']);
 ?>
 
 <!DOCTYPE html>
@@ -119,7 +148,7 @@ unset($_SESSION['commande_success']);
     <!-- Modal pour le reçu -->
     <div id="recu-modal">
         <div class="modal-content">
-            <span class="close-btn" onclick="fermerRecu()">&times;</span>
+            <span class="close-btn" onclick="fermerRecu()">×</span>
             <h2>Reçu de commande</h2>
             <div class="recu-details">
                 <h3>Détails de la commande</h3>
@@ -129,11 +158,11 @@ unset($_SESSION['commande_success']);
     </div>
 
     <script>
-        // Supprime le panier du localStorage une fois la commande validée
-        const commandeDetails = JSON.parse(localStorage.getItem('derniere_commande') || '{}');
+        // Clear the cart from localStorage
         localStorage.removeItem('panier');
-        
-        // Optionnel : Rafraîchir le compteur du panier
+        const commandeDetails = JSON.parse(localStorage.getItem('derniere_commande') || '{}');
+
+        // Update cart count if function exists
         if (typeof updateCartCount === 'function') {
             updateCartCount(0);
         }
@@ -142,8 +171,7 @@ unset($_SESSION['commande_success']);
             const modal = document.getElementById('recu-modal');
             const contenu = document.getElementById('recu-contenu');
             
-            // Récupérer les détails de la commande du localStorage
-            if (commandeDetails) {
+            if (commandeDetails && Object.keys(commandeDetails).length > 0) {
                 let html = `
                     <div class="recu-row">
                         <span>Date:</span>
@@ -153,9 +181,12 @@ unset($_SESSION['commande_success']);
                         <span>Numéro de commande:</span>
                         <span>#${Math.random().toString(36).substr(2, 9).toUpperCase()}</span>
                     </div>
+                    <div class="recu-row">
+                        <span>Mode de paiement:</span>
+                        <span>${commandeDetails.paiement || 'N/A'}</span>
+                    </div>
                 `;
 
-                // Ajouter les détails du client s'ils existent
                 if (commandeDetails.client) {
                     html += `
                         <div class="recu-row">
@@ -163,35 +194,33 @@ unset($_SESSION['commande_success']);
                             <span>${commandeDetails.client.nom || ''}</span>
                         </div>
                         <div class="recu-row">
-                            <span>Email:</span>
-                            <span>${commandeDetails.client.email || ''}</span>
+                            <span>Prénom:</span>
+                            <span>${commandeDetails.client.prenom || ''}</span>
                         </div>
                         <div class="recu-row">
-                            <span>Adresse:</span>
-                            <span>${commandeDetails.client.adresse || ''}</span>
+                            <span>Téléphone:</span>
+                            <span>${commandeDetails.client.telephone || ''}</span>
                         </div>
                     `;
                 }
 
-                // Ajouter les produits s'ils existent
                 if (commandeDetails.produits && commandeDetails.produits.length > 0) {
                     html += '<h3>Produits</h3>';
                     commandeDetails.produits.forEach(produit => {
                         html += `
                             <div class="recu-row">
                                 <span>${produit.nom} x${produit.quantite}</span>
-                                <span>${produit.prix * produit.quantite} TND</span>
+                                <span>${(produit.prix * produit.quantite).toFixed(2)} TND</span>
                             </div>
                         `;
                     });
                 }
 
-                // Ajouter le total
                 if (commandeDetails.total) {
                     html += `
                         <div class="recu-row" style="font-weight: bold; margin-top: 20px;">
                             <span>Total:</span>
-                            <span>${commandeDetails.total} TND</span>
+                            <span>${commandeDetails.total.toFixed(2)} TND</span>
                         </div>
                     `;
                 }
@@ -208,13 +237,15 @@ unset($_SESSION['commande_success']);
             document.getElementById('recu-modal').style.display = 'none';
         }
 
-        // Fermer le modal si on clique en dehors
         window.onclick = function(event) {
             const modal = document.getElementById('recu-modal');
             if (event.target == modal) {
                 modal.style.display = 'none';
             }
         }
+
+        // Store commandeDetails in localStorage for receipt
+        localStorage.setItem('derniere_commande', JSON.stringify(<?php echo json_encode($_SESSION['derniere_commande'] ?? []); ?>));
     </script>
 </body>
 </html>

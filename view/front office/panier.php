@@ -1,7 +1,6 @@
 <?php
-session_start(); // Placez ceci au tout début du fichier
+session_start();
 
-// Affichage des messages de succès ou d'erreur après la redirection
 if (isset($_GET['success'])): ?>
     <p style="color: green;">Commande passée avec succès !</p>
 <?php elseif (isset($_GET['error'])): ?>
@@ -132,11 +131,6 @@ if (isset($_GET['success'])): ?>
             color: #666;
         }
 
-        .empty-cart p {
-            margin: 20px 0;
-            font-size: 18px;
-        }
-
         .quantity-control {
             display: flex;
             align-items: center;
@@ -255,7 +249,6 @@ if (isset($_GET['success'])): ?>
         .remove-btn:hover { text-decoration: underline; }
         .cart-total { text-align: right; margin-top: 20px; padding: 20px; background: #f9f9f9; border-radius: 10px; }
         
-        /* Styles pour le bouton cadeau */
         .gift-button-container {
             text-align: center;
             margin: 20px 0;
@@ -401,12 +394,10 @@ if (isset($_GET['success'])): ?>
         const itemCount = document.getElementById('itemCount');
         let reductionAppliquee = false;
 
-        // Fonction pour calculer le prix avec réduction
         function calculerPrixAvecReduction(prix) {
-            return reductionAppliquee ? prix * 0.8 : prix; // 20% de réduction si applicable
+            return reductionAppliquee ? prix * 0.8 : prix;
         }
 
-        // Appeler afficherPanier immédiatement après l'initialisation
         afficherPanier();
 
         async function checkStock(productId, quantity) {
@@ -484,7 +475,7 @@ if (isset($_GET['success'])): ?>
 
             let totalGlobal = totalGlobalSansRemise;
             if (reductionAppliquee) {
-                totalGlobal = totalGlobalSansRemise * 0.8; // 20% de réduction sur le total
+                totalGlobal = totalGlobalSansRemise * 0.8;
                 totalElement.innerHTML = `
                     <span style="text-decoration: line-through; color: #999; margin-right: 10px;">${totalGlobalSansRemise.toFixed(2)}</span>
                     <span style="color: #ff4d4d;">${totalGlobal.toFixed(2)}</span>`;
@@ -541,9 +532,8 @@ if (isset($_GET['success'])): ?>
 
             if (promoCode.toLowerCase() === 'eya120') {
                 reductionAppliquee = true;
-                afficherPanier(); // Mettre à jour l'affichage avec les prix réduits
+                afficherPanier();
                 
-                // Désactiver le bouton et l'input après application
                 document.getElementById('promoCode').disabled = true;
                 document.querySelector('.promo-btn').disabled = true;
                 document.querySelector('.promo-btn').style.opacity = '0.5';
