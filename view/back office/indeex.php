@@ -50,6 +50,14 @@ $locationStats = $pdo->query("
     ORDER BY date DESC
     LIMIT 7
 ")->fetchAll(PDO::FETCH_ASSOC);
+
+// Déterminer la section active
+$active_section = isset($_GET['section']) ? $_GET['section'] : 'overview';
+
+// Compter les commandes en attente
+$pending_purchases = $pdo->query("SELECT COUNT(*) FROM commandes WHERE statut_commande = 'en_attente'")->fetchColumn();
+$pending_rentals = $pdo->query("SELECT COUNT(*) FROM louer WHERE statut_location = 'en_attente'")->fetchColumn();
+$total_pending = $pending_purchases + $pending_rentals;
 ?>
 
 <!DOCTYPE html>
@@ -1355,6 +1363,161 @@ $locationStats = $pdo->query("
   background-color: #FFEBEE;
   color: #C62828;
 }
+
+.search-filter-container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.filter-select {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: white;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  min-width: 150px;
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: #FF69B4;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  padding: 10px;
+  scroll-behavior: smooth;
+}
+
+.pagination-btn {
+  padding: 8px 16px;
+  background-color: #FF69B4;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  font-size: 18px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pagination-btn:hover {
+  background-color: #FF1493;
+}
+
+.page-info {
+  color: #666;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 8px 16px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  min-width: 120px;
+  text-align: center;
+}
+
+.pagination-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.pending-orders-notification {
+  position: fixed;
+  right: 20px;
+  top: 70%; /* Changé de 50% à 70% pour descendre la notification */
+  transform: translateY(-50%);
+  background: linear-gradient(135deg, #FF69B4, #9370DB);
+  border-radius: 12px;
+  padding: 15px; /* Réduit de 20px à 15px */
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Réduit de 15px à 12px */
+  box-shadow: 0 4px 15px rgba(147, 112, 219, 0.3);
+  z-index: 1000;
+  animation: slideIn 0.5s ease-in-out;
+  max-width: 280px; /* Réduit de 300px à 280px */
+  border: none;
+}
+
+.notification-icon {
+  font-size: 24px; /* Réduit de 28px à 24px */
+  flex-shrink: 0;
+  color: white;
+  animation: ring 2s infinite;
+}
+
+.notification-text {
+  color: white;
+  font-weight: 600;
+  font-size: 14px; /* Réduit de 16px à 14px */
+  font-family: 'Inter', sans-serif;
+}
+
+.notification-close {
+  position: absolute;
+  top: 8px; /* Réduit de 10px à 8px */
+  right: 8px; /* Réduit de 10px à 8px */
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  width: 20px; /* Réduit de 24px à 20px */
+  height: 20px; /* Réduit de 24px à 20px */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: white;
+  font-size: 14px; /* Réduit de 16px à 14px */
+  padding: 0;
+  transition: background-color 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translate(100%, -50%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, -50%);
+  }
+}
+
+@keyframes ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  5% {
+    transform: rotate(15deg);
+  }
+  10% {
+    transform: rotate(-15deg);
+  }
+  15% {
+    transform: rotate(15deg);
+  }
+  20% {
+    transform: rotate(-15deg);
+  }
+  25% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
   </style>
 </head>
 <body>
@@ -1376,10 +1539,10 @@ $locationStats = $pdo->query("
     <div>
         <img src="logo.png" alt="Logo" class="logo">
         <h1>Click'N'go</h1>
-        <div class="menu-item active" data-section="overview">🏠 Tableau de Bord</div>
-        <div class="menu-item" data-section="products">📦 Produits</div>
-        <div class="menu-item" data-section="orders">📋 Commandes</div>
-        <div class="menu-item" data-section="reviews">
+        <div class="menu-item <?= $active_section === 'overview' ? 'active' : '' ?>" data-section="overview" onclick="window.location.href='?section=overview'">🏠 Tableau de Bord</div>
+        <div class="menu-item <?= $active_section === 'products' ? 'active' : '' ?>" data-section="products" onclick="window.location.href='?section=products'">📦 Produits</div>
+        <div class="menu-item <?= $active_section === 'orders' ? 'active' : '' ?>" data-section="orders" onclick="window.location.href='?section=orders'">📋 Commandes</div>
+        <div class="menu-item <?= $active_section === 'reviews' ? 'active' : '' ?>" data-section="reviews" onclick="window.location.href='?section=reviews'">
             ⭐ Avis
             <?php
             $pendingReviews = $avisController->getPendingReviewsCount();
@@ -1389,14 +1552,64 @@ $locationStats = $pdo->query("
                 <span class="notification-badge"><?php echo $pendingCount; ?></span>
             <?php endif; ?>
         </div>
-        <div class="menu-item" data-section="settings">⚙️ Réglages</div>
+        <div class="menu-item <?= $active_section === 'settings' ? 'active' : '' ?>" data-section="settings" onclick="window.location.href='?section=settings'">⚙️ Réglages</div>
     </div>
     <div class="menu-item">🚪 Déconnexion</div>
 </div>
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Récupérer la section active depuis l'URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const section = urlParams.get('section') || 'overview';
+    
+    // Si nous sommes dans la section orders, conserver les paramètres de pagination
+    if (section === 'orders') {
+        const purchasePage = urlParams.get('purchase_page') || '1';
+        const rentalPage = urlParams.get('rental_page') || '1';
+        
+        // Mettre à jour l'URL avec les paramètres de pagination
+        const url = new URL(window.location);
+        url.searchParams.set('purchase_page', purchasePage);
+        url.searchParams.set('rental_page', rentalPage);
+        window.history.replaceState({}, '', url);
+    }
+    
+    // Désactiver toutes les sections
+    document.querySelectorAll('.dashboard-section').forEach(section => {
+        section.classList.remove('active');
+    });
+    
+    // Désactiver tous les éléments du menu
+    document.querySelectorAll('.menu-item').forEach(item => {
+        item.classList.remove('active');
+    });
+    
+    // Activer la section correspondante
+    document.getElementById(section).classList.add('active');
+    
+    // Activer l'élément du menu correspondant
+    document.querySelector(`[data-section="${section}"]`).classList.add('active');
+
+    // Vérifier si nous sommes dans la section orders
+    const urlParams = new URLSearchParams(window.location.search);
+    const section = urlParams.get('section');
+    
+    if (section === 'orders') {
+        // Afficher la notification si elle existe
+        const notification = document.getElementById('ordersNotification');
+        if (notification) {
+            setTimeout(() => {
+                notification.style.opacity = '1';
+            }, 100);
+        }
+    }
+});
+</script>
+
   <div class="dashboard">
     <!-- Overview Section (Tableau de Bord) -->
-    <div class="dashboard-section active" id="overview">
+    <div class="dashboard-section <?= $active_section === 'overview' ? 'active' : '' ?>" id="overview">
       <div class="header">
         <h2>Suivez vos produits, boostez vos ventes ! ✨</h2>
         <div class="profile-container">
@@ -1701,7 +1914,7 @@ $locationStats = $pdo->query("
     </div>
 
     <!-- Products Section -->
-    <div class="dashboard-section" id="products">
+    <div class="dashboard-section <?= $active_section === 'products' ? 'active' : '' ?>" id="products">
       <div class="header">
         <h2>Gestion des Produits 📦</h2>
         <div class="profile-container">
@@ -1763,7 +1976,7 @@ $locationStats = $pdo->query("
     </div>
 
     <!-- Orders Section -->
-    <div class="dashboard-section" id="orders">
+    <div class="dashboard-section <?= $active_section === 'orders' ? 'active' : '' ?>" id="orders">
       <div class="header">
         <h2>Gestion des Commandes 📋</h2>
         <div class="profile-container">
@@ -1776,10 +1989,35 @@ $locationStats = $pdo->query("
 
       <div class="orders-container">
         <div class="orders-section purchase-orders">
-      <h2>Commandes d'achat</h2>
-          <div class="order-cards">
-    <?php
-    $cmds = $pdo->query("SELECT * FROM commandes")->fetchAll();
+          <h2>Commandes d'achat</h2>
+          <?php
+          // Compter les commandes en attente
+          $pending_purchases = $pdo->query("SELECT COUNT(*) FROM commandes WHERE statut_commande = 'en_attente'")->fetchColumn();
+          $pending_rentals = $pdo->query("SELECT COUNT(*) FROM louer WHERE statut_location = 'en_attente'")->fetchColumn();
+          $total_pending = $pending_purchases + $pending_rentals;
+
+          if ($total_pending > 0): ?>
+            <div class="pending-orders-notification" id="ordersNotification">
+              <span class="notification-icon">🔔</span>
+              <span class="notification-text">
+                <?= $total_pending ?> commande<?= $total_pending > 1 ? 's' : '' ?> en attente
+                <br>
+                <small style="opacity: 0.8;">(<?= $pending_purchases ?> achat<?= $pending_purchases > 1 ? 's' : '' ?>, <?= $pending_rentals ?> location<?= $pending_rentals > 1 ? 's' : '' ?>)</small>
+              </span>
+              <button class="notification-close" onclick="document.getElementById('ordersNotification').style.display='none'">×</button>
+            </div>
+          <?php endif; ?>
+          <div class="order-cards" id="purchaseOrders">
+            <?php
+            $page = isset($_GET['purchase_page']) ? (int)$_GET['purchase_page'] : 1;
+            $per_page = 4;
+            $offset = ($page - 1) * $per_page;
+            
+            $total_cmds = $pdo->query("SELECT COUNT(*) FROM commandes")->fetchColumn();
+            $total_pages = ceil($total_cmds / $per_page);
+            
+            $cmds = $pdo->query("SELECT * FROM commandes ORDER BY date_commande ASC LIMIT $offset, $per_page")->fetchAll();
+            
             if (empty($cmds)): ?>
               <p class="no-orders">Aucune commande d'achat disponible</p>
             <?php else: ?>
@@ -1794,28 +2032,43 @@ $locationStats = $pdo->query("
                     <p><strong>Statut :</strong> <?= $cmd['statut_commande'] ?></p>
                   </div>
                   <div class="order-actions">
-            <form method="post" action="changer_statut.php">
-                <input type="hidden" name="id_commande" value="<?= $cmd['id_commande'] ?>">
-                <select name="nouveau_statut">
+                    <form method="post" action="changer_statut.php">
+                      <input type="hidden" name="id_commande" value="<?= $cmd['id_commande'] ?>">
+                      <select name="nouveau_statut">
                         <option value="en_attente" <?= $cmd['statut_commande'] == 'en_attente' ? 'selected' : '' ?>>En attente</option>
                         <option value="confirmee" <?= $cmd['statut_commande'] == 'confirmee' ? 'selected' : '' ?>>Confirmée</option>
                         <option value="livree" <?= $cmd['statut_commande'] == 'livree' ? 'selected' : '' ?>>Livrée</option>
                         <option value="annulee" <?= $cmd['statut_commande'] == 'annulee' ? 'selected' : '' ?>>Annulée</option>
-                </select>
+                      </select>
                       <button type="submit" class="btn update-button">Mettre à jour</button>
-            </form>
+                    </form>
                   </div>
                 </div>
-    <?php endforeach; ?>
+              <?php endforeach; ?>
             <?php endif; ?>
           </div>
+          <?php if ($total_pages > 1): ?>
+            <div class="pagination">
+              <a href="?purchase_page=<?= $page - 1 ?>&rental_page=<?= isset($_GET['rental_page']) ? $_GET['rental_page'] : 1 ?>&section=orders#orders" class="pagination-btn" <?= $page <= 1 ? 'style="visibility: hidden;"' : '' ?>>←</a>
+              <span class="page-info">Page <?= $page ?> sur <?= $total_pages ?></span>
+              <a href="?purchase_page=<?= $page + 1 ?>&rental_page=<?= isset($_GET['rental_page']) ? $_GET['rental_page'] : 1 ?>&section=orders#orders" class="pagination-btn" <?= $page >= $total_pages ? 'style="visibility: hidden;"' : '' ?>>→</a>
+            </div>
+          <?php endif; ?>
         </div>
 
         <div class="orders-section rental-orders">
-<h2>Locations</h2>
-          <div class="order-cards">
-    <?php
-    $locations = $pdo->query("SELECT * FROM louer")->fetchAll();
+          <h2>Locations</h2>
+          <div class="order-cards" id="rentalOrders">
+            <?php
+            $page = isset($_GET['rental_page']) ? (int)$_GET['rental_page'] : 1;
+            $per_page = 4;
+            $offset = ($page - 1) * $per_page;
+            
+            $total_locations = $pdo->query("SELECT COUNT(*) FROM louer")->fetchColumn();
+            $total_pages = ceil($total_locations / $per_page);
+            
+            $locations = $pdo->query("SELECT * FROM louer ORDER BY date_location ASC LIMIT $offset, $per_page")->fetchAll();
+            
             if (empty($locations)): ?>
               <p class="no-orders">Aucune location disponible</p>
             <?php else: ?>
@@ -1830,32 +2083,49 @@ $locationStats = $pdo->query("
                     <p><strong>Statut :</strong> <?= $loc['statut_location'] ?></p>
                   </div>
                   <div class="order-actions">
-            <form method="post" action="changer_statut_location.php">
-                <input type="hidden" name="id_location" value="<?= $loc['id'] ?>">
-                <select name="nouveau_statut">
+                    <form method="post" action="changer_statut_location.php">
+                      <input type="hidden" name="id_location" value="<?= $loc['id'] ?>">
+                      <select name="nouveau_statut">
                         <option value="en_attente" <?= $loc['statut_location'] == 'en_attente' ? 'selected' : '' ?>>En attente</option>
                         <option value="confirmee" <?= $loc['statut_location'] == 'confirmee' ? 'selected' : '' ?>>Confirmée</option>
                         <option value="livree" <?= $loc['statut_location'] == 'livree' ? 'selected' : '' ?>>Livrée</option>
                         <option value="annulee" <?= $loc['statut_location'] == 'annulee' ? 'selected' : '' ?>>Annulée</option>
-                </select>
+                      </select>
                       <button type="submit" class="btn update-button">Mettre à jour</button>
-            </form>
+                    </form>
                   </div>
                 </div>
-    <?php endforeach; ?>
+              <?php endforeach; ?>
             <?php endif; ?>
           </div>
+          <?php if ($total_pages > 1): ?>
+            <div class="pagination">
+              <a href="?rental_page=<?= $page - 1 ?>&purchase_page=<?= isset($_GET['purchase_page']) ? $_GET['purchase_page'] : 1 ?>&section=orders#orders" class="pagination-btn" <?= $page <= 1 ? 'style="visibility: hidden;"' : '' ?>>←</a>
+              <span class="page-info">Page <?= $page ?> sur <?= $total_pages ?></span>
+              <a href="?rental_page=<?= $page + 1 ?>&purchase_page=<?= isset($_GET['purchase_page']) ? $_GET['purchase_page'] : 1 ?>&section=orders#orders" class="pagination-btn" <?= $page >= $total_pages ? 'style="visibility: hidden;"' : '' ?>>→</a>
+            </div>
+          <?php endif; ?>
         </div>
       </div>
     </div>
 
 
 <!-- Reviews Section -->
-<div class="dashboard-section" id="reviews">
+<div class="dashboard-section <?= $active_section === 'reviews' ? 'active' : '' ?>" id="reviews">
   <div class="header">
     <h2>Gestion des Avis ⭐</h2>
     <div class="profile-container">
-      <input class="search" type="text" placeholder="Rechercher un avis..." id="reviewSearch">
+      <div class="search-filter-container">
+        <input class="search" type="text" placeholder="Rechercher un avis..." id="reviewSearch">
+        <select class="filter-select" id="ratingFilter">
+          <option value="">Toutes les notes</option>
+          <option value="5">⭐⭐⭐⭐⭐ (5 étoiles)</option>
+          <option value="4">⭐⭐⭐⭐ (4 étoiles)</option>
+          <option value="3">⭐⭐⭐ (3 étoiles)</option>
+          <option value="2">⭐⭐ (2 étoiles)</option>
+          <option value="1">⭐ (1 étoile)</option>
+        </select>
+      </div>
       <div class="profile">
         <img src="Sarah.webp" alt="Profile Picture">
       </div>
@@ -1964,7 +2234,7 @@ $locationStats = $pdo->query("
   </div>
 </div>
     <!-- Settings Section -->
-    <div class="dashboard-section" id="settings">
+    <div class="dashboard-section <?= $active_section === 'settings' ? 'active' : '' ?>" id="settings">
       <div class="header">
         <h2>Réglages ⚙️</h2>
         <div class="profile-container">
@@ -2218,14 +2488,23 @@ function refreshReviews() {
 // Recherche dans les avis
 document.getElementById('reviewSearch').addEventListener('input', function(e) {
   const searchValue = e.target.value.toLowerCase();
+  const selectedRating = document.getElementById('ratingFilter').value;
   const rows = document.querySelectorAll('#reviewsTableBody tr');
 
   rows.forEach(row => {
     const productName = row.cells[0].textContent.toLowerCase();
     const email = row.cells[1].textContent.toLowerCase();
     const comment = row.cells[3].textContent.toLowerCase();
-
-    if (productName.includes(searchValue) || email.includes(searchValue) || comment.includes(searchValue)) {
+    const stars = row.cells[2].textContent;
+    const starCount = (stars.match(/★/g) || []).length;
+    
+    const matchesSearch = productName.includes(searchValue) || 
+                         email.includes(searchValue) || 
+                         comment.includes(searchValue);
+    
+    const matchesRating = selectedRating === '' || starCount === parseInt(selectedRating);
+    
+    if (matchesSearch && matchesRating) {
       row.style.display = '';
     } else {
       row.style.display = 'none';
@@ -2739,6 +3018,47 @@ document.addEventListener('DOMContentLoaded', updatePendingReviewsCount);
 document.addEventListener('click', (e) => {
     if (e.target.closest('.approve-btn') || e.target.closest('.reject-btn')) {
         setTimeout(updatePendingReviewsCount, 500);
+    }
+});
+
+// Ajouter le filtre de note
+document.getElementById('ratingFilter').addEventListener('change', function(e) {
+  const selectedRating = e.target.value;
+  const rows = document.querySelectorAll('#reviewsTableBody tr');
+  
+  rows.forEach(row => {
+    const stars = row.cells[2].textContent;
+    const starCount = (stars.match(/★/g) || []).length;
+    
+    if (selectedRating === '' || starCount === parseInt(selectedRating)) {
+      row.style.display = '';
+    } else {
+      row.style.display = 'none';
+    }
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Vérifier si nous sommes dans la section orders
+    const urlParams = new URLSearchParams(window.location.search);
+    const section = urlParams.get('section');
+    
+    if (section === 'orders') {
+        // Désactiver toutes les sections
+        document.querySelectorAll('.dashboard-section').forEach(section => {
+            section.classList.remove('active');
+        });
+        
+        // Désactiver tous les éléments du menu
+        document.querySelectorAll('.menu-item').forEach(item => {
+            item.classList.remove('active');
+        });
+        
+        // Activer la section orders
+        document.getElementById('orders').classList.add('active');
+        
+        // Activer l'élément du menu orders
+        document.querySelector('[data-section="orders"]').classList.add('active');
     }
 });
   </script>

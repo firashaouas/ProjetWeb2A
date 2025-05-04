@@ -8,19 +8,14 @@ if (!isset($_SESSION['allow_recu'])) {
 }
 
 // Récupérer les informations du formulaire depuis la session
-$formData = isset($_SESSION['form_data']) ? $_SESSION['form_data'] : [];
-$panier = isset($_SESSION['panier']) ? $_SESSION['panier'] : [];
+$commande = isset($_SESSION['derniere_commande']) ? $_SESSION['derniere_commande'] : [];
+$formData = $commande['client'] ?? [];
+$panier = $commande['produits'] ?? [];
+$total = $commande['total'] ?? 0;
+$paiement = $commande['paiement'] ?? '';
 
 // Générer un numéro de commande unique
 $numeroCommande = strtoupper(substr(uniqid(), -8));
-
-// Calculer le total
-$total = 0;
-if (!empty($panier)) {
-    foreach ($panier as $item) {
-        $total += floatval($item['prix']) * intval($item['quantite']);
-    }
-}
 
 // Vérifier si la promo a été appliquée
 $promo_appliquee = isset($_SESSION['promo_appliquee']) && $_SESSION['promo_appliquee'] === true;
@@ -36,6 +31,7 @@ if ($promo_appliquee) {
     <title>Reçu de commande - Click'N'Go</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -174,25 +170,22 @@ if ($promo_appliquee) {
             padding: 0 10px;
         }
         .btn-download {
-            background: linear-gradient(90deg, #ff8fa3, #c084fc);
+            background: linear-gradient(90deg, #FF6F91, #D86AD8);
             color: white;
-            padding: 15px 30px;
             border: none;
-            border-radius: 50px;
-            cursor: pointer;
+            padding: 12px 25px;
+            border-radius: 25px;
             font-size: 16px;
-            font-weight: 600;
-            display: inline-block;
-            text-decoration: none;
-            margin: 20px 10px;
+            cursor: pointer;
             transition: all 0.3s ease;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(192, 132, 252, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(216, 106, 216, 0.3);
         }
         .btn-download:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(192, 132, 252, 0.4);
-            background: linear-gradient(90deg, #c084fc, #ff8fa3);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(216, 106, 216, 0.4);
         }
         .btn-download:active {
             transform: translateY(-1px);
@@ -220,8 +213,6 @@ if ($promo_appliquee) {
             justify-content: center;
             gap: 20px;
             margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
         }
         @media print {
             .recu-container {
@@ -337,8 +328,18 @@ if ($promo_appliquee) {
         </div>
         
         <div class="buttons-container">
-            <button class="btn-download" onclick="genererPDF()">Télécharger en PDF</button>
-            <a href="produit.php" class="btn-download">Retour à la boutique</a>
+            <button class="btn-download" onclick="genererPDF()">
+                <i class="fas fa-file-pdf"></i>
+                Exporter en PDF
+            </button>
+            <button class="btn-download" onclick="genererExcel()">
+                <i class="fas fa-file-excel"></i>
+                Exporter en Excel
+            </button>
+            <a href="produit.php" class="btn-download">
+                <i class="fas fa-store"></i>
+                Retour à la boutique
+            </a>
         </div>
     </div>
 
@@ -403,6 +404,90 @@ if ($promo_appliquee) {
 
             // Sauvegarder le PDF
             pdf.save('recu-commande.pdf');
+        }
+
+        function genererExcel() {
+            // Créer un objet de données pour Excel
+            const data = [
+                ['Reçu de commande - Click\'N\'Go'],
+                [''],
+                ['Numéro de commande:', document.querySelector('.recu-header p').textContent],
+                ['Date:', document.querySelector('.recu-row:nth-child(1) span:last-child').textContent],
+                [''],
+                ['Informations client:'],
+                ['Nom:', document.querySelector('.recu-row:nth-child(2) span:last-child').textContent],
+                ['Prénom:', document.querySelector('.recu-row:nth-child(3) span:last-child').textContent],
+                ['Téléphone:', document.querySelector('.recu-row:nth-child(4) span:last-child').textContent],
+                [''],
+                ['Détails de la commande:'],
+                ['Produit', 'Quantité', 'Prix unitaire', 'Sous-total']
+            ];
+
+            // Ajouter les produits
+            const produits = document.querySelectorAll('.produit-item');
+            produits.forEach(produit => {
+                const nom = produit.querySelector('.recu-row:first-child span:first-child').textContent;
+                const quantite = produit.querySelector('.recu-row:first-child span:last-child').textContent.split(':')[1].trim();
+                const prixUnitaire = produit.querySelector('.recu-row:nth-child(2) span:last-child').textContent;
+                const sousTotal = produit.querySelector('.recu-row:nth-child(3) span:last-child').textContent;
+                
+                data.push([
+                    nom,
+                    quantite,
+                    prixUnitaire,
+                    sousTotal
+                ]);
+            });
+
+            // Ajouter le total
+            data.push(['']);
+            const totalRow = document.querySelector('.total .recu-row');
+            if (totalRow) {
+                const totalText = totalRow.querySelector('span:last-child').textContent;
+                data.push(['Total:', '', '', totalText]);
+            }
+
+            // Créer un workbook
+            const wb = XLSX.utils.book_new();
+            const ws = XLSX.utils.aoa_to_sheet(data);
+
+            // Ajuster la largeur des colonnes
+            ws['!cols'] = [
+                {wch: 40}, // Produit
+                {wch: 15}, // Quantité
+                {wch: 20}, // Prix unitaire
+                {wch: 20}  // Sous-total
+            ];
+
+            // Ajouter des styles
+            const range = XLSX.utils.decode_range(ws['!ref']);
+            for (let R = 0; R <= range.e.r; ++R) {
+                const cell_address = {c: 0, r: R};
+                const cell_ref = XLSX.utils.encode_cell(cell_address);
+                if (!ws[cell_ref]) continue;
+                
+                // Style pour le titre
+                if (R === 0) {
+                    ws[cell_ref].s = {
+                        font: { bold: true, sz: 16 },
+                        alignment: { horizontal: 'center' }
+                    };
+                }
+                
+                // Style pour les en-têtes
+                if (R === 11) {
+                    ws[cell_ref].s = {
+                        font: { bold: true },
+                        fill: { fgColor: { rgb: "E6E6E6" } }
+                    };
+                }
+            }
+
+            // Ajouter la feuille au workbook
+            XLSX.utils.book_append_sheet(wb, ws, "Reçu");
+
+            // Générer et télécharger le fichier Excel
+            XLSX.writeFile(wb, "recu-commande.xlsx");
         }
     </script>
 </body>

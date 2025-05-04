@@ -8,7 +8,6 @@ $avisController = new AvisController();
 $allProducts = $controller->getAllProducts(); // Charger tous les produits
 $bestSellers = $controller->getBestSellers(); // Charger les best-sellers
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -366,6 +365,25 @@ $bestSellers = $controller->getBestSellers(); // Charger les best-sellers
         .sidebar-link i {
             color: #FF69B4;
         }
+
+        .favorite-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            color: #ccc;
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+        .favorite-btn:hover {
+            transform: scale(1.1);
+        }
+        .favorite-btn.active {
+            color: #ff4d4d;
+        }
     </style>
 </head>
 <body>
@@ -384,6 +402,7 @@ $bestSellers = $controller->getBestSellers(); // Charger les best-sellers
                         <li><a href="#best-sellers" onclick="scrollToSection(event, 'best-sellers-section')" style="color: #fff; font-weight: 500; padding: 10px 28px; display: block; border-radius: 12px; transition: background 0.2s;">Nos Best Sellers</a></li>
                         <li><a href="#quiz" onclick="scrollToSection(event, 'quiz-section')" style="color: #fff; font-weight: 500; padding: 10px 28px; display: block; border-radius: 12px; transition: background 0.2s;">Quiz</a></li>
                         <li><a href="#avis" onclick="scrollToSection(event, 'reviews-section')" style="color: #fff; font-weight: 500; padding: 10px 28px; display: block; border-radius: 12px; transition: background 0.2s;">Avis</a></li>
+                        <li><a href="favoris.php" style="color: #fff; font-weight: 500; padding: 10px 28px; display: block; border-radius: 12px; transition: background 0.2s;">Mes Favoris</a></li>
                     </ul>
                 </li>
                 <li><a href="transports.html">Transports</a></li>
@@ -591,6 +610,12 @@ $bestSellers = $controller->getBestSellers(); // Charger les best-sellers
                 }
                 ?>
             </div>
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="favoris.php" style="background: linear-gradient(90deg, #FF6F91, #D86AD8); color: white; padding: 12px 25px; border-radius: 25px; font-size: 16px; text-decoration: none; display: inline-block; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(216, 106, 216, 0.3);">
+                    <i class="fas fa-heart" style="margin-right: 8px;"></i>
+                    Voir les favoris
+                </a>
+            </div>
         </div>
 
         <!-- Section Conseils & Guides -->
@@ -726,6 +751,9 @@ $bestSellers = $controller->getBestSellers(); // Charger les best-sellers
                             : 'images/products/logo.png';
                         html += `
                             <div class="product-item">
+                                <button class="favorite-btn" onclick="toggleFavorite('${product.id}')">
+                                    <i class="fas fa-heart"></i>
+                                </button>
                                 <div class="image-container">
                                     <img src="${imagePath}" alt="${product.name}" onerror="this.src='images/products/logo.png'">
                                 </div>
@@ -969,6 +997,40 @@ $bestSellers = $controller->getBestSellers(); // Charger les best-sellers
                 }
             });
         }
+
+        // Gestion des favoris
+        function toggleFavorite(productId) {
+            let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+            const index = favorites.indexOf(productId);
+            
+            if (index === -1) {
+                favorites.push(productId);
+            } else {
+                favorites.splice(index, 1);
+            }
+            
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+            updateFavoriteButton(productId);
+        }
+
+        function updateFavoriteButton(productId) {
+            const button = document.querySelector(`.favorite-btn[onclick="toggleFavorite('${productId}')"]`);
+            const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+            
+            if (favorites.includes(productId)) {
+                button.classList.add('active');
+            } else {
+                button.classList.remove('active');
+            }
+        }
+
+        // Mettre à jour l'état des boutons favoris au chargement de la page
+        window.addEventListener('load', function() {
+            const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+            favorites.forEach(productId => {
+                updateFavoriteButton(productId);
+            });
+        });
     </script>
 </body>
 </html>

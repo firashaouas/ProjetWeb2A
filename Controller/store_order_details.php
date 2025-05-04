@@ -11,7 +11,16 @@ try {
         throw new Exception('Invalid order details');
     }
 
-    $_SESSION['order_details'] = $orderDetails;
+    $_SESSION['order_details'] = [
+        'nom' => $orderDetails['nom'] ?? '',
+        'prenom' => $orderDetails['prenom'] ?? '',
+        'email' => $orderDetails['email'] ?? '',
+        'telephone' => $orderDetails['telephone'] ?? '',
+        'quantite' => $orderDetails['quantite'] ?? 1,
+        'prix_total' => $orderDetails['prix_total'] ?? 0,
+        'paiement' => $orderDetails['paiement'] ?? '',
+        'panier' => $orderDetails['panier'] ?? []
+    ];
 
     echo json_encode(['success' => true]);
 } catch (Exception $e) {
