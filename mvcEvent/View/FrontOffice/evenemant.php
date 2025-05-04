@@ -294,7 +294,6 @@ function displayReservations(reservations) {
             <div class="reservation-details">
                 <h4><i class="fas "></i> ${escapeHtml(reservation.name)}</h4>
                 <p><i class="fas fa-calendar-alt"></i> ${formatDate(reservation.date)}</p>
-                <p><i class="fas fa-map-marker-alt"></i> ${escapeHtml(reservation.location)}</p>
                 <p><i class="fas fa-chair"></i> ${getSeatsCount(reservation.seats)} place(s)</p>
             </div>
             <div class="reservation-actions">

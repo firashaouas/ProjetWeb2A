@@ -580,3 +580,13 @@ table input:invalid {
 .btn-info:hover {
     background-color: #138496;
 }
+#map {
+    height: 300px;
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+.mapboxgl-ctrl-geocoder {
+    width: 100%;
+    max-width: none;
+}

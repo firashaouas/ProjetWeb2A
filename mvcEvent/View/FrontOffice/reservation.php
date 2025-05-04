@@ -1,10 +1,26 @@
 <?php
 session_start();
 
+// Génération du token CSRF
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
+// Messages de retour
+if (isset($_SESSION['reservation_success'])) {
+    $successMessage = $_SESSION['reservation_success'];
+    unset($_SESSION['reservation_success']);
+} elseif (isset($_SESSION['reservation_error'])) {
+    $errorMessages[] = $_SESSION['reservation_error'];
+    unset($_SESSION['reservation_error']);
+}
+
 require_once '../../Controller/EventController.php';
 require_once '../../Controller/ChaiseController.php';
+require_once __DIR__ . '/../../../vendor/autoload.php';
 
-$eventId = $_GET['event_id'] ?? null;
+// Validation de l'événement
+$eventId = filter_input(INPUT_GET, 'event_id', FILTER_VALIDATE_INT);
 if (!$eventId) {
     header("Location: evenemant.php");
     exit;
@@ -19,75 +35,112 @@ if (!$event) {
     exit;
 }
 
-$event['totalSeats'] = $event['totalSeats'] ?? 0;
-$event['reservedSeats'] = $event['reservedSeats'] ?? 0;
-$event['imageUrl'] = $event['imageUrl'] ?? 'images/default-event.jpg';
+// Configuration Stripe
+\Stripe\Stripe::setApiKey('sk_test_51RKl7PRuD152msSdq4WLSb7t9HhOXxMBv4mCBzHQp18sp3Ilyk2XhVfkaQwLTV7TjSAc6Zo3dUZEZ1DYTmWkz0vF00kvIzlzpM');
+
+// Initialisation des données
+$event = array_merge([
+    'totalSeats' => 0,
+    'reservedSeats' => 0,
+    'imageUrl' => 'images/default-event.jpg',
+    'price' => 0,
+    'longitude' => 10.1815,
+    'latitude' => 36.8065,
+    'place_name' => 'Tunis, Tunisia'
+], $event);
 
 $chaises = $chaiseController->getChaisesByEvent($eventId);
+$errorMessages = [];
 $successMessage = '';
-
-// Nouveau code pour le paiement
-$paymentStep = $_POST['payment_step'] ?? 1;
+$paymentStep = filter_input(INPUT_POST, 'payment_step', FILTER_VALIDATE_INT) ?? 1;
 $selectedSeats = [];
 $totalPrice = 0;
 
+// Traitement du formulaire
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if ($paymentStep == 1) {
-        // Étape 1: Sélection des sièges
-        $selectedSeatsJson = $_POST['seats'] ?? '';
+    // Vérification CSRF
+    if (!isset($_POST['csrf_token'])) {
+        die("Token CSRF manquant");
+    }
+    
+    if (!hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
+        $errorMessages[] = "Erreur de sécurité. Veuillez actualiser la page et réessayer.";
+        $paymentStep = 1;
+    }
+    elseif ($paymentStep == 1) {
+        // Traitement sélection sièges
+        $selectedSeatsJson = filter_input(INPUT_POST, 'seats');
         $selectedSeats = json_decode($selectedSeatsJson, true) ?? [];
         
         if (!empty($selectedSeats)) {
-            $_SESSION['selected_seats'] = $selectedSeats;
-            $paymentStep = 2;
-            $totalPrice = count($selectedSeats) * $event['price'];
-        } else {
-            $errorMessages[] = "Erreur : Aucune chaise sélectionnée.";
-        }
-    } elseif ($paymentStep == 2 && isset($_SESSION['selected_seats'])) {
-        // Étape 2: Paiement
-        $selectedSeats = $_SESSION['selected_seats'];
-        $cardNumber = $_POST['card_number'] ?? '';
-        $cardExpiry = $_POST['card_expiry'] ?? '';
-        $cardCvv = $_POST['card_cvv'] ?? '';
-        
-        // Validation du formulaire de paiement
-        $errorMessages = [];
-        
-        if (!preg_match('/^\d{16}$/', $cardNumber)) {
-            $errorMessages[] = "Numéro de carte invalide (16 chiffres requis)";
-        }
-        
-        if (!preg_match('/^(0[1-9]|1[0-2])\/?([0-9]{2})$/', $cardExpiry)) {
-            $errorMessages[] = "Date d'expiration invalide (MM/AA requis)";
-        }
-        
-        if (!preg_match('/^\d{3,4}$/', $cardCvv)) {
-            $errorMessages[] = "CVV invalide (3 ou 4 chiffres requis)";
-        }
-        
-        if (empty($errorMessages)) {
-            // Traitement de la réservation
-            $successCount = 0;
+            $validSeats = true;
             foreach ($selectedSeats as $seatId) {
-                try {
-                    $chaiseController->reserverChaise($seatId, null);
-                    $successCount++;
-                } catch (Exception $e) {
-                    $errorMessages[] = "Erreur lors de la réservation de la chaise $seatId : " . $e->getMessage();
+                if (!in_array($seatId, array_column($chaises, 'id'))) {
+                    $validSeats = false;
+                    break;
                 }
             }
             
-            if (empty($errorMessages)) {
-                $successMessage = "Paiement confirmé et réservation effectuée pour $successCount chaise(s) !";
-                $chaises = $chaiseController->getChaisesByEvent($eventId);
-                $event = $eventController->getEventById($eventId);
-                $paymentStep = 3; // Étape de confirmation finale
-                unset($_SESSION['selected_seats']);
+            if ($validSeats) {
+                $_SESSION['selected_seats'] = $selectedSeats;
+                $paymentStep = 2;
+                $totalPrice = count($selectedSeats) * $event['price'];
+            } else {
+                $errorMessages[] = "Erreur : Sièges invalides sélectionnés.";
             }
+        } else {
+            $errorMessages[] = "Erreur : Aucune chaise sélectionnée.";
+        }
+    }
+    elseif ($paymentStep == 2 && isset($_SESSION['selected_seats'])) {
+        // Paiement Stripe
+        $_SESSION['stripe_csrf_token'] = $_SESSION['csrf_token'];
+        $selectedSeats = $_SESSION['selected_seats'];
+        $totalPrice = count($selectedSeats) * $event['price'] * 100;
+        
+        try {
+            $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
+            $host = $_SERVER['HTTP_HOST'];
+            
+            $checkout_session = \Stripe\Checkout\Session::create([
+                'payment_method_types' => ['card'],
+                'line_items' => [[
+                    'price_data' => [
+                        'currency' => 'eur',
+                        'product_data' => [
+                            'name' => 'Réservation pour ' . htmlspecialchars($event['name']),
+                            'images' => [htmlspecialchars($event['imageUrl'])],
+                        ],
+                        'unit_amount' => $event['price'] * 100,
+                    ],
+                    'quantity' => count($selectedSeats),
+                ]],
+                'mode' => 'payment',
+                'success_url' => $protocol . '://' . $host . '/projetWeb/mvcEvent/View/FrontOffice/reservation-success.php?session_id={CHECKOUT_SESSION_ID}&event_id=' . $eventId,
+                'cancel_url' => $protocol . '://' . $host . '/projetWeb/mvcEvent/View/FrontOffice/reservation.php?event_id=' . $eventId,
+                'metadata' => [
+                    'event_id' => $eventId,
+                    'seat_ids' => json_encode($selectedSeats),
+                    'user_id' => $_SESSION['user_id'] ?? null
+                ],
+                'customer_email' => $_SESSION['user_email'] ?? null,
+            ]);
+            
+            header("HTTP/1.1 303 See Other");
+            header("Location: " . $checkout_session->url);
+            exit;
+        } catch (\Stripe\Exception\ApiErrorException $e) {
+            error_log("Stripe Error: " . $e->getMessage());
+            $errorMessages[] = "Erreur lors du traitement du paiement. Veuillez réessayer.";
+        } catch (Exception $e) {
+            error_log("General Error: " . $e->getMessage());
+            $errorMessages[] = "Une erreur inattendue est survenue. Veuillez contacter le support.";
         }
     }
 }
+
+// Nouveau token CSRF pour la prochaine requête
+$_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 ?>
 
 <!DOCTYPE html>
@@ -99,6 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="reservation.css">
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css' rel='stylesheet' />
     <style>
         .success-message, .error-message {
             padding: 15px;
@@ -193,6 +247,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             padding-top: 0.5rem;
             margin-top: 0.5rem;
         }
+        /* Style pour le bouton de retour */
+.back-to-events {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.btn-back {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #6c5ce7;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.btn-back:hover {
+    background-color: #5649c0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-back i {
+    margin-right: 8px;
+}
+/* Mapbox styles */
+#map {
+    height: 300px;
+    width: 100%;
+    border-radius: 8px;
+    margin-top: 10px;
+}
     </style>
 </head>
 <body>
@@ -201,6 +288,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <h1 class="magic-text">
                 <i class="fas fa-ticket-alt"></i> Réservez pour <?= htmlspecialchars($event['name'] ?? 'Événement') ?>
             </h1>
+            <!-- Nouveau bouton de retour -->
+<div class="back-to-events">
+    <a href="evenemant.php" class="btn-back">
+        <i class="fas fa-arrow-left"></i> Retour aux événements
+    </a>
+</div>
             
             <?php if ($successMessage): ?>
                 <div class="success-message">
@@ -225,15 +318,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="event-info">
                     <h2><?= htmlspecialchars($event['name'] ?? 'Événement') ?></h2>
                     <p><i class="fas fa-calendar-alt"></i> <strong>Date :</strong> <?= !empty($event['date']) ? date('d/m/Y', strtotime($event['date'])) : 'Non spécifiée' ?></p>
-                    <p><i class="fas fa-map-marker-alt"></i> <strong>Lieu :</strong> <?= htmlspecialchars($event['location'] ?? 'Non spécifié') ?></p>
+                    <p><i class="fas fa-map-marker-alt"></i> <strong>Lieu :</strong> <?= htmlspecialchars($event['place_name'] ?? 'Non spécifié') ?></p>
                     <p><i class="fas fa-money-bill-wave"></i> <strong>Prix :</strong> <?= htmlspecialchars($event['price'] ?? '0') ?> DT</p>
                     <p><i class="fas fa-chair"></i> <strong>Places disponibles :</strong> <?= ($event['totalSeats'] - $event['reservedSeats']) ?></p>
+                    <div id="map"></div>
                 </div>
             </div>
 
             <?php if ($paymentStep == 1): ?>
                 <form method="POST" action="reservation.php?event_id=<?= $eventId ?>">
-                    <input type="hidden" name="payment_step" value="1">
+                <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
                     <div class="seat-selection">
                         <h2><i class="fas fa-chair"></i> Sélectionnez vos sièges</h2>
                         <div class="seat-grid-container">
@@ -277,58 +371,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </button>
                     </div>
                 </form>
-            <?php elseif ($paymentStep == 2): ?>
-                <form method="POST" action="reservation.php?event_id=<?= $eventId ?>" id="payment-form">
-                    <input type="hidden" name="payment_step" value="2">
-                    <div class="payment-form">
-                        <h2><i class="fas fa-credit-card"></i> Informations de paiement</h2>
-                        
-                        <div class="payment-summary">
-                            <h3>Récapitulatif de votre réservation</h3>
-                            <div class="summary-item">
-                                <span>Nombre de sièges:</span>
-                                <span><?= count($selectedSeats) ?></span>
-                            </div>
-                            <div class="summary-item">
-                                <span>Prix unitaire:</span>
-                                <span><?= $event['price'] ?> DT</span>
-                            </div>
-                            <div class="summary-item summary-total">
-                                <span>Total à payer:</span>
-                                <span><?= count($selectedSeats) * $event['price'] ?> DT</span>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="card_number">Numéro de carte</label>
-                            <input type="text" id="card_number" name="card_number" placeholder="1234 5678 9012 3456" maxlength="16">
-                            <div class="error-field" id="card_number_error">Veuillez entrer un numéro de carte valide (16 chiffres)</div>
-                        </div>
-                        
-                        <div class="form-row" style="display: flex; gap: 1rem;">
-                            <div class="form-group" style="flex: 1;">
-                                <label for="card_expiry">Date d'expiration (MM/AA)</label>
-                                <input type="text" id="card_expiry" name="card_expiry" placeholder="MM/AA" maxlength="5">
-                                <div class="error-field" id="card_expiry_error">Format invalide (MM/AA requis)</div>
-                            </div>
-                            <div class="form-group" style="flex: 1;">
-                                <label for="card_cvv">CVV</label>
-                                <input type="text" id="card_cvv" name="card_cvv" placeholder="123" maxlength="4">
-                                <div class="error-field" id="card_cvv_error">CVV invalide (3 ou 4 chiffres)</div>
-                            </div>
-                        </div>
-                        
-                        <div class="form-actions" style="display: flex; gap: 1rem; margin-top: 1.5rem;">
-    <a href="reservation.php?event_id=<?= $eventId ?>" class="cancel-btn" style="flex: 1;">
-        <i class="fas fa-arrow-left"></i> Retour à la sélection
-    </a>
-    <button type="submit" class="confirm-btn" style="flex: 1;">
-        <i class="fas fa-lock"></i> Payer et confirmer
-    </button>
-</div>
-                    </div>
-                </form>
-            <?php endif; ?>
+                <?php elseif ($paymentStep == 2): ?>
+    <div class="payment-form">
+        <h2><i class="fas fa-credit-card"></i> Paiement sécurisé avec Stripe</h2>
+        
+        <div class="payment-summary">
+            <h3>Récapitulatif de votre réservation</h3>
+            <div class="summary-item">
+                <span>Nombre de sièges:</span>
+                <span><?= count($selectedSeats) ?></span>
+            </div>
+            <div class="summary-item">
+                <span>Prix unitaire:</span>
+                <span><?= $event['price'] ?> DT</span>
+            </div>
+            <div class="summary-item summary-total">
+                <span>Total à payer:</span>
+                <span><?= count($selectedSeats) * $event['price'] ?> DT</span>
+            </div>
+        </div>
+        
+        <p style="text-align: center; margin: 20px 0;">
+            <i class="fas fa-lock" style="color: #6772e5;"></i> Paiement 100% sécurisé avec Stripe
+        </p>
+        
+        <form method="POST" action="reservation.php?event_id=<?= $eventId ?>">
+            <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
+            <input type="hidden" name="payment_step" value="2">
+            
+            <div class="form-actions" style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                <a href="reservation.php?event_id=<?= $eventId ?>" class="cancel-btn" style="flex: 1;">
+                    <i class="fas fa-arrow-left"></i> Retour à la sélection
+                </a>
+                <button type="submit" class="confirm-btn" style="flex: 1; background-color: #6772e5;">
+                    <i class="fab fa-stripe"></i> Payer avec Stripe
+                </button>
+            </div>
+        </form>
+    </div>
+<?php endif; ?>
         </div>
     </section>
 
@@ -336,8 +417,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="loading-spinner"></div>
     </div>
 
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'></script>
     <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Mapbox
+    mapboxgl.accessToken = 'pk.eyJ1IjoiaGFvYXVzMDEiLCJhIjoiY21hOHhqcGttMWJ5NjJtczg3eGJxazM0MiJ9.lm0YeqM7TkpDT4r6_Pf6aw';
+    const map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [<?php echo $event['longitude']; ?>, <?php echo $event['latitude']; ?>],
+        zoom: 12
+    });
+
+    new mapboxgl.Marker()
+        .setLngLat([<?php echo $event['longitude']; ?>, <?php echo $event['latitude']; ?>])
+        .setPopup(new mapboxgl.Popup().setText('<?php echo htmlspecialchars($event['place_name']); ?>'))
+        .addTo(map);
+
     // Gestion de la sélection des sièges
     if (document.getElementById('seat-grid')) {
         const seats = document.querySelectorAll('.seat.available');

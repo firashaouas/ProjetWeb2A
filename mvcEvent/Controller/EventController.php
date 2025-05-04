@@ -42,14 +42,10 @@ class EventController {
         }
     }
     public function getEvents() {
-        $sql = "SELECT
-                id, category, name, description, price, duration, date, location,
-                image_url AS imageUrl,
-                total_seats AS totalSeats,
-                reserved_seats AS reservedSeats,
-                UNIX_TIMESTAMP(created_at) AS created_at,
-                UNIX_TIMESTAMP(updated_at) AS updated_at
-            FROM evenements";
+        $sql = "SELECT id, category, name, description, price, duration, date, longitude, latitude, place_name,
+       image_url AS imageUrl, total_seats AS totalSeats, reserved_seats AS reservedSeats,
+       UNIX_TIMESTAMP(created_at) AS created_at, UNIX_TIMESTAMP(updated_at) AS updated_at
+FROM evenements";
     
         try {
             $query = $this->db->prepare($sql);
@@ -61,18 +57,44 @@ class EventController {
     }
 
     public function addEvent($event) {
+        error_log('addEvent called with data: ' . json_encode([
+            'category' => $event->getCategory(),
+            'name' => $event->getName(),
+            'description' => $event->getDescription(),
+            'price' => $event->getPrice(),
+            'duration' => $event->getDuration(),
+            'date' => $event->getDate(),
+            'longitude' => $event->getLongitude(),
+            'latitude' => $event->getLatitude(),
+            'place_name' => $event->getPlaceName(),
+            'image_url' => $event->getImageUrl(),
+            'total_seats' => $event->getTotalSeats(),
+            'reserved_seats' => $event->getReservedSeats()
+        ]));
+    
+        $longitude = $event->getLongitude();
+        $latitude = $event->getLatitude();
+        $placeName = $event->getPlaceName();
+    
+        if (empty($longitude) || empty($latitude) || !is_numeric($longitude) || !is_numeric($latitude)) {
+            error_log('Validation failed: Invalid GPS coordinates');
+            throw new Exception('Les coordonnées GPS doivent être des nombres valides.');
+        }
+    
+        if (empty($placeName) || strlen($placeName) < 3) {
+            error_log('Validation failed: Invalid place name');
+            throw new Exception('Le nom du lieu est requis et doit contenir au moins 3 caractères.');
+        }
+    
         try {
             $this->db->beginTransaction();
-            
-            // Insert event
             $sql = "INSERT INTO evenements (
-                    category, name, description, price, duration, date, location,
-                    image_url, total_seats, reserved_seats, created_at, updated_at
-                ) VALUES (
-                    :category, :name, :description, :price, :duration, :date, :location,
-                    :imageUrl, :totalSeats, :reservedSeats, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
-                )";
-            
+                category, name, description, price, duration, date, longitude, latitude, place_name,
+                image_url, total_seats, reserved_seats, created_at, updated_at
+            ) VALUES (
+                :category, :name, :description, :price, :duration, :date, :longitude, :latitude, :place_name,
+                :imageUrl, :totalSeats, :reservedSeats, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
+            )";
             $query = $this->db->prepare($sql);
             $query->bindValue(':category', $event->getCategory());
             $query->bindValue(':name', $event->getName());
@@ -80,49 +102,74 @@ class EventController {
             $query->bindValue(':price', $event->getPrice());
             $query->bindValue(':duration', $event->getDuration());
             $query->bindValue(':date', $event->getDate());
-            $query->bindValue(':location', $event->getLocation());
+            $query->bindValue(':longitude', $longitude);
+            $query->bindValue(':latitude', $latitude);
+            $query->bindValue(':place_name', $placeName);
             $query->bindValue(':imageUrl', $event->getImageUrl());
             $query->bindValue(':totalSeats', $event->getTotalSeats());
             $query->bindValue(':reservedSeats', $event->getReservedSeats() ?? 0);
             $query->execute();
-            
+    
             $eventId = $this->db->lastInsertId();
-            
-            // Add chairs using same connection
             $chaiseController = new ChaiseController($this->db);
             $chaiseController->addMultipleChaises($eventId, $event->getTotalSeats());
-            
+    
             $this->db->commit();
+            error_log('Event added successfully with ID: ' . $eventId);
             return $eventId;
         } catch (Exception $e) {
             if ($this->db->inTransaction()) {
                 $this->db->rollBack();
             }
-            throw new Exception('Erreur addEvent: ' . $e->getMessage());
+            error_log('Error in addEvent: ' . $e->getMessage());
+            throw new Exception('Erreur lors de l\'ajout de l\'événement : ' . $e->getMessage());
         }
     }
 
     public function updateEvent($event, $id) {
+        error_log('updateEvent called with data: ' . json_encode([
+            'id' => $id,
+            'category' => $event->getCategory(),
+            'name' => $event->getName(),
+            'description' => $event->getDescription(),
+            'price' => $event->getPrice(),
+            'duration' => $event->getDuration(),
+            'date' => $event->getDate(),
+            'longitude' => $event->getLongitude(),
+            'latitude' => $event->getLatitude(),
+            'place_name' => $event->getPlaceName(),
+            'image_url' => $event->getImageUrl(),
+            'total_seats' => $event->getTotalSeats()
+        ]));
+    
+        $longitude = $event->getLongitude();
+        $latitude = $event->getLatitude();
+        $placeName = $event->getPlaceName();
+    
+        if (empty($longitude) || empty($latitude) || !is_numeric($longitude) || !is_numeric($latitude)) {
+            error_log('Validation failed: Invalid GPS coordinates');
+            throw new Exception('Les coordonnées GPS doivent être des nombres valides.');
+        }
+    
+        if (empty($placeName) || strlen($placeName) < 3) {
+            error_log('Validation failed: Invalid place name');
+            throw new Exception('Le nom du lieu est requis et doit contenir au moins 3 caractères.');
+        }
+    
         $oldEvent = $this->getEventById($id);
         $oldTotalSeats = $oldEvent['totalSeats'];
         $newTotalSeats = $event->getTotalSeats();
-
+    
         try {
             $this->db->beginTransaction();
-
+    
             $sql = "UPDATE evenements SET
-                    category = :category,
-                    name = :name,
-                    description = :description,
-                    price = :price,
-                    duration = :duration,
-                    date = :date,
-                    location = :location,
-                    image_url = :imageUrl,
-                    total_seats = :totalSeats,
+                    category = :category, name = :name, description = :description, price = :price,
+                    duration = :duration, date = :date, longitude = :longitude, latitude = :latitude,
+                    place_name = :place_name, image_url = :imageUrl, total_seats = :totalSeats,
                     updated_at = CURRENT_TIMESTAMP
-                WHERE id = :id";
-
+                    WHERE id = :id";
+    
             $query = $this->db->prepare($sql);
             $query->bindValue(':id', $id);
             $query->bindValue(':category', $event->getCategory());
@@ -131,24 +178,30 @@ class EventController {
             $query->bindValue(':price', $event->getPrice());
             $query->bindValue(':duration', $event->getDuration());
             $query->bindValue(':date', $event->getDate());
-            $query->bindValue(':location', $event->getLocation());
+            $query->bindValue(':longitude', $longitude);
+            $query->bindValue(':latitude', $latitude);
+            $query->bindValue(':place_name', $placeName);
             $query->bindValue(':imageUrl', $event->getImageUrl());
             $query->bindValue(':totalSeats', $newTotalSeats);
             $query->execute();
-
-            $chaiseController = new ChaiseController();
+    
+            $chaiseController = new ChaiseController($this->db);
             
             if ($newTotalSeats < $oldTotalSeats) {
                 $chaiseController->removeLastAvailableChaises($id, $oldTotalSeats - $newTotalSeats);
             } elseif ($newTotalSeats > $oldTotalSeats) {
                 $chaiseController->addMultipleChaises($id, $newTotalSeats - $oldTotalSeats, $oldTotalSeats + 1);
             }
-
+    
             $this->db->commit();
+            error_log('Event updated successfully with ID: ' . $id);
             return true;
         } catch (Exception $e) {
-            $this->db->rollBack();
-            throw new Exception('Erreur updateEvent: ' . $e->getMessage());
+            if ($this->db->inTransaction()) {
+                $this->db->rollBack();
+            }
+            error_log('Error in updateEvent: ' . $e->getMessage());
+            throw new Exception('Erreur lors de la mise à jour de l\'événement : ' . $e->getMessage());
         }
     }
 
@@ -199,20 +252,9 @@ class EventController {
         }
     }
     public function getEventById($id) {
-        $sql = "SELECT 
-                    id, 
-                    category, 
-                    name, 
-                    description, 
-                    price, 
-                    duration, 
-                    date, 
-                    location,
-                    image_url AS imageUrl,
-                    total_seats AS totalSeats,
-                    reserved_seats AS reservedSeats
-                FROM evenements 
-                WHERE id = :id";
+        $sql = "SELECT id, category, name, description, price, duration, date, longitude, latitude, place_name,
+       image_url AS imageUrl, total_seats AS totalSeats, reserved_seats AS reservedSeats
+FROM evenements WHERE id = :id";
         
         try {
             $query = $this->db->prepare($sql);
@@ -224,21 +266,14 @@ class EventController {
         }
     }
     public function getAllReservations() {
-        $sql = "SELECT 
-                    e.id, 
-                    e.name, 
-                    e.date, 
-                    e.location, 
-                    e.price, 
-                    e.image_url AS image,
-                    GROUP_CONCAT(c.numero ORDER BY CAST(c.numero AS UNSIGNED)) AS seats,
-                    e.date > DATE_ADD(NOW(), INTERVAL 1 DAY) AS can_modify,
-                    e.date > DATE_ADD(NOW(), INTERVAL 1 DAY) AS can_cancel
-                FROM chaise c
-                JOIN evenements e ON c.event_id = e.id
-                WHERE c.statut = 'reserve'
-                GROUP BY e.id, e.name, e.date, e.location, e.price, e.image_url
-                ORDER BY e.date ASC";
+        $sql = "SELECT e.id, e.name, e.date, e.place_name, e.price, e.image_url AS image,
+       GROUP_CONCAT(c.numero ORDER BY CAST(c.numero AS UNSIGNED)) AS seats,
+       e.date > DATE_ADD(NOW(), INTERVAL 1 DAY) AS can_modify,
+       e.date > DATE_ADD(NOW(), INTERVAL 1 DAY) AS can_cancel
+FROM chaise c JOIN evenements e ON c.event_id = e.id
+WHERE c.statut = 'reserve'
+GROUP BY e.id, e.name, e.date, e.place_name, e.price, e.image_url
+ORDER BY e.date ASC";
         
         try {
             $query = $this->db->prepare($sql);

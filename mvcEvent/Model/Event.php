@@ -7,33 +7,27 @@ class Event {
     private  $price;
     private  $duration;
     private  $date;
-    private  $location;
-    private  $imageUrl;
+    private $longitude;
+    private $latitude;
+    private $place_name;
+        private  $imageUrl;
     private  $totalSeats;
     private  $reservedSeats;
 
     // Constructor
     public function __construct(
-         $category ,
-         $name ,
-         $description,
-         $price ,
-         $duration ,
-         $date ,
-         $location ,
-         $imageUrl,
-         $totalSeats ,
-       $reservedSeats = 0
-         ,
-         
+        $category, $name, $description, $price, $duration, $date,
+        $longitude, $latitude, $place_name, $imageUrl, $totalSeats, $reservedSeats = 0
     ) {
         $this->category = $category;
         $this->name = $name;
         $this->description = $description;
         $this->price = $price;
         $this->duration = $duration;
-        $this->date = $date ;
-        $this->location = $location;
+        $this->date = $date;
+        $this->longitude = $longitude;
+        $this->latitude = $latitude;
+        $this->place_name = $place_name;
         $this->imageUrl = $imageUrl;
         $this->totalSeats = $totalSeats;
         $this->reservedSeats = $reservedSeats;
@@ -68,9 +62,12 @@ class Event {
         return $this->date;
     }
 
-    public function getLocation() {
-        return $this->location;
-    }
+    public function getLongitude() { return $this->longitude; }
+public function getLatitude() { return $this->latitude; }
+public function getPlaceName() { return $this->place_name; }
+public function setLongitude($longitude) { $this->longitude = $longitude; }
+public function setLatitude($latitude) { $this->latitude = $latitude; }
+public function setPlaceName($place_name) { $this->place_name = $place_name; }
 
     public function getImageUrl() {
         return $this->imageUrl;
@@ -115,10 +112,7 @@ class Event {
         $this->date = $date;
     }
 
-    public function setLocation( $location){
-        $this->location = $location;
-    }
-
+    
     public function setImageUrl( $imageUrl){
         $this->imageUrl = $imageUrl;
     }
