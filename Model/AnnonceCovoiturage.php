@@ -1,4 +1,6 @@
 <?php
+require_once '../Controller/AnnonceCovoiturageController.php';
+require_once '../config.php';
 
 class annonce_covoiturage {
     private $id_conducteur;
@@ -17,33 +19,34 @@ class annonce_covoiturage {
     private $date_modification;
 
     // Constructor
-public function __construct(
-    $prenom_conducteur,
-    $nom_conducteur,
-    $tel_conducteur,
-    $date_depart,
-    $lieu_depart,
-    $lieu_arrivee,
-    $nombre_places,
-    $type_voiture,
-    $prix_estime,
-    $description,
-    $status = 'disponible'
-) {
-    $this->prenom_conducteur = $prenom_conducteur;
-    $this->nom_conducteur = $nom_conducteur;
-    $this->tel_conducteur = $tel_conducteur;
-    $this->date_depart = new DateTime($date_depart);
-    $this->lieu_depart = $lieu_depart;
-    $this->lieu_arrivee = $lieu_arrivee;
-    $this->nombre_places = $nombre_places;
-    $this->type_voiture = $type_voiture;
-    $this->prix_estime = $prix_estime;
-    $this->description = $description;
-    $this->status = $status;
-    $this->date_creation = new DateTime();
-    $this->date_modification = null;
-}
+    public function __construct(
+        $prenom_conducteur,
+        $nom_conducteur,
+        $tel_conducteur,
+        $date_depart,
+        $lieu_depart,
+        $lieu_arrivee,
+        $nombre_places,
+        $type_voiture,
+        $prix_estime,
+        $description,
+        $status = 'disponible'
+    ) {
+        $this->prenom_conducteur = $prenom_conducteur;
+        $this->nom_conducteur = $nom_conducteur;
+        $this->tel_conducteur = $tel_conducteur;
+        $this->date_depart = new DateTime($date_depart);
+        $this->lieu_depart = $lieu_depart;
+        $this->lieu_arrivee = $lieu_arrivee;
+        $this->nombre_places = $nombre_places;
+        $this->type_voiture = $type_voiture;
+        $this->prix_estime = $prix_estime;
+        $this->description = $description;
+        $this->status = $status;
+        $this->date_creation = new DateTime();
+        $this->date_modification = null;
+    }
+
     // Getters
     public function getIdConducteur() {
         return $this->id_conducteur;
@@ -99,6 +102,16 @@ public function __construct(
 
     public function getDateModification() {
         return $this->date_modification;
+    } 
+
+    public function getAnnoncesByConducteurId($id_conducteur) {
+        try {
+            $pdo = config::getConnexion();
+            $controller = new AnnonceCovoiturageController($pdo);
+            return $controller->getAnnoncesByConducteurId($id_conducteur);
+        } catch (Exception $e) {
+            throw new Exception("Erreur lors de la récupération des annonces par conducteur: " . $e->getMessage());
+        }
     }
 
     // Setters
@@ -161,7 +174,6 @@ public function __construct(
         $this->date_modification = new DateTime();
     }
 
-    
     public function toArrayForInsert() {
         return [
             'prenom_conducteur' => $this->prenom_conducteur,

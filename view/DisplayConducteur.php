@@ -1,5 +1,4 @@
 <?php
-
 require_once '../config.php';
 require_once '../Controller/AnnonceCovoiturageController.php';
 
@@ -7,16 +6,10 @@ $errorMessages = [];
 $annonces = [];
 
 try {
-    
     $pdo = config::getConnexion();
-    
-    
     $controller = new AnnonceCovoiturageController($pdo);
-
-    
-    $annonces = $controller->getAllAnnonces();
+    $annonces = $controller->getAllAnnonces(true); // Filter active annonces
 } catch (Exception $e) {
-   
     $errorMessages = explode('<br>', $e->getMessage());
 }
 ?>
@@ -32,7 +25,7 @@ try {
 <style>
     /* === FOND D'ÉCRAN === */
     .form-background {
-      background-image: url('/clickngo/public/images/re.jpeg');
+      background-image: url('');
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
@@ -82,6 +75,7 @@ try {
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       border-left: 4px solid #be3cf0;
       transition: transform 0.3s;
+      position: relative;
     }
 
     .annonce-card:hover {
@@ -102,7 +96,7 @@ try {
       color: #333;
     }
 
-    .annonce-price {
+    .annonce tangy {
       font-size: 20px;
       font-weight: bold;
       color: #be3cf0;
@@ -139,7 +133,7 @@ try {
 
     .btn-reserver {
       padding: 8px 20px;
-      background-color: #be3cf0;
+      background: linear-gradient(to right, #be3cf0, #dc46d7 17%, #ff50aa 68%, #ff6666);
       color: white;
       border: none;
       border-radius: 6px;
@@ -149,8 +143,31 @@ try {
     }
 
     .btn-reserver:hover {
-      background-color: #ff50aa;
+      background: linear-gradient(to left, #be3cf0, #dc46d7 17%, #ff50aa 68%, #ff6666);
       transform: translateY(-2px);
+    }
+
+    .btn-save {
+      color: #be3cf0;
+      font-size: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+
+    .btn-save:hover {
+      color: #dc46d7;
+      transform: translateY(-2px);
+    }
+
+    .btn-save.saved {
+      color: #ff50aa;
+    }
+
+    body {
+        background: linear-gradient(145deg, #ffeaf2, #d9e4ff);
     }
 
     /* Popup styles */
@@ -248,9 +265,8 @@ try {
                 </button>
                 <div class="absolute left-0 mt-2 bg-white rounded shadow-md z-50 min-w-[200px] opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-200">
                     <a href="DisplayConducteur.php" class="block px-4 py-2 hover:bg-gray-100">Nos trajets</a>
-                    <a href="#top-conducteurs" class="block px-4 py-2 hover:bg-gray-100">Top Conducteurs</a>
-                    <a href="ListConducteurs.php" class="block px-4 py-2 hover:bg-gray-100">Liste des Conducteurs</a>
-                    <a href="ListPassager.php" class="block px-4 py-2 hover:bg-gray-100">Liste des Passagers</a>
+                    <a href="ListPassager.php" class="block px-4 py-2 hover:bg-gray-100">Mes demandes</a>
+                    <a href="SavedTrajets.php" class="block px-4 py-2 hover:bg-gray-100">Trajets sauvegardés</a>
                 </div>
             </div>
             
@@ -258,8 +274,7 @@ try {
             <div class="relative group">
                 <button class="hover:text-[#be3cf0]">Services ▾</button>
                 <div class="absolute left-0 mt-2 bg-white rounded shadow-md z-50 min-w-[220px] opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-200">
-                    <a href="/clickngo/view/trouver.php" class="block px-4 py-2 hover:bg-gray-100">Trouver un covoiturage</a>
-                    <a href="/clickngo/view/proposer.php" class="block px-4 py-2 hover:bg-gray-100">Proposer un covoiturage</a>
+                    <a href="#home" class="block px-4 py-2 hover:bg-gray-100">Trouver un covoiturage</a>
                 </div>
             </div>
             
@@ -281,7 +296,7 @@ try {
 <div class="form-background">
   <div class="annonce-container">
     <div class="annonce-wrapper">
-      <h2>Covoiturages disponibles</h2>
+      <h2>✨Covoiturages disponibles✨ </h2>
       
       <?php if (!empty($errorMessages)): ?>
         <div id="error-popup" class="popup-overlay popup-error">
@@ -308,13 +323,14 @@ try {
       <?php else: ?>
         <div class="annonces-list">
           <?php foreach ($annonces as $annonce): ?>
-            <div class="annonce-card">
+            <div class="annonce-card" data-id="<?php echo htmlspecialchars($annonce->getIdConducteur()); ?>">
+              <i class="fas fa-bookmark btn-save" onclick="toggleSaveAnnonce(<?php echo htmlspecialchars($annonce->getIdConducteur()); ?>, this)" title="Sauvegarder"></i>
               <div class="annonce-header">
                 <div class="annonce-title">
                   <?php echo htmlspecialchars($annonce->getPrenomConducteur() . ' ' . $annonce->getNomConducteur()); ?>
                 </div>
                 <div class="annonce-price">
-                  <?php echo htmlspecialchars(number_format($annonce->getPrixEstime(), 2)) . ' €'; ?>
+                  <?php echo htmlspecialchars(number_format($annonce->getPrixEstime(), 2)) ?>
                 </div>
               </div>
               
@@ -344,9 +360,9 @@ try {
                 <div class="annonce-places">
                   Places disponibles: <?php echo htmlspecialchars($annonce->getNombrePlaces()); ?>
                 </div>
-                <a href="/clickngo/view/demande_form.php?id=<?php echo $annonce->getIdConducteur(); ?>" class="btn-reserver">
-  Réserver
-</a>
+                <div>
+                  <a href="demande_form.php?id=<?php echo htmlspecialchars($annonce->getIdConducteur()); ?>" class="btn-reserver">Réserver</a>
+                </div>
               </div>
             </div>
           <?php endforeach; ?>
@@ -398,19 +414,53 @@ try {
     function hideErrorPopup() {
         document.getElementById('error-popup').classList.add('hidden');
     }
-    
-    function reserverAnnonce(id) {
-      
-        showSuccessPopup('Votre réservation a été enregistrée! Nous vous contacterons bientôt.');
-        
-       
+
+    // Initialize saved annonces from localStorage
+    let savedAnnonces = JSON.parse(localStorage.getItem('savedAnnonces')) || [];
+
+    // Function to toggle save/unsave annonce
+    function toggleSaveAnnonce(id, element) {
+        const annonceCard = element.closest('.annonce-card');
+        const annonceData = {
+            id: id,
+            title: annonceCard.querySelector('.annonce-title').textContent,
+            price: annonceCard.querySelector('.annonce-price').textContent,
+            lieuDepart: annonceCard.querySelector('.annonce-details .annonce-detail:nth-child(1) span').textContent,
+            lieuArrivee: annonceCard.querySelector('.annonce-details .annonce-detail:nth-child(2) span').textContent,
+            dateDepart: annonceCard.querySelector('.annonce-details .annonce-detail:nth-child(3) span').textContent,
+            typeVoiture: annonceCard.querySelector('.annonce-details .annonce-detail:nth-child(4) span').textContent,
+            places: annonceCard.querySelector('.annonce-places').textContent.replace('Places disponibles: ', '')
+        };
+
+        const index = savedAnnonces.findIndex(annonce => annonce.id === id);
+        if (index === -1) {
+            // Save annonce
+            savedAnnonces.push(annonceData);
+            element.classList.add('saved');
+            showSuccessPopup('Trajet sauvegardé avec succès!');
+        } else {
+            // Unsave annonce
+            savedAnnonces.splice(index, 1);
+            element.classList.remove('saved');
+            showSuccessPopup('Trajet retiré des sauvegardes.');
+        }
+
+        localStorage.setItem('savedAnnonces', JSON.stringify(savedAnnonces));
     }
 
-    // Show popups based on PHP validation
+    // Initialize save icon states on load
     window.addEventListener('DOMContentLoaded', () => {
         <?php if (!empty($errorMessages)): ?>
             showErrorPopup("<?php echo addslashes(implode('\n', $errorMessages)); ?>");
         <?php endif; ?>
+
+        // Set saved state for icons
+        document.querySelectorAll('.annonce-card').forEach(card => {
+            const id = parseInt(card.dataset.id);
+            if (savedAnnonces.some(annonce => annonce.id === id)) {
+                card.querySelector('.btn-save').classList.add('saved');
+            }
+        });
     });
 </script>
 </body>

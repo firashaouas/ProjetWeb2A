@@ -1,5 +1,4 @@
 <?php
-
 require_once '../config.php';
 require_once '../Controller/AnnonceCovoiturageController.php';
 
@@ -7,16 +6,10 @@ $errorMessages = [];
 $annonces = [];
 
 try {
-    
     $pdo = config::getConnexion();
-    
-    
     $controller = new AnnonceCovoiturageController($pdo);
-
-    
-    $annonces = $controller->getAllAnnonces();
+    $annonces = $controller->getAllAnnonces(); // No filter for drivers
 } catch (Exception $e) {
-    
     $errorMessages = explode('<br>', $e->getMessage());
 }
 ?>
@@ -32,13 +25,15 @@ try {
 <style>
     /* === FOND D'ÉCRAN === */
     .form-background {
-      background-image: url('/clickngo/public/images/re.jpeg');
+      background-image: url('');
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
       min-height: calc(100vh - 200px);
     }
-
+    body {
+        background: linear-gradient(145deg, #ffeaf2, #d9e4ff);
+    }
     /* === GRADIENT PERSONNALISÉ === */
     .elsa-gradient-primary {
       background: linear-gradient(to right, #be3cf0, #dc46d7 17%, #ff50aa 68%, #ff6666);
@@ -132,35 +127,23 @@ try {
       gap: 10px;
     }
 
-    .btn-edit {
+    .btn-edit, .btn-view-demands, .btn-delete {
       padding: 8px 20px;
-      background-color: #4CAF50;
       color: white;
       border: none;
       border-radius: 6px;
       cursor: pointer;
       font-weight: 600;
       transition: 0.3s;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: linear-gradient(to right, #be3cf0, #dc46d7 17%, #ff50aa 68%, #ff6666);
     }
 
-    .btn-edit:hover {
-      background-color: #45a049;
-      transform: translateY(-2px);
-    }
-
-    .btn-delete {
-      padding: 8px 20px;
-      background-color: #f44336;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: 0.3s;
-    }
-
-    .btn-delete:hover {
-      background-color: #d32f2f;
+    .btn-edit:hover, .btn-view-demands:hover, .btn-delete:hover {
+      background: linear-gradient(to left, #be3cf0, #dc46d7 17%, #ff50aa 68%, #ff6666);
       transform: translateY(-2px);
     }
 
@@ -243,6 +226,20 @@ try {
       font-size: 18px;
       color: #555;
     }
+
+    .annonce-status {
+      font-weight: bold;
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
+
+    .status-active {
+      color: #10b981;
+    }
+
+    .status-archive {
+      color: #ef4444;
+    }
 </style>
 </head>
 <body>   
@@ -251,7 +248,7 @@ try {
 <nav class="absolute top-0 left-0 w-full z-50 p-4">
     <div class="flex items-center justify-center max-w-7xl mx-auto">
         <div class="flex space-x-8 text-lg font-bold text-black relative">
-            <a href="#home" class="hover:text-[#be3cf0]">Accueil</a>
+            <a href="index.php" class="hover:text-[#be3cf0]">Accueil</a>
             <a href="#about" class="hover:text-[#be3cf0]">À propos</a>
             <div class="group relative">
                 <button class="hover:text-[#be3cf0] font-bold text-lg">
@@ -259,9 +256,7 @@ try {
                 </button>
                 <div class="absolute left-0 mt-2 bg-white rounded shadow-md z-50 min-w-[200px] opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-200">
                     <a href="DisplayConducteur.php" class="block px-4 py-2 hover:bg-gray-100">Nos trajets</a>
-                    <a href="#top-conducteurs" class="block px-4 py-2 hover:bg-gray-100">Top Conducteurs</a>
-                    <a href="ListConducteurs.php" class="block px-4 py-2 hover:bg-gray-100">Liste des Conducteurs</a>
-                    <a href="ListPassager.php" class="block px-4 py-2 hover:bg-gray-100">Liste des Passagers</a>
+                    <a href="ListConducteurs.php" class="block px-4 py-2 hover:bg-gray-100">Mes annonces</a>
                 </div>
             </div>
             
@@ -269,8 +264,7 @@ try {
             <div class="relative group">
                 <button class="hover:text-[#be3cf0]">Services ▾</button>
                 <div class="absolute left-0 mt-2 bg-white rounded shadow-md z-50 min-w-[220px] opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-200">
-                    <a href="/clickngo/view/trouver.php" class="block px-4 py-2 hover:bg-gray-100">Trouver un covoiturage</a>
-                    <a href="/clickngo/view/proposer.php" class="block px-4 py-2 hover:bg-gray-100">Proposer un covoiturage</a>
+                    <a href="AjouterConducteur.php" class="block px-4 py-2 hover:bg-gray-100">Proposer un covoiturage</a>
                 </div>
             </div>
             
@@ -292,7 +286,7 @@ try {
 <div class="form-background">
   <div class="annonce-container">
     <div class="annonce-wrapper">
-      <h2>Liste des annonces de covoiturage</h2>
+      <h2>✨Mes annonces✨ </h2>
       
       <?php if (!empty($errorMessages)): ?>
         <div id="error-popup" class="popup-overlay popup-error">
@@ -362,11 +356,21 @@ try {
                 
                 <div class="annonce-detail">
                   <i class="fas fa-euro-sign"></i>
-                  <span>Prix: <?php echo htmlspecialchars($annonce->getPrixEstime()); ?> €</span>
+                  <span>Prix: <?php echo htmlspecialchars($annonce->getPrixEstime()); ?> Dt</span>
+                </div>
+                
+                <div class="annonce-detail">
+                  <i class="fas fa-info-circle"></i>
+                  <span class="annonce-status <?php echo $annonce->getStatus() === 'disponible' ? 'status-active' : 'status-archive'; ?>">
+                    <?php echo $annonce->getStatus() === 'disponible' ? 'Disponible ✨' : 'Archivée 🚫'; ?>
+                  </span>
                 </div>
               </div>
               
               <div class="annonce-footer">
+                <a href="voir_demandes.php?id=<?php echo $annonce->getIdConducteur(); ?>" class="btn-view-demands">
+                  <i class="fas fa-eye"></i> Voir les demandes
+                </a>
                 <a href="edit_annonce.php?id=<?php echo $annonce->getIdConducteur(); ?>" class="btn-edit">
                   <i class="fas fa-edit"></i> Modifier
                 </a>
@@ -391,6 +395,18 @@ try {
     <h3 class="popup-title">Succès!</h3>
     <div class="popup-message" id="success-message"></div>
     <button onclick="hideSuccessPopup()" class="popup-button">Fermer</button>
+  </div>
+</div>
+
+<!-- Error Popup -->
+<div id="error-popup" class="popup-overlay popup-error hidden">
+  <div class="popup-content">
+    <div class="popup-icon">
+      <i class="fas fa-exclamation-circle"></i>
+    </div>
+    <h3 class="popup-title">Erreur</h3>
+    <div class="popup-message" id="error-message"></div>
+    <button onclick="hideErrorPopup()" class="popup-button">Fermer</button>
   </div>
 </div>
 
@@ -441,35 +457,38 @@ try {
     }
     
     function deleteAnnonce() {
-    if (!annonceToDelete) return;
-    
-    fetch('/clickngo/view/delete_annonce.php?id=' + annonceToDelete, {
-        method: 'DELETE',
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        if (data.success) {
-            showSuccessPopup(data.message || 'Annonce supprimée avec succès!');
-           
-            setTimeout(() => {
-                location.reload();
-            }, 1500);
-        } else {
-            showErrorPopup(data.message || 'Erreur lors de la suppression');
-        }
-    })
-    .catch(error => {
-        showErrorPopup('Erreur réseau lors de la suppression: ' + error.message);
-    })
-    .finally(() => {
-        hideDeleteConfirmPopup();
-    });
-}
+        if (!annonceToDelete) return;
+        
+        fetch('../view/delete_annonce.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id: annonceToDelete })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                showSuccessPopup(data.message || 'Annonce supprimée avec succès!');
+                setTimeout(() => {
+                    location.reload();
+                }, 1500);
+            } else {
+                showErrorPopup(data.message || 'Erreur lors de la suppression');
+            }
+        })
+        .catch(error => {
+            showErrorPopup('Erreur réseau lors de la suppression: ' . error.message);
+        })
+        .finally(() => {
+            hideDeleteConfirmPopup();
+        });
+    }
    
     window.addEventListener('DOMContentLoaded', () => {
         <?php if (!empty($errorMessages)): ?>

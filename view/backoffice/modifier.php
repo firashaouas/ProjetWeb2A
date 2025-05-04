@@ -13,57 +13,102 @@ if (!isset($_GET['id_conducteur']) || empty($_GET['id_conducteur'])) {
 }
 
 $id = $_GET['id_conducteur'];
+$errors = [];
 
 try {
     $pdo = config::getConnexion();
 
-    
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $prenom = $_POST['prenom_conducteur'];
-        $nom = $_POST['nom_conducteur'];
-        $tel = $_POST['tel_conducteur'];
+        // Sanitize inputs
+        $prenom = trim($_POST['prenom_conducteur']);
+        $nom = trim($_POST['nom_conducteur']);
+        $tel = trim($_POST['tel_conducteur']);
         $date_depart = $_POST['date_depart'];
-        $lieu_depart = $_POST['lieu_depart'];
-        $lieu_arrivee = $_POST['lieu_arrivee'];
+        $lieu_depart = trim($_POST['lieu_depart']);
+        $lieu_arrivee = trim($_POST['lieu_arrivee']);
         $nombre_places = $_POST['nombre_places'];
-        $type_voiture = $_POST['type_voiture'];
+        $type_voiture = trim($_POST['type_voiture']);
         $prix_estime = $_POST['prix_estime'];
-        $description = $_POST['description'];
+        $description = trim($_POST['description']);
 
-        $query = "UPDATE annonce_covoiturage SET 
-                  prenom_conducteur = :prenom,
-                  nom_conducteur = :nom,
-                  tel_conducteur = :tel,
-                  date_depart = :date_depart,
-                  lieu_depart = :lieu_depart,
-                  lieu_arrivee = :lieu_arrivee,
-                  nombre_places = :nombre_places,
-                  type_voiture = :type_voiture,
-                  prix_estime = :prix_estime,
-                  description = :description
-                  WHERE id_conducteur = :id";
-
-        $stmt = $pdo->prepare($query);
-        $stmt->bindParam(':prenom', $prenom);
-        $stmt->bindParam(':nom', $nom);
-        $stmt->bindParam(':tel', $tel);
-        $stmt->bindParam(':date_depart', $date_depart);
-        $stmt->bindParam(':lieu_depart', $lieu_depart);
-        $stmt->bindParam(':lieu_arrivee', $lieu_arrivee);
-        $stmt->bindParam(':nombre_places', $nombre_places);
-        $stmt->bindParam(':type_voiture', $type_voiture);
-        $stmt->bindParam(':prix_estime', $prix_estime);
-        $stmt->bindParam(':description', $description);
-        $stmt->bindParam(':id', $id);
-        
-        if ($stmt->execute()) {
-            echo "<script>
-                alert('Annonce modifiée avec succès!');
-                window.location.href = 'annonces.php';
-            </script>";
-            exit;
+        // Contrôle de saisie
+        if (empty($prenom) || !preg_match('/^[a-zA-ZÀ-ÿ\s\-]+$/u', $prenom)) {
+            $errors[] = "Le prénom est invalide.";
         }
-        
+
+        if (empty($nom) || !preg_match('/^[a-zA-ZÀ-ÿ\s\-]+$/u', $nom)) {
+            $errors[] = "Le nom est invalide.";
+        }
+
+        if (empty($tel) || !preg_match('/^\d{8}$/', $tel)) {
+            $errors[] = "Le numéro de téléphone doit comporter 8 chiffres.";
+        }
+
+        if (empty($date_depart)) {
+            $errors[] = "La date de départ est requise.";
+        }
+
+        if (empty($lieu_depart)) {
+            $errors[] = "Le lieu de départ est requis.";
+        }
+
+        if (empty($lieu_arrivee)) {
+            $errors[] = "Le lieu d'arrivée est requis.";
+        }
+
+        if (!is_numeric($nombre_places) || $nombre_places >4) {
+            $errors[] = "Le nombre de places doit être inf à 0.";
+        }
+
+        if (empty($type_voiture)) {
+            $errors[] = "Le type de voiture est requis.";
+        }
+
+        if (!is_numeric($prix_estime) || $prix_estime < 0) {
+            $errors[] = "Le prix estimé doit être un nombre positif.";
+        }
+
+        if (empty($description)) {
+            $errors[] = "La description est requise.";
+        }
+
+        if (empty($errors)) {
+            $query = "UPDATE annonce_covoiturage SET 
+                        prenom_conducteur = :prenom,
+                        nom_conducteur = :nom,
+                        tel_conducteur = :tel,
+                        date_depart = :date_depart,
+                        lieu_depart = :lieu_depart,
+                        lieu_arrivee = :lieu_arrivee,
+                        nombre_places = :nombre_places,
+                        type_voiture = :type_voiture,
+                        prix_estime = :prix_estime,
+                        description = :description
+                    WHERE id_conducteur = :id";
+
+            $stmt = $pdo->prepare($query);
+            $stmt->bindParam(':prenom', $prenom);
+            $stmt->bindParam(':nom', $nom);
+            $stmt->bindParam(':tel', $tel);
+            $stmt->bindParam(':date_depart', $date_depart);
+            $stmt->bindParam(':lieu_depart', $lieu_depart);
+            $stmt->bindParam(':lieu_arrivee', $lieu_arrivee);
+            $stmt->bindParam(':nombre_places', $nombre_places);
+            $stmt->bindParam(':type_voiture', $type_voiture);
+            $stmt->bindParam(':prix_estime', $prix_estime);
+            $stmt->bindParam(':description', $description);
+            $stmt->bindParam(':id', $id);
+
+            if ($stmt->execute()) {
+                echo "<script>
+                    alert('Annonce modifiée avec succès!');
+                    window.location.href = 'annonces.php';
+                </script>";
+                exit;
+            } else {
+                $errors[] = "Erreur lors de la mise à jour.";
+            }
+        }
     }
 
     // Get current data
@@ -172,13 +217,26 @@ try {
         .cancel-btn:hover {
             background-color: #e6e6e6;
         }
+
+        .error {
+            color: #f44336;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
 <h1>Modifier une Annonce</h1>
 
 <div class="form-container">
-    
+    <?php if (!empty($errors)) : ?>
+        <div class="error">
+            <?php foreach ($errors as $error) {
+                echo htmlspecialchars($error) . "<br>";
+            } ?>
+        </div>
+    <?php endif; ?>
+
     <form method="POST">
         <div class="form-group">
             <label for="prenom_conducteur">Prénom Conducteur</label>
@@ -197,9 +255,7 @@ try {
 
         <div class="form-group">
             <label for="date_depart">Date Départ</label>
-            <?php
-            $date_value = str_replace(' ', 'T', $annonce['date_depart']);
-            ?>
+            <?php $date_value = str_replace(' ', 'T', $annonce['date_depart']); ?>
             <input type="datetime-local" id="date_depart" name="date_depart" value="<?= htmlspecialchars($date_value) ?>" required>
         </div>
 

@@ -2,33 +2,33 @@
 require_once '../config.php';
 require_once '../Controller/AnnonceCovoiturageController.php';
 
-header('Content-Type: application/json');
+$response = ['success' => false, 'message' => ''];
 
 try {
-   
+    // Récupérer l'ID envoyé via POST
+    $data = json_decode(file_get_contents('php://input'), true);
+    $id = isset($data['id']) ? intval($data['id']) : null;
+
+    if (!$id) {
+        throw new Exception("ID de l'annonce manquant.");
+    }
+
+    // Instancier le contrôleur
     $pdo = config::getConnexion();
-    
-    
     $controller = new AnnonceCovoiturageController($pdo);
-    
-    
-    $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
-    
-    if ($id <= 0) {
-        throw new Exception("ID d'annonce invalide");
-    }
-    
-    
-    $success = $controller->deleteAnnonce($id);
-    
-    if ($success) {
-        echo json_encode(['success' => true, 'message' => 'Annonce supprimée avec succès']);
+
+    // Supprimer l’annonce
+    $result = $controller->deleteAnnonce($id);
+
+    if ($result) {
+        $response['success'] = true;
+        $response['message'] = "Annonce supprimée avec succès.";
     } else {
-        echo json_encode(['success' => false, 'message' => 'Aucune annonce trouvée avec cet ID']);
+        $response['message'] = "Échec de la suppression de l'annonce.";
     }
-    
 } catch (Exception $e) {
-    http_response_code(500);
-    echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+    $response['message'] = $e->getMessage();
 }
+
+echo json_encode($response);
 ?>
