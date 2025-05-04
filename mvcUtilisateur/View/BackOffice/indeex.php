@@ -275,6 +275,15 @@ function stringToColor($str)
         💬 Aller au Chat Admin
         <span id="badgeCount" class="badge" style="display:none;"></span>
       </a>
+
+      <button id="spotifyBtn" style="padding:10px 20px; background-color:#1DB954; color:white; border:none; border-radius:20px; cursor:pointer;">
+  🎶 Ouvrir Spotify
+</button>
+
+
+
+
+
       <style>
         .chat-admin-button {
           background-color: #8e44ad;
@@ -576,8 +585,67 @@ function stringToColor($str)
 
 
 
-    <!-- Products Section -->
+    <!-- spotify Section -->
+<!-- ✅ Espace spécial caché pour Spotify -->
+<button id="spotifyTracksBtn" style="
+  padding: 10px 20px;
+  background-color: #1DB954;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  margin: 20px;
+">🎵 Voir mes chansons</button>
 
+<div id="tracksList" style="
+  margin-top: 20px;
+  padding: 20px;
+  background: #f7f7f7;
+  border-radius: 10px;
+  max-width: 600px;
+"></div>
+<script>
+  const token = 'TON_ACCESS_TOKEN_ICI'; // Remplacer par ton vrai Access Token
+
+async function fetchWebApi(endpoint, method, body) {
+  const res = await fetch(`https://api.spotify.com/${endpoint}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    },
+    method,
+    body: body ? JSON.stringify(body) : undefined
+  });
+  return await res.json();
+}
+
+async function getTopTracks(){
+  return (await fetchWebApi(
+    'v1/me/top/tracks?time_range=medium_term&limit=5', 'GET'
+  )).items;
+}
+
+document.getElementById('spotifyTracksBtn').addEventListener('click', async () => {
+  const listDiv = document.getElementById('tracksList');
+  listDiv.innerHTML = '🔄 Chargement...';
+  
+  try {
+    const tracks = await getTopTracks();
+    listDiv.innerHTML = tracks.map(track => `
+      <div style="margin-bottom: 15px;">
+        <strong>${track.name}</strong> 
+        <br> 
+        <small>Par: ${track.artists.map(artist => artist.name).join(', ')}</small>
+      </div>
+    `).join('');
+  } catch (error) {
+    listDiv.innerHTML = "❌ Erreur de récupération.";
+    console.error(error);
+  }
+});
+
+</script>
 
     <!-- Orders Section -->
 

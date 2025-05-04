@@ -1,15 +1,14 @@
-
 <?php if (isset($_GET['error'])): ?>
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    Swal.fire({
-      icon: 'error',
-      title: 'Erreur',
-      text: <?= json_encode($_GET['error']) ?>,
-      confirmButtonColor: '#6c63ff'
-    });
-  });
-</script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'error',
+                title: 'Erreur',
+                text: <?= json_encode($_GET['error']) ?>,
+                confirmButtonColor: '#6c63ff'
+            });
+        });
+    </script>
 <?php endif; ?>
 
 
@@ -65,7 +64,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['register_success'] = "Inscription réussie ! Vous pouvez vous connecter.";
             header("Location: /View/BackOffice/login/login.php");
             exit();
-
         } catch (Exception $e) {
             $_SESSION['register_error'] = "Une erreur s'est produite lors de l'inscription. Veuillez réessayer.";
             header("Location: /View/BackOffice/login/login.php");
@@ -78,6 +76,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $userController = new UserController();
         if ($userController->login($email, $password)) {
+            // Recharge les vraies données de l'utilisateur (y compris is_verified)
+            $db = Config::getConnexion();
+            require_once '../../../Model/User.php';
+            $_SESSION['user'] = User::getUserByEmail($db, $email);
+        
             header("Location: /View/BackOffice/dashboard.php");
             exit();
         } else {
@@ -89,7 +92,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // Fonction pour vérifier la force du mot de passe
-function isStrongPassword($password) {
+function isStrongPassword($password)
+{
     $hasUpper = preg_match('@[A-Z]@', $password);
     $hasLower = preg_match('@[a-z]@', $password);
     $hasNumber = preg_match('@[0-9]@', $password);
@@ -103,6 +107,7 @@ function isStrongPassword($password) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>Click'N'Go/login</title>
     <meta charset="utf-8">
@@ -115,34 +120,37 @@ function isStrongPassword($password) {
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
-<body>
-<?php if (isset($_SESSION['register_success'])): ?>
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    Swal.fire({
-        icon: 'success',
-        title: 'Succès !',
-        text: <?= json_encode($_SESSION['register_success']) ?>,
-        confirmButtonText: 'OK',
-        confirmButtonColor: '#6c63ff'
-    });
-});
-</script>
-<?php unset($_SESSION['register_success']); endif; ?>
 
-<?php if (isset($_SESSION['register_error'])): ?>
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    Swal.fire({
-        icon: 'error',
-        title: 'Erreur !',
-        text: <?= json_encode($_SESSION['register_error']) ?>,
-        confirmButtonText: 'OK',
-        confirmButtonColor: '#6c63ff'
-    });
-});
-</script>
-<?php unset($_SESSION['register_error']); endif; ?>
+<body>
+    <?php if (isset($_SESSION['register_success'])): ?>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Succès !',
+                    text: <?= json_encode($_SESSION['register_success']) ?>,
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#6c63ff'
+                });
+            });
+        </script>
+    <?php unset($_SESSION['register_success']);
+    endif; ?>
+
+    <?php if (isset($_SESSION['register_error'])): ?>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erreur !',
+                    text: <?= json_encode($_SESSION['register_error']) ?>,
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#6c63ff'
+                });
+            });
+        </script>
+    <?php unset($_SESSION['register_error']);
+    endif; ?>
 
 
     <div class="section">
@@ -151,7 +159,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <div class="col-12 text-center align-self-center py-5">
                     <div class="section pb-5 pt-5 pt-sm-2 text-center">
                         <h6 class="mb-0 pb-3"><span>Se connecter</span><span>S’inscrire</span></h6>
-                        <input class="checkbox" type="checkbox" id="reg-log" name="reg-log"/>
+                        <input class="checkbox" type="checkbox" id="reg-log" name="reg-log" />
                         <label for="reg-log"></label>
                         <div class="card-3d-wrap mx-auto">
                             <div class="card-3d-wrapper">
@@ -170,14 +178,15 @@ document.addEventListener('DOMContentLoaded', function () {
                                                     <i class="input-icon uil uil-lock-alt"></i>
                                                 </div>
                                                 <div class="text-right mt-1">
-                                                    <a href="#" class="link">Mot de passe oublié ?</a>
-                                                </div>
-
-                                                <div class="btn-login-zone">
-  <button type="submit" class="btn mt-4" name="action" value="login" id="login-btn">SE CONNECTER</button>
+    <a href="/Projet Web/mvcUtilisateur/View/FrontOffice/reset_request.php" class="link">Mot de passe oublié ?</a>
 </div>
 
-<br>
+
+                                                <div class="btn-login-zone">
+                                                    <button type="submit" class="btn mt-4" name="action" value="login" id="login-btn">SE CONNECTER</button>
+                                                </div>
+
+                                                <br>
                                                 <div class="form-group mt-2">
                                                     <p>Ou</p>
                                                     <a href="../../../auth/facebook.php" class="btn"><i class="fa-brands fa-facebook-f"></i></a>
@@ -207,13 +216,13 @@ document.addEventListener('DOMContentLoaded', function () {
                                                     <i class="input-icon uil uil-at"></i>
                                                 </div>
                                                 <div class="form-group mt-2" style="position: relative;">
-  <input type="password" class="form-style" name="password" id="password" placeholder="Password" required>
-  <i class="input-icon uil uil-lock-alt"></i>
-  <div id="passwordHint" class="password-hint"></div>
-  <div class="password-strength-bar">
-    <div id="passwordStrength" class="strength-bar-inner"></div>
-  </div>
-</div>
+                                                    <input type="password" class="form-style" name="password" id="password" placeholder="Password" required>
+                                                    <i class="input-icon uil uil-lock-alt"></i>
+                                                    <div id="passwordHint" class="password-hint"></div>
+                                                    <div class="password-strength-bar">
+                                                        <div id="passwordStrength" class="strength-bar-inner"></div>
+                                                    </div>
+                                                </div>
 
 
                                                 <button type="submit" class="btn mt-4" name="action" value="register">S’inscrire</button>
@@ -237,4 +246,5 @@ document.addEventListener('DOMContentLoaded', function () {
 
     <script src="script.js"></script>
 </body>
+
 </html>

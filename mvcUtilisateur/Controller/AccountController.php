@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once '../Config.php';
-require_once '../Model/User.php';
+require_once __DIR__ . '/../Config.php';
+require_once __DIR__ . '/../Model/User.php';
 
 if (!isset($_GET['action'])) {
     header("Location: /Projet%20Web/index.php");
@@ -11,7 +11,7 @@ if (!isset($_GET['action'])) {
 $action = $_GET['action'];
 $db = Config::getConnexion();
 
-// --- Suppression du compte ---
+// --- SUPPRESSION DE COMPTE ---
 if ($action === 'delete') {
     if (!isset($_SESSION['user'])) {
         header("Location: /Projet%20Web/index.php");
@@ -41,23 +41,19 @@ if ($action === 'delete') {
         exit;
     }
 
-    $deleted = User::deleteByEmail($db, $email);
-
-    if ($deleted) {
+    if (User::deleteByEmail($db, $email)) {
         session_unset();
         session_destroy();
         header("Location: /Projet%20Web/mvcUtilisateur/View/FrontOffice/index.php?account_deleted=1");
-        exit;
     } else {
         $_SESSION['error'] = "Une erreur est survenue lors de la suppression du compte.";
         header("Location: /Projet%20Web/mvcUtilisateur/View/FrontOffice/profile.php");
-        exit;
     }
+    exit;
 }
 
-// ------------------------------------------------------------
+// --- MISE À JOUR DU PROFIL ---
 if ($action === 'update') {
-
     if (!isset($_SESSION['user'])) {
         header("Location: /Projet%20Web/index.php");
         exit;
@@ -68,23 +64,24 @@ if ($action === 'update') {
     $fullName = $_POST['full_name'];
     $email = $_POST['email'];
     $numUser = $_POST['num_user'];
-
     $originalEmail = $user['email'];
     $profilePicturePath = $user['profile_picture'] ?? null;
 
-    $updatePassword = false;
-    $updateEmail = false;
-    $newPassword = '';
-    $passwordHash = $user['password'];
+    // Récupérer mot de passe actuel (depuis la base)
+    $passwordHash = User::getPasswordHashById($db, $userId);
 
-    // Si l'utilisateur veut changer son email
+    $updateEmail = false;
+    $updatePassword = false;
+    $newPassword = '';
+
+    // --- Vérification email
     if ($email !== $originalEmail) {
-        if (empty($_POST['confirm_password_for_email'])) {
+        if (empty($_POST['confirm_password'])) {
             $_SESSION['error'] = "Mot de passe requis pour changer l'email.";
             header("Location: /Projet%20Web/mvcUtilisateur/View/FrontOffice/edit_profile.php");
             exit;
         }
-        if (!User::verifyPassword($db, $originalEmail, $_POST['confirm_password_for_email'])) {
+        if (!User::verifyPassword($db, $originalEmail, $_POST['confirm_password'])) {
             $_SESSION['error'] = "Mot de passe incorrect pour changer l'email.";
             header("Location: /Projet%20Web/mvcUtilisateur/View/FrontOffice/edit_profile.php");
             exit;
@@ -92,7 +89,7 @@ if ($action === 'update') {
         $updateEmail = true;
     }
 
-    // Si utilisateur veut changer son mot de passe
+    // --- Vérification mot de passe
     if (!empty($_POST['old_password']) && !empty($_POST['new_password'])) {
         if (!User::verifyPassword($db, $originalEmail, $_POST['old_password'])) {
             $_SESSION['error'] = "Mot de passe actuel incorrect.";
@@ -103,55 +100,46 @@ if ($action === 'update') {
         $updatePassword = true;
     }
 
-    // Gestion de l'upload photo
+    // --- Upload de la photo
     if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] === UPLOAD_ERR_OK) {
-        $uploadDir = __DIR__ . '/../../View/FrontOffice/uploads/';
+        $uploadDir = __DIR__ . '/../View/FrontOffice/uploads/profiles/';
         if (!file_exists($uploadDir)) {
             mkdir($uploadDir, 0777, true);
         }
+
         $tmpName = $_FILES['profile_picture']['tmp_name'];
         $fileName = uniqid() . '_' . basename($_FILES['profile_picture']['name']);
         $destination = $uploadDir . $fileName;
 
+        $allowed = ['jpg', 'jpeg', 'png', 'gif'];
+        $ext = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+
+        if (!in_array($ext, $allowed)) {
+            $_SESSION['error'] = "Format non autorisé.";
+            header("Location: /Projet%20Web/mvcUtilisateur/View/FrontOffice/edit_profile.php");
+            exit;
+        }
+
         if (move_uploaded_file($tmpName, $destination)) {
-            $profilePicturePath = 'uploads/' . $fileName;
+            $profilePicturePath = '/Projet Web/mvcUtilisateur/View/FrontOffice/uploads/profiles/' . $fileName;
         }
     }
 
-    // Mise à jour dans la base
+    // --- Mise à jour en base
     $userModel = new User();
     $userModel->setIdUser($userId);
     $userModel->setFullName($fullName);
     $userModel->setNumUser($numUser);
     $userModel->setProfilePicture($profilePicturePath);
+    $userModel->setEmail($updateEmail ? $email : $originalEmail);
+    $userModel->setPassword($updatePassword ? $newPassword : $passwordHash);
 
-    if ($updateEmail) {
-        $userModel->setEmail($email);
-    } else {
-        $userModel->setEmail($originalEmail);
-    }
-
-    if ($updatePassword) {
-        $userModel->setPassword($newPassword);
-    } else {
-        $userModel->setPassword($passwordHash);
-    }
-
-    $result = $userModel->updateUserInfo($db);
-
-    if ($result) {
+    if ($userModel->updateUserInfo($db)) {
         $_SESSION['user']['full_name'] = $fullName;
         $_SESSION['user']['num_user'] = $numUser;
         $_SESSION['user']['profile_picture'] = $profilePicturePath;
-
-        if ($updateEmail) {
-            $_SESSION['user']['email'] = $email;
-        }
-
-        if ($updatePassword) {
-            $_SESSION['user']['password'] = $newPassword;
-        }
-
+        $_SESSION['user']['email'] = $updateEmail ? $email : $originalEmail;
+        $_SESSION['user']['password'] = $updatePassword ? $newPassword : $passwordHash;
         $_SESSION['success'] = "Profil mis à jour avec succès !";
     } else {
         $_SESSION['error'] = "Erreur lors de la mise à jour.";
@@ -160,5 +148,3 @@ if ($action === 'update') {
     header("Location: /Projet%20Web/mvcUtilisateur/View/FrontOffice/profile.php");
     exit;
 }
-
-?>

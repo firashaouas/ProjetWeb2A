@@ -143,32 +143,75 @@ function stringToColor($str) {
                 <li><a href="transports.html">Transports</a></li>
                 <li><a href="sponsors.html">Sponsors</a></li>
             </ul>
-        <!-- Vérification de l'état de connexion -->
-            <?php if (!isset($_SESSION['user'])): ?>
-                <!-- Si non connecté : icône utilisateur vers login/signup -->
-                <a href="../BackOffice/login/login.php" class="register-btn" title="Connexion/Inscription">
-                    <i class="fas fa-user"></i>
-                </a>
-                <?php else: ?>
-    <!-- Si connecté -->
-    <div class="user-profile">
-        <?php if (!empty($_SESSION['user']['profile_picture']) && file_exists($_SESSION['user']['profile_picture'])): ?>
-            <!-- Afficher la photo de profil -->
-            <img src="<?= $_SESSION['user']['profile_picture'] ?>" alt="fake" class="profile-photo">
+
+
+
+<!-- Vérification de l'état de connexion -->
+<?php if (!isset($_SESSION['user'])): ?>
+    <!-- 🔒 Utilisateur non connecté : bouton vers login -->
+    <a href="../BackOffice/login/login.php" class="register-btn" title="Connexion/Inscription">
+        <i class="fas fa-user"></i>
+    </a>
+<?php else: ?>
+    <!-- 👤 Utilisateur connecté -->
+    <div class="user-profile" style="position: relative;">
+
+        <?php
+        $user = $_SESSION['user'];
+        $fullName = $user['full_name'] ?? 'U';
+        $initial = strtoupper(substr($fullName, 0, 1));
+        $profilePicture = $user['profile_picture'] ?? '';
+        $verified = isset($user['is_verified']) && $user['is_verified'] == 1;
+        ?>
+
+        <?php if (!empty($profilePicture) && file_exists($profilePicture)): ?>
+            <img src="<?= htmlspecialchars($profilePicture) ?>" alt="Photo de profil" class="profile-photo" onclick="toggleDropdown()">
         <?php else: ?>
-            <!-- Sinon : cercle coloré avec initiale -->
-            <div class="profile-circle" style="background-color: <?= stringToColor($_SESSION['user']['full_name']) ?>;" onclick="toggleDropdown()">
-                <?= strtoupper(substr($_SESSION['user']['full_name'], 0, 1)) ?>
+            <div class="profile-circle"
+                 style="background-color: <?= stringToColor($fullName) ?>;"
+                 onclick="toggleDropdown()">
+                <?= $initial ?>
             </div>
         <?php endif; ?>
 
+        <!-- ✅ Badge vérification -->
+        <div class="verification-status" style="position: absolute; bottom: -5px; right: -5px;">
+            <?php if ($verified): ?>
+                <img src="/Projet%20Web/mvcUtilisateur/assets/icons/verified.png"
+                     alt="Compte vérifié"
+                     title="Compte Vérifié"
+                     style="width: 20px; height: 20px;">
+            <?php else: ?>
+                <img src="/Projet%20Web/mvcUtilisateur/assets/icons/not_verified.png"
+                     alt="Compte non vérifié"
+                     title="Compte Non Vérifié"
+                     style="width: 20px; height: 20px; cursor: pointer;"
+                     onclick="showVerificationPopup()">
+            <?php endif; ?>
+        </div>
+
         <!-- Menu déroulant -->
         <div class="dropdown-menu" id="dropdownMenu">
-        <a href="/Projet%20Web/mvcUtilisateur/View/FrontOffice/profile.php">👤 Mon Profil</a>
-        <a href="/Projet%20Web/mvcUtilisateur/View/BackOffice/login/logout.php">🚪 Déconnexion</a>
-    </div>
+            <a href="/Projet%20Web/mvcUtilisateur/View/FrontOffice/profile.php">👤 Mon Profil</a>
+            <a href="/Projet%20Web/mvcUtilisateur/View/BackOffice/login/logout.php">🚪 Déconnexion</a>
+        </div>
     </div>
 <?php endif; ?>
+
+
+<script>
+function showVerificationPopup() {
+    Swal.fire({
+        title: 'Vérification requise',
+        text: 'Veuillez vérifier votre compte via l’email que vous avez reçu.',
+        icon: 'info',
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#6c63ff'
+    });
+}
+</script>
+
+
 
         </nav>
        
