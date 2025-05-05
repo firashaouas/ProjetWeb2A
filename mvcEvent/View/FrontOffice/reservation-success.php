@@ -40,6 +40,14 @@ try {
         throw new Exception("L'événement n'existe plus");
     }
 
+    // Récupérer user_id depuis les métadonnées Stripe
+    $user_id = $session->metadata->user_id ?? null;
+
+    // Vérifier la cohérence avec la session utilisateur (optionnel)
+    if ($user_id && isset($_SESSION['user_id']) && $user_id != $_SESSION['user_id']) {
+        throw new Exception("Incohérence dans l'identifiant utilisateur");
+    }
+
     // Traitement des sièges réservés
     $selectedSeats = json_decode($session->metadata->seat_ids, true) ?? [];
     if (empty($selectedSeats)) {
@@ -62,7 +70,7 @@ try {
     $successCount = 0;
     foreach ($seatsToReserve as $seatId) {
         try {
-            $chaiseController->reserverChaise($seatId, $session->customer ?? null);
+            $chaiseController->reserverChaise($seatId, $user_id); // Utiliser user_id au lieu de $session->customer
             $successCount++;
         } catch (Exception $e) {
             error_log("Erreur réservation siège $seatId: " . $e->getMessage());

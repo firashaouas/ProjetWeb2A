@@ -4,6 +4,7 @@ require_once 'Controller/ChaiseController.php';
 
 $chaiseController = new ChaiseController();
 $eventId = $_GET['event_id'] ?? null;
+$user_id = $_GET['user_id'] ?? null; // Récupérer user_id depuis la requête
 
 try {
     if ($eventId) {

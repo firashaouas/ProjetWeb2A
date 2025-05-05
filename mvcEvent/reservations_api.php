@@ -9,6 +9,7 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 $action = $_GET['action'] ?? '';
+$user_id = $_GET['user_id'] ?? $_POST['user_id'] ?? null;
 
 $eventController = new EventController();
 $chaiseController = new ChaiseController();
@@ -16,7 +17,11 @@ $chaiseController = new ChaiseController();
 try {
     switch ($action) {
         case 'get_all':
-            $reservations = $eventController->getAllReservations();
+            // For testing, allow hardcoded user_id
+            if (!$user_id) {
+                $user_id = 3; // Fallback to match global_user_id
+            }
+            $reservations = $eventController->getReservationsByUser();
             echo json_encode([
                 'success' => true,
                 'reservations' => $reservations,
@@ -50,12 +55,15 @@ try {
         case 'get_reservation':
             $eventId = $_GET['event_id'] ?? null;
             if (!$eventId) throw new Exception('ID événement manquant');
+            if (!$user_id) {
+                $user_id = 3; // Fallback to match global_user_id
+            }
             
-            $reservation = $eventController->getAllReservations();
-            $currentReservation = array_filter($reservation, function($res) use ($eventId) {
-                return $res['id'] == $eventId;
-            });
-            $currentReservation = array_values($currentReservation)[0] ?? null;
+            $reservations = $chaiseController->getUserReservations($eventId);
+            $currentReservation = !empty($reservations) ? [
+                'id' => $eventId,
+                'seats' => array_column($reservations, 'numero')
+            ] : null;
             echo json_encode(['success' => true, 'reservation' => $currentReservation]);
             break;
 
@@ -63,6 +71,7 @@ try {
             $data = json_decode(file_get_contents('php://input'), true);
             $eventId = $data['event_id'] ?? null;
             $seatNumbers = $data['seat_numbers'] ?? [];
+            $user_id = $data['user_id'] ?? 3; // Fallback to 4
             
             if (!$eventId || empty($seatNumbers)) {
                 throw new Exception('Données manquantes');
@@ -75,6 +84,7 @@ try {
         case 'cancel':
             $data = json_decode(file_get_contents('php://input'), true);
             $eventId = $data['event_id'] ?? null;
+            $user_id = $data['user_id'] ?? 3; // Fallback to 4
             
             if (!$eventId) {
                 throw new Exception('ID événement manquant');

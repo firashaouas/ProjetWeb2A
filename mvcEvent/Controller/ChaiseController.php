@@ -4,6 +4,8 @@ require 'C:/xampp/htdocs/projetWeb/mvcEvent/Model/Chaise.php';
 
 class ChaiseController {
     private $db;
+    // Added: Global user_id as static property
+    private static $global_user_id = 3; // Hardcode to 3 for testing, change to 4 as needed
 
     public function __construct($db = null) {
         $this->db = $db ?: Config::getConnexion();
@@ -86,7 +88,11 @@ class ChaiseController {
         }
     }
 
-    public function reserverChaise($chaise_id, $user_id = null) {
+    public function reserverChaise($chaise_id , $user_id) {
+        // Modified: Use global_user_id instead of parameter
+        if (!self::$global_user_id) {
+            throw new Exception("Global User ID is required for reservation");
+        }
         $checkSql = "SELECT event_id, statut FROM chaise WHERE id = :chaise_id";
         $updateChaiseSql = "UPDATE chaise SET statut = 'reserve', id_user = :user_id 
                            WHERE id = :chaise_id AND statut = 'libre'";
@@ -117,11 +123,11 @@ class ChaiseController {
             }
             
             // Mettre à jour le statut de la chaise
-            error_log("Mise à jour chaise $chaise_id à 'reserve' pour user_id: " . ($user_id ?? 'NULL'));
+            error_log("Mise à jour chaise $chaise_id à 'reserve' pour user_id: " . (self::$global_user_id ?? 'NULL'));
             $updateChaiseQuery = $this->db->prepare($updateChaiseSql);
             $updateChaiseQuery->execute([
                 ':chaise_id' => $chaise_id,
-                ':user_id' => $user_id
+                ':user_id' => self::$global_user_id
             ]);
             
             if ($updateChaiseQuery->rowCount() === 0) {
@@ -221,6 +227,7 @@ class ChaiseController {
         
         return $result['last_num'] ?? 0;
     }
+
     public function getEventSeatStats($eventId = null) {
         $sql = "SELECT 
                     e.id, 
@@ -242,6 +249,7 @@ class ChaiseController {
             throw new Exception('Erreur getEventSeatStats: ' . $e->getMessage());
         }
     }
+
     public function updateReservation($eventId, $seatNumber) {
         // Implémentez votre logique de mise à jour
         // Par exemple :
@@ -258,14 +266,19 @@ class ChaiseController {
             throw new Exception('Erreur updateReservation: ' . $e->getMessage());
         }
     }
+
     public function updateMultipleReservations($eventId, $seatNumbers) {
+        // Modified: Use global_user_id
+        if (!self::$global_user_id) {
+            throw new Exception("Global User ID is required for reservation");
+        }
         try {
             $this->db->beginTransaction();
 
             // Get current reserved seats for this event
             $currentSeats = $this->getChaisesByEvent($eventId);
             $currentReserved = array_filter($currentSeats, function($seat) {
-                return $seat['statut'] === 'reserve';
+                return $seat['statut'] === 'reserve' && $seat['id_user'] == self::$global_user_id;
             });
             $currentReservedNumbers = array_column($currentReserved, 'numero');
 
@@ -288,7 +301,7 @@ class ChaiseController {
                 $query->execute([
                     ':event_id' => $eventId,
                     ':numero' => $seatNumber,
-                    ':user_id' => null // Replace with actual user ID if available
+                    ':user_id' => self::$global_user_id
                 ]);
                 if ($query->rowCount() === 0) {
                     throw new Exception("Le siège $seatNumber n'est pas disponible");
@@ -298,11 +311,12 @@ class ChaiseController {
             // Free removed seats
             foreach ($seatsToFree as $seatNumber) {
                 $sql = "UPDATE chaise SET statut = 'libre', id_user = NULL 
-                        WHERE event_id = :event_id AND numero = :numero AND statut = 'reserve'";
+                        WHERE event_id = :event_id AND numero = :numero AND statut = 'reserve' AND id_user = :user_id";
                 $query = $this->db->prepare($sql);
                 $query->execute([
                     ':event_id' => $eventId,
-                    ':numero' => $seatNumber
+                    ':numero' => $seatNumber,
+                    ':user_id' => self::$global_user_id
                 ]);
             }
 
@@ -324,16 +338,26 @@ class ChaiseController {
     }
 
     public function cancelReservation($eventId) {
+        // Modified: Use global_user_id
+        if (!self::$global_user_id) {
+            throw new Exception("Global User ID is required for cancellation");
+        }
         try {
             $this->db->beginTransaction();
 
             $sql = "UPDATE chaise SET statut = 'libre', id_user = NULL 
-                    WHERE event_id = :event_id AND statut = 'reserve'";
+                    WHERE event_id = :event_id AND statut = 'reserve' AND id_user = :user_id";
             $query = $this->db->prepare($sql);
-            $query->execute([':event_id' => $eventId]);
+            $query->execute([
+                ':event_id' => $eventId,
+                ':user_id' => self::$global_user_id
+            ]);
 
             // Reset reserved_seats in evenements table
-            $sql = "UPDATE evenements SET reserved_seats = 0 WHERE id = :event_id";
+            $sql = "UPDATE evenements SET reserved_seats = (
+                        SELECT COUNT(*) FROM chaise 
+                        WHERE event_id = :event_id AND statut = 'reserve'
+                    ) WHERE id = :event_id";
             $query = $this->db->prepare($sql);
             $query->execute([':event_id' => $eventId]);
 
@@ -345,18 +369,25 @@ class ChaiseController {
         }
     }
 
-    /*public function cancelReservation($eventId) {
-        // Implémentez votre logique d'annulation
-        // Par exemple :
-        $sql = "UPDATE chaise SET statut = 'libre', id_user = NULL 
-                WHERE event_id = :event_id AND statut = 'reserve'";
+    public function getUserReservations($eventId) {
+        // Added: Function to fetch reservations for global_user_id
+        if (!self::$global_user_id) {
+            throw new Exception("Global User ID is required for fetching reservations");
+        }
+        $sql = "SELECT id, numero, statut, id_user 
+                FROM chaise 
+                WHERE event_id = :event_id AND id_user = :user_id AND statut = 'reserve'";
         
         try {
             $query = $this->db->prepare($sql);
-            return $query->execute([':event_id' => $eventId]);
+            $query->execute([
+                ':event_id' => $eventId,
+                ':user_id' => self::$global_user_id
+            ]);
+            return $query->fetchAll(PDO::FETCH_ASSOC);
         } catch (Exception $e) {
-            throw new Exception('Erreur cancelReservation: ' . $e->getMessage());
+            throw new Exception('Erreur getUserReservations: ' . $e->getMessage());
         }
-    }*/
+    }
 }
 ?>

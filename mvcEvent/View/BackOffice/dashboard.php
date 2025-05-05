@@ -6,6 +6,7 @@ $editId = $_POST['edit_id'] ?? null;
 
 // Check for server-side errors
 session_start();
+$user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null; // Récupérer user_id pour filtrage optionnel
 $errorMessage = $_SESSION['error_message'] ?? null;
 unset($_SESSION['error_message']);
 if (isset($_SESSION['form_data'])) {
@@ -355,6 +356,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             margin: 20px;
             text-align: center;
         }
+        .location-display {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.location-edit-container {
+    margin-top: 10px;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+}
+
+.geocoder {
+    margin-top: 10px;
+}
+
+.mapboxgl-ctrl-geocoder {
+    width: 100% !important;
+    max-width: none !important;
+}
     </style>
 </head>
 <body>
@@ -444,14 +467,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                       required min='1' max='8'></td>";
                             echo "<td><input type='date' name='date' value='{$event['date']}' 
                                       required min='".date('Y-m-d')."'></td>";
-                            echo "<td>
-                                <div id='map-{$event['id']}' style='height: 200px;'></div>
-                                <input type='hidden' name='longitude' id='edit_longitude_{$event['id']}' value='{$event['longitude']}'>
-                                <input type='hidden' name='latitude' id='edit_latitude_{$event['id']}' value='{$event['latitude']}'>
-                                <input type='hidden' name='place_name' id='edit_place_name_{$event['id']}' value='".htmlspecialchars($event['place_name'])."'>
-                                <div id='edit_geocoder_{$event['id']}' class='geocoder'></div>
-                                <span id='edit_locationError_{$event['id']}' class='error-message'></span>
-                            </td>";
+                                      echo "<td>
+                                      <div class='location-display'>
+                                          <input type='text' id='edit_place_name_display_{$event['id']}' value='".htmlspecialchars($event['place_name'])."' readonly>
+                                          <button type='button' class='edit-location-btn' data-event-id='{$event['id']}'>Modifier le lieu</button>
+                                      </div>
+                                      <div id='edit_location_container_{$event['id']}' class='location-edit-container' style='display: none;'>
+                                          <div id='map-{$event['id']}' style='height: 200px;'></div>
+                                          <div id='edit_geocoder_{$event['id']}' class='geocoder'></div>
+                                          <span id='edit_locationError_{$event['id']}' class='error-message'></span>
+                                      </div>
+                                      <input type='hidden' name='longitude' id='edit_longitude_{$event['id']}' value='{$event['longitude']}'>
+                                      <input type='hidden' name='latitude' id='edit_latitude_{$event['id']}' value='{$event['latitude']}'>
+                                      <input type='hidden' name='place_name' id='edit_place_name_{$event['id']}' value='".htmlspecialchars($event['place_name'])."'>
+                                  </td>";
                             echo "<td>
                                 <input type='text' name='imageUrl' value='".htmlspecialchars($event['imageUrl'])."' 
                                      minlength='3' pattern='.*/.*'>
@@ -503,28 +532,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
 
         <div class="seat-management">
-            <h2>Gestion des chaises</h2>
-            <div class="seat-controls">
-                <select id="eventFilter">
-                    <option value="">Sélectionner un événement</option>
-                    <?php
-                    $events = $controller->getEvents();
-                    foreach ($events as $event) {
-                        echo "<option value='{$event['id']}'>" . htmlspecialchars($event['name']) . "</option>";
-                    }
-                    ?>
-                </select>
-                <select id="statusFilter">
-                    <option value="all">Tous les statuts</option>
-                    <option value="libre">Libre</option>
-                    <option value="reserve">Réservé</option>
-                </select>
-                <div class="seat-stats" id="seatStats"></div>
-            </div>
-            <div class="seat-grid-container">
-                <div class="seat-grid" id="seatGrid"></div>
-            </div>
-        </div>
+    <h2>Gestion des chaises</h2>
+    <div class="seat-controls">
+        <select id="eventFilter">
+            <option value="">Sélectionner un événement</option>
+            <?php
+            $events = $controller->getEvents();
+            foreach ($events as $event) {
+                echo "<option value='{$event['id']}'>" . htmlspecialchars($event['name']) . "</option>";
+            }
+            ?>
+        </select>
+        <select id="statusFilter">
+            <option value="all">Tous les statuts</option>
+            <option value="libre">Libre</option>
+            <option value="reserve">Réservé</option>
+        </select>
+        <div class="seat-stats" id="seatStats"></div>
+    </div>
+    <div class="seat-grid-container">
+        <div class="seat-grid" id="seatGrid"></div>
+    </div>
+</div>
 
         <!-- Modal for seat details -->
         <div id="seatModal" class="modal">
@@ -601,12 +630,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <!-- Overlay -->
         <div class="overlay" id="overlay"></div>
+        <!-- Charts Section -->
+<div class="charts-section">
+    <h2>Statistiques des événements</h2>
+    <div class="charts-container">
+        <div class="chart-container">
+            <canvas id="eventsByCategoryChart"></canvas>
+        </div>
+        <div class="chart-container">
+            <canvas id="seatStatusChart"></canvas>
+        </div>
+        <div class="chart-container">
+            <canvas id="priceDistributionChart"></canvas>
+        </div>
+    </div>
+</div>
     </div>
 
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'></script>
     <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js'></script>
-   <script>// Mapbox access token
+   <script>
+   // Mapbox access token
 mapboxgl.accessToken = '<?php echo "pk.eyJ1IjoiaGFvYXVzMDEiLCJhIjoiY21hOHhqcGttMWJ5NjJtczg3eGJxazM0MiJ9.lm0YeqM7TkpDT4r6_Pf6aw"; ?>';
+
+// Ajouter user_id pour les appels à get_chaises.php
+const USER_ID = <?php echo json_encode($user_id); ?>;
+// Event data from PHP
+const eventsData = <?php echo json_encode($events); ?>;
 
 // Utility functions
 function showLoading(element) {
@@ -654,11 +704,14 @@ function loadSeatsForEvent(eventId) {
         grid.innerHTML = '<p class="no-seats">Sélectionnez un événement</p>';
         stats.innerHTML = '';
         console.log('No event ID provided');
+        updateSeatStatusChart({ total: 0, reserved: 0 });
         return;
     }
     showLoading(grid);
     console.log('Fetching seats for event ID:', eventId);
-    fetch(`/projetWeb/mvcEvent/get_chaises.php?event_id=${eventId}`)
+    // Ajouter user_id à l'URL si disponible
+    const url = USER_ID ? `/projetWeb/mvcEvent/get_chaises.php?event_id=${eventId}&user_id=${USER_ID}` : `/projetWeb/mvcEvent/get_chaises.php?event_id=${eventId}`;
+    fetch(url)
         .then(response => {
             console.log('Fetch response status:', response.status);
             if (!response.ok) {
@@ -672,6 +725,7 @@ function loadSeatsForEvent(eventId) {
                 currentChaises = data.chaises || [];
                 updateSeatGrid();
                 updateSeatStats(data.stats || { total: 0, reserved: 0 });
+                updateSeatStatusChart(data.stats || { total: 0, reserved: 0 });
                 animateSeats();
             } else {
                 throw new Error(data.message || 'Erreur serveur');
@@ -681,9 +735,9 @@ function loadSeatsForEvent(eventId) {
             console.error('Error loading seats:', error);
             grid.innerHTML = `<p class="error-message">Erreur : ${error.message}</p>`;
             stats.innerHTML = '';
+            updateSeatStatusChart({ total: 0, reserved: 0 });
         });
 }
-
 function updateSeatGrid() {
     const grid = document.getElementById('seatGrid');
     const statusFilter = document.getElementById('statusFilter')?.value || 'all';
@@ -1092,34 +1146,39 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     // Initialize map and geocoder for edit forms
-    document.querySelectorAll('#eventTable form').forEach(form => {
-        const idInput = form.querySelector('input[name="id"], input[name="edit_id"]');
-        if (!idInput) {
-            console.warn('Form missing input[name="id"] or input[name="edit_id"]:', form);
-            return;
+  // Gestion du clic sur le bouton "Modifier le lieu"
+document.querySelectorAll('.edit-location-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const eventId = this.dataset.eventId;
+        const locationContainer = document.getElementById(`edit_location_container_${eventId}`);
+        
+        if (locationContainer) {
+            locationContainer.style.display = 'block';
+            this.style.display = 'none';
+            
+            // Initialiser la carte uniquement si elle n'existe pas déjà
+            if (!window[`editMap_${eventId}`]) {
+                initializeEditMap(eventId);
+            }
         }
-        const eventId = idInput.value;
+    });
+});
 
-        const mapContainer = document.getElementById(`map-${eventId}`);
-        if (!mapContainer) {
-            return;
-        }
+// Fonction pour initialiser la carte et le géocodeur
+function initializeEditMap(eventId) {
+    const mapContainer = document.getElementById(`map-${eventId}`);
+    if (!mapContainer) return;
 
-        let isEditLocationSelected = false;
+    try {
+        const longitude = parseFloat(document.getElementById(`edit_longitude_${eventId}`).value) || 10.1815;
+        const latitude = parseFloat(document.getElementById(`edit_latitude_${eventId}`).value) || 36.8065;
 
-        let editMap;
-        try {
-            editMap = new mapboxgl.Map({
-                container: `map-${eventId}`,
-                style: 'mapbox://styles/mapbox/light-v10',
-                center: [10.1815, 36.8065],
-                zoom: 10
-            });
-        } catch (error) {
-            console.error(`Failed to initialize map for event ${eventId}:`, error);
-            form.querySelector(`#edit_locationError_${eventId}`).textContent = 'Erreur de chargement de la carte.';
-            return;
-        }
+        const editMap = new mapboxgl.Map({
+            container: `map-${eventId}`,
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: [longitude, latitude],
+            zoom: 12
+        });
 
         const editGeocoder = new MapboxGeocoder({
             accessToken: mapboxgl.accessToken,
@@ -1128,104 +1187,38 @@ document.addEventListener("DOMContentLoaded", function() {
             marker: { color: '#C83EFC' }
         });
 
-        try {
-            form.querySelector(`#edit_geocoder_${eventId}`).appendChild(editGeocoder.onAdd(editMap));
-        } catch (error) {
-            console.error(`Error initializing geocoder for event ${eventId}:`, error);
-            form.querySelector(`#edit_locationError_${eventId}`).textContent = 'Erreur de chargement du géocodeur.';
-        }
+        document.getElementById(`edit_geocoder_${eventId}`).appendChild(editGeocoder.onAdd(editMap));
+
+        // Stocker la référence de la carte dans l'objet window
+        window[`editMap_${eventId}`] = editMap;
 
         editGeocoder.on('result', function(e) {
             const coords = e.result.geometry.coordinates;
-            form.querySelector(`#edit_longitude_${eventId}`).value = coords[0];
-            form.querySelector(`#edit_latitude_${eventId}`).value = coords[1];
-            form.querySelector(`#edit_place_name_${eventId}`).value = e.result.place_name;
-            isEditLocationSelected = true;
-            console.log(`Edit geocoder result for event ${eventId}:`, {
-                longitude: coords[0],
-                latitude: coords[1],
-                place_name: e.result.place_name
-            });
-            validateEditLocation(eventId);
-            updateEditSubmitButton(eventId);
+            document.getElementById(`edit_longitude_${eventId}`).value = coords[0];
+            document.getElementById(`edit_latitude_${eventId}`).value = coords[1];
+            document.getElementById(`edit_place_name_${eventId}`).value = e.result.place_name;
+            document.getElementById(`edit_place_name_display_${eventId}`).value = e.result.place_name;
         });
 
         editGeocoder.on('error', function(error) {
-            console.error(`Edit geocoder error for event ${eventId}:`, error);
-            form.querySelector(`#edit_locationError_${eventId}`).textContent = 'Erreur lors de la recherche du lieu. Veuillez réessayer.';
-            isEditLocationSelected = false;
-            updateEditSubmitButton(eventId);
+            console.error(`Geocoder error for event ${eventId}:`, error);
+            document.getElementById(`edit_locationError_${eventId}`).textContent = 
+                'Erreur lors de la recherche du lieu. Veuillez réessayer.';
         });
 
-        function validateEditLocation(id) {
-            const longitude = form.querySelector(`#edit_longitude_${id}`).value;
-            const latitude = form.querySelector(`#edit_latitude_${id}`).value;
-            const placeName = form.querySelector(`#edit_place_name_${id}`).value;
-            const errorElement = form.querySelector(`#edit_locationError_${id}`);
-
-            if (!isEditLocationSelected) {
-                showError(errorElement, "Veuillez sélectionner un lieu à l'aide de la recherche.");
-                return false;
-            }
-
-            if (!longitude || !latitude || !placeName) {
-                showError(errorElement, "Les coordonnées du lieu sont manquantes.");
-                return false;
-            }
-
-            if (isNaN(parseFloat(longitude)) || isNaN(parseFloat(latitude))) {
-                showError(errorElement, "Les coordonnées GPS sont invalides.");
-                return false;
-            }
-
-            if (placeName.length < 3) {
-                showError(errorElement, "Le nom du lieu doit contenir au moins 3 caractères.");
-                return false;
-            }
-
-            showValid(errorElement);
-            return true;
+        // Ajouter un marqueur pour le lieu existant
+        if (!isNaN(longitude) && !isNaN(latitude)) {
+            new mapboxgl.Marker({ color: '#C83EFC' })
+                .setLngLat([longitude, latitude])
+                .addTo(editMap);
         }
 
-        function validateEditForm(id) {
-            const inputs = form.querySelectorAll('input, select, textarea');
-            let isValid = true;
-
-            inputs.forEach(input => {
-                if (!input.checkValidity()) {
-                    isValid = false;
-                }
-            });
-
-            return isValid && validateEditLocation(id);
-        }
-
-        function updateEditSubmitButton(id) {
-            const submitButton = form.querySelector('button[type="submit"]');
-            submitButton.disabled = !validateEditForm(id);
-        }
-
-        form.querySelectorAll('input, select, textarea').forEach(input => {
-            input.addEventListener('input', () => updateEditSubmitButton(eventId));
-            input.addEventListener('change', () => updateEditSubmitButton(eventId));
-        });
-
-        form.addEventListener('submit', function(e) {
-            console.log(`Edit form submission attempt for event ${eventId}:`, Object.fromEntries(new FormData(this)));
-            if (!validateEditForm(eventId)) {
-                e.preventDefault();
-                console.error(`Edit form validation failed for event ${eventId}`);
-                form.querySelectorAll('input, select, textarea').forEach(input => {
-                    if (!input.checkValidity()) {
-                        input.focus();
-                        input.style.animation = 'shake 0.5s';
-                        setTimeout(() => input.style.animation = '', 500);
-                    }
-                });
-            }
-        });
-    });
-
+    } catch (error) {
+        console.error(`Failed to initialize map for event ${eventId}:`, error);
+        document.getElementById(`edit_locationError_${eventId}`).textContent = 
+            'Erreur de chargement de la carte. Vérifiez votre connexion réseau.';
+    }
+}
     // Panel controls
     const openPanelBtn = document.getElementById('openPanel');
     const closePanelBtn = document.getElementById('closePanel');
@@ -1374,6 +1367,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Initialize seat management
     initializeSeatManagement();
+    initializeCharts();
     setupEventListeners();
 
     const eventFilter = document.getElementById('eventFilter');
@@ -1404,6 +1398,130 @@ document.addEventListener("DOMContentLoaded", function() {
         `);
     };
 });
+// Chart initialization functions
+function initializeCharts() {
+    // Events by Category (Bar Chart)
+    const categoryCounts = eventsData.reduce((acc, event) => {
+        acc[event.category] = (acc[event.category] || 0) + 1;
+        return acc;
+    }, {});
+    const categoryLabels = Object.keys(categoryCounts);
+    const categoryData = Object.values(categoryCounts);
+
+    eventsByCategoryChart = new Chart(document.getElementById('eventsByCategoryChart'), {
+        type: 'bar',
+        data: {
+            labels: categoryLabels,
+            datasets: [{
+                label: 'Nombre d\'événements',
+                data: categoryData,
+                backgroundColor: '#C83EFC',
+                borderColor: '#2c3e50',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false },
+                title: {
+                    display: true,
+                    text: 'Événements par catégorie'
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: { display: true, text: 'Nombre' }
+                },
+                x: {
+                    title: { display: true, text: 'Catégorie' }
+                }
+            }
+        }
+    });
+
+    // Seat Status (Pie Chart) - Initially empty
+    seatStatusChart = new Chart(document.getElementById('seatStatusChart'), {
+        type: 'pie',
+        data: {
+            labels: ['Libres', 'Réservées'],
+            datasets: [{
+                data: [0, 0],
+                backgroundColor: ['#2ecc71', '#e74c3c'],
+                borderColor: '#ffffff',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { position: 'bottom' },
+                title: {
+                    display: true,
+                    text: 'Statut des places (Sélectionnez un événement)'
+                }
+            }
+        }
+    });
+
+    // Price Distribution (Line Chart)
+    const priceRanges = [0, 10, 20, 50, 100, Infinity];
+    const priceLabels = ['0-10', '10-20', '20-50', '50-100', '100+'];
+    const priceData = priceRanges.slice(0, -1).map((range, index) => {
+        return eventsData.filter(event => {
+            const price = parseFloat(event.price);
+            return price >= range && price < priceRanges[index + 1];
+        }).length;
+    });
+
+    priceDistributionChart = new Chart(document.getElementById('priceDistributionChart'), {
+        type: 'line',
+        data: {
+            labels: priceLabels,
+            datasets: [{
+                label: 'Nombre d\'événements',
+                data: priceData,
+                fill: false,
+                borderColor: '#3498db',
+                tension: 0.4,
+                pointBackgroundColor: '#3498db',
+                pointBorderColor: '#ffffff',
+                pointBorderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false },
+                title: {
+                    display: true,
+                    text: 'Distribution des prix'
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: { display: true, text: 'Nombre' }
+                },
+                x: {
+                    title: { display: true, text: 'Plage de prix (€)' }
+                }
+            }
+        }
+    });
+}
+
+function updateSeatStatusChart(stats) {
+    const total = stats.total || 0;
+    const reserved = stats.reserved || 0;
+    const free = total - reserved;
+
+    seatStatusChart.data.datasets[0].data = [free, reserved];
+    seatStatusChart.options.plugins.title.text = `Statut des places${total > 0 ? ' (Événement sélectionné)' : ' (Sélectionnez un événement)'}`;
+    seatStatusChart.update();
+}
 </script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </body>
 </html>

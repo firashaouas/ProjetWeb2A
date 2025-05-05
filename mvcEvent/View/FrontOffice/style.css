@@ -2395,3 +2395,28 @@ nav {
     transform: scale(1.1);
     box-shadow: 0 5px 15px rgba(255, 80, 170, 0.4);
 }
+.exclusives-wrapper {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+.exclusives {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    white-space: nowrap;
+    transition: transform 0.1s linear;
+}
+.exclusive-item {
+    flex: 0 0 auto;
+    width: 250px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: center;
+    padding: 10px;
+    display: inline-block;
+}
+.exclusives::-webkit-scrollbar {
+    display: none;
+}

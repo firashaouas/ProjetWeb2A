@@ -590,3 +590,44 @@ table input:invalid {
     width: 100%;
     max-width: none;
 }
+/* Charts section styles */
+.charts-section {
+    margin: 20px;
+    padding: 25px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    border: 1px solid #e0e0e0;
+}
+
+.charts-section:hover {
+    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+}
+
+.charts-section h2 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    border-bottom: 2px solid #C83EFC;
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+.charts-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.chart-container {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.chart-container canvas {
+    max-width: 100%;
+    height: auto;
+}
