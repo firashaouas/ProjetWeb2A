@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../../Config.php';
+require_once __DIR__ . '/ProfanityFilter.php';
 session_start();
 
 try {
@@ -11,14 +12,16 @@ try {
     $db = Config::getConnexion();
     $userId = $_SESSION['user']['id_user'];
 
-    $message = isset($_POST['message']) ? trim($_POST['message']) : '';
-    if ($message === 'undefined') {
-        $message = '';
+    $originalMessage = isset($_POST['message']) ? trim($_POST['message']) : '';
+    if ($originalMessage === 'undefined') {
+        $originalMessage = '';
     }
+
+    $badWords = ProfanityFilter::getListeBadWords();
+    $filteredMessage = ProfanityFilter::filtrerTexteAvance($originalMessage, $badWords);
 
     $filePath = null;
 
-    // 🖼️ Si fichier uploadé
     if (!empty($_FILES['file']) && $_FILES['file']['error'] === UPLOAD_ERR_OK) {
         $allowedTypes = [
             'image/jpeg', 'image/png', 'image/gif', 'image/webp',
@@ -49,23 +52,24 @@ try {
         }
     }
 
-    // 📝 Sauvegarder message ou fichier
-    if ($message !== '' || $filePath !== null) {
+    // ✅ Corrigé ici : tester sur $originalMessage et enregistrer $filteredMessage
+    if ($originalMessage !== '' || $filePath !== null) {
         $stmt = $db->prepare("
             INSERT INTO chat_messages (user_id, message, file_path, created_at, seen_by)
             VALUES (:user_id, :message, :file_path, NOW(), :seen_by)
         ");
         $stmt->execute([
             'user_id'   => $userId,
-            'message'   => $message,
+            'message'   => $filteredMessage,
             'file_path' => $filePath,
-            'seen_by'   => $userId  // 🛠️ ici l'expéditeur est directement dans seen_by
+            'seen_by'   => $userId
         ]);
 
-        echo "✅ Message enregistré avec l'expéditeur dans seen_by";
+        echo "✅ Message enregistré avec filtrage";
     } else {
         echo "❌ Rien à enregistrer";
     }
+
 } catch (PDOException $e) {
     echo "❌ Erreur SQL : " . $e->getMessage();
 }

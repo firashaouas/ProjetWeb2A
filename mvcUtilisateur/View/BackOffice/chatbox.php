@@ -864,14 +864,23 @@ if (isset($_GET['idChatbox'])) {
 
 
       function readMessage(text) {
-        const synth = window.speechSynthesis; // Vérifier si la synthèse vocale est supportée
-        if (!synth) {
-          alert('Synthèse vocale non supportée sur ce navigateur.');
-          return;
-        }
-        const utterance = new SpeechSynthesisUtterance(text); // Créer un nouvel objet d'énonciation
-        synth.speak(utterance); // Jouer le texte
-      }
+  const synth = window.speechSynthesis;
+  if (!synth) {
+    alert('Synthèse vocale non supportée sur ce navigateur.');
+    return;
+  }
+
+  // 🧼 Supprimer les mots censurés ("****", "***", etc.)
+  const cleanedText = text
+    .split(' ')
+    .filter(word => !/^\*+$/g.test(word)) // Ignore les mots comme "****"
+    .join(' ');
+
+  const utterance = new SpeechSynthesisUtterance(cleanedText);
+  utterance.lang = 'fr-FR'; // tu peux changer ça dynamiquement si besoin
+  synth.speak(utterance);
+}
+
     </script>
 </body>
 
@@ -1022,30 +1031,30 @@ if (isset($_GET['idChatbox'])) {
 
 
   function saveEditedMessage(messageId) {
-    const messageLine = document.querySelector(`[data-id='${messageId}']`);
-    const input = messageLine.querySelector('.edit-input');
-    const newText = input.value.trim();
+  const messageLine = document.querySelector(`[data-id='${messageId}']`);
+  const input = messageLine.querySelector('.edit-input');
+  const newText = input.value.trim();
 
-    if (newText !== "") {
-      fetch('update_message.php', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            id: messageId,
-            text: newText
-          })
+  if (newText !== "") {
+    fetch('update_message.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          id: messageId,
+          text: newText
         })
-        .then(response => response.text())
-        .then(() => {
-          const messageText = messageLine.querySelector('.chat-text');
-          messageText.innerHTML = newText;
-          loadMessages(); // Recharge pour être sûr
-        })
-        .catch(error => console.error('Erreur modification:', error));
-    }
+      })
+      .then(response => response.text())
+      .then(() => {
+        // Recharge toute la page juste après la mise à jour
+        window.location.reload(); 
+      })
+      .catch(error => console.error('Erreur modification:', error));
   }
+}
+
 
   function editMessage(messageId) {
     const messageLine = document.querySelector(`[data-id='${messageId}']`);

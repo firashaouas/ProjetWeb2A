@@ -385,3 +385,14 @@ input[type="email"].invalid {
 #reg-log:checked ~ .card-3d-wrap .card-back .g-recaptcha {
   display: block;
 }
+
+
+.g-recaptcha {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  width: fit-content;
+  transform: scale(1.1); /* agrandit légèrement */
+  transform-origin: center;
+}

@@ -6,6 +6,7 @@
 require_once __DIR__ . '/../../Config.php';
 session_start();
 
+require_once __DIR__ . '/ProfanityFilter.php';
 
 
 function stringToColor($str) {
@@ -41,7 +42,11 @@ try {
         $messageId = $msg['id'];
         $authorId = $msg['user_id'];
         $name = htmlspecialchars($msg['full_name']);
-        $text = htmlspecialchars($msg['message']);
+
+        $text = ProfanityFilter::filtrerTexteAvance($msg['message'], ProfanityFilter::getListeBadWords());
+        $text = htmlspecialchars($text);
+        
+        
         $time = date('H:i', strtotime($msg['created_at']));
         $seenBy = !empty($msg['seen_by']) ? explode(',', $msg['seen_by']) : [];
 

@@ -10,7 +10,7 @@
             });
         });
     </script>
-    
+
 <?php unset($_SESSION['login_error']);
 endif; ?>
 
@@ -96,18 +96,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header("Location: /View/BackOffice/login/login.php");
             exit();
         }
-        
+
         $secretKey = '6LfnLy4rAAAAAFYzJror47CTbIt1eP5OEZPSgZFl';
         $captcha = $_POST['g-recaptcha-response'];
         $response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$captcha");
         $data = json_decode($response);
-        
+
         if (!$data->success) {
             $_SESSION['login_error'] = "Échec de vérification CAPTCHA.";
             header("Location: /View/BackOffice/login/login.php");
             exit();
         }
-        
+
         // Connexion
         $email = trim($_POST['email'] ?? '');
         $password = $_POST['password'] ?? '';
@@ -118,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $db = Config::getConnexion();
             require_once '../../../Model/User.php';
             $_SESSION['user'] = User::getUserByEmail($db, $email);
-        
+
             header("Location: /View/BackOffice/dashboard.php");
             exit();
         } else {
@@ -155,7 +155,7 @@ function isStrongPassword($password)
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
+
 
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
@@ -215,17 +215,23 @@ function isStrongPassword($password)
                                                     <input type="email" class="form-style" name="email" placeholder="Email" required>
                                                     <i class="input-icon uil uil-at"></i>
                                                 </div>
-                                                <div class="form-group mt-2">
-                                                    <input type="password" class="form-style" name="password" placeholder="Password" required>
+                                                <div class="form-group mt-2" style="position: relative;">
+                                                    <input type="password" class="form-style" name="password" id="login-password" placeholder="Password" required>
                                                     <i class="input-icon uil uil-lock-alt"></i>
-                                                </div>
-                                                <div class="text-right mt-1">
-    <a href="/Projet Web/mvcUtilisateur/View/FrontOffice/reset_request.php" class="link">Mot de passe oublié ?</a>
-</div>
 
-<div class="form-group mt-2">
-  <div class="g-recaptcha" data-sitekey="6LfnLy4rAAAAAJmaQD20P5qeEAZvck9pVgfRUJxT"></div>
-</div>
+                                                    <!-- Icône œil par défaut en mode caché -->
+                                                    <i class="toggle-password uil uil-eye-slash"
+                                                        onclick="togglePassword('login-password', this)"
+                                                        style="position: absolute; top: 10px; right: 15px; cursor: pointer;"></i>
+                                                </div>
+
+                                                <div class="text-right mt-1">
+                                                    <a href="/Projet Web/mvcUtilisateur/View/FrontOffice/reset_request.php" class="link">Mot de passe oublié ?</a>
+                                                </div>
+
+                                                <div class="form-group mt-2">
+                                                    <div class="g-recaptcha" data-sitekey="6LfnLy4rAAAAAJmaQD20P5qeEAZvck9pVgfRUJxT"></div>
+                                                </div>
 
 
                                                 <div class="btn-login-zone">
@@ -264,6 +270,13 @@ function isStrongPassword($password)
                                                 <div class="form-group mt-2" style="position: relative;">
                                                     <input type="password" class="form-style" name="password" id="password" placeholder="Password" required>
                                                     <i class="input-icon uil uil-lock-alt"></i>
+
+                                                    <!-- 👁 Icône œil pour afficher/cacher -->
+                                                    <i class="toggle-password uil uil-eye-slash"
+                                                        onclick="togglePassword('password', this)"
+                                                        style="position: absolute; top: 10px; right: 15px; cursor: pointer;"></i>
+
+
                                                     <div id="passwordHint" class="password-hint"></div>
                                                     <div class="password-strength-bar">
                                                         <div id="passwordStrength" class="strength-bar-inner"></div>
@@ -271,9 +284,10 @@ function isStrongPassword($password)
                                                 </div>
 
 
+
                                                 <div class="form-group mt-2">
-  <div class="g-recaptcha" data-sitekey="6LfnLy4rAAAAAJmaQD20P5qeEAZvck9pVgfRUJxT"></div>
-</div>
+                                                    <div class="g-recaptcha" data-sitekey="6LfnLy4rAAAAAJmaQD20P5qeEAZvck9pVgfRUJxT"></div>
+                                                </div>
 
 
                                                 <button type="submit" class="btn mt-4" name="action" value="register">S’inscrire</button>
@@ -295,7 +309,19 @@ function isStrongPassword($password)
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="script.js"> </script>
+    <script>
+        function togglePassword(inputId, icon) {
+            const input = document.getElementById(inputId);
+            const isHidden = input.type === "password";
+
+            input.type = isHidden ? "text" : "password";
+
+            // Alterner les icônes
+            icon.classList.toggle("uil-eye-slash");
+            icon.classList.toggle("uil-eye");
+        }
+    </script>
 </body>
 
 </html>
