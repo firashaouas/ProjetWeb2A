@@ -1,6 +1,7 @@
 <?php
 session_start(); // Démarre la session pour vérifier l'état de connexion
 
+
 // Fonction pour générer une couleur basée sur le nom de l'utilisateur
 function stringToColor($str) {
     // Liste de couleurs inspirées du thème Funbooker (rose, violet, orange, etc.)

@@ -401,17 +401,136 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['profile_picture'])) 
             </form>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        document.getElementById('profile-picture-input').addEventListener('change', function() {
-            if (this.files && this.files[0]) {
-                const validTypes = ['image/jpeg', 'image/png', 'image/gif'];
-                if (validTypes.includes(this.files[0].type)) {
-                    document.forms['picture-form'].submit();
-                } else {
-                    alert('Veuillez choisir un fichier image valide (JPG, PNG, GIF).');
-                }
-            }
+
+
+
+let selectedAvatarUrl = null;
+let selectedFile = null;
+
+document.getElementById('profile-picture-input').addEventListener('click', function (e) {
+  e.preventDefault();
+  showAvatarChoiceModal();
+});
+
+function showAvatarChoiceModal() {
+  const baseUrl = 'https://api.dicebear.com/7.x/avataaars/svg?radius=50&seed=';
+
+  // 👾 Génère les avatars DiceBear
+  const renderAvatars = () => {
+    const seeds = Array.from({ length: 6 }, () => Math.random().toString(36).substring(7));
+    let html = `<div id="avatar-list" style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:15px;">`;
+
+    seeds.forEach(seed => {
+      const src = `${baseUrl}${seed}`;
+      html += `
+        <div class="avatar-box" style="width:60px;height:60px;border-radius:10px;overflow:hidden;
+            cursor:pointer;border:2px solid transparent;transition:0.2s;"
+            onclick="chooseAvatar(this.querySelector('img'))">
+          <img src="${src}" width="60" height="60" style="display:block;">
+        </div>
+      `;
+    });
+
+    html += `</div>`;
+    return html;
+  };
+
+  Swal.fire({
+    title: 'Choisissez votre avatar animé ✨',
+    html: `
+      ${renderAvatars()}
+      <button type="button" id="refresh-avatars"
+        style="margin:10px auto 5px;display:block;padding:6px 12px;border:none;
+        background:#6c63ff;color:#fff;border-radius:6px;cursor:pointer;">
+        🔁 Autres avatars
+      </button>
+      <input type="file" id="customFile" accept="image/*"
+        onchange="handleFile(this)" style="margin-top:15px;display:block;">
+    `,
+    showCancelButton: true,
+    confirmButtonText: 'Enregistrer',
+    confirmButtonColor: '#6c63ff',
+    didOpen: () => {
+      // 🔄 Recharge de nouveaux avatars
+      document.getElementById('refresh-avatars').addEventListener('click', () => {
+        document.getElementById('avatar-list').outerHTML = renderAvatars();
+      });
+    },
+    preConfirm: () => {
+      if (selectedAvatarUrl) {
+        return fetch('save_avatar.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ avatar_url: selectedAvatarUrl })
+        })
+        .then(res => {
+          if (!res.ok) throw new Error("Serveur avatar invalide");
+          return res.json();
         });
+      } else if (selectedFile) {
+        const formData = new FormData();
+        formData.append('photo', selectedFile);
+        return fetch('upload_avatar.php', {
+          method: 'POST',
+          body: formData
+        })
+        .then(res => {
+          if (!res.ok) throw new Error("Erreur d’upload");
+          return res.json();
+        });
+      } else {
+        Swal.showValidationMessage("📸 Choisissez un avatar ou une image locale.");
+        return false;
+      }
+    }
+  }).then(result => {
+    if (result.value && result.value.success) {
+      Swal.fire('✅ Avatar mis à jour !', '', 'success').then(() => location.reload());
+    }
+  });
+}
+
+function chooseAvatar(img) {
+  selectedAvatarUrl = img.src;
+  selectedFile = null;
+  document.querySelectorAll('.avatar-box').forEach(el => {
+    el.style.border = "2px solid transparent";
+  });
+  img.parentElement.style.border = "2px solid #6c63ff";
+}
+
+function handleFile(input) {
+  if (input.files && input.files[0]) {
+    const file = input.files[0];
+    const validTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/svg+xml'];
+    if (!validTypes.includes(file.type)) {
+      Swal.showValidationMessage('❌ Format non supporté (JPG, PNG, GIF, SVG)');
+      return;
+    }
+
+    selectedFile = file;
+    selectedAvatarUrl = null;
+
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      const preview = document.getElementById('preview-uploaded-avatar');
+      if (preview) preview.remove();
+      const img = document.createElement('img');
+      img.src = e.target.result;
+      img.id = 'preview-uploaded-avatar';
+      img.style.cssText = 'display:block;margin:10px auto;width:60px;height:60px;border-radius:10px;';
+      Swal.getPopup().appendChild(img);
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+
+
+
 
         function confirmDelete() {
             return confirm("Êtes-vous sûr de vouloir supprimer définitivement votre compte?");
