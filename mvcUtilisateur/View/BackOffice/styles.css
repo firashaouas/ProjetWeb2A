@@ -740,3 +740,83 @@
     background: white;
   }
   
+
+
+  .unsplash-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .unsplash-controls input {
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 25px;
+    flex: 1;
+    min-width: 200px;
+    font-size: 16px;
+  }
+  
+  .unsplash-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    background-color: #ddd;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s ease-in-out;
+  }
+  
+  .unsplash-btn:hover {
+    background-color: #bbb;
+  }
+  
+  .unsplash-btn.violet {
+    background-color: #8e44ad;
+    color: white;
+  }
+  
+  .unsplash-btn.violet:hover {
+    background-color: #6c3483;
+  }
+  
+  .unsplash-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start;
+  }
+  
+  .image-container {
+    position: relative;
+    width: 200px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .image-container img {
+    width: 100%;
+    display: block;
+    border-radius: 10px;
+  }
+  
+  .download-button {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    display: none;
+  }
+  
+  .image-container:hover .download-button {
+    display: block;
+  }
+  

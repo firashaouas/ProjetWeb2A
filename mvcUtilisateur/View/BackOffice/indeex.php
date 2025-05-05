@@ -265,7 +265,7 @@ function stringToColor($str)
       <h1>Click'N'go</h1>
       <div class="menu-item active" data-section="overview">🏠 Tableau de Bord</div>
       <div class="menu-item" data-section="promos">👤 Utilisateurs</div>
-      <div class="menu-item" data-section="products">📦 Produits</div>
+      <div class="menu-item" data-section="unsplash">📷 Galerie Unsplash</div>
       <div class="menu-item" data-section="orders">📋 Commandes</div>
       <div class="menu-item" data-section="reviews">⭐ Avis</div>
       <div class="menu-item" data-section="settings">⚙️ Réglages</div>
@@ -279,6 +279,28 @@ function stringToColor($str)
       <button id="spotifyBtn" style="padding:10px 20px; background-color:#1DB954; color:white; border:none; border-radius:20px; cursor:pointer;">
   🎶 Ouvrir Spotify
 </button>
+
+<div id="spotifySection" style="display: none;">
+  <button id="spotifyTracksBtn" style="
+    padding: 10px 20px;
+    background-color: #1DB954;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    margin: 20px;
+  ">🎵 Voir mes chansons</button>
+
+  <div id="tracksList" style="
+    margin-top: 20px;
+    padding: 20px;
+    background: #f7f7f7;
+    border-radius: 10px;
+    max-width: 600px;
+  "></div>
+</div>
+
 
 
 
@@ -587,67 +609,68 @@ function stringToColor($str)
 
     <!-- spotify Section -->
 <!-- ✅ Espace spécial caché pour Spotify -->
-<button id="spotifyTracksBtn" style="
-  padding: 10px 20px;
-  background-color: #1DB954;
-  color: white;
-  font-weight: bold;
-  border: none;
-  border-radius: 30px;
-  cursor: pointer;
-  margin: 20px;
-">🎵 Voir mes chansons</button>
-
-<div id="tracksList" style="
-  margin-top: 20px;
-  padding: 20px;
-  background: #f7f7f7;
-  border-radius: 10px;
-  max-width: 600px;
-"></div>
 <script>
-  const token = 'TON_ACCESS_TOKEN_ICI'; // Remplacer par ton vrai Access Token
-
-async function fetchWebApi(endpoint, method, body) {
-  const res = await fetch(`https://api.spotify.com/${endpoint}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json'
-    },
-    method,
-    body: body ? JSON.stringify(body) : undefined
+  document.getElementById('spotifyBtn').addEventListener('click', () => {
+    const section = document.getElementById('spotifySection');
+    section.style.display = 'block';
+    window.scrollTo({ top: section.offsetTop - 50, behavior: 'smooth' });
   });
-  return await res.json();
-}
 
-async function getTopTracks(){
-  return (await fetchWebApi(
-    'v1/me/top/tracks?time_range=medium_term&limit=5', 'GET'
-  )).items;
-}
+  const token = 'TON_ACCESS_TOKEN_ICI'; // ⚠️ Remplace ici !
 
-document.getElementById('spotifyTracksBtn').addEventListener('click', async () => {
-  const listDiv = document.getElementById('tracksList');
-  listDiv.innerHTML = '🔄 Chargement...';
-  
-  try {
-    const tracks = await getTopTracks();
-    listDiv.innerHTML = tracks.map(track => `
-      <div style="margin-bottom: 15px;">
-        <strong>${track.name}</strong> 
-        <br> 
-        <small>Par: ${track.artists.map(artist => artist.name).join(', ')}</small>
-      </div>
-    `).join('');
-  } catch (error) {
-    listDiv.innerHTML = "❌ Erreur de récupération.";
-    console.error(error);
+  async function fetchWebApi(endpoint, method, body) {
+    const res = await fetch(`https://api.spotify.com/${endpoint}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      method,
+      body: body ? JSON.stringify(body) : undefined
+    });
+    return await res.json();
   }
-});
 
+  async function getTopTracks() {
+    return (await fetchWebApi(
+      'v1/me/top/tracks?time_range=medium_term&limit=5', 'GET'
+    )).items;
+  }
+
+  document.getElementById('spotifyTracksBtn').addEventListener('click', async () => {
+    const listDiv = document.getElementById('tracksList');
+    listDiv.innerHTML = '🔄 Chargement...';
+
+    try {
+      const tracks = await getTopTracks();
+      listDiv.innerHTML = tracks.map(track => `
+        <div style="margin-bottom: 15px;">
+          <strong>${track.name}</strong><br>
+          <small>Par: ${track.artists.map(artist => artist.name).join(', ')}</small>
+        </div>
+      `).join('');
+    } catch (error) {
+      listDiv.innerHTML = "❌ Erreur de récupération.";
+      console.error(error);
+    }
+  });
 </script>
 
-    <!-- Orders Section -->
+
+<!-- Section Unsplash (images) -->
+<div class="dashboard-section" id="unsplash">
+  <h2 style="margin-bottom: 20px;">📷 Galerie d'images Unsplash</h2>
+
+  <div class="unsplash-controls">
+    <input type="text" id="searchInput" placeholder="Tape un mot-clé...">
+    <button class="unsplash-btn violet" onclick="searchPhotos()">🔍 Rechercher</button>
+    <button class="unsplash-btn" onclick="getRandom()">🎲 Aléatoire</button>
+    <button class="unsplash-btn" onclick="getLatest()">🕒 Récentes</button>
+  </div>
+
+  <div id="results" class="unsplash-grid"></div>
+</div>
+
+
 
 
     <!-- Promos Section -->
@@ -800,6 +823,76 @@ document.getElementById('spotifyTracksBtn').addEventListener('click', async () =
 
 
   <script>
+
+
+const ACCESS_KEY = "j9a9z5y6pypWDoDwlhCDGqpHzK-IY29XI1pMfKRqolM";
+
+function displayImages(photos) {
+  const results = document.getElementById("results");
+  results.innerHTML = "";
+  photos.forEach(photo => {
+    const container = document.createElement("div");
+    container.className = "image-container";
+
+    const img = document.createElement("img");
+    img.src = photo.urls.small;
+
+    const btn = document.createElement("button");
+    btn.className = "download-button";
+    btn.innerText = "Télécharger";
+    btn.onclick = () => downloadImage(photo.urls.full);
+
+    container.appendChild(img);
+    container.appendChild(btn);
+    results.appendChild(container);
+  });
+}
+
+function searchPhotos() {
+  const query = document.getElementById("searchInput").value;
+  fetch(`https://api.unsplash.com/search/photos?query=${query}&per_page=6&client_id=${ACCESS_KEY}`)
+    .then(res => res.json())
+    .then(data => displayImages(data.results));
+}
+
+function getRandom() {
+  fetch(`https://api.unsplash.com/photos/random?count=6&client_id=${ACCESS_KEY}`)
+    .then(res => res.json())
+    .then(data => displayImages(data));
+}
+
+function getLatest() {
+  fetch(`https://api.unsplash.com/photos?per_page=6&order_by=latest&client_id=${ACCESS_KEY}`)
+    .then(res => res.json())
+    .then(data => displayImages(data));
+}
+
+function downloadImage(url) {
+  fetch("download_image.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ image_url: url })
+  })
+    .then(res => res.json())
+    .then(data => {
+      Swal.fire({
+        icon: data.error ? 'error' : 'success',
+        title: data.error ? 'Échec du téléchargement' : 'Image téléchargée ✅',
+        text: data.message || data.error,
+        confirmButtonColor: '#6c63ff'
+      });
+    })
+    .catch(err => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Erreur de connexion',
+        text: 'Impossible de contacter le serveur.',
+        confirmButtonColor: '#e74c3c'
+      });
+    });
+}
+
+
     // Chart.js Configurations for Dashboard
     // Stock Distribution (Doughnut Chart)
     const stockDonut = new Chart(document.getElementById('stockDonut'), {

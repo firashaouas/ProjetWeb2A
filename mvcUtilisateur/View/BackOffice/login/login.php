@@ -1,3 +1,20 @@
+<?php if (isset($_SESSION['login_error'])): ?>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'error',
+                title: 'Erreur !',
+                text: <?= json_encode($_SESSION['login_error']) ?>,
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#6c63ff'
+            });
+        });
+    </script>
+    
+<?php unset($_SESSION['login_error']);
+endif; ?>
+
+
 <?php if (isset($_GET['error'])): ?>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -6,11 +23,13 @@
                 title: 'Erreur',
                 text: <?= json_encode($_GET['error']) ?>,
                 confirmButtonColor: '#6c63ff'
+            }).then(() => {
+                // ✅ Recharge proprement sans paramètre
+                window.location.href = window.location.pathname;
             });
         });
     </script>
 <?php endif; ?>
-
 
 
 <?php
@@ -21,6 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'] ?? '';
 
     if ($action === 'register') {
+
         $full_name = trim($_POST['full_name'] ?? '');
         $phone = trim($_POST['phone'] ?? '');
         $email = trim($_POST['email'] ?? '');
@@ -70,6 +90,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit();
         }
     } elseif ($action === 'login') {
+
+        if (empty($_POST['g-recaptcha-response'])) {
+            $_SESSION['login_error'] = "Veuillez valider le CAPTCHA.";
+            header("Location: /View/BackOffice/login/login.php");
+            exit();
+        }
+        
+        $secretKey = '6LfnLy4rAAAAAFYzJror47CTbIt1eP5OEZPSgZFl';
+        $captcha = $_POST['g-recaptcha-response'];
+        $response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$captcha");
+        $data = json_decode($response);
+        
+        if (!$data->success) {
+            $_SESSION['login_error'] = "Échec de vérification CAPTCHA.";
+            header("Location: /View/BackOffice/login/login.php");
+            exit();
+        }
+        
         // Connexion
         $email = trim($_POST['email'] ?? '');
         $password = $_POST['password'] ?? '';
@@ -117,11 +155,15 @@ function isStrongPassword($password)
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 
 </head>
 
 <body>
+
     <?php if (isset($_SESSION['register_success'])): ?>
         <script>
             document.addEventListener('DOMContentLoaded', function() {
@@ -181,6 +223,10 @@ function isStrongPassword($password)
     <a href="/Projet Web/mvcUtilisateur/View/FrontOffice/reset_request.php" class="link">Mot de passe oublié ?</a>
 </div>
 
+<div class="form-group mt-2">
+  <div class="g-recaptcha" data-sitekey="6LfnLy4rAAAAAJmaQD20P5qeEAZvck9pVgfRUJxT"></div>
+</div>
+
 
                                                 <div class="btn-login-zone">
                                                     <button type="submit" class="btn mt-4" name="action" value="login" id="login-btn">SE CONNECTER</button>
@@ -223,6 +269,11 @@ function isStrongPassword($password)
                                                         <div id="passwordStrength" class="strength-bar-inner"></div>
                                                     </div>
                                                 </div>
+
+
+                                                <div class="form-group mt-2">
+  <div class="g-recaptcha" data-sitekey="6LfnLy4rAAAAAJmaQD20P5qeEAZvck9pVgfRUJxT"></div>
+</div>
 
 
                                                 <button type="submit" class="btn mt-4" name="action" value="register">S’inscrire</button>

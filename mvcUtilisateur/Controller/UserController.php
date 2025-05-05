@@ -479,21 +479,63 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         throw new Exception("Le champ $field est requis");
                     }
                 }
-                $controller->register($_POST);
-                break;
 
-            case 'login':
-                if (empty($_POST['email']) || empty($_POST['password'])) {
-                    throw new Exception("Email et mot de passe requis");
+                // ✅ CAPTCHA obligatoire
+                if (empty($_POST['g-recaptcha-response'])) {
+                    throw new Exception("Veuillez valider le CAPTCHA.");
                 }
-                $controller->login($_POST['email'], $_POST['password']);
-                break;
+
+                $secretKey = '6LfnLy4rAAAAAFYzJror47CTbIt1eP5OEZPSgZFl';
+                $captcha = $_POST['g-recaptcha-response'];
+                $response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$captcha");
+                $data = json_decode($response);
+
+                if (!$data->success) {
+                    throw new Exception("Échec de vérification CAPTCHA.");
+                }
+
+                // Inscription
+                $controller->register($_POST);
+                $_SESSION['register_success'] = "Inscription réussie ! Vous pouvez vous connecter.";
+                header("Location: login.php");
+                exit();
+
+                case 'login':
+                    // Vérification des champs
+                    if (empty($_POST['email']) || empty($_POST['password'])) {
+                        throw new Exception("Email et mot de passe requis");
+                    }
+                
+                    // Vérification CAPTCHA
+                    if (empty($_POST['g-recaptcha-response'])) {
+                        throw new Exception("Veuillez valider le CAPTCHA.");
+                    }
+                
+                    $secretKey = '6LfnLy4rAAAAAFYzJror47CTbIt1eP5OEZPSgZFl';
+                    $captcha = $_POST['g-recaptcha-response'];
+                    $response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$captcha");
+                    $data = json_decode($response);
+                
+                    if (!$data || !$data->success) {
+                        throw new Exception("Échec de vérification CAPTCHA.");
+                    }
+                
+                    // Connexion
+                    if ($controller->login($_POST['email'], $_POST['password'])) {
+                        // Connexion réussie → redirection vers le dashboard
+                        header("Location: /View/BackOffice/dashboard.php");
+                        exit();
+                    } else {
+                        // Connexion échouée → on lance une erreur
+                        throw new Exception("Email ou mot de passe incorrect.");
+                    }
+                
 
             default:
                 throw new Exception("Action non reconnue");
         }
     } catch (Exception $e) {
-        header("Location: /View/BackOffice/login/login.php?error=" . urlencode($e->getMessage()));
-        exit;
+        header("Location: login.php?error=" . urlencode($e->getMessage()));
+        exit();
     }
 }

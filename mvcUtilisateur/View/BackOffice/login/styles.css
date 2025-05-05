@@ -87,6 +87,7 @@ display: none;
   transform-style: preserve-3d;
   perspective: 800px;
   margin-top: 60px;
+  height: 500px; /* optionnel si tu veux aussi réduire la hauteur */
 }
 .card-3d-wrapper {
   width: 440px;
@@ -130,13 +131,15 @@ display: none;
 .center-wrap{
   position: absolute;
   width: 100%;
-  padding: 0 35px;
+  padding: 0 20px;
   top: 50%;
   left: 0;
   transform: translate3d(0, -50%, 35px) perspective(100px);
   z-index: 20;
   display: block;
+
 }
+
 .form-group{ 
   position: relative;
   display: block;
@@ -365,3 +368,20 @@ input[type="email"].invalid {
   float: right;
 }
 
+
+
+/* ❌ Cache par défaut les deux reCAPTCHA */
+.card-front .g-recaptcha,
+.card-back .g-recaptcha {
+  display: none;
+}
+
+/* ✅ Affiche celui de login quand #reg-log est NON coché (connexion active) */
+#reg-log:not(:checked) ~ .card-3d-wrap .card-front .g-recaptcha {
+  display: block;
+}
+
+/* ✅ Affiche celui d'inscription quand #reg-log est coché (inscription active) */
+#reg-log:checked ~ .card-3d-wrap .card-back .g-recaptcha {
+  display: block;
+}

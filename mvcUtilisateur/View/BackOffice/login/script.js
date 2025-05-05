@@ -119,3 +119,16 @@ new Chart(ctx, {
     }
   }
 });
+
+
+  // Recharge explicitement les reCAPTCHA dans les deux faces
+  document.addEventListener('DOMContentLoaded', function () {
+    if (typeof grecaptcha !== 'undefined') {
+      const recaptchas = document.querySelectorAll('.g-recaptcha');
+      recaptchas.forEach((el) => {
+        grecaptcha.render(el, {
+          sitekey: el.dataset.sitekey
+        });
+      });
+    }
+  });
