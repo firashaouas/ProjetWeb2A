@@ -2,7 +2,7 @@ body {
   margin: 0;
   font-family: 'Inter', sans-serif;
   display: flex;
-  background: #F9F7FF; /* Changé en lilas très clair */
+  background: #4A1FB0; /* Lilas encore plus foncé */
   min-height: 100vh;
 }
 
@@ -13,7 +13,7 @@ body {
 }
 
 .search {
-  background: #f0f0f0;
+  background: #db92b0;
   padding: 10px 20px;
   border-radius: 12px;
   width: 250px;
@@ -42,7 +42,7 @@ body {
 
 .sidebar {
   width: 240px;
-  background: white;
+  background: #FFD1E3; /* Rose bébé plus clair */
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
   padding: 30px 20px;
@@ -56,7 +56,7 @@ body {
 }
 
 .sidebar h1 {
-  color: #9D46FE;
+  color: #7B4FE0; /* Changé en lilas plus foncé */
   font-size: 24px;
   margin-bottom: 40px;
 }
@@ -70,7 +70,7 @@ body {
 }
 
 .menu-item:hover {
-  color: #6951FF;
+  color: #7B4FE0; /* Changé en lilas plus foncé */
 }
 
 .menu-item a {
@@ -99,7 +99,7 @@ body {
 .header h2 {
   font-size: 28px;
   font-weight: 600;
-  background: linear-gradient(to right, #C83EFC, #AF48FC 34%, #9D46FE 68%, #6951FF);
+  background: linear-gradient(to right, #7B4FE0, #6A3FD0 34%, #5A2FC0 68%, );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin: 0;
@@ -113,7 +113,7 @@ body {
 }
 
 .card {
-  background: #f9f9f9;
+  background: #FFD1E3; /* Rose bébé plus clair */
   padding: 20px;
   border-radius: 16px;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
@@ -143,7 +143,7 @@ body {
 }
 
 .edit-button {
-  background: linear-gradient(to right, #9D46FE, #6951FF);
+  background: linear-gradient(to right, #7B4FE0, #6A3FD0);
   padding: 8px 12px;
   border: none;
   border-radius: 8px;
@@ -175,7 +175,7 @@ body {
 
 .tasks {
   margin-top: 40px;
-  background: #ffffff;
+  background: #FFD1E3; /* Rose bébé plus clair */
   padding: 20px;
   border-radius: 16px;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
@@ -185,12 +185,12 @@ body {
 .tasks h3 {
   margin-bottom: 15px;
   font-size: 22px;
-  color: #6951FF;
+  color: #7B4FE0; /* Changé en lilas plus foncé */
 }
 
 .add-button {
   display: inline-block;
-  background: linear-gradient(to right, #9D46FE, #6951FF);
+  background: linear-gradient(to right, #7B4FE0, #6A3FD0);
   padding: 10px 20px;
   border-radius: 10px;
   color: white;
@@ -206,7 +206,7 @@ body {
 
 .calendar {
   margin-top: 40px;
-  background: #ffffff;
+  background: #FFD1E3; /* Rose bébé plus clair */
   padding: 20px;
   border-radius: 16px;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
@@ -215,11 +215,11 @@ body {
 .calendar h3 {
   margin-bottom: 10px;
   font-size: 22px;
-  color: #6951FF;
+  color: #7B4FE0; /* Changé en lilas plus foncé */
 }
 
 .calendar h5 {
-  color: #6951FF;
+  color: #7B4FE0; /* Changé en lilas plus foncé */
   margin-bottom: 15px;
   font-size: 16px;
 }
@@ -242,19 +242,19 @@ body {
 }
 
 .calendar-grid div:hover {
-  background: #6951FF;
+  background: #7B4FE0; /* Changé en lilas plus foncé */
   color: white;
   transform: scale(1.05);
 }
 
 .calendar-grid div.highlight {
-  background: linear-gradient(to right, #9D46FE, #6951FF);
+  background: linear-gradient(to right, #7B4FE0, #6A3FD0);
   color: white;
   font-weight: bold;
 }
 
 .stats-section {
-  background: white;
+  background: #FFD1E3; /* Rose bébé plus clair */
   padding: 30px;
   border-radius: 16px;
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
@@ -267,7 +267,7 @@ body {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 25px;
-  color: #6951FF;
+  color: #7B4FE0; /* Changé en lilas plus foncé */
 }
 
 .stats-cards {
@@ -280,7 +280,7 @@ body {
 .stat-card {
   flex: 1;
   min-width: 200px;
-  background: linear-gradient(to right, #9D46FE, #6951FF);
+  background: linear-gradient(to right, #7B4FE0, #6A3FD0);
   color: white;
   padding: 25px;
   border-radius: 16px;
@@ -308,7 +308,8 @@ body {
 
 .stat-content .count {
   font-size: 28px;
-  font-weight: bold;
+  font-weight: 700;
+  color: #7B4FE0; /* Changé en lilas plus foncé */
   margin-top: 5px;
 }
 
@@ -322,7 +323,7 @@ body {
 .charts h3 {
   margin-bottom: 15px;
   font-size: 22px;
-  color: #6951FF;
+  color: #7B4FE0; /* Changé en lilas plus foncé */
 }
 
 #activityChart {
@@ -332,7 +333,7 @@ body {
 
 .notifications {
   margin-top: 30px;
-  background: #ffffff;
+  background: #FFD1E3; /* Rose bébé plus clair */
   padding: 20px;
   border-radius: 16px;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
@@ -341,7 +342,7 @@ body {
 .notifications h3 {
   margin-bottom: 15px;
   font-size: 22px;
-  color: #6951FF;
+  color: #7B4FE0; /* Changé en lilas plus foncé */
 }
 
 .notification-list {
@@ -351,7 +352,7 @@ body {
 }
 
 .notification-item {
-  background: #f9f9f9;
+  background: #FFD1E3; /* Rose bébé plus clair */
   padding: 15px;
   border-radius: 12px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
@@ -365,7 +366,7 @@ body {
 
 .upcoming-activities {
   margin-top: 40px;
-  background: white;
+  background: #FFD1E3; /* Rose bébé plus clair */
   padding: 30px;
   border-radius: 16px;
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
@@ -374,7 +375,7 @@ body {
 .upcoming-activities h3 {
   margin-bottom: 20px;
   font-size: 22px;
-  color: #6951FF;
+  color: #7B4FE0; /* Changé en lilas plus foncé */
   text-align: center;
 }
 
@@ -385,7 +386,7 @@ body {
 }
 
 .upcoming-item {
-  background: #f9f9f9;
+  background: #FFD1E3; /* Rose bébé plus clair */
   padding: 20px;
   border-radius: 12px;
   display: flex;
@@ -413,7 +414,7 @@ body {
 }
 
 .badge.upcoming {
-  background-color: #6951FF;
+  background-color: #7B4FE0; /* Changé en lilas plus foncé */
   color: white;
   padding: 6px 12px;
   border-radius: 12px;
@@ -433,7 +434,7 @@ body {
 
 .history {
   flex: 2;
-  background: white;
+  background: #FFD1E3; /* Rose bébé plus clair */
   padding: 30px;
   border-radius: 16px;
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
@@ -445,7 +446,7 @@ body {
 .history h3 {
   margin-bottom: 20px;
   font-size: 22px;
-  color: #6951FF;
+  color: #7B4FE0; /* Changé en lilas plus foncé */
   text-align: center;
 }
 
@@ -457,7 +458,7 @@ body {
 }
 
 .history-item {
-  background: #f9f9f9;
+  background: #f7acc9; /* Rose bébé plus clair */
   padding: 20px;
   border-radius: 12px;
   display: flex;
@@ -495,7 +496,7 @@ body {
 
 .activity {
   flex: 1;
-  background: white;
+  background: #FFD1E3; /* Rose bébé plus clair */
   padding: 30px;
   border-radius: 16px;
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
@@ -507,12 +508,12 @@ body {
 .activity h3 {
   margin-bottom: 20px;
   font-size: 22px;
-  color: #6951FF;
+  color: #7B4FE0; /* Changé en lilas plus foncé */
   text-align: center;
 }
 
 .activity-card {
-  background: #f0f8ff;
+  background-color: #FFD1E3; /* Rose bébé plus clair */
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
@@ -537,7 +538,7 @@ body {
 /* Nouveaux styles pour les formulaires ajoutés ici */
 .add-activity-form {
   margin-top: 40px;
-  background: #ffffff;
+  background: #FFD1E3; /* Rose bébé plus clair */
   padding: 30px;
   border-radius: 16px;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
@@ -549,7 +550,7 @@ body {
 .add-activity-form h3 {
   margin-bottom: 20px;
   font-size: 22px;
-  color: #6951FF;
+  color: #7B4FE0;
   text-align: center;
 }
 
@@ -586,7 +587,7 @@ body {
 }
 
 .submit-button {
-  background: linear-gradient(to right, #9D46FE, #6951FF);
+  background: linear-gradient(to right, #7B4FE0, #6A3FD0);
   padding: 10px 20px;
   border: none;
   border-radius: 10px;
@@ -729,7 +730,7 @@ body {
 .stat-content .count {
   font-size: 28px;
   font-weight: 700;
-  color: #6941ff;
+  color: #b79ff1; /* Changé en lilas plus foncé */
   margin-top: 5px;
 }
 
@@ -742,7 +743,7 @@ body {
 .chart-wrapper {
   flex: 1;
   min-width: 300px;
-  background-color: #fff;
+  background-color: #FFD1E3; /* Rose bébé plus clair */
   border-radius: 8px;
   padding: 20px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -781,7 +782,7 @@ body {
 }
 
 .add-button {
-  background-color: #6941FF;
+  background-color: #7B4FE0; /* Changé en lilas plus foncé */
   color: white;
   padding: 10px 20px;
   border-radius: 25px;
@@ -791,7 +792,7 @@ body {
 }
 
 .add-button:hover {
-  background-color: #5635CC;
+  background-color: #6A3FD0; /* Changé en lilas plus foncé */
 }
 
 .activities-grid {
@@ -801,7 +802,7 @@ body {
 }
 
 .activity-card {
-  background-color: white;
+  background-color: #FFD1E3; /* Rose bébé plus clair */
   border-radius: 15px;
   overflow: hidden;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -853,7 +854,7 @@ body {
   margin: 0 0 15px;
   line-height: 1.5;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+-webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -877,12 +878,12 @@ body {
 }
 
 .edit-button {
-  background-color: #6941FF;
+  background-color: #7B4FE0; /* Changé en lilas plus foncé */
   color: white;
 }
 
 .edit-button:hover {
-  background-color: #5635CC;
+  background-color: #6A3FD0; /* Changé en lilas plus foncé */
 }
 
 .delete-button {
@@ -939,4 +940,58 @@ body {
 .input-error {
   border: 1px solid #FF3D57 !important;
   background-color: rgba(255, 61, 87, 0.05);
+}
+
+.date-enterprise-item {
+  border-left-color: #7B4FE0; /* Changé en lilas plus foncé */
+}
+
+.badge-enterprise {
+  background-color: #E6E0F8; /* Changé en lilas plus foncé */
+  color: #7B4FE0; /* Changé en lilas plus foncé */
+}
+
+.stat-number {
+  font-size: 24px;
+  font-weight: 600;
+  color: #7B4FE0; /* Changé en lilas plus foncé */
+  margin-bottom: 5px;
+}
+
+.tab-button.active {
+  background-color: #7B4FE0; /* Changé en lilas plus foncé */
+  color: white;
+}
+
+.add-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #7B4FE0; /* Changé en lilas plus foncé */
+  color: white;
+  font-size: 24px;
+  margin: 0 auto 15px;
+}
+
+.add-link {
+  display: inline-block;
+  background-color: #7B4FE0; /* Changé en lilas plus foncé */
+  color: white;
+  padding: 8px 25px;
+  border-radius: 20px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.add-link:hover {
+  background-color: #6A3FD0; /* Changé en lilas plus foncé */
+}
+
+.activity-price {
+  color: #7B4FE0; /* Changé en lilas plus foncé */
+  font-weight: bold;
+  margin-bottom: 15px;
 }

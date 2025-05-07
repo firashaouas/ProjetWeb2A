@@ -38,63 +38,18 @@
     <div class="add-activity-form">
       <h3>📋 Formulaire d'Ajout d'Activité</h3>
       <?php
-      if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "clickngo_db";
-
-        try {
-          $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-          $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-          // Récupérer les données du formulaire
-          $name = $_POST['name'];
-          $description = $_POST['description'];
-          $price = $_POST['price'];
-          $location = $_POST['location'];
-          $date = $_POST['date'];
-          $category = $_POST['category'];
-          $capacity = $_POST['capacity'];
-          $image = null;
-
-          // Traitement de l'image
-          if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-            $uploadDir = '../../image/';
-            
-            if (!is_dir($uploadDir)) {
-                if (!mkdir($uploadDir, 0777, true)) {
-                    throw new Exception("Impossible de créer le répertoire d'images");
-                }
-            }
-            
-            // Générer un nom de fichier unique
-            $fileName = uniqid() . '_' . basename($_FILES['image']['name']);
-            $uploadFile = $uploadDir . $fileName;
-            
-            // Déplacer le fichier uploadé
-            if (move_uploaded_file($_FILES['image']['tmp_name'], $uploadFile)) {
-                $image = 'image/' . $fileName;
-            } else {
-                throw new Exception("Echec de l'upload du fichier");
-            }
-          }
-
-          // Préparation de la requête avec l'image
-          $sql = "INSERT INTO activities (name, description, price, location, date, category, capacity, image) 
-                  VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-          $stmt = $conn->prepare($sql);
-          $stmt->execute([$name, $description, $price, $location, $date, $category, $capacity, $image]);
-
-          echo '<p style="color: green;">Activité ajoutée avec succès !</p>';
-          header("Refresh: 2; url=dashboard.php"); // Redirection après 2 secondes
-        } catch (Exception $e) {
-          echo '<p style="color: red;">Erreur : ' . $e->getMessage() . '</p>';
-        }
-        $conn = null;
+      session_start();
+      if (isset($_SESSION['error'])) {
+        echo '<p style="color: red;">' . $_SESSION['error'] . '</p>';
+        unset($_SESSION['error']);
+      }
+      if (isset($_SESSION['success'])) {
+        echo '<p style="color: green;">' . $_SESSION['success'] . '</p>';
+        unset($_SESSION['success']);
       }
       ?>
-      <form method="POST" enctype="multipart/form-data">
+      <form method="POST" action="process_activity.php" enctype="multipart/form-data">
+        <input type="hidden" name="operation" value="add">
         <div class="form-group">
           <label for="activityName">Nom de l'activité</label>
           <input type="text" id="activityName" name="name" placeholder="Ex: Yoga du matin" required>
@@ -112,7 +67,33 @@
 
         <div class="form-group">
           <label for="activityLocation">Lieu</label>
-          <input type="text" id="activityLocation" name="location" placeholder="Ex: Parc Belvédère" required>
+          <select id="activityLocation" name="location" required>
+            <option value="" disabled selected>Choisir une région</option>
+            <option value="Tunis">Tunis</option>
+            <option value="Ariana">Ariana</option>
+            <option value="Ben Arous">Ben Arous</option>
+            <option value="Manouba">Manouba</option>
+            <option value="Nabeul">Nabeul</option>
+            <option value="Zaghouan">Zaghouan</option>
+            <option value="Bizerte">Bizerte</option>
+            <option value="Béja">Béja</option>
+            <option value="Jendouba">Jendouba</option>
+            <option value="Kef">Kef</option>
+            <option value="Siliana">Siliana</option>
+            <option value="Sousse">Sousse</option>
+            <option value="Monastir">Monastir</option>
+            <option value="Mahdia">Mahdia</option>
+            <option value="Sfax">Sfax</option>
+            <option value="Kairouan">Kairouan</option>
+            <option value="Kasserine">Kasserine</option>
+            <option value="Sidi Bouzid">Sidi Bouzid</option>
+            <option value="Gabès">Gabès</option>
+            <option value="Medenine">Medenine</option>
+            <option value="Tataouine">Tataouine</option>
+            <option value="Gafsa">Gafsa</option>
+            <option value="Tozeur">Tozeur</option>
+            <option value="Kebili">Kebili</option>
+          </select>
         </div>
 
         <div class="form-group">
@@ -123,20 +104,20 @@
         <div class="form-group">
           <label for="activityCategory">Catégorie</label>
           <select id="activityCategory" name="category" required>
-            <option value="" disabled selected>Choisir une catégorie</option>
-            <option value="sport">Sport</option>
-            <option value="bien-etre">Bien-être</option>
-            <option value="culture">Culture</option>
+            <option value="" disabled>Choisir une catégorie</option>
             <option value="Ateliers">Ateliers</option>
-            <option value="Nature">Nature</option>
+            <option value="bien-etre">Bien-être</option>
             <option value="Aérien">Aérien</option>
             <option value="Aquatique">Aquatique</option>
-            <option value="Terestre">Terestre</option>
+            <option value="Terestre">Terrestre</option>
             <option value="Insolite">Insolite</option>
+            <option value="culture">Culture</option>
             <option value="Détente">Détente</option>
+            <option value="sport">Sport</option>
+            <option value="nature">Nature</option>
+            <option value="aventure">Aventure</option>
             <option value="Famille">Famille</option>
-            <option value="Extreme">Extreme</option>
-            <option value="autre">Autre</option>
+            <option value="Extreme">Extrême</option>
           </select>
         </div>
 
@@ -148,7 +129,7 @@
         <div class="form-group">
           <label for="imageFile">Image de l'activité *</label>
           <div class="image-input-container">
-            <input type="file" id="imageFile" name="image" accept="image/*">
+            <input type="file" id="imageFile" name="image" accept="image/*" required>
           </div>
           <div id="imagePreview" style="margin-top: 10px; display: none;">
             <img id="previewImg" src="" alt="Aperçu de l'image" style="max-width: 100%; max-height: 200px;">

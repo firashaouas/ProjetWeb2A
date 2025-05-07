@@ -136,4 +136,79 @@ class ActivityModel {
         $stmt->execute([$term]);
         return $stmt->fetchAll();
     }
+
+    /**
+     * Récupère les activités pour une date spécifique
+     */
+    public function getActivitiesByDate($date) {
+        // Format de date attendu: YYYY-MM-DD
+        $start = $date . ' 00:00:00';
+        $end = $date . ' 23:59:59';
+        
+        $stmt = $this->db->prepare("SELECT * FROM activities WHERE date BETWEEN ? AND ? ORDER BY date ASC");
+        $stmt->execute([$start, $end]);
+        return $stmt->fetchAll();
+    }
+
+    /**
+     * Ajoute un nouvel avis client
+     */
+    public function addReview($activity_name, $customer_name, $rating, $comment) {
+        // Créer la table des avis si elle n'existe pas
+        $this->createReviewsTable();
+        
+        $sql = "INSERT INTO reviews (activity_name, customer_name, rating, comment, created_at) 
+                VALUES (?, ?, ?, ?, NOW())";
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([$activity_name, $customer_name, $rating, $comment]);
+    }
+    
+    /**
+     * Récupère tous les avis clients
+     */
+    public function getAllReviews() {
+        // Créer la table des avis si elle n'existe pas
+        $this->createReviewsTable();
+        
+        $sql = "SELECT * FROM reviews ORDER BY created_at DESC";
+        $stmt = $this->db->query($sql);
+        return $stmt->fetchAll();
+    }
+    
+    /**
+     * Récupère la note moyenne de tous les avis
+     */
+    public function getAverageRating() {
+        // Créer la table des avis si elle n'existe pas
+        $this->createReviewsTable();
+        
+        $sql = "SELECT AVG(rating) as average_rating, COUNT(*) as total_reviews FROM reviews";
+        $stmt = $this->db->query($sql);
+        $result = $stmt->fetch();
+        
+        return [
+            'average' => $result['average_rating'] ? round($result['average_rating'], 1) : 0,
+            'count' => (int)$result['total_reviews']
+        ];
+    }
+    
+    /**
+     * Crée la table des avis si elle n'existe pas
+     */
+    private function createReviewsTable() {
+        $sql = "CREATE TABLE IF NOT EXISTS reviews (
+            id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+            activity_name VARCHAR(255) NOT NULL,
+            customer_name VARCHAR(255) NOT NULL,
+            rating INT(1) NOT NULL,
+            comment TEXT NOT NULL,
+            created_at DATETIME NOT NULL
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+        
+        try {
+            $this->db->exec($sql);
+        } catch (PDOException $e) {
+            error_log("Erreur lors de la création de la table reviews: " . $e->getMessage());
+        }
+    }
 }
