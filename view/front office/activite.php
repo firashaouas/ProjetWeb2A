@@ -567,16 +567,19 @@ foreach ($allActivities as $activity) {
     .dropdown-content {
         display: none;
         position: absolute;
-        background-color: white;
+        background: transparent !important;
         min-width: 250px;
         box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
         z-index: 1000;
         border-radius: 8px;
         overflow: hidden;
+        backdrop-filter: none !important;
     }
     
     .dropdown-content a {
-        color: #333;
+      color: #9768D1 !important; /* ou #fff si tu veux blanc */
+      font-weight: 700;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.18); /* Pour la lisibilité sur image */
         padding: 12px 16px;
         text-decoration: none;
         display: block;
@@ -586,7 +589,7 @@ foreach ($allActivities as $activity) {
     
     .dropdown-content a:hover {
         background-color: #9768D1;
-        color: white;
+      color: white !important;
     }
     
     .dropdown:hover .dropdown-content {
@@ -768,7 +771,7 @@ foreach ($allActivities as $activity) {
     
     /* Personnalisation de la navbar */
     .nav-links li a {
-      color: #9768D1 !important;
+      color: #fff !important;
       font-weight: 600 !important;
       transition: all 0.3s ease !important;
     }
@@ -780,9 +783,9 @@ foreach ($allActivities as $activity) {
     
     /* Menu déroulant amélioré */
     .dropdown-content {
-      background: rgba(255, 255, 255, 0.9) !important;
-      backdrop-filter: blur(5px) !important;
-      border: 1px solid rgba(212, 141, 216, 0.3) !important;
+      background: rgba(255,255,255,0.35) !important;
+      backdrop-filter: blur(2.5px) !important;
+      border: none !important;
     }
     
     /* Effet spécial pour les catégories */
@@ -1495,6 +1498,380 @@ foreach ($allActivities as $activity) {
         transform: scale(1);
       }
     }
+
+    .social-icons {
+        display: flex;
+        gap: 15px;
+        margin: 15px 0;
+    }
+
+    .social-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .social-icon img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .social-icon:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(151, 104, 209, 0.3);
+    }
+
+    .social-icon:hover img {
+        transform: scale(1.1);
+    }
+
+    .payment-methods {
+        display: flex;
+        align-items: center;
+        gap: 25px;
+        margin-top: 15px;
+        padding: 10px 0;
+    }
+
+    .payment-icon {
+        height: 30px;
+        width: auto;
+        object-fit: contain;
+    }
+
+    .newsletter {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: linear-gradient(90deg, #9768D1 0%, #D48DD8 100%);
+        padding: 30px;
+        border-radius: 15px;
+        max-width: 1000px;
+        margin: 0 auto 30px auto;
+        box-shadow: 0 5px 15px rgba(151, 104, 209, 0.2);
+    }
+
+    .newsletter-left {
+        padding-right: 20px;
+    }
+
+    .newsletter-left h2 {
+        color: #fff;
+        font-size: 1.3rem;
+        margin-bottom: 5px;
+    }
+
+    .newsletter-left h1 {
+        color: #fff;
+        font-size: 1.8rem;
+        margin-top: 0;
+        font-weight: bold;
+    }
+
+    .newsletter-right {
+        flex: 1;
+        max-width: 500px;
+        margin-left: auto;
+    }
+
+    .newsletter-input {
+        display: flex;
+        align-items: center;
+        background: white;
+        border-radius: 10px;
+        padding: 5px;
+        max-width: 100%;
+    }
+
+    .newsletter-input input {
+        flex: 1;
+        padding: 12px 20px;
+        border: none;
+        outline: none;
+        font-size: 1rem;
+        background: transparent;
+        color: #333;
+        min-width: 250px;
+    }
+
+    .fotter-btn {
+        background: linear-gradient(90deg, #9768D1 0%, #D48DD8 100%);
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 12px 25px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: transform 0.3s, box-shadow 0.3s;
+        white-space: nowrap;
+    }
+
+    .fotter-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(151, 104, 209, 0.3);
+    }
+
+    @media (max-width: 768px) {
+        .newsletter {
+            flex-direction: column;
+            padding: 20px;
+            text-align: center;
+            margin: 0 20px 30px 20px;
+        }
+
+        .newsletter-left {
+            padding-right: 0;
+            margin-bottom: 15px;
+        }
+
+        .newsletter-right {
+            width: 100%;
+            margin: 0;
+        }
+
+        .newsletter-input {
+            flex-direction: column;
+            gap: 10px;
+            padding: 10px;
+        }
+
+        .newsletter-input input {
+            width: 100%;
+            min-width: auto;
+            text-align: center;
+        }
+
+        .fotter-btn {
+            width: 100%;
+        }
+    }
+
+    .footer-wrapper {
+        width: 100vw;
+        margin-left: calc(-50vw + 50%);
+        background-color: white;
+        background-attachment: fixed;
+        background-position: center;
+        background-size: cover;
+        color: #333;
+    }
+
+    .footer-content {
+        background-color: #f4f4f4;
+        padding: 100px 40px 40px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .footer-main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .footer-main h2 {
+        color: #ffffff;
+        font-size: 1.6rem;
+    }
+
+    .footer-main p {
+        color: #1c3f50;
+        font-size: 0.8rem;
+        line-height: 1.3rem;
+    }
+
+    .footer-bottom {
+        background-color: #f4f4f4;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 0;
+        font-size: 0.9rem;
+        color: #333;
+    }
+
+    .footer-links-bottom a {
+        color: #333;
+        margin-left: 20px;
+        text-decoration: none;
+        font-size: 0.9rem;
+    }
+
+    .footer-links-bottom a:hover {
+        color: #9768D1;
+    }
+
+    .newsletter {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: linear-gradient(90deg, #9768D1 0%, #D48DD8 100%);
+        padding: 20px 40px;
+        border-radius: 50px;
+        margin: 0 20px 30px 20px;
+    }
+
+    .newsletter-left h2 {
+        color: #fff;
+        font-size: 1.3rem;
+        margin-bottom: 0;
+    }
+
+    .newsletter-left h1 {
+        color: #fff;
+        font-size: 1.5rem;
+        margin-top: 0;
+    }
+
+    .newsletter-input {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: white;
+        border-radius: 30px;
+        padding: 5px;
+    }
+
+    .newsletter-input input {
+        padding: 10px 18px;
+        border-radius: 30px;
+        border: none;
+        outline: none;
+        font-size: 1rem;
+        background: transparent;
+        color: #333;
+        min-width: 300px;
+    }
+
+    .fotter-btn {
+        background: linear-gradient(90deg, #9768D1 0%, #D48DD8 100%);
+        color: #fff;
+        border: none;
+        border-radius: 30px;
+        padding: 12px 25px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .fotter-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(151, 104, 209, 0.3);
+    }
+
+    .footer-logo {
+        max-width: 120px;
+        margin-bottom: 15px;
+    }
+
+    .social-icons {
+        display: flex;
+        gap: 15px;
+        margin: 15px 0;
+    }
+
+    .social-icons .icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        background: white;
+        box-shadow: 0 2px 8px rgba(151, 104, 209, 0.08);
+        transition: transform 0.3s, box-shadow 0.3s;
+        text-decoration: none;
+    }
+
+    .social-icons .icon:hover {
+        transform: scale(1.15) translateY(-3px);
+        box-shadow: 0 5px 15px rgba(151, 104, 209, 0.18);
+    }
+
+    .links {
+        margin-bottom: 30px;
+        min-width: 200px;
+    }
+
+    .links p {
+        font-weight: bold;
+        margin-bottom: 15px;
+        color: #9768D1;
+    }
+
+    .links a {
+        display: block;
+        color: #333;
+        text-decoration: none;
+        margin-bottom: 8px;
+        transition: color 0.3s;
+    }
+
+    .links a:hover {
+        color: #9768D1;
+    }
+
+    .payment-methods {
+        display: flex;
+        align-items: center;
+        gap: 25px;
+        margin-top: 15px;
+        padding: 10px 0;
+    }
+
+    .payment-icon {
+        height: 30px;
+        width: auto;
+        object-fit: contain;
+    }
+
+    .footer-section {
+        width: 100%;
+        background: none;
+        color: #333;
+        margin-top: 20px;
+    }
+
+    .footer-separator {
+        height: 1px;
+        background-color: #e0e0e0;
+        margin: 20px 0;
+    }
+
+    @media (max-width: 900px) {
+        .footer-content {
+            flex-direction: column;
+            align-items: center;
+            padding: 60px 10px 30px;
+        }
+
+        .links {
+            min-width: 150px;
+            margin-bottom: 20px;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .newsletter {
+            flex-direction: column;
+            padding: 25px 10px;
+            text-align: center;
+        }
+
+        .footer-content {
+            padding: 40px 5px 20px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1950,6 +2327,7 @@ foreach ($allActivities as $activity) {
                 <span class="star" data-value="5">★</span>
               </div>
               <input type="hidden" id="rating" name="rating" value="0">
+              <input type="hidden" id="activity_id" name="activity_id" value="<?php if (isset($_GET['id'])) echo intval($_GET['id']); ?>">
               <input type="text" id="customer_name" name="customer_name" placeholder="Votre prénom" required>
               <input type="email" id="customer_email" name="customer_email" placeholder="Votre email" required>
               <input type="text" id="activity_name" name="activity_name" placeholder="Nom de l'activité" required>
@@ -2214,6 +2592,7 @@ foreach ($allActivities as $activity) {
     });
   </script>
   
+  <!-- Nouveau Footer -->
   <div class="footer-wrapper">
     <div class="newsletter">
         <div class="newsletter-left">
@@ -2223,11 +2602,10 @@ foreach ($allActivities as $activity) {
         <div class="newsletter-right">
             <div class="newsletter-input">
                 <input type="text" placeholder="Entrez votre adresse e-mail" />
-                <button>Submit</button>
+                <button class="fotter-btn">Valider</button>
             </div>
         </div>
     </div>
-
     <div class="footer-content">
         <div class="footer-main">
             <div class="footer-brand">
@@ -2235,30 +2613,27 @@ foreach ($allActivities as $activity) {
             </div>
             <p>Rejoignez nous aussi sur :</p>
             <div class="social-icons">
-                <a href="#" style="--color: #0072b1" class="icon"><i class="fa-brands fa-linkedin"></i></a>
-                <a href="#" style="--color: #E1306C" class="icon"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#" style="--color: #FF0050" class="icon"><i class="fa-brands fa-tiktok"></i></a>
-                <a href="#" style="--color: #4267B2" class="icon"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#" class="icon" style="color: #0072b1;"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="#" class="icon" style="color: #E1306C;"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="icon" style="color: #FF0050;"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="#" class="icon" style="color: #4267B2;"><i class="fa-brands fa-facebook"></i></a>
             </div>
         </div>
-
         <div class="links">
             <p>Moyens de paiement</p>
             <div class="payment-methods">
-                <img src="images/visa.webp" alt="Visa">
-                <img src="images/mastercard-v2.webp" alt="mastercard">
-                <img src="images/logo-cb.webp" alt="cb" class="cb-logo">
-                <img src="images/paypal.webp" alt="paypal" class="paypal">
+                <img src="images/visa.webp" alt="Visa" class="payment-icon">
+                <img src="images/mastercard-v2.webp" alt="Mastercard" class="payment-icon">
+                <img src="images/logo-cb.webp" alt="CB" class="payment-icon">
+                <img src="images/paypal.webp" alt="PayPal" class="payment-icon">
             </div>
         </div>
-
         <div class="links">
             <p>À propos</p>
-            <a href="#">À propos de click'N'go</a>
+            <a href="about.php">À propos </a>
             <a href="#">Presse</a>
             <a href="#">Nous rejoindre</a>
         </div>
-
         <div class="links">
             <p>Liens utiles</p>
             <a href="#">Devenir partenaire</a>
@@ -2267,9 +2642,6 @@ foreach ($allActivities as $activity) {
         </div>
     </div>
 
-    <div class="footer-section">
-        <hr>
-        <div class="footer-separator"></div>
         <div class="footer-bottom">
             <p>© click'N'go 2025 - tous droits réservés</p>
             <div class="footer-links-bottom">
@@ -2279,345 +2651,211 @@ foreach ($allActivities as $activity) {
         </div>
     </div>
 </div>
-
-<!-- Script pour la personnalisation en temps réel -->
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // Références aux éléments du DOM
-    const personalizationPanel = document.querySelector('.personalization-panel');
-    const toggleBtn = document.getElementById('toggle-personalization');
-    const themeLight = document.getElementById('theme-light');
-    const themeDark = document.getElementById('theme-dark');
-    const musicPlay = document.getElementById('music-play');
-    const musicPause = document.getElementById('music-pause');
-    const volumeControl = document.getElementById('volume-control');
-    const musicSelect = document.getElementById('music-select');
-    const backgroundMusic = document.getElementById('background-music');
-    const userAge = document.getElementById('user-age');
-    const userInterests = document.getElementById('user-interests');
-    const updateSuggestionsBtn = document.getElementById('update-suggestions');
-    const personalizedSuggestions = document.getElementById('personalized-suggestions');
-    const floatingBtn = document.querySelector('.floating-customize-btn');
-
-    // Initialiser à partir du localStorage
-    initFromLocalStorage();
-
-    // Toggle du panneau de personnalisation
-    toggleBtn.addEventListener('click', function() {
-      togglePersonalization();
-    });
-    
-    // Aussi pour le bouton flottant
-    floatingBtn.addEventListener('click', function() {
-      togglePersonalization();
-    });
-
-    // Fonction pour basculer l'état du panneau
-    window.togglePersonalization = function() {
-      personalizationPanel.classList.toggle('open');
-      
-      // Ajouter un effet d'animation au bouton flottant
-      floatingBtn.classList.toggle('active');
-      
-      // Décaler le bouton flottant quand le panneau est ouvert pour éviter le chevauchement
-      if (personalizationPanel.classList.contains('open')) {
-        floatingBtn.style.right = '350px';
-        floatingBtn.style.transition = 'right 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-      } else {
-        floatingBtn.style.right = '30px';
-      }
-    };
-
-    // Changement de thème
-    themeLight.addEventListener('click', function() {
-      setTheme('light');
-    });
-
-    themeDark.addEventListener('click', function() {
-      setTheme('dark');
-    });
-
-    // Contrôles de la musique
-    musicPlay.addEventListener('click', function() {
-      playMusic();
-    });
-
-    musicPause.addEventListener('click', function() {
-      pauseMusic();
-    });
-
-    volumeControl.addEventListener('input', function() {
-      setVolume(this.value / 100);
-    });
-
-    musicSelect.addEventListener('change', function() {
-      changeMusic(this.value);
-    });
-
-    // Mise à jour des suggestions
-    updateSuggestionsBtn.addEventListener('click', function() {
-      updateSuggestions();
-    });
-
-    // Fonctions
-
-    // Initialiser à partir du localStorage
-    function initFromLocalStorage() {
-      // Thème
-      const savedTheme = localStorage.getItem('clickngo_theme') || 'light';
-      setTheme(savedTheme);
-
-      // Volume
-      const savedVolume = localStorage.getItem('clickngo_volume') || 50;
-      volumeControl.value = savedVolume;
-      backgroundMusic.volume = savedVolume / 100;
-
-      // Musique
-      const savedMusic = localStorage.getItem('clickngo_music') || 'ambient';
-      musicSelect.value = savedMusic;
-      changeMusic(savedMusic);
-
-      // Profil utilisateur
-      const savedAge = localStorage.getItem('clickngo_age') || '';
-      const savedInterests = localStorage.getItem('clickngo_interests') || '';
-      
-      if (savedAge) {
-        userAge.value = savedAge;
-      }
-      
-      if (savedInterests) {
-        const interests = savedInterests.split(',');
-        Array.from(userInterests.options).forEach(option => {
-          if (interests.includes(option.value)) {
-            option.selected = true;
-          }
-        });
-      }
-
-      // Si des préférences sont sauvegardées, générer des suggestions
-      if (savedAge || savedInterests) {
-        updateSuggestions();
-      }
-    }
-
-    // Changer le thème
-    function setTheme(theme) {
-      if (theme === 'dark') {
-        document.body.classList.add('dark-theme');
-        themeDark.classList.add('active');
-        themeLight.classList.remove('active');
-      } else {
-        document.body.classList.remove('dark-theme');
-        themeLight.classList.add('active');
-        themeDark.classList.remove('active');
-      }
-      localStorage.setItem('clickngo_theme', theme);
-    }
-
-    // Lecture de la musique
-    function playMusic() {
-      backgroundMusic.play()
-        .then(() => {
-          musicPlay.classList.add('active');
-          musicPause.classList.remove('active');
-        })
-        .catch(error => {
-          console.error('Erreur de lecture audio:', error);
-          // Tentative de solution pour les navigateurs qui bloquent la lecture automatique
-          alert('Cliquez une nouvelle fois sur Lecture pour activer la musique');
-        });
-    }
-
-    // Pause de la musique
-    function pauseMusic() {
-      backgroundMusic.pause();
-      musicPause.classList.add('active');
-      musicPlay.classList.remove('active');
-    }
-
-    // Changer le volume
-    function setVolume(volume) {
-      backgroundMusic.volume = volume;
-      localStorage.setItem('clickngo_volume', volume * 100);
-    }
-
-    // Changer la musique
-    function changeMusic(type) {
-      const musicSources = {
-        ambient: 'sounds/ambient.mp3',
-        upbeat: 'sounds/upbeat.mp3',
-        jazz: 'sounds/jazz.mp3',
-        nature: 'sounds/nature.mp3'
-      };
-
-      const wasPlaying = !backgroundMusic.paused;
-      backgroundMusic.pause();
-      
-      backgroundMusic.querySelector('source').src = musicSources[type];
-      backgroundMusic.load();
-      
-      if (wasPlaying) {
-        playMusic();
-      }
-      
-      localStorage.setItem('clickngo_music', type);
-    }
-
-    // Mettre à jour les suggestions
-    function updateSuggestions() {
-      const age = userAge.value;
-      const interests = Array.from(userInterests.selectedOptions).map(option => option.value);
-      
-      // Sauvegarder les préférences
-      localStorage.setItem('clickngo_age', age);
-      localStorage.setItem('clickngo_interests', interests.join(','));
-      
-      // Générer des suggestions basées sur les préférences
-      personalizedSuggestions.innerHTML = '';
-      
-      // Récupérer les activités pour les suggestions
-      const activities = allActivities || [];
-      let suggestedActivities = [];
-      
-      // Si aucun filtre n'est sélectionné, afficher des activités de toutes les catégories
-      if (!age && interests.length === 0) {
-        // Regrouper par catégories pour s'assurer d'avoir une diversité
-        const categorizedActivities = {};
-        activities.forEach(activity => {
-          if (!categorizedActivities[activity.category]) {
-            categorizedActivities[activity.category] = [];
-          }
-          categorizedActivities[activity.category].push(activity);
-        });
-        
-        // Prendre une activité de chaque catégorie disponible
-        for (const category in categorizedActivities) {
-          if (categorizedActivities[category].length > 0) {
-            // Prendre une activité au hasard de cette catégorie
-            const randomIndex = Math.floor(Math.random() * categorizedActivities[category].length);
-            suggestedActivities.push(categorizedActivities[category][randomIndex]);
-          }
-        }
-        
-        // Limiter à un nombre raisonnable (jusqu'à 6 suggestions)
-        suggestedActivities = suggestedActivities.slice(0, 6);
-      } else {
-        // Filtrer les activités en fonction de l'âge
-      if (age) {
-        switch (age) {
-          case 'under18':
-            suggestedActivities = activities.filter(activity => 
-                ['Famille', 'sport', 'culture', 'Ateliers'].includes(activity.category)
-            );
-            break;
-          case '18-25':
-            suggestedActivities = activities.filter(activity => 
-              ['Aérien', 'aventure', 'Extreme', 'sport'].includes(activity.category)
-            );
-            break;
-          case '26-35':
-            suggestedActivities = activities.filter(activity => 
-              ['aventure', 'bien-etre', 'Insolite', 'sport'].includes(activity.category)
-            );
-            break;
-          case '36-50':
-            suggestedActivities = activities.filter(activity => 
-              ['culture', 'bien-etre', 'Détente', 'Insolite'].includes(activity.category)
-            );
-            break;
-          case 'over50':
-            suggestedActivities = activities.filter(activity => 
-              ['culture', 'bien-etre', 'Détente', 'nature'].includes(activity.category)
-            );
-            break;
-        }
-      }
-      
-        // Filtrer directement par les catégories sélectionnées comme intérêts
-      if (interests.length > 0) {
-          // Si on a déjà des suggestions par âge, on les filtre davantage
-        if (suggestedActivities.length > 0) {
-          suggestedActivities = suggestedActivities.filter(activity => 
-              interests.includes(activity.category)
-          );
-        } else {
-            // Sinon on filtre toutes les activités
-          suggestedActivities = activities.filter(activity => 
-              interests.includes(activity.category)
-          );
-        }
-        }
-        
-        // Limiter à 3 suggestions avec filtres spécifiques
-        suggestedActivities = suggestedActivities.slice(0, 3);
-      }
-      
-      // Si aucune suggestion n'est trouvée
-      if (suggestedActivities.length === 0) {
-        personalizedSuggestions.innerHTML = '<p class="suggestion-placeholder">Aucune activité ne correspond à vos préférences</p>';
-        return;
-      }
-      
-      // Afficher les suggestions
-      suggestedActivities.forEach(activity => {
-        const suggestionItem = document.createElement('div');
-        suggestionItem.className = 'suggestion-item';
-        suggestionItem.innerHTML = `
-          <img src="${activity.image}" alt="${activity.name}">
-          <div class="suggestion-content">
-            <h4>${activity.name}</h4>
-            <p>${activity.price} DT - ${activity.category}</p>
-          </div>
-          <a href="reservation.php?id=${activity.id}" class="suggestion-btn">
-            <i class="fas fa-arrow-right"></i>
-          </a>
-        `;
-        personalizedSuggestions.appendChild(suggestionItem);
-      });
-    }
-  });
-</script>
-
-<!-- Bouton flottant indépendant pour assurer la visibilité -->
-<div class="floating-customize-btn">
-  <i class="fas fa-cog"></i>
-  <span>Personnaliser</span>
-</div>
-
-<style>
-  /* Amélioration supplémentaire pour le bouton flottant */
-  .floating-customize-btn.active {
-    background: linear-gradient(135deg, #9768D1, #D48DD8); /* Inversion des couleurs quand actif */
-    transform: scale(0.95);
+  <style>
+  .footer-wrapper {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    background-color: white;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    color: #333;
   }
-  
-  /* Ajustement de la position de la notification par rapport au bouton */
-  @media (max-width: 768px) {
-    .personalization-panel {
-      top: 120px;
-      width: 280px;
+  .footer-content {
+    background-color: #f4f4f4;
+    padding: 100px 40px 40px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .footer-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .footer-main h2 {
+    color: #ffffff;
+    font-size: 1.6rem;
+  }
+  .footer-main p {
+    color: #1c3f50;
+    font-size: 0.8rem;
+    line-height: 1.3rem;
+  }
+  .footer-bottom {
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    font-size: 0.9rem;
+    color: #333;
+  }
+  .footer-links-bottom a {
+    color: #333;
+    margin-left: 20px;
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
+  .footer-links-bottom a:hover {
+    color: #9768D1;
+  }
+  .newsletter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(90deg, #9768D1 0%, #D48DD8 100%);
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 1000px;
+    margin: 0 auto 30px auto;
+    box-shadow: 0 5px 15px rgba(151, 104, 209, 0.2);
+  }
+  .newsletter-left {
+    padding-right: 20px;
+  }
+  .newsletter-left h2 {
+    color: #fff;
+    font-size: 1.3rem;
+    margin-bottom: 5px;
+  }
+  .newsletter-left h1 {
+    color: #fff;
+    font-size: 1.8rem;
+    margin-top: 0;
+    font-weight: bold;
+  }
+  .newsletter-right {
+    flex: 1;
+    max-width: 500px;
+    margin-left: auto;
+  }
+  .newsletter-input {
+    display: flex;
+    align-items: center;
+    background: white;
+    border-radius: 10px;
+    padding: 5px;
+    max-width: 100%;
+  }
+  .newsletter-input input {
+    flex: 1;
+    padding: 12px 20px;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    background: transparent;
+    color: #333;
+    min-width: 250px;
+  }
+  .fotter-btn {
+    background: linear-gradient(90deg, #9768D1 0%, #D48DD8 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    white-space: nowrap;
+  }
+  .fotter-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(151, 104, 209, 0.3);
+  }
+  .footer-logo {
+    max-width: 120px;
+    margin-bottom: 15px;
+  }
+  .social-icons {
+    display: flex;
+    gap: 15px;
+    margin: 15px 0;
+  }
+  .social-icons .icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    background: white;
+    box-shadow: 0 2px 8px rgba(151, 104, 209, 0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-decoration: none;
+  }
+  .social-icons .icon:hover {
+    transform: scale(1.15) translateY(-3px);
+    box-shadow: 0 5px 15px rgba(151, 104, 209, 0.18);
+  }
+  .links {
+    margin-bottom: 30px;
+    min-width: 200px;
+  }
+  .links p {
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #9768D1;
+  }
+  .links a {
+    display: block;
+    color: #333;
+    text-decoration: none;
+    margin-bottom: 8px;
+    transition: color 0.3s;
+  }
+  .links a:hover {
+    color: #9768D1;
+  }
+  .payment-methods {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    margin-top: 15px;
+    padding: 10px 0;
+  }
+  .payment-icon {
+    height: 30px;
+    width: auto;
+    object-fit: contain;
+  }
+  .footer-section {
+    width: 100%;
+    background: none;
+    color: #333;
+    margin-top: 20px;
+  }
+  .footer-separator {
+    height: 1px;
+    background-color: #e0e0e0;
+    margin: 20px 0;
+  }
+  @media (max-width: 900px) {
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+        padding: 60px 10px 30px;
     }
-    
-    .new-feature-notification {
-      top: 130px;
-      right: 70px;
-      font-size: 12px;
-      padding: 8px 12px;
+    .links {
+        min-width: 150px;
+        margin-bottom: 20px;
     }
-    
-    .floating-customize-btn {
-      width: 90px;
-      height: 90px;
-      font-size: 13px;
+  }
+  @media (max-width: 600px) {
+    .newsletter {
+        flex-direction: column;
+        padding: 25px 10px;
+        text-align: center;
     }
-    
-    .floating-customize-btn i {
-      font-size: 30px;
-      margin-bottom: 5px;
+    .footer-content {
+        padding: 40px 5px 20px;
     }
   }
 </style>
-
-<!-- Bouton flottant indépendant pour assurer la visibilité -->
 </body>
 </html> 
