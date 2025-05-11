@@ -34,6 +34,7 @@ endif; ?>
 
 <?php
 session_start();
+
 require_once '../../../Controller/UserController.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -116,19 +117,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $password = $_POST['password'] ?? '';
 
         $userController = new UserController();
-        if ($userController->login($email, $password)) {
-            // Recharge les vraies données de l'utilisateur (y compris is_verified)
-            $db = Config::getConnexion();
-            require_once '../../../Model/User.php';
-            $_SESSION['user'] = User::getUserByEmail($db, $email);
-
-            header("Location: /View/BackOffice/dashboard.php");
-            exit();
-        } else {
-            $_SESSION['register_error'] = "Email ou mot de passe incorrect.";
-            header("Location: /View/BackOffice/login/login.php");
-            exit();
-        }
+       // Après une connexion réussie
+// Après une connexion réussie
+if ($userController->login($email, $password)) {
+    $db = Config::getConnexion();
+    require_once '../../../Model/User.php';
+    $_SESSION['user'] = User::getUserByEmail($db, $email);
+    
+    // Rediriger vers la page demandée ou vers une page par défaut
+    $redirect_url = $_SESSION['redirect_url'] ?? '/Projet Web/mvcUtilisateur/View/FrontOffice/index.php';
+    unset($_SESSION['redirect_url']); // Nettoyer
+    header("Location: $redirect_url");
+    exit();
+}
     }
 }
 

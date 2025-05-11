@@ -1,5 +1,8 @@
 <?php
 session_start(); // Démarre la session pour vérifier l'état de connexion
+
+
+
 if (!isset($_SESSION['video_seen'])) {
   $_SESSION['video_seen'] = true;
   header("Location: intro.php");
@@ -143,7 +146,7 @@ function stringToColor($str) {
             <ul class="nav-links">
                 <li><a href="index.html">Accueil</a></li>
                 <li><a href="activite.html">Activités</a></li>
-                <li><a href="events.html">Événements</a></li>
+                <li><a href="/Projet Web/mvcEvent/View/FrontOffice/evenemant.php">Événements</a></li>
                 <li><a href="Produits.html">Produits</a></li>
                 <li><a href="transports.html">Transports</a></li>
                 <li><a href="/Projet%20Web/mvcSponsor/crud/view/front/index.php">Sponsors</a></li>           

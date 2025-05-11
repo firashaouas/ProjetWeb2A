@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__ . "/../../controller/controller.php");
 require_once(__DIR__ . "/../../model/model.php");
-require_once(__DIR__ . "/../../config.php");
+require_once(__DIR__ . "../../../../../mvcEvent/Config.php");
 
 if (isset($_GET['id'])) {
     $id_offer = (int)$_GET['id'];

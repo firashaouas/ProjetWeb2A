@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__ . "/../../controller/controller.php");
 require_once(__DIR__ . "/../../model/model.php");
-require_once(__DIR__ . "/../../config.php");
+require_once(__DIR__ . "../../../../../mvcEvent/Config.php");
 
 // Récupérer le sponsor à modifier
 if (!isset($_GET['id'])) {
@@ -31,8 +31,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $avantage = htmlspecialchars($_POST['benefits']);
     $status = isset($_POST['status']) ? htmlspecialchars($_POST['status']) : 'pending';
     $id_offre = isset($_POST['id_offre']) ? (int)$_POST['id_offre'] : 0;
+    $payment_code = isset($_POST['payment_code']) ? htmlspecialchars($_POST['payment_code']) : $sponsor['payment_code'];
+    $id_user = isset($_POST['id_user']) ? (int)$_POST['id_user'] : $sponsor['id_user'];
 
-    // Validation des champs (mêmes contrôles que dans addSponsor.php)
+    // Validation des champs
     $errors = [];
 
     if (empty($nom_entreprise)) {
@@ -92,6 +94,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $originalName = basename($_FILES['logo']['name']);
             $targetFilePath = $uploadDir . $originalName;
 
+            // Delete old logo if exists
+            if (!empty($sponsor['logo']) && file_exists($uploadDir . $sponsor['logo'])) {
+                unlink($uploadDir . $sponsor['logo']);
+            }
+
             if (move_uploaded_file($_FILES['logo']['tmp_name'], $targetFilePath)) {
                 $logoFilename = $originalName;
             } else {
@@ -103,13 +110,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $sponsorObj = new sponsor(
                 $nom_entreprise,
                 $email,
-                (int)$telephone,
+                $telephone,
                 $montant,
                 $duree,
                 $avantage,
                 $status,
                 $id_offre,
-                $logoFilename
+                $id_user,
+                $logoFilename,
+                $payment_code
             );
             $sponsorObj->setId_sponsor($id_sponsor);
 
@@ -132,89 +141,102 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modifier Sponsor</title>
-
     <style>
-    body {
-        font-family: 'Segoe UI', sans-serif;
-        background-color: #f7f7f7;
-        margin: 0;
-        padding: 40px;
-        color: #333;
-    }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 40px;
+            color: #333;
+        }
 
-    h1 {
-        text-align: center;
-        color: #2c3e50;
-        margin-bottom: 30px;
-    }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
 
-    form {
-        max-width: 600px;
-        margin: 0 auto;
-        padding: 30px;
-        background-color: #ffffff;
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
 
-    label {
-        display: block;
-        margin-bottom: 8px;
-        font-weight: 600;
-        color: #555;
-    }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
 
-    input, textarea {
-        width: 100%;
-        padding: 10px 12px;
-        margin-bottom: 20px;
-        border: 1px solid #ccc;
-        border-radius: 6px;
-        font-size: 16px;
-        transition: border 0.3s;
-    }
+        input, textarea, select {
+            width: 100%;
+            padding: 10px 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
 
-    input:focus, textarea:focus {
-        border-color: #3498db;
-        outline: none;
-    }
+        input:focus, textarea:focus, select:focus {
+            border-color: #3498db;
+            outline: none;
+        }
 
-    button {
-        background-color: #3498db;
-        color: white;
-        padding: 12px 20px;
-        border: none;
-        border-radius: 6px;
-        font-size: 16px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
 
-    button:hover {
-        background-color: #2980b9;
-    }
+        button:hover {
+            background-color: #2980b9;
+        }
 
-    a {
-        display: inline-block;
-        margin-top: 10px;
-        color: #888;
-        text-decoration: none;
-        font-size: 14px;
-    }
+        a {
+            display: inline-block;
+            margin-top: 10px;
+            color: #888;
+            text-decoration: none;
+            font-size: 14px;
+        }
 
-    a:hover {
-        text-decoration: underline;
-    }
+        a:hover {
+            text-decoration: underline;
+        }
 
-    .error {
-        color: red;
-        text-align: center;
-        margin-bottom: 20px;
-        font-weight: bold;
-    }
-</style>
+        .error {
+            color: red;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
 
+        .current-logo {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .current-logo img {
+            max-width: 150px;
+            max-height: 150px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
 </head>
 <body>
     <h1>Modifier le Sponsor</h1>
@@ -251,27 +273,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <div>
             <label for="benefits">Avantages:</label>
-            <textarea id="benefits" name="benefits" required><?= htmlspecialchars($sponsor['avantage']) ?></textarea>
+            <textarea id="benefits" name="benefits" rows="5" required><?= htmlspecialchars($sponsor['avantage']) ?></textarea>
         </div>
 
         <div>
-            <label for="id_offre">Offre associée</label>
+            <label for="status">Statut:</label>
+            <select id="status" name="status" required>
+                <option value="pending" <?= $sponsor['status'] === 'pending' ? 'selected' : '' ?>>En attente</option>
+                <option value="approved" <?= $sponsor['status'] === 'approved' ? 'selected' : '' ?>>Approuvé</option>
+                <option value="rejected" <?= $sponsor['status'] === 'rejected' ? 'selected' : '' ?>>Rejeté</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="id_offre">Offre associée:</label>
             <select id="id_offre" name="id_offre" required>
                 <option value="">-- Choisissez une offre --</option>
                 <?php foreach ($offers as $offer): ?>
                     <option value="<?= htmlspecialchars($offer['id_offre']) ?>" <?= ($sponsor['id_offre'] == $offer['id_offre']) ? 'selected' : '' ?>>
-                        <?= htmlspecialchars($offer['titre_offre']) ?>
+                        <?= htmlspecialchars($offer['titre_offre']) ?> (<?= htmlspecialchars($offer['montant_offre']) ?> DT)
                     </option>
                 <?php endforeach; ?>
             </select>
         </div>
 
         <div>
+            <label for="id_user">ID Utilisateur:</label>
+            <input type="number" id="id_user" name="id_user" value="<?= htmlspecialchars($sponsor['id_user'] ?? '') ?>">
+        </div>
+
+        <div>
+            <label for="payment_code">Code de paiement:</label>
+            <input type="text" id="payment_code" name="payment_code" value="<?= htmlspecialchars($sponsor['payment_code'] ?? '') ?>">
+        </div>
+
+        <div>
             <label for="logo">Logo de l'entreprise:</label>
             <input type="file" id="logo" name="logo" accept="image/*">
+            
             <?php if (!empty($sponsor['logo'])): ?>
-                <p>Logo actuel: <?= htmlspecialchars($sponsor['logo']) ?></p>
-                <img src="images/sponsors/<?= htmlspecialchars($sponsor['logo']) ?>" alt="Logo actuel" style="max-width: 150px; max-height: 150px;">
+                <div class="current-logo">
+                    <p>Logo actuel: <?= htmlspecialchars($sponsor['logo']) ?></p>
+                    <img src="images/sponsors/<?= htmlspecialchars($sponsor['logo']) ?>" alt="Logo actuel">
+                </div>
             <?php endif; ?>
         </div>
 

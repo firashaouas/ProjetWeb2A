@@ -5,8 +5,8 @@ error_reporting(E_ALL);
 error_log("updatesponsor.php started");
 
 session_start();
-error_log("Loading config.php");
-require_once(__DIR__ . "/../config.php");
+error_log("Loading Config.php");
+require_once(__DIR__ . "../../../../mvcEvent/Config.php");
 error_log("Loading model.php");
 require_once(__DIR__ . "/../model/model.php");
 error_log("Loading controller.php");

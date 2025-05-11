@@ -2,7 +2,7 @@
 session_start();
 require_once(__DIR__ . "/../../controller/controller.php");
 require_once(__DIR__ . "/../../model/model.php");
-require_once(__DIR__ . "/../../config.php");
+require_once(__DIR__ . "../../../../../mvcEvent/Config.php");
 
 // Redirect to login if user is not authenticated
 if (!isset($_SESSION['user']) || !isset($_SESSION['user']['id_user'])) {
