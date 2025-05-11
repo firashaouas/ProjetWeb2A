@@ -91,7 +91,7 @@ if (isset($_SESSION['sponsor_success'])) {
                     <li class="nav-item"><a href="/Projet%20Web/mvcUtilisateur/View/FrontOffice/index.php" class="nav-link">Accueil</a></li>
                     <li class="nav-item"><a href="activite.html" class="nav-link">Activités</a></li>
                     <li class="nav-item"><a href="/Projet%20Web/mvcEvent/View/FrontOffice/evenemant.php" class="nav-link">Événements</a></li>
-                    <li class="nav-item"><a href="Produits.html" class="nav-link">Produits</a></li>
+                    <li class="nav-item"><a href="/Projet Web/mvcProduit/view/front office/produit.php" class="nav-link">Produits</a></li>
                     <li class="nav-item"><a href="transports.html" class="nav-link">Transports</a></li>
                     <li class="nav-item"><a href="sponsors.html" class="nav-link active">Sponsors</a></li>
                 </ul>

@@ -104,7 +104,7 @@ if (!file_exists($python_exec)) {
                 <li><a href="/Projet%20Web/mvcUtilisateur/View/FrontOffice/index.php">Accueil</a></li>
                 <li><a href="activite.html">Activités</a></li>
                 <li><a href="events.html">Événements</a></li>
-                <li><a href="Produits.html">Produits</a></li>
+                <li><a href="/Projet Web/mvcProduit/view/front office/produit.php">Produits</a></li>
                 <li><a href="transports.html">Transports</a></li>
                 <li><a href="/Projet%20Web/mvcSponsor/crud/view/front/index.php">Sponsors</a></li>
             </ul>

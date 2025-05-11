@@ -203,3 +203,19 @@ Stack trace:
 [11-May-2025 03:59:12 Europe/Berlin] Connecting to database
 [11-May-2025 03:59:12 Europe/Berlin] Database connected
 [11-May-2025 03:59:12 Europe/Berlin] Updating sponsor
+[11-May-2025 12:20:44 Europe/Berlin] updatesponsor.php started
+[11-May-2025 12:20:44 Europe/Berlin] Loading Config.php
+[11-May-2025 12:20:44 Europe/Berlin] Loading model.php
+[11-May-2025 12:20:44 Europe/Berlin] Loading controller.php
+[11-May-2025 12:20:44 Europe/Berlin] Loading PHPMailer.php
+[11-May-2025 12:20:44 Europe/Berlin] Loading Exception.php
+[11-May-2025 12:20:44 Europe/Berlin] Loading SMTP.php
+[11-May-2025 12:20:44 Europe/Berlin] Creating sponsorController
+[11-May-2025 12:20:44 Europe/Berlin] Calling getSponsorById for id: 51
+[11-May-2025 12:20:44 Europe/Berlin] Creating sponsor object
+[11-May-2025 12:20:44 Europe/Berlin] Creating sponsorController for update
+[11-May-2025 12:20:44 Europe/Berlin] Preparing to send email to: karimmlayah14@gmail.com
+[11-May-2025 12:20:46 Europe/Berlin] Email sent successfully to: karimmlayah14@gmail.com
+[11-May-2025 12:20:46 Europe/Berlin] Connecting to database
+[11-May-2025 12:20:46 Europe/Berlin] Database connected
+[11-May-2025 12:20:46 Europe/Berlin] Updating sponsor
