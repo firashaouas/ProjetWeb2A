@@ -2675,40 +2675,40 @@ $total_pending = $pending_purchases + $pending_rentals;
           </nav>
         </div>
 
-<div class="user-profile">
-  <?php if (isset($_SESSION['user'])): ?>
-    <?php
-    $photoPath = $_SESSION['user']['profile_picture'] ?? '';
-    $fullName = $_SESSION['user']['full_name'] ?? 'Utilisateur';
+        <div class="user-profile">
+          <?php if (isset($_SESSION['user'])): ?>
+            <?php
+            $photoPath = $_SESSION['user']['profile_picture'] ?? '';
+            $fullName = $_SESSION['user']['full_name'] ?? 'Utilisateur';
 
-    // Correction du chemin relatif pour le test file_exists (chemin serveur)
-    $photoRelativePath = '../../mvcUtilisateur/View/FrontOffice/' . $photoPath;
-    $absolutePath = realpath(__DIR__ . '/' . $photoRelativePath);
-    $showPhoto = !empty($photoPath) && $absolutePath && file_exists($absolutePath);
-    ?>
+            // Correction du chemin relatif pour le test file_exists (chemin serveur)
+            $photoRelativePath = '../../mvcUtilisateur/View/FrontOffice/' . $photoPath;
+            $absolutePath = realpath(__DIR__ . '/' . $photoRelativePath);
+            $showPhoto = !empty($photoPath) && $absolutePath && file_exists($absolutePath);
+            ?>
 
-    <?php if ($showPhoto): ?>
-      <!-- Affichage de la photo (chemin URL côté client) -->
-      <img src="/Projet Web/mvcUtilisateur/View/FrontOffice/<?= htmlspecialchars($photoPath) ?>"
-           alt="Photo de profil"
-           class="profile-photo"
-           onclick="toggleDropdown()">
-    <?php else: ?>
-      <!-- Cercle avec initiale -->
-      <div class="profile-circle"
-           style="background-color: <?= function_exists('stringToColor') ? stringToColor($fullName) : '#999' ?>;"
-           onclick="toggleDropdown()">
-        <?= strtoupper(htmlspecialchars(substr($fullName, 0, 1))) ?>
-      </div>
-    <?php endif; ?>
+            <?php if ($showPhoto): ?>
+              <!-- Affichage de la photo (chemin URL côté client) -->
+              <img src="/Projet Web/mvcUtilisateur/View/FrontOffice/<?= htmlspecialchars($photoPath) ?>"
+                alt="Photo de profil"
+                class="profile-photo"
+                onclick="toggleDropdown()">
+            <?php else: ?>
+              <!-- Cercle avec initiale -->
+              <div class="profile-circle"
+                style="background-color: <?= function_exists('stringToColor') ? stringToColor($fullName) : '#999' ?>;"
+                onclick="toggleDropdown()">
+                <?= strtoupper(htmlspecialchars(substr($fullName, 0, 1))) ?>
+              </div>
+            <?php endif; ?>
 
-    <!-- Menu déroulant -->
-    <div class="dropdown-menu" id="dropdownMenu">
-      <a href="/Projet Web/mvcUtilisateur/View/FrontOffice/profile.php">👤 Mon Profil</a>
-      <a href="/Projet Web/mvcUtilisateur/View/BackOffice/login/logout.php">🚪 Déconnexion</a>
-    </div>
-  <?php endif; ?>
-</div>
+            <!-- Menu déroulant -->
+            <div class="dropdown-menu" id="dropdownMenu">
+              <a href="/Projet Web/mvcUtilisateur/View/FrontOffice/profile.php">👤 Mon Profil</a>
+              <a href="/Projet Web/mvcUtilisateur/View/BackOffice/login/logout.php">🚪 Déconnexion</a>
+            </div>
+          <?php endif; ?>
+        </div>
 
 
 

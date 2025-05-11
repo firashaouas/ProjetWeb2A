@@ -1,0 +1,23 @@
+2025-05-03 16:56:36 Script started
+2025-05-03 16:56:36 Request method: POST
+2025-05-03 16:56:36 Raw data: {
+    "id_demande": 1,
+    "action": "approve"
+}
+
+
+2025-05-03 16:56:36 Parsed data: Array
+(
+    [id_demande] => 1
+    [action] => approve
+)
+
+2025-05-03 16:56:36 ID: 1, Action: approve
+2025-05-03 16:56:36 Approving request ID: 1
+2025-05-03 16:56:36 Status updated successfully
+2025-05-03 16:56:36 Creating Twilio client
+2025-05-03 16:56:36 Sending SMS to +21655436637
+2025-05-03 16:56:37 SMS sent successfully! SID: SM2f6318ef01fc6e1263135e079ad8e09b
+2025-05-03 16:56:37 Sending response: {"success":true,"message":"Request approved and SMS sent to +21655436637","sms_sid":"SM2f6318ef01fc6e1263135e079ad8e09b"}
+2025-05-03 16:56:37 Script completed
+

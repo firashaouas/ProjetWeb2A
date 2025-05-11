@@ -312,7 +312,8 @@ function stringToColor($str)
 
     <a href="/Projet%20Web/mvcSponsor/crud/view/back/back.php"> Sponsoring</a>
     <a href="/Projet%20Web/mvcEvent/View/BackOffice/dashboard.php"> Evenements</a>
-        <a href="/Projet Web/mvcProduit/view/back office/indeex.php"> Produits</a>
+    <a href="/Projet Web/mvcProduit/view/back office/indeex.php"> Produits</a>
+    <a href="/Projet Web/mvcCovoiturage/view/backoffice/dashboard.php"> Covoiturage</a>
 
       <img src="logo.png" alt="Logo" class="logo">
       <h1>Click'N'go</h1>

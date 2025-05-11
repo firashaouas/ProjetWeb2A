@@ -1,0 +1,1711 @@
+[11-May-2025 14:49:35 Africa/Tunis] Connexion à la base de données réussie.
+[11-May-2025 14:49:35 Africa/Tunis] Structure de la table : Array
+(
+    [0] => Array
+        (
+            [Field] => id_conducteur
+            [Type] => int(11)
+            [Null] => NO
+            [Key] => PRI
+            [Default] => 
+            [Extra] => auto_increment
+        )
+
+    [1] => Array
+        (
+            [Field] => prenom_conducteur
+            [Type] => varchar(255)
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [2] => Array
+        (
+            [Field] => nom_conducteur
+            [Type] => varchar(255)
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [3] => Array
+        (
+            [Field] => tel_conducteur
+            [Type] => varchar(255)
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [4] => Array
+        (
+            [Field] => date_depart
+            [Type] => datetime
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [5] => Array
+        (
+            [Field] => lieu_depart
+            [Type] => varchar(255)
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [6] => Array
+        (
+            [Field] => lieu_arrivee
+            [Type] => varchar(255)
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [7] => Array
+        (
+            [Field] => nombre_places
+            [Type] => int(11)
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [8] => Array
+        (
+            [Field] => prix_estime
+            [Type] => float
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [9] => Array
+        (
+            [Field] => description
+            [Type] => text
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [10] => Array
+        (
+            [Field] => status
+            [Type] => varchar(255)
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [11] => Array
+        (
+            [Field] => date_creation
+            [Type] => datetime
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [12] => Array
+        (
+            [Field] => date_modification
+            [Type] => datetime
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [13] => Array
+        (
+            [Field] => statut
+            [Type] => enum('active','archivée')
+            [Null] => YES
+            [Key] => 
+            [Default] => active
+            [Extra] => 
+        )
+
+    [14] => Array
+        (
+            [Field] => image
+            [Type] => varchar(255)
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [15] => Array
+        (
+            [Field] => type_voiture
+            [Type] => varchar(255)
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [16] => Array
+        (
+            [Field] => likes
+            [Type] => int(11)
+            [Null] => YES
+            [Key] => 
+            [Default] => 0
+            [Extra] => 
+        )
+
+    [17] => Array
+        (
+            [Field] => dislikes
+            [Type] => int(11)
+            [Null] => YES
+            [Key] => 
+            [Default] => 0
+            [Extra] => 
+        )
+
+    [18] => Array
+        (
+            [Field] => user_id
+            [Type] => int(11)
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+)
+
+[11-May-2025 14:49:35 Africa/Tunis] Contraintes sur user_id : Array
+(
+)
+
+[11-May-2025 14:49:35 Africa/Tunis] Erreur PDO : SQLSTATE[42S02]: Base table or view not found: 1146 Table 'clickngo.users' doesn't exist
+Trace : #0 C:\xampp\htdocs\clickngo\view\debug_ajouter_annonce.php(46): PDOStatement->execute(Array)
+#1 {main}
+[11-May-2025 14:49:35 Africa/Tunis] Débogage terminé.
+[11-May-2025 14:51:52 Africa/Tunis] Connexion à la base de données réussie.
+[11-May-2025 14:51:52 Africa/Tunis] Structure de la table : Array
+(
+    [0] => Array
+        (
+            [Field] => id_conducteur
+            [Type] => int(11)
+            [Null] => NO
+            [Key] => PRI
+            [Default] => 
+            [Extra] => auto_increment
+        )
+
+    [1] => Array
+        (
+            [Field] => prenom_conducteur
+            [Type] => varchar(255)
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [2] => Array
+        (
+            [Field] => nom_conducteur
+            [Type] => varchar(255)
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [3] => Array
+        (
+            [Field] => tel_conducteur
+            [Type] => varchar(255)
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [4] => Array
+        (
+            [Field] => date_depart
+            [Type] => datetime
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [5] => Array
+        (
+            [Field] => lieu_depart
+            [Type] => varchar(255)
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [6] => Array
+        (
+            [Field] => lieu_arrivee
+            [Type] => varchar(255)
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [7] => Array
+        (
+            [Field] => nombre_places
+            [Type] => int(11)
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [8] => Array
+        (
+            [Field] => prix_estime
+            [Type] => float
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [9] => Array
+        (
+            [Field] => description
+            [Type] => text
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [10] => Array
+        (
+            [Field] => status
+            [Type] => varchar(255)
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [11] => Array
+        (
+            [Field] => date_creation
+            [Type] => datetime
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [12] => Array
+        (
+            [Field] => date_modification
+            [Type] => datetime
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [13] => Array
+        (
+            [Field] => statut
+            [Type] => enum('active','archivée')
+            [Null] => YES
+            [Key] => 
+            [Default] => active
+            [Extra] => 
+        )
+
+    [14] => Array
+        (
+            [Field] => image
+            [Type] => varchar(255)
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [15] => Array
+        (
+            [Field] => type_voiture
+            [Type] => varchar(255)
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [16] => Array
+        (
+            [Field] => likes
+            [Type] => int(11)
+            [Null] => YES
+            [Key] => 
+            [Default] => 0
+            [Extra] => 
+        )
+
+    [17] => Array
+        (
+            [Field] => dislikes
+            [Type] => int(11)
+            [Null] => YES
+            [Key] => 
+            [Default] => 0
+            [Extra] => 
+        )
+
+    [18] => Array
+        (
+            [Field] => user_id
+            [Type] => int(11)
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+)
+
+[11-May-2025 14:51:52 Africa/Tunis] Contrôleur initialisé avec id_user=12345.
+[11-May-2025 14:51:52 Africa/Tunis] Données de test : Array
+(
+    [prenom_conducteur] => John
+    [nom_conducteur] => Doe
+    [tel_conducteur] => 12345678
+    [date_depart] => 2025-05-12 10:00:00
+    [lieu_depart] => Tunis
+    [lieu_arrivee] => Sousse
+    [nombre_places] => 3
+    [type_voiture] => Sedan
+    [prix_estime] => 20
+    [description] => Voyage confortable
+    [submit] => 
+)
+
+[11-May-2025 14:51:52 Africa/Tunis] SQL Query Parameters: Array
+(
+    [prenom_conducteur] => John
+    [nom_conducteur] => Doe
+    [tel_conducteur] => 12345678
+    [date_depart] => 2025-05-12 10:00:00
+    [lieu_depart] => Tunis
+    [lieu_arrivee] => Sousse
+    [nombre_places] => 3
+    [type_voiture] => Sedan
+    [prix_estime] => 20
+    [description] => Voyage confortable
+    [status] => disponible
+    [date_creation] => 2025-05-11 14:51:52
+    [user_id] => 12345
+)
+
+[11-May-2025 14:51:52 Africa/Tunis] Insertion successful
+[11-May-2025 14:51:52 Africa/Tunis] Annonce ajoutée avec succès. Résultat : Succès
+[11-May-2025 14:51:52 Africa/Tunis] Annonce trouvée : Array
+(
+    [id_conducteur] => 30
+    [prenom_conducteur] => John
+    [nom_conducteur] => Doe
+    [tel_conducteur] => 12345678
+    [date_depart] => 2025-05-12 10:00:00
+    [lieu_depart] => Tunis
+    [lieu_arrivee] => Sousse
+    [nombre_places] => 3
+    [prix_estime] => 20
+    [description] => Voyage confortable
+    [status] => disponible
+    [date_creation] => 2025-05-11 14:51:52
+    [date_modification] => 
+    [statut] => active
+    [image] => 
+    [type_voiture] => Sedan
+    [likes] => 0
+    [dislikes] => 0
+    [user_id] => 12345
+)
+
+[11-May-2025 14:51:52 Africa/Tunis] Débogage terminé.
+[11-May-2025 15:06:38 Africa/Tunis] Connexion à la base de données réussie.
+[11-May-2025 15:06:38 Africa/Tunis] Structure de la table : Array
+(
+    [0] => Array
+        (
+            [Field] => id_conducteur
+            [Type] => int(11)
+            [Null] => NO
+            [Key] => PRI
+            [Default] => 
+            [Extra] => auto_increment
+        )
+
+    [1] => Array
+        (
+            [Field] => prenom_conducteur
+            [Type] => varchar(255)
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [2] => Array
+        (
+            [Field] => nom_conducteur
+            [Type] => varchar(255)
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [3] => Array
+        (
+            [Field] => tel_conducteur
+            [Type] => varchar(255)
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [4] => Array
+        (
+            [Field] => date_depart
+            [Type] => datetime
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [5] => Array
+        (
+            [Field] => lieu_depart
+            [Type] => varchar(255)
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [6] => Array
+        (
+            [Field] => lieu_arrivee
+            [Type] => varchar(255)
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [7] => Array
+        (
+            [Field] => nombre_places
+            [Type] => int(11)
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [8] => Array
+        (
+            [Field] => prix_estime
+            [Type] => float
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [9] => Array
+        (
+            [Field] => description
+            [Type] => text
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [10] => Array
+        (
+            [Field] => status
+            [Type] => varchar(255)
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [11] => Array
+        (
+            [Field] => date_creation
+            [Type] => datetime
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [12] => Array
+        (
+            [Field] => date_modification
+            [Type] => datetime
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [13] => Array
+        (
+            [Field] => statut
+            [Type] => enum('active','archivée')
+            [Null] => YES
+            [Key] => 
+            [Default] => active
+            [Extra] => 
+        )
+
+    [14] => Array
+        (
+            [Field] => image
+            [Type] => varchar(255)
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [15] => Array
+        (
+            [Field] => type_voiture
+            [Type] => varchar(255)
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [16] => Array
+        (
+            [Field] => likes
+            [Type] => int(11)
+            [Null] => YES
+            [Key] => 
+            [Default] => 0
+            [Extra] => 
+        )
+
+    [17] => Array
+        (
+            [Field] => dislikes
+            [Type] => int(11)
+            [Null] => YES
+            [Key] => 
+            [Default] => 0
+            [Extra] => 
+        )
+
+    [18] => Array
+        (
+            [Field] => user_id
+            [Type] => int(11)
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+)
+
+[11-May-2025 15:06:38 Africa/Tunis] Contrôleur initialisé avec id_user=12345.
+[11-May-2025 15:06:38 Africa/Tunis] Données de test : Array
+(
+    [prenom_conducteur] => John
+    [nom_conducteur] => Doe
+    [tel_conducteur] => 12345678
+    [date_depart] => 2025-05-12 10:00:00
+    [lieu_depart] => Tunis
+    [lieu_arrivee] => Sousse
+    [nombre_places] => 3
+    [type_voiture] => Sedan
+    [prix_estime] => 20
+    [description] => Voyage confortable
+    [submit] => 
+)
+
+[11-May-2025 15:06:38 Africa/Tunis] SQL Query Parameters: Array
+(
+    [prenom_conducteur] => John
+    [nom_conducteur] => Doe
+    [tel_conducteur] => 12345678
+    [date_depart] => 2025-05-12 10:00:00
+    [lieu_depart] => Tunis
+    [lieu_arrivee] => Sousse
+    [nombre_places] => 3
+    [type_voiture] => Sedan
+    [prix_estime] => 20
+    [description] => Voyage confortable
+    [status] => disponible
+    [date_creation] => 2025-05-11 15:06:38
+    [user_id] => 12345
+)
+
+[11-May-2025 15:06:38 Africa/Tunis] Insertion successful
+[11-May-2025 15:06:38 Africa/Tunis] Annonce ajoutée avec succès. Résultat : Succès
+[11-May-2025 15:06:38 Africa/Tunis] Annonce trouvée : Array
+(
+    [id_conducteur] => 31
+    [prenom_conducteur] => John
+    [nom_conducteur] => Doe
+    [tel_conducteur] => 12345678
+    [date_depart] => 2025-05-12 10:00:00
+    [lieu_depart] => Tunis
+    [lieu_arrivee] => Sousse
+    [nombre_places] => 3
+    [prix_estime] => 20
+    [description] => Voyage confortable
+    [status] => disponible
+    [date_creation] => 2025-05-11 15:06:38
+    [date_modification] => 
+    [statut] => active
+    [image] => 
+    [type_voiture] => Sedan
+    [likes] => 0
+    [dislikes] => 0
+    [user_id] => 12345
+)
+
+[11-May-2025 15:06:38 Africa/Tunis] Débogage terminé.
+[11-May-2025 15:33:51 Africa/Tunis] Connexion à la base de données réussie.
+[11-May-2025 15:33:51 Africa/Tunis] Structure de la table : Array
+(
+    [0] => Array
+        (
+            [Field] => id_conducteur
+            [Type] => int(11)
+            [Null] => NO
+            [Key] => PRI
+            [Default] => 
+            [Extra] => auto_increment
+        )
+
+    [1] => Array
+        (
+            [Field] => prenom_conducteur
+            [Type] => varchar(255)
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [2] => Array
+        (
+            [Field] => nom_conducteur
+            [Type] => varchar(255)
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [3] => Array
+        (
+            [Field] => tel_conducteur
+            [Type] => varchar(255)
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [4] => Array
+        (
+            [Field] => date_depart
+            [Type] => datetime
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [5] => Array
+        (
+            [Field] => lieu_depart
+            [Type] => varchar(255)
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [6] => Array
+        (
+            [Field] => lieu_arrivee
+            [Type] => varchar(255)
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [7] => Array
+        (
+            [Field] => nombre_places
+            [Type] => int(11)
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [8] => Array
+        (
+            [Field] => prix_estime
+            [Type] => float
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [9] => Array
+        (
+            [Field] => description
+            [Type] => text
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [10] => Array
+        (
+            [Field] => status
+            [Type] => varchar(255)
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [11] => Array
+        (
+            [Field] => date_creation
+            [Type] => datetime
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [12] => Array
+        (
+            [Field] => date_modification
+            [Type] => datetime
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [13] => Array
+        (
+            [Field] => statut
+            [Type] => enum('active','archivée')
+            [Null] => YES
+            [Key] => 
+            [Default] => active
+            [Extra] => 
+        )
+
+    [14] => Array
+        (
+            [Field] => image
+            [Type] => varchar(255)
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [15] => Array
+        (
+            [Field] => type_voiture
+            [Type] => varchar(255)
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [16] => Array
+        (
+            [Field] => likes
+            [Type] => int(11)
+            [Null] => YES
+            [Key] => 
+            [Default] => 0
+            [Extra] => 
+        )
+
+    [17] => Array
+        (
+            [Field] => dislikes
+            [Type] => int(11)
+            [Null] => YES
+            [Key] => 
+            [Default] => 0
+            [Extra] => 
+        )
+
+    [18] => Array
+        (
+            [Field] => user_id
+            [Type] => int(11)
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+)
+
+[11-May-2025 15:33:51 Africa/Tunis] Contrôleur initialisé avec id_user=12345.
+[11-May-2025 15:33:51 Africa/Tunis] Données de test : Array
+(
+    [prenom_conducteur] => John
+    [nom_conducteur] => Doe
+    [tel_conducteur] => 12345678
+    [date_depart] => 2025-05-12 10:00:00
+    [lieu_depart] => Tunis
+    [lieu_arrivee] => Sousse
+    [nombre_places] => 3
+    [type_voiture] => Sedan
+    [prix_estime] => 20
+    [description] => Voyage confortable
+    [submit] => 
+)
+
+[11-May-2025 15:33:51 Africa/Tunis] SQL Query Parameters: Array
+(
+    [prenom_conducteur] => John
+    [nom_conducteur] => Doe
+    [tel_conducteur] => 12345678
+    [date_depart] => 2025-05-12 10:00:00
+    [lieu_depart] => Tunis
+    [lieu_arrivee] => Sousse
+    [nombre_places] => 3
+    [type_voiture] => Sedan
+    [prix_estime] => 20
+    [description] => Voyage confortable
+    [status] => disponible
+    [date_creation] => 2025-05-11 15:33:51
+    [user_id] => 12345
+)
+
+[11-May-2025 15:33:51 Africa/Tunis] Insertion successful
+[11-May-2025 15:33:51 Africa/Tunis] Annonce ajoutée avec succès. Résultat : Succès
+[11-May-2025 15:33:51 Africa/Tunis] Annonce trouvée : Array
+(
+    [id_conducteur] => 32
+    [prenom_conducteur] => John
+    [nom_conducteur] => Doe
+    [tel_conducteur] => 12345678
+    [date_depart] => 2025-05-12 10:00:00
+    [lieu_depart] => Tunis
+    [lieu_arrivee] => Sousse
+    [nombre_places] => 3
+    [prix_estime] => 20
+    [description] => Voyage confortable
+    [status] => disponible
+    [date_creation] => 2025-05-11 15:33:51
+    [date_modification] => 
+    [statut] => active
+    [image] => 
+    [type_voiture] => Sedan
+    [likes] => 0
+    [dislikes] => 0
+    [user_id] => 12345
+)
+
+[11-May-2025 15:33:51 Africa/Tunis] Débogage terminé.
+[11-May-2025 16:11:30 Africa/Tunis] Connexion à la base de données réussie.
+[11-May-2025 16:11:30 Africa/Tunis] Structure de la table : Array
+(
+    [0] => Array
+        (
+            [Field] => id_conducteur
+            [Type] => int(11)
+            [Null] => NO
+            [Key] => PRI
+            [Default] => 
+            [Extra] => auto_increment
+        )
+
+    [1] => Array
+        (
+            [Field] => prenom_conducteur
+            [Type] => varchar(255)
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [2] => Array
+        (
+            [Field] => nom_conducteur
+            [Type] => varchar(255)
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [3] => Array
+        (
+            [Field] => tel_conducteur
+            [Type] => varchar(255)
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [4] => Array
+        (
+            [Field] => date_depart
+            [Type] => datetime
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [5] => Array
+        (
+            [Field] => lieu_depart
+            [Type] => varchar(255)
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [6] => Array
+        (
+            [Field] => lieu_arrivee
+            [Type] => varchar(255)
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [7] => Array
+        (
+            [Field] => nombre_places
+            [Type] => int(11)
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [8] => Array
+        (
+            [Field] => prix_estime
+            [Type] => float
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [9] => Array
+        (
+            [Field] => description
+            [Type] => text
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [10] => Array
+        (
+            [Field] => status
+            [Type] => varchar(255)
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [11] => Array
+        (
+            [Field] => date_creation
+            [Type] => datetime
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [12] => Array
+        (
+            [Field] => date_modification
+            [Type] => datetime
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [13] => Array
+        (
+            [Field] => statut
+            [Type] => enum('active','archivée')
+            [Null] => YES
+            [Key] => 
+            [Default] => active
+            [Extra] => 
+        )
+
+    [14] => Array
+        (
+            [Field] => image
+            [Type] => varchar(255)
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [15] => Array
+        (
+            [Field] => type_voiture
+            [Type] => varchar(255)
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [16] => Array
+        (
+            [Field] => likes
+            [Type] => int(11)
+            [Null] => YES
+            [Key] => 
+            [Default] => 0
+            [Extra] => 
+        )
+
+    [17] => Array
+        (
+            [Field] => dislikes
+            [Type] => int(11)
+            [Null] => YES
+            [Key] => 
+            [Default] => 0
+            [Extra] => 
+        )
+
+    [18] => Array
+        (
+            [Field] => user_id
+            [Type] => int(11)
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+)
+
+[11-May-2025 16:11:30 Africa/Tunis] Contrôleur initialisé avec id_user=12345.
+[11-May-2025 16:11:30 Africa/Tunis] Données de test : Array
+(
+    [prenom_conducteur] => John
+    [nom_conducteur] => Doe
+    [tel_conducteur] => 12345678
+    [date_depart] => 2025-05-12 10:00:00
+    [lieu_depart] => Tunis
+    [lieu_arrivee] => Sousse
+    [nombre_places] => 3
+    [type_voiture] => Sedan
+    [prix_estime] => 20
+    [description] => Voyage confortable
+    [submit] => 
+)
+
+[11-May-2025 16:11:30 Africa/Tunis] PHP Warning:  Undefined property: AnnonceCovoiturageController::$user_id in C:\xampp\htdocs\clickngo\Controller\AnnonceCovoiturageController.php on line 52
+[11-May-2025 16:11:30 Africa/Tunis] Annonce ajoutée avec succès. Résultat : Succès
+[11-May-2025 16:11:30 Africa/Tunis] Annonce trouvée : Array
+(
+    [id_conducteur] => 33
+    [prenom_conducteur] => John
+    [nom_conducteur] => Doe
+    [tel_conducteur] => 12345678
+    [date_depart] => 2025-05-12 10:00:00
+    [lieu_depart] => Tunis
+    [lieu_arrivee] => Sousse
+    [nombre_places] => 3
+    [prix_estime] => 20
+    [description] => Voyage confortable
+    [status] => disponible
+    [date_creation] => 2025-05-11 17:11:30
+    [date_modification] => 
+    [statut] => active
+    [image] => 
+    [type_voiture] => Sedan
+    [likes] => 0
+    [dislikes] => 0
+    [user_id] => 
+)
+
+[11-May-2025 16:11:30 Africa/Tunis] Débogage terminé.
+[11-May-2025 16:11:41 Africa/Tunis] Connexion à la base de données réussie.
+[11-May-2025 16:11:41 Africa/Tunis] Structure de la table : Array
+(
+    [0] => Array
+        (
+            [Field] => id_conducteur
+            [Type] => int(11)
+            [Null] => NO
+            [Key] => PRI
+            [Default] => 
+            [Extra] => auto_increment
+        )
+
+    [1] => Array
+        (
+            [Field] => prenom_conducteur
+            [Type] => varchar(255)
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [2] => Array
+        (
+            [Field] => nom_conducteur
+            [Type] => varchar(255)
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [3] => Array
+        (
+            [Field] => tel_conducteur
+            [Type] => varchar(255)
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [4] => Array
+        (
+            [Field] => date_depart
+            [Type] => datetime
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [5] => Array
+        (
+            [Field] => lieu_depart
+            [Type] => varchar(255)
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [6] => Array
+        (
+            [Field] => lieu_arrivee
+            [Type] => varchar(255)
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [7] => Array
+        (
+            [Field] => nombre_places
+            [Type] => int(11)
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [8] => Array
+        (
+            [Field] => prix_estime
+            [Type] => float
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [9] => Array
+        (
+            [Field] => description
+            [Type] => text
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [10] => Array
+        (
+            [Field] => status
+            [Type] => varchar(255)
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [11] => Array
+        (
+            [Field] => date_creation
+            [Type] => datetime
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [12] => Array
+        (
+            [Field] => date_modification
+            [Type] => datetime
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [13] => Array
+        (
+            [Field] => statut
+            [Type] => enum('active','archivée')
+            [Null] => YES
+            [Key] => 
+            [Default] => active
+            [Extra] => 
+        )
+
+    [14] => Array
+        (
+            [Field] => image
+            [Type] => varchar(255)
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [15] => Array
+        (
+            [Field] => type_voiture
+            [Type] => varchar(255)
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [16] => Array
+        (
+            [Field] => likes
+            [Type] => int(11)
+            [Null] => YES
+            [Key] => 
+            [Default] => 0
+            [Extra] => 
+        )
+
+    [17] => Array
+        (
+            [Field] => dislikes
+            [Type] => int(11)
+            [Null] => YES
+            [Key] => 
+            [Default] => 0
+            [Extra] => 
+        )
+
+    [18] => Array
+        (
+            [Field] => user_id
+            [Type] => int(11)
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+)
+
+[11-May-2025 16:11:41 Africa/Tunis] Contrôleur initialisé avec id_user=12345.
+[11-May-2025 16:11:41 Africa/Tunis] Données de test : Array
+(
+    [prenom_conducteur] => John
+    [nom_conducteur] => Doe
+    [tel_conducteur] => 12345678
+    [date_depart] => 2025-05-12 10:00:00
+    [lieu_depart] => Tunis
+    [lieu_arrivee] => Sousse
+    [nombre_places] => 3
+    [type_voiture] => Sedan
+    [prix_estime] => 20
+    [description] => Voyage confortable
+    [submit] => 
+)
+
+[11-May-2025 16:11:41 Africa/Tunis] SQL Query Parameters: Array
+(
+    [prenom_conducteur] => John
+    [nom_conducteur] => Doe
+    [tel_conducteur] => 12345678
+    [date_depart] => 2025-05-12 10:00:00
+    [lieu_depart] => Tunis
+    [lieu_arrivee] => Sousse
+    [nombre_places] => 3
+    [type_voiture] => Sedan
+    [prix_estime] => 20
+    [description] => Voyage confortable
+    [status] => disponible
+    [date_creation] => 2025-05-11 16:11:41
+    [user_id] => 12345
+)
+
+[11-May-2025 16:11:41 Africa/Tunis] Insertion successful
+[11-May-2025 16:11:41 Africa/Tunis] Annonce ajoutée avec succès. Résultat : Succès
+[11-May-2025 16:11:41 Africa/Tunis] Annonce trouvée : Array
+(
+    [id_conducteur] => 33
+    [prenom_conducteur] => John
+    [nom_conducteur] => Doe
+    [tel_conducteur] => 12345678
+    [date_depart] => 2025-05-12 10:00:00
+    [lieu_depart] => Tunis
+    [lieu_arrivee] => Sousse
+    [nombre_places] => 3
+    [prix_estime] => 20
+    [description] => Voyage confortable
+    [status] => disponible
+    [date_creation] => 2025-05-11 17:11:30
+    [date_modification] => 
+    [statut] => active
+    [image] => 
+    [type_voiture] => Sedan
+    [likes] => 0
+    [dislikes] => 0
+    [user_id] => 
+)
+
+[11-May-2025 16:11:41 Africa/Tunis] Débogage terminé.
+[11-May-2025 16:15:06 Africa/Tunis] Connexion à la base de données réussie.
+[11-May-2025 16:15:06 Africa/Tunis] Structure de la table : Array
+(
+    [0] => Array
+        (
+            [Field] => id_conducteur
+            [Type] => int(11)
+            [Null] => NO
+            [Key] => PRI
+            [Default] => 
+            [Extra] => auto_increment
+        )
+
+    [1] => Array
+        (
+            [Field] => prenom_conducteur
+            [Type] => varchar(255)
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [2] => Array
+        (
+            [Field] => nom_conducteur
+            [Type] => varchar(255)
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [3] => Array
+        (
+            [Field] => tel_conducteur
+            [Type] => varchar(255)
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [4] => Array
+        (
+            [Field] => date_depart
+            [Type] => datetime
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [5] => Array
+        (
+            [Field] => lieu_depart
+            [Type] => varchar(255)
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [6] => Array
+        (
+            [Field] => lieu_arrivee
+            [Type] => varchar(255)
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [7] => Array
+        (
+            [Field] => nombre_places
+            [Type] => int(11)
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [8] => Array
+        (
+            [Field] => prix_estime
+            [Type] => float
+            [Null] => NO
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [9] => Array
+        (
+            [Field] => description
+            [Type] => text
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [10] => Array
+        (
+            [Field] => status
+            [Type] => varchar(255)
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [11] => Array
+        (
+            [Field] => date_creation
+            [Type] => datetime
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [12] => Array
+        (
+            [Field] => date_modification
+            [Type] => datetime
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [13] => Array
+        (
+            [Field] => statut
+            [Type] => enum('active','archivée')
+            [Null] => YES
+            [Key] => 
+            [Default] => active
+            [Extra] => 
+        )
+
+    [14] => Array
+        (
+            [Field] => image
+            [Type] => varchar(255)
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [15] => Array
+        (
+            [Field] => type_voiture
+            [Type] => varchar(255)
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+    [16] => Array
+        (
+            [Field] => likes
+            [Type] => int(11)
+            [Null] => YES
+            [Key] => 
+            [Default] => 0
+            [Extra] => 
+        )
+
+    [17] => Array
+        (
+            [Field] => dislikes
+            [Type] => int(11)
+            [Null] => YES
+            [Key] => 
+            [Default] => 0
+            [Extra] => 
+        )
+
+    [18] => Array
+        (
+            [Field] => user_id
+            [Type] => int(11)
+            [Null] => YES
+            [Key] => 
+            [Default] => 
+            [Extra] => 
+        )
+
+)
+
+[11-May-2025 16:15:06 Africa/Tunis] PHP Deprecated:  Creation of dynamic property AnnonceCovoiturageController::$userId is deprecated in C:\xampp\htdocs\clickngo\Controller\AnnonceCovoiturageController.php on line 13
+[11-May-2025 16:15:06 Africa/Tunis] Contrôleur initialisé avec id_user=12345.
+[11-May-2025 16:15:06 Africa/Tunis] Données de test : Array
+(
+    [prenom_conducteur] => John
+    [nom_conducteur] => Doe
+    [tel_conducteur] => 12345678
+    [date_depart] => 2025-05-12 10:00:00
+    [lieu_depart] => Tunis
+    [lieu_arrivee] => Sousse
+    [nombre_places] => 3
+    [type_voiture] => Sedan
+    [prix_estime] => 20
+    [description] => Voyage confortable
+    [submit] => 
+)
+
+[11-May-2025 16:15:06 Africa/Tunis] SQL Query Parameters: Array
+(
+    [prenom_conducteur] => John
+    [nom_conducteur] => Doe
+    [tel_conducteur] => 12345678
+    [date_depart] => 2025-05-12 10:00:00
+    [lieu_depart] => Tunis
+    [lieu_arrivee] => Sousse
+    [nombre_places] => 3
+    [type_voiture] => Sedan
+    [prix_estime] => 20
+    [description] => Voyage confortable
+    [status] => disponible
+    [date_creation] => 2025-05-11 16:15:06
+    [user_id] => 12345
+)
+
+[11-May-2025 16:15:06 Africa/Tunis] Insertion successful
+[11-May-2025 16:15:06 Africa/Tunis] Annonce ajoutée avec succès. Résultat : Succès
+[11-May-2025 16:15:06 Africa/Tunis] Annonce trouvée : Array
+(
+    [id_conducteur] => 35
+    [prenom_conducteur] => John
+    [nom_conducteur] => Doe
+    [tel_conducteur] => 12345678
+    [date_depart] => 2025-05-12 10:00:00
+    [lieu_depart] => Tunis
+    [lieu_arrivee] => Sousse
+    [nombre_places] => 3
+    [prix_estime] => 20
+    [description] => Voyage confortable
+    [status] => disponible
+    [date_creation] => 2025-05-11 16:15:06
+    [date_modification] => 
+    [statut] => active
+    [image] => 
+    [type_voiture] => Sedan
+    [likes] => 0
+    [dislikes] => 0
+    [user_id] => 12345
+)
+
+[11-May-2025 16:15:06 Africa/Tunis] Débogage terminé.
