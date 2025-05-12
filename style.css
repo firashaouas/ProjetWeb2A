@@ -324,7 +324,9 @@ table th, table td {
 }
 
 table th {
-    background-color: #f0f0f0;
+    background: linear-gradient(to right, #FDB4D9, #F687B3 34%, #ED64A6 68%, #D53F8C);
+    color: white;
+    padding: 12px;
 }
 table td input {
 width: 84px;       /* ou plus si nécessaire */
@@ -705,4 +707,332 @@ table img {
 td {
     vertical-align: middle;
     text-align: center;
+}
+
+.dashboard-section#unsplash {
+    margin-top: 100px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;  /* Espace entre les éléments */
+}
+
+.dashboard-section#unsplash h2 {
+    color: #666;
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.unsplash-controls {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    padding: 20px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    margin-top: 200px;  /* Augmentation de la marge à 200px */
+}
+
+#searchInput {
+    flex: 1;
+    padding: 12px 20px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.unsplash-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 10px;
+    background: #F687B3;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.unsplash-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(246, 135, 179, 0.2);
+}
+
+.unsplash-btn.violet {
+    background: #9768D1;
+}
+
+.unsplash-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.chat-admin-button {
+    background-color: #CCB7E5;
+    padding: 15px 25px;
+    border-radius: 16px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.chat-admin-button:hover {
+    background-color: #BDA6D4;  /* Version légèrement plus foncée pour l'effet hover */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(204, 183, 229, 0.3);
+}
+
+.dashboard-section#unsplash {
+    margin-top: 100px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;  /* Espace entre les éléments */
+}
+
+.dashboard-section#unsplash h2 {
+    color: #666;
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.unsplash-controls {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    padding: 20px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    margin-top: 200px;  /* Augmentation de la marge à 200px */
+}
+
+#searchInput {
+    flex: 1;
+    padding: 12px 20px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.unsplash-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 10px;
+    background: #F687B3;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.unsplash-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(246, 135, 179, 0.2);
+}
+
+.unsplash-btn.violet {
+    background: #9768D1;
+}
+
+.unsplash-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.chat-admin-button {
+    background-color: #CCB7E5;
+    padding: 15px 25px;
+    border-radius: 16px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.chat-admin-button:hover {
+    background-color: #BDA6D4;  /* Version légèrement plus foncée pour l'effet hover */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(204, 183, 229, 0.3);
+}
+
+.dashboard-section#unsplash {
+    margin-top: 100px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;  /* Espace entre les éléments */
+}
+
+.dashboard-section#unsplash h2 {
+    color: #666;
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.unsplash-controls {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    padding: 20px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    margin-top: 200px;  /* Augmentation de la marge à 200px */
+}
+
+#searchInput {
+    flex: 1;
+    padding: 12px 20px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.unsplash-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 10px;
+    background: #F687B3;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.unsplash-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(246, 135, 179, 0.2);
+}
+
+.unsplash-btn.violet {
+    background: #9768D1;
+}
+
+.unsplash-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.chat-admin-button {
+    background-color: #CCB7E5;
+    padding: 15px 25px;
+    border-radius: 16px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.chat-admin-button:hover {
+    background-color: #BDA6D4;  /* Version légèrement plus foncée pour l'effet hover */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(204, 183, 229, 0.3);
+}
+
+.dashboard-section#unsplash {
+    margin-top: 100px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;  /* Espace entre les éléments */
+}
+
+.dashboard-section#unsplash h2 {
+    color: #666;
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.unsplash-controls {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    padding: 20px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    margin-top: 200px;  /* Augmentation de la marge à 200px */
+}
+
+#searchInput {
+    flex: 1;
+    padding: 12px 20px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.unsplash-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 10px;
+    background: #F687B3;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.unsplash-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(246, 135, 179, 0.2);
+}
+
+.unsplash-btn.violet {
+    background: #9768D1;
+}
+
+.unsplash-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.chat-admin-button {
+    background-color: #CCB7E5;
+    padding: 15px 25px;
+    border-radius: 16px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.chat-admin-button:hover {
+    background-color: #BDA6D4;  /* Version légèrement plus foncée pour l'effet hover */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(204, 183, 229, 0.3);
 }

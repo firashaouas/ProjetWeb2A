@@ -442,7 +442,7 @@
     text-align: left;
   }
   table th {
-    background: linear-gradient(to right, #C83EFC, #AF48FC 34%, #9D46FE 68%, #6951FF);
+    background: linear-gradient(to right,  #A084E8 , #D291BC );
     color: white;
     font-weight: 600;
     border-bottom: 2px solid rgba(255, 255, 255, 0.2);
@@ -480,8 +480,10 @@
     object-fit: cover;
   }
   .logo {
-    height: 150px;
+    height: 100px;
     margin-bottom: 20px;
+    margin-top: 50px;
+    margin-left: 20px;
   }
   /* Modal Styles */
   .modal {
@@ -762,7 +764,7 @@
     padding: 10px 20px;
     border: none;
     border-radius: 25px;
-    background-color: #ddd;
+    background-color: #fCE7F3;
     cursor: pointer;
     font-weight: bold;
     transition: 0.2s ease-in-out;
@@ -773,12 +775,12 @@
   }
   
   .unsplash-btn.violet {
-    background-color: #8e44ad;
-    color: white;
+    background-color: #F3E8FF;
+
   }
   
   .unsplash-btn.violet:hover {
-    background-color: #6c3483;
+    background-color: #F3E8FF;
   }
   
   .unsplash-grid {

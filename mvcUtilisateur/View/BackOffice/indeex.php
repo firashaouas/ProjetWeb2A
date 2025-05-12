@@ -5,7 +5,7 @@
       Swal.fire({
         icon: 'success',
         title: 'Utilisateur supprimé ✅',
-        html: 'Le compte avec l’<strong>ID <?= htmlspecialchars($_GET["id"]) ?></strong> a été supprimé avec succès.',
+        html: 'Le compte avec l'ID <?= htmlspecialchars($_GET["id"]) ?></strong> a été supprimé avec succès.',
         confirmButtonColor: '#6c63ff'
       });
       window.history.replaceState({}, document.title, window.location.pathname); // Nettoie l'URL
@@ -308,13 +308,8 @@ function stringToColor($str)
   <div class="sidebar">
     <div>
 
-    <a href="/Projet%20Web/mvcSponsor/crud/view/back/back.php"> Sponsoring</a>
-    <a href="/Projet%20Web/mvcEvent/View/BackOffice/dashboard.php"> Evenements</a>
-    <a href="/Projet Web/mvcProduit/view/back office/indeex.php"> Produits</a>
-    <a href="/Projet Web/mvcCovoiturage/view/backoffice/dashboard.php"> Covoiturage</a>
 
       <img src="logo.png" alt="Logo" class="logo">
-      <h1>Click'N'go</h1>
       <div class="menu-item active" data-section="overview">🏠 Tableau de Bord</div>
       <div class="menu-item" data-section="promos">👤 Utilisateurs</div>
       <div class="menu-item" data-section="unsplash">📷 Galerie Unsplash</div>
@@ -324,7 +319,18 @@ function stringToColor($str)
         💬 Aller au Chat Admin
         <span id="badgeCount" class="badge" style="display:none;"></span>
       </a>
-
+<style>#chatAdminBtn {
+    background-color: #CCB7E5;
+    padding: 10px 20px; /* Adjust the padding as needed */
+    margin: 15px; /* Adjust the margin as needed */
+    border-radius: 5px; /* Optional: add rounded corners */
+    text-decoration: none; /* Removes underline from the link */
+    color: white; /* Text color */
+    font-weight: bold; /* Optional: make text bold */
+    display: block; /* Ensures the button is on a new line */
+    width: fit-content; /* Makes sure the width adjusts to the content */
+    transition: background-color 0.3s ease; /* Smooth hover transition */
+}</style>
       <button id="youtubeSectionBtn"
         style="padding: 12px 24px;
          background-color: #FF0000;
@@ -368,20 +374,7 @@ function stringToColor($str)
 
 
       <style>
-        .chat-admin-button {
-          background-color: #8e44ad;
-          /* Violet */
-          color: white;
-          padding: 15px 25px;
-          border-radius: 16px;
-          text-decoration: none;
-          font-weight: bold;
-          font-size: 16px;
-          position: relative;
-          /* 🛠️ Très important ! */
-          display: inline-block;
-          overflow: hidden;
-        }
+
 
         .badge {
           position: absolute;
@@ -440,153 +433,170 @@ function stringToColor($str)
   <div class="header">
         <div class="navbar-backoffice-wrapper">
           <nav class="navbar-backoffice">
-            <ul style="display:flex;gap:40px;list-style:none;margin:0;padding:0;">
-              <li><a href="/Projet Web/mvcUtilisateur/View/BackOffice/indeex.php" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Utilisateurs</a></li>
-              <li><a href="../back office/dashboard.php" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Activités</a></li>
-              <li><a href="../front office/events.html" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Événements</a></li>
-              <li><a href="?section=overview" style="color:#e859c0;font-weight:600;font-size:1.3em;text-decoration:none;">Produits</a></li>
-              <li><a href="../front office/transports.html" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Transports</a></li>
-              <li><a href="../front office/sponsors.html" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Sponsors</a></li>
+            <ul>
+              <li><a href="/Projet%20Web/mvcUtilisateur/View/BackOffice/indeex.php" class="nav-link active">Utilisateurs</a></li>
+              <li><a href="/Projet%20Web/mvcActivite/View/BackOffice/dashboard.php" class="nav-link">Activités</a></li>
+              <li><a href="/Projet%20Web/mvcEvent/View/BackOffice/dashboard.php" class="nav-link">Événements</a></li>
+              <li><a href="/Projet%20Web/mvcProduit/view/back%20office/indeex.php" class="nav-link">Produits</a></li>
+              <li><a href="/Projet%20Web/mvcCovoiturage/view/backoffice/dashboard.php" class="nav-link">Transports</a></li>
+              <li><a href="/Projet%20Web/mvcSponsor/crud/view/back/back.php" class="nav-link">Sponsors</a></li>
+              <li class="profile-container">
+                
+                <div class="user-profile">
+                  <?php if (isset($_SESSION['user'])): ?>
+                    <?php
+                    $photoPath = $_SESSION['user']['profile_picture'] ?? '';
+                    $fullName = $_SESSION['user']['full_name'] ?? 'Utilisateur';
+                    $photoRelativePath = '../FrontOffice/' . $photoPath;
+                    $absolutePath = realpath(__DIR__ . '/' . $photoRelativePath);
+                    $showPhoto = !empty($photoPath) && $absolutePath && file_exists($absolutePath);
+                    ?>
+                    <?php if ($showPhoto): ?>
+                      <img src="/Projet Web/mvcUtilisateur/View/FrontOffice/<?= htmlspecialchars($photoPath) ?>" alt="Photo de profil" class="profile-photo" onclick="toggleDropdown()">
+                    <?php else: ?>
+                      <div class="profile-circle" style="background-color: <?= stringToColor($fullName) ?>;" onclick="toggleDropdown()">
+                        <?= strtoupper(substr($fullName, 0, 1)) ?>
+                      </div>
+                    <?php endif; ?>
+                    <div class="dropdown-menu" id="dropdownMenu">
+                      <a href="/Projet Web/mvcUtilisateur/View/FrontOffice/profile.php">👤 Mon Profil</a>
+                      <a href="/Projet Web/mvcUtilisateur/View/BackOffice/login/logout.php">🚪 Déconnexion</a>
+                    </div>
+                  <?php endif; ?>
+                </div>
+              </li>
             </ul>
           </nav>
         </div>
 
-        <div class="user-profile">
-          <?php if (isset($_SESSION['user'])): ?>
-            <?php
-            $photoPath = $_SESSION['user']['profile_picture'] ?? '';
-            $fullName = $_SESSION['user']['full_name'] ?? 'Utilisateur';
-
-            // Correction du chemin relatif pour le test file_exists (chemin serveur)
-            $photoRelativePath = '../../mvcUtilisateur/View/FrontOffice/' . $photoPath;
-            $absolutePath = realpath(__DIR__ . '/' . $photoRelativePath);
-            $showPhoto = !empty($photoPath) && $absolutePath && file_exists($absolutePath);
-            ?>
-
-            <?php if ($showPhoto): ?>
-              <!-- Affichage de la photo (chemin URL côté client) -->
-              <img src="/Projet Web/mvcUtilisateur/View/FrontOffice/<?= htmlspecialchars($photoPath) ?>"
-                alt="Photo de profil"
-                class="profile-photo"
-                onclick="toggleDropdown()">
-            <?php else: ?>
-              <!-- Cercle avec initiale -->
-              <div class="profile-circle"
-                style="background-color: <?= function_exists('stringToColor') ? stringToColor($fullName) : '#999' ?>;"
-                onclick="toggleDropdown()">
-                <?= strtoupper(htmlspecialchars(substr($fullName, 0, 1))) ?>
-              </div>
-            <?php endif; ?>
-
-            <!-- Menu déroulant -->
-            <div class="dropdown-menu" id="dropdownMenu">
-              <a href="/Projet Web/mvcUtilisateur/View/FrontOffice/profile.php">👤 Mon Profil</a>
-              <a href="/Projet Web/mvcUtilisateur/View/BackOffice/login/logout.php">🚪 Déconnexion</a>
-            </div>
-          <?php endif; ?>
-        </div>
-
-
-
-
-
-        <script>
-          // Fonction pour ouvrir/fermer le menu
-          function toggleDropdown() {
-            const menu = document.getElementById('dropdownMenu');
-            if (menu.style.display === 'block') {
-              menu.style.display = 'none';
-            } else {
-              menu.style.display = 'block';
-            }
-          }
-
-          // ✅ Fermer le menu si on clique en dehors
-          document.addEventListener('click', function(event) {
-            const menu = document.getElementById('dropdownMenu');
-            const profile = document.querySelector('.user-profile');
-            if (!profile.contains(event.target)) {
-              menu.style.display = 'none';
-            }
-          });
-        </script>
         <style>
-          .user-profile {
-            position: absolute;
-            top: 20px;
-            right: 20px;
+          .navbar-backoffice-wrapper {
+            background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,0.98));
+            padding: 15px 30px;
+            border-radius: 30px;
+            box-shadow: 0 8px 32px rgba(151, 104, 209, 0.1);
+            position: fixed;
+            top: 40px;
+            left: 58%;
+            transform: translateX(-50%);
             z-index: 1000;
+            width: fit-content;
+            min-width: 800px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(151, 104, 209, 0.1);
           }
 
-          .profile-photo,
-          .profile-circle {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            cursor: pointer;
-            object-fit: cover;
-            border: 2px solid #fff;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+          .navbar-backoffice ul {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;  /* Réduit légèrement l'espacement entre les éléments */
+            margin: 0;
+            padding: 0;
+            list-style: none;
           }
 
-          .profile-circle {
+          .nav-link {
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            padding: 10px 20px;
+            border-radius: 20px;
+            white-space: nowrap;
+            position: relative;
+          }
+
+          /* Couleurs spécifiques pour chaque lien */
+          .nav-link[href*="Utilisateur"] {
+            color: #F687B3;
+          }
+
+          .nav-link[href*="Activite"] {
+            color: #B794F4;
+          }
+
+          .nav-link[href*="Event"] {
+            color: #9F7AEA;
+          }
+
+          .nav-link[href*="Produit"] {
+            color: #9768D1;
+          }
+
+          .nav-link[href*="Covoiturage"] {
+            color: #B794F4;
+          }
+
+          .nav-link[href*="Sponsor"] {
+            color: #9F7AEA;
+          }
+
+          .nav-link:hover {
+            background: rgba(246, 135, 179, 0.1);
+            transform: translateY(-1px);
+          }
+
+          .nav-link.active {
+            font-weight: 600;
+            background: rgba(246, 135, 179, 0.15);
+            color: #F687B3;
+          }
+
+          .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 3px;
+            background: #F687B3;
+            border-radius: 10px;
+          }
+
+          .profile-container {
             display: flex;
             align-items: center;
-            justify-content: center;
-            background-color: #666;
-            color: white;
-            font-weight: bold;
-            font-size: 18px;
+            gap: 20px;
+            margin-left: 25px;
+            padding-left: 25px;
+            border-left: 1px solid rgba(151, 104, 209, 0.2);
+          }
+
+          .profile-photo, .profile-circle {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
           }
 
           .dropdown-menu {
-            display: none;
             position: absolute;
-            top: 55px;
+            top: 50px;
             right: 0;
-            background-color: white;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            min-width: 160px;
-            overflow: hidden;
-            z-index: 1001;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 8px 0;
+            min-width: 180px;
+            border: 1px solid rgba(151, 104, 209, 0.1);
           }
 
           .dropdown-menu a {
             display: block;
-            padding: 10px 15px;
+            padding: 10px 20px;
+            color: #666;
             text-decoration: none;
-            color: #333;
             font-size: 14px;
+            transition: all 0.3s ease;
           }
 
           .dropdown-menu a:hover {
-            background-color: #f5f5f5;
-          }
-
-          /* Style pour le menu déroulant */
-          .dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 60px;
-            right: 20px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 10px;
-            z-index: 1000;
-          }
-
-          .dropdown-menu a {
-            display: block;
-            padding: 10px;
-            color: #333;
-            text-decoration: none;
-          }
-
-          .dropdown-menu a:hover {
-            background-color: #f9f9f9;
+            background: rgba(247, 243, 255, 0.95);
+            color: #9768D1;
           }
         </style>
       </div>
@@ -595,51 +605,10 @@ function stringToColor($str)
     <!-- Overview Section (Tableau de Bord) -->
     <div class="dashboard-section active" id="overview">
       <div class="header">
-        <h2>Planifiez la magie, vivez l’aventure ! ✨</h2>
+        <h2 class="dashboard-title">Planifiez la magie, vivez l'aventure ! ✨</h2>
         <div class="profile-container">
-          <input class="search" type="text" placeholder="Rechercher...">
 
 
-          <div class="user-profile">
-            <?php if (isset($_SESSION['user'])): ?>
-              <?php
-              // Données de l'utilisateur
-              $photoPath = $_SESSION['user']['profile_picture'] ?? '';
-              $fullName = $_SESSION['user']['full_name'] ?? 'Utilisateur';
-
-              // Construire le chemin absolu correct (on est dans BackOffice, l'image est dans FrontOffice)
-              $photoRelativePath = '../FrontOffice/' . $photoPath; // pour file_exists
-              $absolutePath = realpath(__DIR__ . '/' . $photoRelativePath);
-              $showPhoto = !empty($photoPath) && $absolutePath && file_exists($absolutePath);
-
-              // DEBUG pour tests
-              echo "<!-- DEBUG: photoPath = $photoPath -->";
-              echo "<!-- DEBUG: absolutePath = $absolutePath -->";
-              echo "<!-- DEBUG: file_exists = " . ($showPhoto ? 'true' : 'false') . " -->";
-              ?>
-
-              <?php if ($showPhoto): ?>
-                <!-- Affichage de la photo (URL côté client) -->
-                <img src="/Projet Web/mvcUtilisateur/View/FrontOffice/<?= htmlspecialchars($photoPath) ?>"
-                  alt="Photo de profil"
-                  class="profile-photo"
-                  onclick="toggleDropdown()">
-              <?php else: ?>
-                <!-- Cercle avec initiale si pas de photo -->
-                <div class="profile-circle"
-                  style="background-color: <?= stringToColor($fullName) ?>;"
-                  onclick="toggleDropdown()">
-                  <?= strtoupper(substr($fullName, 0, 1)) ?>
-                </div>
-              <?php endif; ?>
-
-              <!-- Menu déroulant -->
-              <div class="dropdown-menu" id="dropdownMenu">
-                <a href="/Projet Web/mvcUtilisateur/View/FrontOffice/profile.php">👤 Mon Profil</a>
-                <a href="/Projet Web/mvcUtilisateur/View/BackOffice/login/logout.php">🚪 Déconnexion</a>
-              </div>
-            <?php endif; ?>
-          </div>
 
 
 
@@ -668,90 +637,237 @@ function stringToColor($str)
         </div>
       </div>
 
+      <style>
+        .dashboard-title {
+          color: #666;
+          font-size: 28px;
+          font-weight: 600;
+          margin: 0;
+          padding: 20px;
+          margin-top: 100px;
+        }
+      </style>
+
       <!-- Key Metrics -->
-      <div class="stats-container">
-
-
-        <div class="stat-card">
-          <div class="stat-icon">👤</div>
-          <h3>Total Utilisateurs</h3>
-          <p class="stat-value"><?php echo $totalUsers; ?></p>
+      <div class="stats-container" style="margin-top: 20px;">
+        <div class="stat-card" style="
+          background: white;
+          border-radius: 20px;
+          padding: 25px 40px;
+          width: 100%;
+          max-width: 900px;
+          margin: 0 auto;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+          gap: 25px;
+        ">
+          <div class="stat-icon" style="
+            background: #F3E8FF;
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+          ">👤</div>
+          <div style="
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            flex: 1;
+          ">
+            <h3 style="
+              color: #666;
+              font-size: 20px;
+              margin: 0 0 5px;
+              font-weight: 500;
+            ">Total Utilisateurs</h3>
+            <p class="stat-value" style="
+              color: #F687B3;
+              font-size: 35px;
+              font-weight: 600;
+              margin: 0;
+            "><?php echo $totalUsers; ?></p>
+          </div>
         </div>
-
-
-
-
       </div>
 
       <!-- Charts -->
       <div class="charts-container">
-
-
-        <div class="chart-card">
-          <h3>Répartition Utilisateurs</h3>
-          <canvas id="userRoleDonut" width="300" height="300"></canvas>
+        <div class="chart-card" style="background: white; border-radius: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+          <h3 style="color: #6B46C1; font-size: 20px; margin-bottom: 20px; padding: 20px;">Vue d'ensemble des Utilisateurs</h3>
+          <div style="display: flex; justify-content: center; gap: 20px; margin-bottom: 30px; padding: 0 20px;">
+            <div style="text-align: center; padding: 15px 25px; background: #F3E8FF; border-radius: 15px; flex: 1; transition: transform 0.3s ease;">
+              <div style="font-size: 28px; color: #9768D1; font-weight: 600; margin-bottom: 8px;"><?php echo $usersByRole[0]['total']; ?></div>
+              <div style="color: #666; font-size: 14px; font-weight: 500;">Administrateurs</div>
+            </div>
+            <div style="text-align: center; padding: 15px 25px; background: #FCE7F3; border-radius: 15px; flex: 1; transition: transform 0.3s ease;">
+              <div style="font-size: 28px; color: #EC4899; font-weight: 600; margin-bottom: 8px;"><?php echo $usersByRole[1]['total']; ?></div>
+              <div style="color: #666; font-size: 14px; font-weight: 500;">Utilisateurs</div>
+            </div>
+            <div style="text-align: center; padding: 15px 25px; background: #FEE2E2; border-radius: 15px; flex: 1; transition: transform 0.3s ease;">
+              <div style="font-size: 28px; color: #EF4444; font-weight: 600; margin-bottom: 8px;"><?php echo $usersByRole[2]['total']; ?></div>
+              <div style="color: #666; font-size: 14px; font-weight: 500;">Bannis</div>
+            </div>
+          </div>
+          <div style="padding: 20px;">
+            <canvas id="userRoleDonut" style="max-height: 300px;"></canvas>
+          </div>
         </div>
 
         <script>
           const userRolesLabels = <?php echo json_encode($labels); ?>;
           const userRolesData = <?php echo json_encode($data); ?>;
-          const userRolesColors = <?php echo json_encode($colors); ?>;
-        </script>
 
+          console.log("Labels chargés:", userRolesLabels);
+          console.log("Données chargées:", userRolesData);
 
-
-        <script>
           window.onload = () => {
-            const userRolesLabels = <?php echo json_encode($labels); ?>;
-            const userRolesData = <?php echo json_encode($data); ?>;
-            const userRolesColors = <?php echo json_encode($colors); ?>;
-
             const canvas = document.getElementById('userRoleDonut');
             if (!canvas) {
               console.error("❌ Le canvas 'userRoleDonut' n'existe pas !");
               return;
             }
 
+            console.log("Canvas trouvé ✅");
             const ctx = canvas.getContext('2d');
+            console.log("Contexte 2D obtenu ✅");
 
-            new Chart(ctx, {
-              type: 'doughnut',
-              data: {
-                labels: userRolesLabels,
-                datasets: [{
-                  data: userRolesData,
-                  backgroundColor: userRolesColors,
-                  borderWidth: 1
-                }]
-              },
-              options: {
-                responsive: true,
-                plugins: {
-                  legend: {
-                    position: 'bottom'
+            try {
+              new Chart(ctx, {
+                type: 'bar',
+                data: {
+                  labels: userRolesLabels,
+                  datasets: [{
+                    data: userRolesData,
+                    backgroundColor: [
+                      '#F3E8FF',  // Lilas pastel pour Admin
+                      '#FCE7F3',  // Rose pastel pour User
+                      '#FEE2E2'   // Rouge pastel pour Banni
+                    ],
+                    hoverBackgroundColor: [
+                      '#E9D5FF',
+                      '#FBCFE8',
+                      '#FCA5A5'
+                    ],
+                    borderWidth: 2,
+                    borderColor: [
+                      '#9768D1',
+                      '#EC4899',
+                      '#EF4444'
+                    ],
+                    borderRadius: {
+                      topLeft: 10,
+                      topRight: 10,
+                      bottomLeft: 10,
+                      bottomRight: 10
+                    },
+                    borderSkipped: false,
+                    barThickness: 45
+                  }]
+                },
+                options: {
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  layout: {
+                    padding: {
+                      top: 20,
+                      right: 20,
+                      bottom: 20,
+                      left: 20
+                    }
+                  },
+                  scales: {
+                    y: {
+                      beginAtZero: true,
+                      grid: {
+                        display: true,
+                        color: 'rgba(0, 0, 0, 0.03)',
+                        drawBorder: false
+                      },
+                      ticks: {
+                        font: {
+                          size: 12,
+                          family: "'Poppins', sans-serif"
+                        },
+                        color: '#666',
+                        padding: 10
+                      },
+                      border: {
+                        display: false
+                      }
+                    },
+                    x: {
+                      grid: {
+                        display: false
+                      },
+                      ticks: {
+                        font: {
+                          size: 13,
+                          family: "'Poppins', sans-serif",
+                          weight: '500'
+                        },
+                        color: '#666',
+                        padding: 10
+                      },
+                      border: {
+                        display: false
+                      }
+                    }
+                  },
+                  plugins: {
+                    legend: {
+                      display: false
+                    },
+                    tooltip: {
+                      backgroundColor: 'white',
+                      titleColor: '#666',
+                      bodyColor: '#666',
+                      padding: 15,
+                      cornerRadius: 10,
+                      displayColors: true,
+                      borderColor: 'rgba(0,0,0,0.1)',
+                      borderWidth: 1,
+                      titleFont: {
+                        size: 14,
+                        weight: '600',
+                        family: "'Poppins', sans-serif"
+                      },
+                      bodyFont: {
+                        size: 13,
+                        family: "'Poppins', sans-serif"
+                      },
+                      callbacks: {
+                        label: function(context) {
+                          return `${context.raw} utilisateurs`;
+                        }
+                      }
+                    }
+                  },
+                  animation: {
+                    duration: 1500,
+                    easing: 'easeOutQuart'
                   }
                 }
-              }
-            });
-
-            // 🔧 Exemple d’un bouton que tu veux sécuriser
-            const btn = document.getElementById('ton-bouton');
-            if (btn) {
-              btn.addEventListener('click', () => {
-                alert('ça marche');
               });
+              console.log("Graphique initialisé avec succès ✅");
+            } catch (error) {
+              console.error("❌ Erreur lors de l'initialisation du graphique:", error);
             }
           };
         </script>
 
         <div class="chart-card">
-          <h3>Ventes Catégories</h3>
-          <button id="downloadChart" style="margin-top: 10px; padding: 8px 16px; background-color: #8e44ad; color: white; border: none; border-radius: 6px; cursor: pointer;">
+          <h3>Inscription Utilisateur</h3>
+          <button id="downloadChart" style="margin-top: 10px; padding: 8px 16px; background-color: #CCB7E5; color: white; border: none; border-radius: 6px; cursor: pointer;">
             📸 Télécharger le Graphique
           </button>
           <div id="loading" style="display:none;">Chargement...</div>
           <div style="height: 300px;">
-            <select id="filterPeriod" style="width: 150px; padding: 6px; font-size: 14px;">
+            <select id="filterPeriod" style="width: 150px; padding: 6px; font-size: 14px; border: 1px solid #E8B7D4;">
               <option value="7 DAY">7 jours</option>
               <option value="1 MONTH" selected>1 mois</option>
               <option value="4 MONTH">4 mois</option>
@@ -764,45 +880,8 @@ function stringToColor($str)
           </div>
         </div>
 
-
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="filterPeriod.js"></script>
-
-
-
-
-
-
-
-        <div class="chart-card">
-          <h3>Ventes Catégories</h3>
-          <canvas id="categorySalesBar"></canvas>
-        </div>
-      </div>
-
-      <!-- Stock Alert -->
-      <div class="stock-alert">
-        <p><span class="alert-icon">🔥</span> <strong>Attention :</strong> 3 produits presque épuisés !</p>
-        <button class="alert-btn">Agir Maintenant</button>
-      </div>
-
-      <!-- Activity Log -->
-      <div class="activity-log">
-        <h3>Activités Récentes</h3>
-        <div class="activity-list">
-          <div class="activity-item">
-            <span class="activity-date">10/04/2025</span>
-            <span class="activity-details">Restock Montre connectée (20 unités) par <strong>Marie</strong></span>
-          </div>
-          <div class="activity-item">
-            <span class="activity-date">09/04/2025</span>
-            <span class="activity-details">Vente Tapis de yoga (10 unités) par <strong>Luc</strong></span>
-          </div>
-          <div class="activity-item">
-            <span class="activity-date">08/04/2025</span>
-            <span class="activity-details">Ajout Caméra instantanée par <strong>Sophie</strong></span>
-          </div>
-        </div>
       </div>
     </div>
 
@@ -810,7 +889,7 @@ function stringToColor($str)
 
     <!-- ✅ SECTION YOUTUBE -->
     <div class="dashboard-section" id="youtube-section" style="display: none;">
-      <h2 style="margin-bottom: 20px;">📺 Explorer les vidéos YouTube</h2>
+      <h2 style="margin-bottom: 20px;margin-top: 95px">📺 Explorer les vidéos YouTube</h2>
 
       <div class="youtube-controls" style="display: flex; gap: 10px;">
         <input type="text" id="youtubeSearchInput" placeholder="Ex: Balti"
@@ -869,7 +948,7 @@ function stringToColor($str)
         });
 
         async function searchYouTube(query) {
-          const apiUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=5&q=${encodeURIComponent(query)}&key=${apiKey}`;
+          const apiUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=6&q=${encodeURIComponent(query)}&key=${apiKey}`;
           const res = await fetch(apiUrl);
           const data = await res.json();
 
@@ -916,7 +995,7 @@ function stringToColor($str)
 
     <!-- Section Unsplash (images) -->
     <div class="dashboard-section" id="unsplash">
-      <h2 style="margin-bottom: 20px;">📷 Galerie d'images Unsplash</h2>
+      <h2 style="margin-bottom: 20px;margin-top:95px;">📷 Galerie d'images Unsplash</h2>
 
       <div class="unsplash-controls">
         <input type="text" id="searchInput" placeholder="Tape un mot-clé...">
@@ -934,37 +1013,60 @@ function stringToColor($str)
     <!-- Promos Section -->
     <!-- views/users/index.php -->
     <div class="dashboard-section" id="promos">
-      <div class="header">
-        <h2>Gestion des Utilisateurs 👤</h2>
-        <div class="profile-container">
+      <div class="section-header">
+        <h2 class="section-title">Gestion des Utilisateurs 👤</h2>
+        <div class="search-container">
           <input class="search" type="text" placeholder="Rechercher un utilisateur">
-          <div class="user-profile">
-            <?php if (isset($_SESSION['user'])): ?>
-              <?php
-              $photoPath = $_SESSION['user']['profile_picture'] ?? '';
-              $fullName = $_SESSION['user']['full_name'] ?? 'Utilisateur';
-              $photoRelativePath = '../FrontOffice/' . $photoPath;
-              $absolutePath = realpath(__DIR__ . '/' . $photoRelativePath);
-              $showPhoto = !empty($photoPath) && $absolutePath && file_exists($absolutePath);
-              ?>
-              <?php if ($showPhoto): ?>
-                <img src="/Projet Web/mvcUtilisateur/View/FrontOffice/<?= htmlspecialchars($photoPath) ?>" alt="Photo de profil" class="profile-photo" onclick="toggleDropdown()">
-              <?php else: ?>
-                <div class="profile-circle" style="background-color: <?= stringToColor($fullName) ?>;" onclick="toggleDropdown()">
-                  <?= strtoupper(substr($fullName, 0, 1)) ?>
-                </div>
-              <?php endif; ?>
+        </div>
+      </div>
 
-              <div class="dropdown-menu" id="dropdownMenu">
-                <a href="/Projet Web/mvcUtilisateur/View/FrontOffice/profile.php">👤 Mon Profil</a>
-                <a href="/Projet Web/mvcUtilisateur/View/BackOffice/login/logout.php">🚪 Déconnexion</a>
-              </div>
-            <?php endif; ?>
-          </div> <!-- user-profile -->
-        </div> <!-- profile-container -->
-      </div> <!-- header -->
+      <style>
+        .section-header {
+          margin-top: 100px;
+          padding: 20px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
 
-      <!-- Ici on continue dans la même DIV promos -->
+        .section-title {
+          color: #666;
+          font-size: 28px;
+          font-weight: 600;
+          margin: 0;
+        }
+
+        .search-container {
+          margin-right: 20px;
+        }
+
+        .search {
+          background: rgba(247, 243, 255, 0.95);
+          border: none;
+          border-radius: 25px;
+          padding: 12px 25px;
+          width: 300px;
+          font-size: 14px;
+          color: #666;
+          transition: all 0.3s ease;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .search::placeholder {
+          color: #999;
+          font-weight: 400;
+        }
+
+        .search:focus {
+          outline: none;
+          background: rgba(247, 243, 255, 1);
+          box-shadow: 0 2px 8px rgba(151, 104, 209, 0.1);
+        }
+
+        .promos-table {
+          margin-top: 30px;
+        }
+      </style>
 
       <div class="promos-table">
         <h3>Liste des Utilisateurs</h3>
@@ -1003,42 +1105,82 @@ if (!empty($userModel)) {
       <td>{$num}</td>
       <td>{$displayRole}</td>
       <td>
-        <button class='action-btn purple edit' onclick='changeRole({$id}, \"{$role}\")'>
-          <i class='fas fa-user-cog'></i> Modifier le rôle
-        </button>";
-
-        echo "
-        <form onsubmit='return confirmDelete(this)' style='display:inline;'>
-          <input type='hidden' name='action' value='supprimerUser'>
-          <input type='hidden' name='id' value='{$id}'>
-          <button type='submit' class='action-btn purple'>
-            <i class='fas fa-trash'></i> Supprimer le profil
+        <div style='display: flex; flex-direction: column; gap: 10px;'>
+          <button class='action-btn' style='
+            background: #F3E8FF;
+            color: #9768D1;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            width: 200px;
+            text-align: left;
+          ' onclick='changeRole({$id}, \"{$role}\")'>
+            <i class='fas fa-user-cog'></i> Modifier le rôle
           </button>
-        </form>
-      ";
-      
-      
-            
-  
 
-    // Ajout du bouton Bannir ou Débannir
-    if ($displayRole !== 'banni') {
-      echo "<button class='action-btn purple delete' onclick='banUser({$id})'>
-              <i class='fas fa-ban'></i> Bannir
-            </button>";
+          <form onsubmit='return confirmDelete(this)' style='width: 200px;'>
+            <input type='hidden' name='action' value='supprimerUser'>
+            <input type='hidden' name='id' value='{$id}'>
+            <button type='submit' style='
+              background: #F3E8FF;
+              color: #9768D1;
+              border: none;
+              padding: 8px 15px;
+              border-radius: 8px;
+              cursor: pointer;
+              font-size: 14px;
+              transition: all 0.3s ease;
+              font-weight: 500;
+              width: 100%;
+              text-align: left;
+            '>
+              <i class='fas fa-trash'></i> Supprimer le profil
+            </button>
+          </form>
+        ";
+        
+        if ($displayRole !== 'banni') {
+          echo "<button style='
+            background: #F3E8FF;
+            color: #9768D1;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            width: 200px;
+            text-align: left;
+          ' onclick='banUser({$id})'>
+            <i class='fas fa-ban'></i> Bannir
+          </button>";
+        } else {
+          echo "<button style='
+            background: #F3E8FF;
+            color: #9768D1;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            width: 200px;
+            text-align: left;
+          ' onclick='unbanUser({$id})'>
+            <i class='fas fa-check-circle'></i> Désactiver le bannissement
+          </button>";
+        }
+        echo "</div>";
+      }
     } else {
-      echo "<button class='action-btn gray' onclick='unbanUser({$id})'>
-              <i class='fas fa-check-circle'></i> Désactiver le bannissement
-            </button>";
+      echo "<tr><td colspan='8'>Aucun utilisateur trouvé</td></tr>";
     }
-
-
-  
-
-  }
-} else {
-  echo "<tr><td colspan='8'>Aucun utilisateur trouvé</td></tr>";
-}
 ?>
 
 
@@ -1201,19 +1343,19 @@ function deleteUser(id, name) {
 
       function searchPhotos() {
         const query = document.getElementById("searchInput").value;
-        fetch(`https://api.unsplash.com/search/photos?query=${query}&per_page=6&client_id=${ACCESS_KEY}`)
+        fetch(`https://api.unsplash.com/search/photos?query=${query}&per_page=10&client_id=${ACCESS_KEY}`)
           .then(res => res.json())
           .then(data => displayImages(data.results));
       }
 
       function getRandom() {
-        fetch(`https://api.unsplash.com/photos/random?count=6&client_id=${ACCESS_KEY}`)
+        fetch(`https://api.unsplash.com/photos/random?count=10&client_id=${ACCESS_KEY}`)
           .then(res => res.json())
           .then(data => displayImages(data));
       }
 
       function getLatest() {
-        fetch(`https://api.unsplash.com/photos?per_page=6&order_by=latest&client_id=${ACCESS_KEY}`)
+        fetch(`https://api.unsplash.com/photos?per_page=10&order_by=latest&client_id=${ACCESS_KEY}`)
           .then(res => res.json())
           .then(data => displayImages(data));
       }
