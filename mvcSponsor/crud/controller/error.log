@@ -1,0 +1,221 @@
+[10-May-2025 00:35:58 Europe/Berlin] PHP Fatal error:  Uncaught TypeError: sponsor::__construct(): Argument #9 ($id_user) must be of type ?int, string given, called in C:\xampp\htdocs\Projet Web\mvcSponsor\crud\controller\updatesponsor.php on line 62 and defined in C:\xampp\htdocs\Projet Web\mvcSponsor\crud\model\model.php:17
+Stack trace:
+#0 C:\xampp\htdocs\Projet Web\mvcSponsor\crud\controller\updatesponsor.php(62): sponsor->__construct('azertyui', 'karimmlayah14@g...', '+216 11111111', 171.0, '3 mois', 'aaaaaaaaaaaa', 'accepted', 7, 'sponsor_681e7d9...')
+#1 {main}
+  thrown in C:\xampp\htdocs\Projet Web\mvcSponsor\crud\model\model.php on line 17
+[10-May-2025 00:41:55 Europe/Berlin] updatesponsor.php started
+[10-May-2025 00:41:55 Europe/Berlin] Loading config.php
+[10-May-2025 00:41:55 Europe/Berlin] Loading model.php
+[10-May-2025 00:41:55 Europe/Berlin] Loading controller.php
+[10-May-2025 00:41:55 Europe/Berlin] Loading PHPMailer.php
+[10-May-2025 00:41:55 Europe/Berlin] Loading Exception.php
+[10-May-2025 00:41:55 Europe/Berlin] Loading SMTP.php
+[10-May-2025 00:41:55 Europe/Berlin] Creating sponsorController
+[10-May-2025 00:41:55 Europe/Berlin] Calling getSponsorById for id: 38
+[10-May-2025 00:41:55 Europe/Berlin] Creating sponsor object
+[10-May-2025 00:41:55 Europe/Berlin] Creating sponsorController for update
+[10-May-2025 00:41:55 Europe/Berlin] Preparing to send email to: karimmlayah14@gmail.com
+[10-May-2025 00:41:57 Europe/Berlin] Email sent successfully to: karimmlayah14@gmail.com
+[10-May-2025 00:41:57 Europe/Berlin] Connecting to database
+[10-May-2025 00:41:57 Europe/Berlin] Database connected
+[10-May-2025 00:41:57 Europe/Berlin] Updating sponsor
+[10-May-2025 00:57:02 Europe/Berlin] updatesponsor.php started
+[10-May-2025 00:57:02 Europe/Berlin] Loading config.php
+[10-May-2025 00:57:02 Europe/Berlin] Loading model.php
+[10-May-2025 00:57:02 Europe/Berlin] Loading controller.php
+[10-May-2025 00:57:02 Europe/Berlin] Loading PHPMailer.php
+[10-May-2025 00:57:02 Europe/Berlin] Loading Exception.php
+[10-May-2025 00:57:02 Europe/Berlin] Loading SMTP.php
+[10-May-2025 00:57:02 Europe/Berlin] Creating sponsorController
+[10-May-2025 00:57:02 Europe/Berlin] Calling getSponsorById for id: 39
+[10-May-2025 00:57:02 Europe/Berlin] Creating sponsor object
+[10-May-2025 00:57:02 Europe/Berlin] Creating sponsorController for update
+[10-May-2025 00:57:02 Europe/Berlin] Preparing to send email to: karimmlayah14@gmail.com
+[10-May-2025 00:57:04 Europe/Berlin] Email sent successfully to: karimmlayah14@gmail.com
+[10-May-2025 00:57:04 Europe/Berlin] Connecting to database
+[10-May-2025 00:57:04 Europe/Berlin] Database connected
+[10-May-2025 00:57:04 Europe/Berlin] Updating sponsor
+[10-May-2025 01:42:03 Europe/Berlin] updatesponsor.php started
+[10-May-2025 01:42:03 Europe/Berlin] Loading config.php
+[10-May-2025 01:42:03 Europe/Berlin] Loading model.php
+[10-May-2025 01:42:03 Europe/Berlin] Loading controller.php
+[10-May-2025 01:42:03 Europe/Berlin] Loading PHPMailer.php
+[10-May-2025 01:42:03 Europe/Berlin] Loading Exception.php
+[10-May-2025 01:42:03 Europe/Berlin] Loading SMTP.php
+[10-May-2025 01:42:03 Europe/Berlin] Creating sponsorController
+[10-May-2025 01:42:03 Europe/Berlin] Calling getSponsorById for id: 41
+[10-May-2025 01:42:03 Europe/Berlin] Creating sponsor object
+[10-May-2025 01:42:03 Europe/Berlin] Creating sponsorController for update
+[10-May-2025 01:42:03 Europe/Berlin] Updating sponsor
+[10-May-2025 01:42:08 Europe/Berlin] updatesponsor.php started
+[10-May-2025 01:42:08 Europe/Berlin] Loading config.php
+[10-May-2025 01:42:08 Europe/Berlin] Loading model.php
+[10-May-2025 01:42:08 Europe/Berlin] Loading controller.php
+[10-May-2025 01:42:08 Europe/Berlin] Loading PHPMailer.php
+[10-May-2025 01:42:08 Europe/Berlin] Loading Exception.php
+[10-May-2025 01:42:08 Europe/Berlin] Loading SMTP.php
+[10-May-2025 01:42:08 Europe/Berlin] Creating sponsorController
+[10-May-2025 01:42:08 Europe/Berlin] Calling getSponsorById for id: 40
+[10-May-2025 01:42:08 Europe/Berlin] Creating sponsor object
+[10-May-2025 01:42:08 Europe/Berlin] Creating sponsorController for update
+[10-May-2025 01:42:08 Europe/Berlin] Updating sponsor
+[10-May-2025 01:45:44 Europe/Berlin] updatesponsor.php started
+[10-May-2025 01:45:44 Europe/Berlin] Loading config.php
+[10-May-2025 01:45:44 Europe/Berlin] Loading model.php
+[10-May-2025 01:45:44 Europe/Berlin] Loading controller.php
+[10-May-2025 01:45:44 Europe/Berlin] Loading PHPMailer.php
+[10-May-2025 01:45:44 Europe/Berlin] Loading Exception.php
+[10-May-2025 01:45:44 Europe/Berlin] Loading SMTP.php
+[10-May-2025 01:45:44 Europe/Berlin] Creating sponsorController
+[10-May-2025 01:45:44 Europe/Berlin] Calling getSponsorById for id: 43
+[10-May-2025 01:45:44 Europe/Berlin] Creating sponsor object
+[10-May-2025 01:45:44 Europe/Berlin] Creating sponsorController for update
+[10-May-2025 01:45:44 Europe/Berlin] Preparing to send email to: karimmlayah14@gmail.com
+[10-May-2025 01:45:46 Europe/Berlin] Email sent successfully to: karimmlayah14@gmail.com
+[10-May-2025 01:45:46 Europe/Berlin] Connecting to database
+[10-May-2025 01:45:46 Europe/Berlin] Database connected
+[10-May-2025 01:45:46 Europe/Berlin] Updating sponsor
+[10-May-2025 02:24:33 Europe/Berlin] updatesponsor.php started
+[10-May-2025 02:24:33 Europe/Berlin] Loading config.php
+[10-May-2025 02:24:33 Europe/Berlin] Loading model.php
+[10-May-2025 02:24:33 Europe/Berlin] Loading controller.php
+[10-May-2025 02:24:33 Europe/Berlin] Loading PHPMailer.php
+[10-May-2025 02:24:33 Europe/Berlin] Loading Exception.php
+[10-May-2025 02:24:33 Europe/Berlin] Loading SMTP.php
+[10-May-2025 02:24:33 Europe/Berlin] Creating sponsorController
+[10-May-2025 02:24:33 Europe/Berlin] Calling getSponsorById for id: 44
+[10-May-2025 02:24:33 Europe/Berlin] Creating sponsor object
+[10-May-2025 02:24:33 Europe/Berlin] Creating sponsorController for update
+[10-May-2025 02:24:33 Europe/Berlin] Preparing to send email to: karimmlayah14@gmail.com
+[10-May-2025 02:24:35 Europe/Berlin] Email sent successfully to: karimmlayah14@gmail.com
+[10-May-2025 02:24:35 Europe/Berlin] Connecting to database
+[10-May-2025 02:24:35 Europe/Berlin] Database connected
+[10-May-2025 02:24:35 Europe/Berlin] Updating sponsor
+[10-May-2025 02:29:15 Europe/Berlin] updatesponsor.php started
+[10-May-2025 02:29:15 Europe/Berlin] Loading config.php
+[10-May-2025 02:29:15 Europe/Berlin] Loading model.php
+[10-May-2025 02:29:15 Europe/Berlin] Loading controller.php
+[10-May-2025 02:29:15 Europe/Berlin] Loading PHPMailer.php
+[10-May-2025 02:29:15 Europe/Berlin] Loading Exception.php
+[10-May-2025 02:29:15 Europe/Berlin] Loading SMTP.php
+[10-May-2025 02:29:15 Europe/Berlin] Creating sponsorController
+[10-May-2025 02:29:15 Europe/Berlin] Calling getSponsorById for id: 45
+[10-May-2025 02:29:15 Europe/Berlin] Creating sponsor object
+[10-May-2025 02:29:15 Europe/Berlin] Creating sponsorController for update
+[10-May-2025 02:29:15 Europe/Berlin] Preparing to send email to: yesminechourou9@gmail.com
+[10-May-2025 02:29:17 Europe/Berlin] Email sent successfully to: yesminechourou9@gmail.com
+[10-May-2025 02:29:17 Europe/Berlin] Connecting to database
+[10-May-2025 02:29:17 Europe/Berlin] Database connected
+[10-May-2025 02:29:17 Europe/Berlin] Updating sponsor
+[10-May-2025 22:04:00 Europe/Berlin] updatesponsor.php started
+[10-May-2025 22:04:00 Europe/Berlin] Loading config.php
+[10-May-2025 22:04:00 Europe/Berlin] Loading model.php
+[10-May-2025 22:04:00 Europe/Berlin] Loading controller.php
+[10-May-2025 22:04:00 Europe/Berlin] Loading PHPMailer.php
+[10-May-2025 22:04:00 Europe/Berlin] Loading Exception.php
+[10-May-2025 22:04:00 Europe/Berlin] Loading SMTP.php
+[10-May-2025 22:04:00 Europe/Berlin] Creating sponsorController
+[10-May-2025 22:04:00 Europe/Berlin] Calling getSponsorById for id: 47
+[10-May-2025 22:04:00 Europe/Berlin] Creating sponsor object
+[10-May-2025 22:04:00 Europe/Berlin] Creating sponsorController for update
+[10-May-2025 22:04:00 Europe/Berlin] Preparing to send email to: karimmlayah14@gmail.com
+[10-May-2025 22:04:01 Europe/Berlin] Email sent successfully to: karimmlayah14@gmail.com
+[10-May-2025 22:04:01 Europe/Berlin] Connecting to database
+[10-May-2025 22:04:01 Europe/Berlin] Database connected
+[10-May-2025 22:04:01 Europe/Berlin] Updating sponsor
+[11-May-2025 03:45:46 Europe/Berlin] updatesponsor.php started
+[11-May-2025 03:45:46 Europe/Berlin] Loading Config.php
+[11-May-2025 03:45:46 Europe/Berlin] Loading model.php
+[11-May-2025 03:45:46 Europe/Berlin] Loading controller.php
+[11-May-2025 03:45:46 Europe/Berlin] Loading PHPMailer.php
+[11-May-2025 03:45:46 Europe/Berlin] Loading Exception.php
+[11-May-2025 03:45:46 Europe/Berlin] Loading SMTP.php
+[11-May-2025 03:45:46 Europe/Berlin] Creating sponsorController
+[11-May-2025 03:45:46 Europe/Berlin] Calling getSponsorById for id: 48
+[11-May-2025 03:45:46 Europe/Berlin] Creating sponsor object
+[11-May-2025 03:45:46 Europe/Berlin] Creating sponsorController for update
+[11-May-2025 03:45:46 Europe/Berlin] Preparing to send email to: karimmlayah14@gmail.com
+[11-May-2025 03:45:48 Europe/Berlin] Email sent successfully to: karimmlayah14@gmail.com
+[11-May-2025 03:45:48 Europe/Berlin] Connecting to database
+[11-May-2025 03:45:48 Europe/Berlin] Database connected
+[11-May-2025 03:45:48 Europe/Berlin] Updating sponsor
+[11-May-2025 03:49:31 Europe/Berlin] updatesponsor.php started
+[11-May-2025 03:49:31 Europe/Berlin] Loading Config.php
+[11-May-2025 03:49:31 Europe/Berlin] Loading model.php
+[11-May-2025 03:49:31 Europe/Berlin] Loading controller.php
+[11-May-2025 03:49:31 Europe/Berlin] Loading PHPMailer.php
+[11-May-2025 03:49:31 Europe/Berlin] Loading Exception.php
+[11-May-2025 03:49:31 Europe/Berlin] Loading SMTP.php
+[11-May-2025 03:49:31 Europe/Berlin] Creating sponsorController
+[11-May-2025 03:49:31 Europe/Berlin] Calling getSponsorById for id: 49
+[11-May-2025 03:49:31 Europe/Berlin] Creating sponsor object
+[11-May-2025 03:49:31 Europe/Berlin] Creating sponsorController for update
+[11-May-2025 03:49:31 Europe/Berlin] Preparing to send email to: karimmlayah14@gmail.com
+[11-May-2025 03:49:33 Europe/Berlin] Email sent successfully to: karimmlayah14@gmail.com
+[11-May-2025 03:49:33 Europe/Berlin] Connecting to database
+[11-May-2025 03:49:33 Europe/Berlin] Database connected
+[11-May-2025 03:49:33 Europe/Berlin] Updating sponsor
+[11-May-2025 03:58:01 Europe/Berlin] updatesponsor.php started
+[11-May-2025 03:58:01 Europe/Berlin] Loading Config.php
+[11-May-2025 03:58:01 Europe/Berlin] Loading model.php
+[11-May-2025 03:58:01 Europe/Berlin] Loading controller.php
+[11-May-2025 03:58:01 Europe/Berlin] Loading PHPMailer.php
+[11-May-2025 03:58:01 Europe/Berlin] Loading Exception.php
+[11-May-2025 03:58:01 Europe/Berlin] Loading SMTP.php
+[11-May-2025 03:58:01 Europe/Berlin] Creating sponsorController
+[11-May-2025 03:58:01 Europe/Berlin] Calling getSponsorById for id: 46
+[11-May-2025 03:58:01 Europe/Berlin] Creating sponsor object
+[11-May-2025 03:58:01 Europe/Berlin] Creating sponsorController for update
+[11-May-2025 03:58:01 Europe/Berlin] Preparing to send email to: karimmlayah14@gmail.com
+[11-May-2025 03:58:02 Europe/Berlin] updatesponsor.php started
+[11-May-2025 03:58:04 Europe/Berlin] Email sent successfully to: karimmlayah14@gmail.com
+[11-May-2025 03:58:04 Europe/Berlin] Connecting to database
+[11-May-2025 03:58:04 Europe/Berlin] Database connected
+[11-May-2025 03:58:04 Europe/Berlin] Updating sponsor
+[11-May-2025 03:58:04 Europe/Berlin] Loading Config.php
+[11-May-2025 03:58:04 Europe/Berlin] Loading model.php
+[11-May-2025 03:58:04 Europe/Berlin] Loading controller.php
+[11-May-2025 03:58:04 Europe/Berlin] Loading PHPMailer.php
+[11-May-2025 03:58:04 Europe/Berlin] Loading Exception.php
+[11-May-2025 03:58:04 Europe/Berlin] Loading SMTP.php
+[11-May-2025 03:58:04 Europe/Berlin] Creating sponsorController
+[11-May-2025 03:58:04 Europe/Berlin] Calling getSponsorById for id: 46
+[11-May-2025 03:58:04 Europe/Berlin] Creating sponsor object
+[11-May-2025 03:58:04 Europe/Berlin] Creating sponsorController for update
+[11-May-2025 03:58:04 Europe/Berlin] Preparing to send email to: karimmlayah14@gmail.com
+[11-May-2025 03:58:06 Europe/Berlin] Email sent successfully to: karimmlayah14@gmail.com
+[11-May-2025 03:58:06 Europe/Berlin] Connecting to database
+[11-May-2025 03:58:06 Europe/Berlin] Database connected
+[11-May-2025 03:58:06 Europe/Berlin] Updating sponsor
+[11-May-2025 03:59:11 Europe/Berlin] updatesponsor.php started
+[11-May-2025 03:59:11 Europe/Berlin] Loading Config.php
+[11-May-2025 03:59:11 Europe/Berlin] Loading model.php
+[11-May-2025 03:59:11 Europe/Berlin] Loading controller.php
+[11-May-2025 03:59:11 Europe/Berlin] Loading PHPMailer.php
+[11-May-2025 03:59:11 Europe/Berlin] Loading Exception.php
+[11-May-2025 03:59:11 Europe/Berlin] Loading SMTP.php
+[11-May-2025 03:59:11 Europe/Berlin] Creating sponsorController
+[11-May-2025 03:59:11 Europe/Berlin] Calling getSponsorById for id: 50
+[11-May-2025 03:59:11 Europe/Berlin] Creating sponsor object
+[11-May-2025 03:59:11 Europe/Berlin] Creating sponsorController for update
+[11-May-2025 03:59:11 Europe/Berlin] Preparing to send email to: karimmlayah14@gmail.com
+[11-May-2025 03:59:12 Europe/Berlin] Email sent successfully to: karimmlayah14@gmail.com
+[11-May-2025 03:59:12 Europe/Berlin] Connecting to database
+[11-May-2025 03:59:12 Europe/Berlin] Database connected
+[11-May-2025 03:59:12 Europe/Berlin] Updating sponsor
+[11-May-2025 12:20:44 Europe/Berlin] updatesponsor.php started
+[11-May-2025 12:20:44 Europe/Berlin] Loading Config.php
+[11-May-2025 12:20:44 Europe/Berlin] Loading model.php
+[11-May-2025 12:20:44 Europe/Berlin] Loading controller.php
+[11-May-2025 12:20:44 Europe/Berlin] Loading PHPMailer.php
+[11-May-2025 12:20:44 Europe/Berlin] Loading Exception.php
+[11-May-2025 12:20:44 Europe/Berlin] Loading SMTP.php
+[11-May-2025 12:20:44 Europe/Berlin] Creating sponsorController
+[11-May-2025 12:20:44 Europe/Berlin] Calling getSponsorById for id: 51
+[11-May-2025 12:20:44 Europe/Berlin] Creating sponsor object
+[11-May-2025 12:20:44 Europe/Berlin] Creating sponsorController for update
+[11-May-2025 12:20:44 Europe/Berlin] Preparing to send email to: karimmlayah14@gmail.com
+[11-May-2025 12:20:46 Europe/Berlin] Email sent successfully to: karimmlayah14@gmail.com
+[11-May-2025 12:20:46 Europe/Berlin] Connecting to database
+[11-May-2025 12:20:46 Europe/Berlin] Database connected
+[11-May-2025 12:20:46 Europe/Berlin] Updating sponsor

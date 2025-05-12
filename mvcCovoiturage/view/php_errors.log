@@ -1,0 +1,35 @@
+[25-Apr-2025 23:57:34 Europe/Berlin] Form submitted with data: Array
+(
+    [id_conducteur] => 1
+    [prenom_conducteur] => Joe
+    [nom_conducteur] => Goldberg
+    [tel_conducteur] => 21797696
+    [date_depart] => 2025-04-26T19:05
+    [lieu_depart] => Carthage
+    [lieu_arrivee] => Bizerte
+    [nombre_places] => 2
+    [type_voiture] => audi
+    [prix_estime] => 15
+    [description] => 
+    [submit] => 
+)
+
+[26-Apr-2025 00:01:30 Europe/Berlin] Starting edit_annonce.php for ID: 1
+[26-Apr-2025 00:01:34 Europe/Berlin] Starting edit_annonce.php for ID: 1
+[26-Apr-2025 00:01:34 Europe/Berlin] Form submitted with data: Array
+(
+    [id_conducteur] => 1
+    [prenom_conducteur] => Joe
+    [nom_conducteur] => Goldberg
+    [tel_conducteur] => 21797696
+    [date_depart] => 2025-04-26T19:05
+    [lieu_depart] => Carthage
+    [lieu_arrivee] => Bizerte
+    [nombre_places] => 3
+    [type_voiture] => audi
+    [prix_estime] => 15
+    [description] => 
+    [submit] => 
+)
+
+[26-Apr-2025 00:01:50 Europe/Berlin] Starting edit_annonce.php for ID: 1
