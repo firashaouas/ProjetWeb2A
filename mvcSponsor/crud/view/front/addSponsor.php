@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } elseif ($fileSize > $maxSize) {
             $fieldErrors['logo'] = "La taille du logo ne doit pas dépasser 2 Mo.";
         } else {
-            $uploadDir = __DIR__ . '/../../images/sponsors/';
+            $uploadDir = __DIR__ . '/Projet Web/mvcSponsor/crud/images/sponsors';
             if (!is_dir($uploadDir)) {
                 mkdir($uploadDir, 0755, true);
             }

@@ -244,11 +244,12 @@ function stringToColor($str)
 
         .sidebar {
             width: 240px;
-            background: #f8e1f7;
+            background: #fff;
             padding: 20px;
             height: 100vh;
             position: fixed;
             box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+            margin-top: 0;
         }
 
         .menu-item {
@@ -275,6 +276,7 @@ function stringToColor($str)
             width: calc(100% - 240px);
             background: #fff;
             min-height: 100vh;
+            margin-top: 90px;
         }
 
         .tab-content {
@@ -329,13 +331,13 @@ function stringToColor($str)
         }
 
         .btn-refuser {
-            background: #f44336;
+            background: #B19CD9 ;
             color: white;
             box-shadow: 0 4px 12px rgba(244, 67, 54, 0.4);
         }
 
         .btn-refuser:hover {
-            background: #d32f2f;
+            background: #B19CD9 ;
             box-shadow: 0 6px 20px rgba(211, 47, 47, 0.6);
         }
 
@@ -380,7 +382,7 @@ function stringToColor($str)
         }
 
         button.btn-accepter {
-            background-color: #c122c1;
+            background-color: #F7B2D9 ;
             color: white;
             border: none;
             padding: 0.85rem 1.5rem;
@@ -393,7 +395,7 @@ function stringToColor($str)
         }
 
         button.btn-accepter:hover {
-            background-color: #a01aa0;
+            background-color:  #F7B2D9;
             box-shadow: 0 4px 15px rgba(160, 26, 160, 0.5);
         }
 
@@ -526,63 +528,88 @@ function stringToColor($str)
         .user-profile:hover .dropdown-menu {
             display: block;
         }
+
+        /* Add grid for sponsor cards */
+        #tab-sponsors {
+            /* Remove grid to use flexbox with rows */
+            /* display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr)); */
+            /* gap: 2rem; */
+            /* align-items: stretch; */
+        }
+        #tab-sponsors .card {
+            width: 100%;
+            max-width: none;
+            margin-bottom: 0;
+        }
+        @media (max-width: 900px) {
+            #tab-sponsors {
+                /* grid-template-columns: 1fr; */
+            }
+        }
     </style>
 </head>
 
 <body>
+    <div class="navbar-backoffice-wrapper" style="position: fixed; top: 20px; left: 280px; width: calc(100% - 330px); z-index: 1000; background: #fff; padding: 10px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-radius: 8px;">
+      <nav class="navbar-backoffice" style="max-width: 1200px; margin: 0 20px;">
+        <ul style="display:flex;gap:40px;list-style:none;margin:0;padding:0; justify-content: center;">
+          <li><a href="/Projet Web/mvcUtilisateur/View/BackOffice/indeex.php" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Utilisateurs</a></li>
+          <li><a href="/Projet Web/mvcact/view/back office/dashboard.php" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Activités</a></li>
+          <li><a href="/Projet Web/mvcEvent/View/BackOffice/dashboard.php" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Événements</a></li>
+          <li><a href="/Projet Web/mvcProduit/view/back office/indeex.php" style="color:#9768d1;font-weight:600;font-size:1.3em;text-decoration:none;">Produits</a></li>
+          <li><a href="/Projet Web/mvcCovoiturage/view/backoffice/dashboard.php" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Transports</a></li>
+          <li><a href="/Projet Web/mvcSponsor/crud/view/back/back.php" style="color:#e859c0;font-weight:600;font-size:1.3em;text-decoration:none;">Sponsors</a></li>
+        </ul>
+      </nav>
+    </div>
+
     <div class="sidebar">
+        <div>
+            
 
+            
 
-
-
-        <div class="sidebar">
-            <div>
-                <h1>Click'N'Go</h1>
-
-                <a href="/Projet%20Web/mvcUtilisateur/View/BackOffice/indeex.php" class="menu-item">🏠 Accueil</a>
-                <a href="/Projet Web/mvcact/view/back office/dashboard.php" class="nav-link" data-section="activites">Activités</a>
-                <a href="/Projet Web/mvcEvent/View/BackOffice/dashboard.php" class="nav-link active" data-section="evenements">Événements</a>
-                <a href="/Projet Web/mvcProduit/view/back office/indeex.php" class="nav-link" data-section="produits">Produits</a>
-                <a href="/Projet Web/mvcCovoiturage/view/backoffice/dashboard.php" class="nav-link" data-section="transports">Transports</a>
-                <a href="/Projet Web/mvcSponsor/crud/view/back/back.php" class="nav-link" data-section="sponsors">Sponsors</a>
-
-                <div class="menu-item active" data-tab="sponsors" tabindex="0" role="button" aria-pressed="true">🏠 Sponsors</div>
-                <div class="menu-item" data-tab="events" tabindex="0" role="button" aria-pressed="false">🚗 Événements</div>
-                <div class="menu-item" data-tab="offers" tabindex="0" role="button" aria-pressed="false">📋 Offres</div>
-                <div class="menu-item" data-tab="statistics">📊 Statistiques</div>
-            </div>
-            <!-- User Profile Section -->
-            <div class="user-profile">
-                <?php if (isset($_SESSION['user'])): ?>
-                    <?php
-                    $photoPath = $_SESSION['user']['profile_picture'] ?? '';
-                    $fullName = $_SESSION['user']['full_name'] ?? 'Utilisateur';
-                    // Adjust path for back.php's directory
-                    $photoRelativePath = '../../../../mvcUtilisateur/View/FrontOffice/' . $photoPath;
-                    $absolutePath = realpath(__DIR__ . '/' . $photoRelativePath);
-                    $showPhoto = !empty($photoPath) && $absolutePath && file_exists($absolutePath);
-                    ?>
-                    <?php if ($showPhoto): ?>
-                        <img src="/Projet%20Web/mvcUtilisateur/View/FrontOffice/<?= htmlspecialchars($photoPath) ?>" alt="Photo de profil" class="profile-photo" onclick="toggleDropdown()">
-                    <?php else: ?>
-                        <div class="profile-circle" style="background-color: <?= stringToColor($fullName) ?>;" onclick="toggleDropdown()">
-                            <?= strtoupper(substr($fullName, 0, 1)) ?>
-                        </div>
-                    <?php endif; ?>
-                    <div class="dropdown-menu" id="dropdownMenu">
-                        <a href="/Projet%20Web/mvcUtilisateur/View/FrontOffice/profile.php">👤 Mon Profil</a>
-                        <a href="/Projet%20Web/mvcUtilisateur/View/BackOffice/login/logout.php">🚪 Déconnexion</a>
+            <div class="menu-item active" data-tab="sponsors" tabindex="0" role="button" aria-pressed="true">🏠 Sponsors</div>
+            <div class="menu-item" data-tab="events" tabindex="0" role="button" aria-pressed="false">🚗 Événements</div>
+            <div class="menu-item" data-tab="offers" tabindex="0" role="button" aria-pressed="false">📋 Offres</div>
+            <div class="menu-item" data-tab="statistics">📊 Statistiques</div>
+        </div>
+        <!-- User Profile Section -->
+        <div class="user-profile">
+            <?php if (isset($_SESSION['user'])): ?>
+                <?php
+                $photoPath = $_SESSION['user']['profile_picture'] ?? '';
+                $fullName = $_SESSION['user']['full_name'] ?? 'Utilisateur';
+                // Adjust path for back.php's directory
+                $photoRelativePath = '../../../../mvcUtilisateur/View/FrontOffice/' . $photoPath;
+                $absolutePath = realpath(__DIR__ . '/' . $photoRelativePath);
+                $showPhoto = !empty($photoPath) && $absolutePath && file_exists($absolutePath);
+                ?>
+                <?php if ($showPhoto): ?>
+                    <img src="/Projet%20Web/mvcUtilisateur/View/FrontOffice/<?= htmlspecialchars($photoPath) ?>" alt="Photo de profil" class="profile-photo" onclick="toggleDropdown()">
+                <?php else: ?>
+                    <div class="profile-circle" style="background-color: <?= stringToColor($fullName) ?>;" onclick="toggleDropdown()">
+                        <?= strtoupper(substr($fullName, 0, 1)) ?>
                     </div>
                 <?php endif; ?>
-            </div>
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <a href="/Projet%20Web/mvcUtilisateur/View/FrontOffice/profile.php">👤 Mon Profil</a>
+                    <a href="/Projet%20Web/mvcUtilisateur/View/BackOffice/login/logout.php">🚪 Déconnexion</a>
+                </div>
+            <?php endif; ?>
         </div>
-        <div class="menu-item">🚪 Déconnexion</div>
     </div>
     <main class="dashboard">
         <div id="tab-sponsors" class="tab-content active" tabindex="0" style="display:block;">
-            <h1>Demandes de sponsoring</h1>
-            <?php foreach ($sponsors as $sponsor): ?>
-                <div class="card">
+            <h1 style="text-align: center ">Demandes de sponsoring</h1>
+            <?php
+            $count = 0;
+            foreach ($sponsors as $sponsor):
+                if ($count % 2 == 0): ?>
+                    <div class="row" style="display: flex; gap: 2rem; margin-bottom: 2rem;">
+                <?php endif; ?>
+                <div class="card" style="flex: 1;">
                     <h3><?= htmlspecialchars($sponsor['nom_entreprise']) ?></h3>
                     <?php
                     // Find the event name for this sponsor's offer
@@ -603,7 +630,12 @@ function stringToColor($str)
                         <button class="btn btn-refuser btn-action" data-id="<?= $sponsor['id_sponsor'] ?>" data-action="refuse" <?= ($sponsor['status'] !== 'pending') ? 'disabled style="opacity:0.6; cursor:not-allowed;"' : '' ?> onclick="return confirm('Êtes-vous sûr?')">Refuser</button>
                     </div>
                 </div>
-            <?php endforeach; ?>
+                <?php
+                $count++;
+                if ($count % 2 == 0 || $count == count($sponsors)): ?>
+                    </div>
+                <?php endif;
+            endforeach; ?>
         </div>
         <div id="tab-events" class="tab-content" tabindex="0">
             <h1>Ajouter une Offre de Sponsoring</h1>
