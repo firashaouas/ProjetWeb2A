@@ -583,7 +583,12 @@ $destinationsJson = json_encode(['destinations' => $destinations]);
     <div class="main-content">
 
     
-    <a href="/Projet Web/mvcUtilisateur/View/BackOffice/indeex.php">🏠 Acceuil</a>
+                <a href="/Projet%20Web/mvcUtilisateur/View/BackOffice/indeex.php" class="menu-item">🏠 Accueil</a>
+                <a href="/Projet Web/mvcact/view/back office/dashboard.php" class="nav-link" data-section="activites">Activités</a>
+                <a href="/Projet Web/mvcEvent/View/BackOffice/dashboard.php" class="nav-link active" data-section="evenements">Événements</a>
+                <a href="/Projet Web/mvcProduit/view/back office/indeex.php" class="nav-link" data-section="produits">Produits</a>
+                <a href="/Projet Web/mvcCovoiturage/view/backoffice/dashboard.php" class="nav-link" data-section="transports">Transports</a>
+                <a href="/Projet Web/mvcSponsor/crud/view/back/back.php" class="nav-link" data-section="sponsors">Sponsors</a>
 
 
     <div class="user-profile">

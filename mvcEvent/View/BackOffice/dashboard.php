@@ -81,360 +81,246 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <title>Gestion des événements</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="add.css">
+    <link rel="stylesheet" href="dashboard.css">
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css' rel='stylesheet' />
     <style>
-        .seat-management {
-            margin: 20px;
-            padding: 25px;
-            background: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            transition: all 0.3s ease;
-            border: 1px solid #e0e0e0;
+        body {
+            background: rgb(235, 222, 253) !important;
         }
 
-        .seat-management:hover {
-            box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+        .dashboard {
+            padding: 20px;
+            margin-left: 260px;
+            min-height: 100vh;
+            background: rgb(235, 222, 253) !important;
         }
 
-        .seat-management h2 {
-            color: #2c3e50;
+        /* Stats Cards Styles */
+        .stats-overview {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, rgba(247, 178, 217, 0.9), rgba(102, 51, 153, 0.8));
+            padding: 20px;
+            border-radius: 15px;
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .stat-card .number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        /* Charts Section */
+        .charts-section {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
             margin-bottom: 20px;
-            font-size: 1.5rem;
-            border-bottom: 2px solid #C83EFC;
-            padding-bottom: 10px;
-            display: inline-block;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .seat-controls {
+        .charts-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .chart-container {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard">
+<nav class="top-navbar">
+    <div class="nav-links-container">
+        <a href="/Projet Web/mvcUtilisateur/View/BackOffice/indeex.php" class="nav-link">Utilisateurs</a>
+        <a href="/Projet Web/mvcact/view/back office/dashboard.php" class="nav-link" data-section="activites">Activités</a>
+        <a href="/Projet Web/mvcEvent/View/BackOffice/dashboard.php" class="nav-link active" data-section="evenements">Événements</a>
+        <a href="/Projet Web/mvcProduit/view/back office/indeex.php" class="nav-link" data-section="produits">Produits</a>
+        <a href="/Projet Web/mvcCovoiturage/view/backoffice/dashboard.php" class="nav-link" data-section="transports">Transports</a>
+        <a href="/Projet Web/mvcSponsor/crud/view/back/back.php" class="nav-link" data-section="sponsors">Sponsors</a>
+    </div>
+
+    <div class="user-profile">
+        <?php if (isset($_SESSION['user'])): ?>
+            <?php
+            $photoPath = $_SESSION['user']['profile_picture'] ?? '';
+            $fullName = $_SESSION['user']['full_name'] ?? 'Utilisateur';
+            $photoRelativePath = '../../mvcUtilisateur/View/FrontOffice/' . $photoPath;
+            $absolutePath = realpath(__DIR__ . '/' . $photoRelativePath);
+            $showPhoto = !empty($photoPath) && $absolutePath && file_exists($absolutePath);
+            ?>
+
+            <?php if ($showPhoto): ?>
+                <img src="/Projet Web/mvcUtilisateur/View/FrontOffice/<?= htmlspecialchars($photoPath) ?>"
+                    alt="Photo de profil"
+                    class="profile-photo"
+                    onclick="toggleDropdown()">
+            <?php else: ?>
+                <div class="profile-circle"
+                    style="background-color: <?= function_exists('stringToColor') ? stringToColor($fullName) : '#999' ?>;"
+                    onclick="toggleDropdown()">
+                    <?= strtoupper(htmlspecialchars(substr($fullName, 0, 1))) ?>
+                </div>
+            <?php endif; ?>
+
+            <div class="dropdown-menu" id="dropdownMenu">
+                <a href="/Projet Web/mvcUtilisateur/View/FrontOffice/profile.php">👤 Mon Profil</a>
+                <a href="/Projet Web/mvcUtilisateur/View/BackOffice/login/logout.php">🚪 Déconnexion</a>
+            </div>
+        <?php endif; ?>
+    </div>
+
+    <style>
+        .top-navbar {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 15px;
-            margin-bottom: 25px;
-            flex-wrap: wrap;
-        }
-
-        .seat-controls select {
-            padding: 10px 15px;
-            border-radius: 6px;
-            border: 1px solid #bdc3c7;
+            padding: 10px 20px;
             background-color: #f8f9fa;
-            font-size: 14px;
-            color: #2c3e50;
-            transition: all 0.3s;
-            min-width: 200px;
-            appearance: none;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: right 10px center;
-            background-size: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: relative;
         }
-
-        .seat-controls select:focus {
-            outline: none;
-            border-color: #C83EFC;
-            box-shadow: 0 0 0 3px rgba(52,152,219,0.2);
+        
+        .nav-links-container {
+            display: flex;
+            gap: 15px;
         }
-
-        .seat-stats {
-            font-weight: 600;
-            color: #2c3e50;
-            background: #f1f8fe;
-            padding: 10px 15px;
-            border-radius: 6px;
-            border-left: 4px solid #C83EFC;
+        
+        .nav-link {
+            padding: 8px 12px;
+            text-decoration: none;
+            color: #333;
+            border-radius: 4px;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            background-color: #e9ecef;
+        }
+        
+        .user-profile {
+            position: relative;
             margin-left: auto;
         }
-
-        .seat-grid-container {
-            max-width: 100%;
-            overflow-x: auto;
-            padding: 10px;
-            background: #f8f9fa;
-            border-radius: 8px;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+        
+        .profile-photo,
+        .profile-circle {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            object-fit: cover;
+            border: 2px solid #fff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
         }
-
-        .seat-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
-            gap: 12px;
-            padding: 15px;
-            transition: transform 0.3s;
-            min-height: 200px;
-            align-items: center;
-            justify-items: center;
-        }
-
-        .seat {
-            width: 50px;
-            height: 50px;
+        
+        .profile-circle {
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 14px;
-            font-weight: 600;
+            background-color: #666;
             color: white;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            position: relative;
-            overflow: hidden;
+            font-weight: bold;
+            font-size: 18px;
         }
-
-        .seat::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255,255,255,0.1);
-            transform: translateY(100%);
-            transition: transform 0.3s;
-        }
-
-        .seat:hover::before {
-            transform: translateY(0);
-        }
-
-        .seat:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .seat.libre { 
-            background-color: #2ecc71;
-            background-image: linear-gradient(135deg, #2ecc71, #27ae60);
-        }
-
-        .seat.reserve { 
-            background-color: #e74c3c;
-            background-image: linear-gradient(135deg, #e74c3c, #c0392b);
-        }
-
-        .seat.selected {
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        .modal {
+        
+        .dropdown-menu {
             display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.7);
-            z-index: 1000;
-            backdrop-filter: blur(5px);
-            animation: fadeIn 0.3s;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .modal-content {
-            background: white;
-            margin: 10% auto;
-            padding: 30px;
-            width: 90%;
-            max-width: 500px;
-            border-radius: 12px;
-            position: relative;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            animation: slideDown 0.4s;
-        }
-
-        @keyframes slideDown {
-            from { transform: translateY(-50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .modal-content h3 {
-            margin-top: 0;
-            color: #2c3e50;
-            font-size: 1.5rem;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 10px;
-        }
-
-        .modal-content .close {
             position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 28px;
-            cursor: pointer;
-            color: #7f8c8d;
-            transition: color 0.3s;
-        }
-
-        .modal-content .close:hover {
-            color: #e74c3c;
-        }
-
-        #seatDetails {
-            margin: 20px 0;
-            line-height: 1.6;
-        }
-
-        #seatDetails p {
-            margin: 10px 0;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        #seatDetails strong {
-            color: #2c3e50;
-            font-weight: 600;
-        }
-
-        /* Mapbox styles */
-        #map {
-            height: 300px;
-            width: 100%;
+            right: 0;
+            top: 100%;
+            background-color: white;
+            border: 1px solid #ccc;
             border-radius: 8px;
-            margin-bottom: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            min-width: 160px;
+            z-index: 1001;
         }
-
-        .mapboxgl-ctrl-geocoder {
-            width: 100%;
-            max-width: none;
+        
+        .dropdown-menu a {
+            display: block;
+            padding: 10px 15px;
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
         }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .seat-controls {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            
-            .seat-stats {
-                margin-left: 0;
-                width: 100%;
-            }
-            
-            .modal-content {
-                width: 95%;
-                margin: 20% auto;
-            }
+        
+        .dropdown-menu a:hover {
+            background-color: #f5f5f5;
         }
-
-        /* Loading animation */
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .loading-spinner {
-            border: 4px solid rgba(0, 0, 0, 0.1);
-            border-radius: 50%;
-            border-top: 4px solid #3498db;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
-        }
-
-        /* Error message style */
-        .error-message-display {
-            background-color: #f8d7da;
-            color: #721c24;
-            padding: 15px;
-            border-radius: 5px;
-            margin: 20px;
-            text-align: center;
-        }
-        .location-display {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.location-edit-container {
-    margin-top: 10px;
-    padding: 10px;
-    background: #f8f9fa;
-    border-radius: 8px;
-    border: 1px solid #e0e0e0;
-}
-
-.geocoder {
-    margin-top: 10px;
-}
-
-.mapboxgl-ctrl-geocoder {
-    width: 100% !important;
-    max-width: none !important;
-}
     </style>
-</head>
-<body>
-    
 
+    <script>
+        function toggleDropdown() {
+            const menu = document.getElementById('dropdownMenu');
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        }
 
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('dropdownMenu');
+            const profile = document.querySelector('.user-profile');
+            if (!profile.contains(event.target)) {
+                menu.style.display = 'none';
+            }
+        });
+    </script>
+</nav>
 
     <div class="sidebar">
-            
-    <!-- User Profile Section -->
-<div class="user-profile">
-    <?php if (isset($_SESSION['user'])): ?>
-        <?php
-        $photoPath = $_SESSION['user']['profile_picture'] ?? '';
-        $fullName = $_SESSION['user']['full_name'] ?? 'Utilisateur';
-        $photoRelativePath = '../../../../mvcUtilisateur/View/FrontOffice/' . $photoPath;
-        $absolutePath = realpath(__DIR__ . '/' . $photoRelativePath);
-        $showPhoto = !empty($photoPath) && $absolutePath && file_exists($absolutePath);
-
-        function stringToColor($string) {
-            $code = dechex(crc32($string));
-            return '#' . substr($code, 0, 6);
-        }
-        ?>
-        <?php if ($showPhoto): ?>
-            <img src="/Projet%20Web/mvcUtilisateur/View/FrontOffice/<?= htmlspecialchars($photoPath) ?>" alt="Photo de profil" class="profile-photo" onclick="toggleDropdown()">
-        <?php else: ?>
-            <div class="profile-circle" style="background-color: <?= stringToColor($fullName) ?>;" onclick="toggleDropdown()">
-                <?= strtoupper(substr($fullName, 0, 1)) ?>
-            </div>
-        <?php endif; ?>
-        <div class="dropdown-menu" id="dropdownMenu">
-            <a href="/Projet%20Web/mvcUtilisateur/View/FrontOffice/profile.php">👤 Mon Profil</a>
-            <a href="/Projet%20Web/mvcUtilisateur/View/BackOffice/login/logout.php">🚪 Déconnexion</a>
-        </div>
-    <?php endif; ?>
-</div>
-
         <div>
-            <h1>Event Management</h1>
-            <div class="menu-item active">Événements</div>
-            <div class="menu-item">Utilisateurs</div>
-            <div class="menu-item">Paramètres</div>
-        </div>
-        <div class="profile-container">
-            <div class="profile">
-                <img src="https://via.placeholder.com/40" alt="Profile">
+            <div class="sidebar-logo">
+                <img src="../FrontOffice/images/logo.png" alt="Logo" />
             </div>
-            <div>Admin</div>
+            <div class="menu-list">
+                <div class="menu-item" data-section="evenements">
+                    <span class="icon">📅</span>Événements
+                </div>
+                <div class="menu-item section-stat" data-section="statistiques">
+                    <span class="icon">📊</span>Statistiques Générales
+                </div>
+                <div class="menu-item section-chaises" data-section="chaises">
+                    <span class="icon">💺</span>Gestion des chaises
+                </div>
+            </div>
+        </div>
+        <div class="sidebar-bottom">
+            <div class="menu-item settings">
+                <span class="icon">⚙️</span>Paramètres
+            </div>
+            <div class="menu-item logout">
+                <span class="icon">🚪</span>Déconnexion
+            </div>
         </div>
     </div>
 
-    <div class="dashboard">
+    <!-- Contenu des sections -->
+    <div id="section-evenements">
         <div class="header">
-            
             <h2>Gestion des événements</h2>
             <div style="display: flex; gap: 15px;">
                 <div class="search">
@@ -449,10 +335,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <option value="price_desc">Trier par prix (décroissant)</option>
                 </select>
                 <button class="open-panel-btn" id="openPanel">+ Ajouter un événement</button>
-
-
-            
-
             </div>
         </div>
 
@@ -467,136 +349,191 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <i>▼</i> Réduire le tableau
             </button>
 
-            <div class="collapsible-table" id="eventTable">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Catégorie</th>
-                            <th>Nom</th>
-                            <th>Description</th>
-                            <th>Prix</th>
-                            <th>Durée</th>
-                            <th>Date</th>
-                            <th>Lieu</th>
-                            <th>Image</th>
-                            <th>Places totales</th>
-                            <th>Places réservées</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <?php
-                    $events = $controller->getEvents();
-                    foreach ($events as $event) {
-                        echo "<tr>";
-                        echo "<td>{$event['id']}</td>";
+            <div class="table-responsive">
+                <div class="collapsible-table" id="eventTable">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Catégorie</th>
+                                <th>Nom</th>
+                                <th>Description</th>
+                                <th>Prix</th>
+                                <th>Durée</th>
+                                <th>Date</th>
+                                <th>Lieu</th>
+                                <th>Image</th>
+                                <th>Places totales</th>
+                                <th>Places réservées</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $events = $controller->getEvents();
+                            foreach ($events as $event) {
+                                echo "<tr>";
+                                echo "<td>{$event['id']}</td>";
 
-                        if ($editId == $event['id']) {
-                            echo "<form method='post'>";
-                            echo "<input type='hidden' name='id' value='{$event['id']}'>";
-                            
-                            echo "<td><input type='text' name='category' value='".htmlspecialchars($event['category'])."' 
-                                      required minlength='3'></td>";
-                            echo "<td><input type='text' name='name' value='".htmlspecialchars($event['name'])."' 
-                                      required minlength='3'></td>";
-                            echo "<td><input type='text' name='description' value='".htmlspecialchars($event['description'])."' 
-                                      required></td>";
-                            echo "<td><input type='number' step='0.01' name='price' value='{$event['price']}' 
-                                      required min='0'></td>";
-                            echo "<td><input type='number' name='duration' value='{$event['duration']}' 
-                                      required min='1' max='8'></td>";
-                            echo "<td><input type='date' name='date' value='{$event['date']}' 
-                                      required min='".date('Y-m-d')."'></td>";
-                                      echo "<td>
-                                      <div class='location-display'>
-                                          <input type='text' id='edit_place_name_display_{$event['id']}' value='".htmlspecialchars($event['place_name'])."' readonly>
-                                          <button type='button' class='edit-location-btn' data-event-id='{$event['id']}'>Modifier le lieu</button>
-                                      </div>
-                                      <div id='edit_location_container_{$event['id']}' class='location-edit-container' style='display: none;'>
-                                          <div id='map-{$event['id']}' style='height: 200px;'></div>
-                                          <div id='edit_geocoder_{$event['id']}' class='geocoder'></div>
-                                          <span id='edit_locationError_{$event['id']}' class='error-message'></span>
-                                      </div>
-                                      <input type='hidden' name='longitude' id='edit_longitude_{$event['id']}' value='{$event['longitude']}'>
-                                      <input type='hidden' name='latitude' id='edit_latitude_{$event['id']}' value='{$event['latitude']}'>
-                                      <input type='hidden' name='place_name' id='edit_place_name_{$event['id']}' value='".htmlspecialchars($event['place_name'])."'>
-                                  </td>";
-                            echo "<td>
-                                <input type='text' name='imageUrl' value='".htmlspecialchars($event['imageUrl'])."' 
-                                     minlength='3' pattern='.*/.*'>
-                                ".(!empty($event['imageUrl']) ? 
-                                   "<img src='".htmlspecialchars($event['imageUrl'])."' alt='Preview' style='max-width: 60px; margin-top: 5px;'>" 
-                                   : "")."
-                              </td>";
-                            echo "<td><input type='number' name='totalSeats' value='{$event['totalSeats']}' 
-                                      required min='20' max='50'></td>";
-                            echo "<td><input type='number' name='reservedSeats' value='{$event['reservedSeats']}' 
-                                      required min='0'></td>";
-                            echo "<td><button type='submit' name='action' value='modif' class='btn btn-primary'>Enregistrer</button></td>";
-                            echo "</form>";
-                        } else {
-                            echo "<td>{$event['category']}</td>";
-                            echo "<td>{$event['name']}</td>";
-                            echo "<td>{$event['description']}</td>";
-                            echo "<td>{$event['price']}</td>";
-                            echo "<td>{$event['duration']}</td>";
-                            echo "<td>{$event['date']}</td>";
-                            echo "<td>".htmlspecialchars($event['place_name'])."</td>";
-                            echo "<td>";
-                            if (!empty($event['imageUrl'])) {
-                                echo "<img src='{$event['imageUrl']}' alt='Image événement' style='max-width: 100px; max-height: 60px; object-fit: cover;'>";
-                            } else {
-                                echo "Aucune image";
+                                if ($editId == $event['id']) {
+                                    echo "<form method='post'>";
+                                    echo "<input type='hidden' name='id' value='{$event['id']}'>";
+
+                                    echo "<td><input type='text' name='category' value='" . htmlspecialchars($event['category']) . "' 
+                                              required minlength='3'></td>";
+                                    echo "<td><input type='text' name='name' value='" . htmlspecialchars($event['name']) . "' 
+                                              required minlength='3'></td>";
+                                    echo "<td><input type='text' name='description' value='" . htmlspecialchars($event['description']) . "' 
+                                              required></td>";
+                                    echo "<td><input type='number' step='0.01' name='price' value='{$event['price']}' 
+                                              required min='0'></td>";
+                                    echo "<td><input type='number' name='duration' value='{$event['duration']}' 
+                                              required min='1' max='8'></td>";
+                                    echo "<td><input type='date' name='date' value='{$event['date']}' 
+                                              required min='" . date('Y-m-d') . "'></td>";
+                                    echo "<td>
+                                              <div class='location-display'>
+                                                  <input type='text' id='edit_place_name_display_{$event['id']}' value='" . htmlspecialchars($event['place_name']) . "' readonly>
+                                                  <button type='button' class='edit-location-btn' data-event-id='{$event['id']}'>Modifier le lieu</button>
+                                              </div>
+                                              <div id='edit_location_container_{$event['id']}' class='location-edit-container' style='display: none;'>
+                                                  <div id='map-{$event['id']}' style='height: 200px;'></div>
+                                                  <div id='edit_geocoder_{$event['id']}' class='geocoder'></div>
+                                                  <span id='edit_locationError_{$event['id']}' class='error-message'></span>
+                                              </div>
+                                              <input type='hidden' name='longitude' id='edit_longitude_{$event['id']}' value='{$event['longitude']}'>
+                                              <input type='hidden' name='latitude' id='edit_latitude_{$event['id']}' value='{$event['latitude']}'>
+                                              <input type='hidden' name='place_name' id='edit_place_name_{$event['id']}' value='" . htmlspecialchars($event['place_name']) . "'>
+                                          </td>";
+                                    echo "<td>
+                                        <input type='text' name='imageUrl' value='" . htmlspecialchars($event['imageUrl']) . "' 
+                                             minlength='3' pattern='.*/.*'>
+                                        " . (!empty($event['imageUrl']) ?
+                                        "<img src='" . htmlspecialchars($event['imageUrl']) . "' alt='Preview' style='max-width: 60px; margin-top: 5px;'>"
+                                        : "") . "
+                                      </td>";
+                                    echo "<td><input type='number' name='totalSeats' value='{$event['totalSeats']}' 
+                                              required min='20' max='50'></td>";
+                                    echo "<td><input type='number' name='reservedSeats' value='{$event['reservedSeats']}' 
+                                              required min='0'></td>";
+                                    echo "<td><button type='submit' name='action' value='modif' class='btn btn-primary'>Enregistrer</button></td>";
+                                    echo "</form>";
+                                } else {
+                                    echo "<td>{$event['category']}</td>";
+                                    echo "<td>{$event['name']}</td>";
+                                    echo "<td>{$event['description']}</td>";
+                                    echo "<td>{$event['price']}</td>";
+                                    echo "<td>{$event['duration']}</td>";
+                                    echo "<td>{$event['date']}</td>";
+                                    echo "<td>" . htmlspecialchars($event['place_name']) . "</td>";
+                                    echo "<td>";
+                                    if (!empty($event['imageUrl'])) {
+                                        echo "<img src='{$event['imageUrl']}' alt='Image événement' style='max-width: 100px; max-height: 60px; object-fit: cover;'>";
+                                    } else {
+                                        echo "Aucune image";
+                                    }
+                                    echo "</td>";
+                                    echo "<td>{$event['totalSeats']}</td>";
+                                    echo "<td>{$event['reservedSeats']}</td>";
+                                    echo "<td class='action-buttons'>
+                                        <form method='post'>
+                                            <input type='hidden' name='edit_id' value='{$event['id']}'>
+                                            <button type='submit' name='action' value='edit' class='btn-modifier'>Modifier</button>
+                                        </form>
+                                        <form method='post'>
+                                            <input type='hidden' name='id' value='{$event['id']}'>
+                                            <button type='submit' name='action' value='supp' class='btn-supprimer'>Supprimer</button>
+                                        </form>
+<button onclick=\"showSeatSectionForEvent({$event['id']})\" class='btn-voir-chaises'>Voir chaises</button>
+</td>";
+                                }
+                                echo "</tr>";
                             }
-                            echo "</td>";
-                            echo "<td>{$event['totalSeats']}</td>";
-                            echo "<td>{$event['reservedSeats']}</td>";
-                            echo "<td class='action-buttons'>
-                                <form method='post'>
-                                    <input type='hidden' name='edit_id' value='{$event['id']}'>
-                                    <button type='submit' name='action' value='edit' class='btn btn-primary'>Modifier</button>
-                                </form>
-                                <form method='post'>
-                                    <input type='hidden' name='id' value='{$event['id']}'>
-                                    <button type='submit' name='action' value='supp' class='btn btn-danger'>Supprimer</button>
-                                </form>
-                                <button onclick=\"document.getElementById('eventFilter').value = {$event['id']}; loadSeatsForEvent({$event['id']})\" class='btn btn-info'>Voir chaises</button>
-                            </td>";
-                        }
-                        echo "</tr>";
-                    }
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="section-statistiques" style="display:none">
+
+        <div class="stats-overview">
+            <div class="stat-card">
+                <h3>Total des Événements</h3>
+                <div class="number">
+                    <?php
+                    $totalEvents = count($events);
+                    echo $totalEvents;
                     ?>
-                    </tbody>
-                </table>
+                </div>
+            </div>
+            <div class="stat-card">
+                <h3>Places Réservées</h3>
+                <div class="number">
+                    <?php
+                    $totalReservedSeats = array_reduce($events, function ($carry, $event) {
+                        return $carry + intval($event['reservedSeats']);
+                    }, 0);
+                    echo $totalReservedSeats;
+                    ?>
+                </div>
+            </div>
+            <div class="stat-card">
+                <h3>Revenus Totaux (€)</h3>
+                <div class="number">
+                    <?php
+                    $totalRevenue = array_reduce($events, function ($carry, $event) {
+                        return $carry + (floatval($event['price']) * intval($event['reservedSeats']));
+                    }, 0);
+                    echo number_format($totalRevenue, 2, ',', ' ');
+                    ?>
+                </div>
             </div>
         </div>
 
-        <div class="seat-management">
-    <h2>Gestion des chaises</h2>
-    <div class="seat-controls">
-        <select id="eventFilter">
-            <option value="">Sélectionner un événement</option>
-            <?php
-            $events = $controller->getEvents();
-            foreach ($events as $event) {
-                echo "<option value='{$event['id']}'>" . htmlspecialchars($event['name']) . "</option>";
-            }
-            ?>
-        </select>
-        <select id="statusFilter">
-            <option value="all">Tous les statuts</option>
-            <option value="libre">Libre</option>
-            <option value="reserve">Réservé</option>
-        </select>
-        <div class="seat-stats" id="seatStats"></div>
+        <div class="charts-section">
+            <h2>Statistiques des événements</h2>
+            <div class="charts-container">
+                <div class="chart-container">
+                    <canvas id="eventsByCategoryChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <canvas id="seatStatusChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <canvas id="priceDistributionChart"></canvas>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="seat-grid-container">
-        <div class="seat-grid" id="seatGrid"></div>
-    </div>
-</div>
 
-        <!-- Modal for seat details -->
+    <div id="section-chaises" style="display:none">
+        <div class="seat-management">
+            <h2>Gestion des chaises</h2>
+            <div class="seat-controls">
+                <select id="eventFilter">
+                    <option value="">Sélectionner un événement</option>
+                    <?php
+                    $events = $controller->getEvents();
+                    foreach ($events as $event) {
+                        echo "<option value='{$event['id']}'>" . htmlspecialchars($event['name']) . "</option>";
+                    }
+                    ?>
+                </select>
+                <select id="statusFilter">
+                    <option value="all">Tous les statuts</option>
+                    <option value="libre">Libre</option>
+                    <option value="reserve">Réservé</option>
+                </select>
+                <div class="seat-stats" id="seatStats"></div>
+            </div>
+            <div class="seat-grid-container">
+                <div class="seat-grid" id="seatGrid"></div>
+            </div>
+        </div>
+
         <div id="seatModal" class="modal">
             <div class="modal-content">
                 <span class="close">×</span>
@@ -604,105 +541,149 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div id="seatDetails"></div>
             </div>
         </div>
+    </div>
+    </div>
 
-        <!-- Add event panel -->
-        <div class="add-panel" id="addPanel">
-            <button class="close-panel" id="closePanel">×</button>
-            <h3>Ajouter un événement</h3>
-            <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" id="eventForm">
-                <div class="form-group">
-                    <label for="category">Catégorie :</label>
-                    <select id="category" name="category" required>
-                        <option value="">Sélectionnez...</option>
-                        <option value="sportif">Événements sportifs</option>
-                        <option value="culturel">Festivals culturels</option>
-                        <option value="culinaire">Festivals culinaires</option>
-                        <option value="musique">Festivals de musique</option>
-                        <option value="charite">Galas de charité</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="name">Nom :</label>
-                    <input type="text" name="name" id="name" required minlength="3">
-                    <span id="nameError" class="error-message"></span>
-                </div>
-                <div class="form-group">
-                    <label for="description">Description :</label>
-                    <textarea name="description" id="description" required maxlength="3000"></textarea>
-                    <span id="descriptionError" class="error-message"></span>
-                </div>
-                <div class="form-group">
-                    <label for="price">Prix :</label>
-                    <input type="number" step="0.01" name="price" id="price" required min="0">
-                    <span id="priceError" class="error-message"></span>
-                </div>
-                <div class="form-group">
-                    <label for="duration">Durée :</label>
-                    <input type="number" name="duration" id="duration" required min="1" max="8">
-                    <span id="durationError" class="error-message"></span>
-                </div>
-                <div class="form-group">
-                    <label for="date">Date :</label>
-                    <input type="date" name="date" id="date" required>
-                    <span id="dateError" class="error-message"></span>
-                </div>
-                <div class="form-group">
-                    <label for="location">Lieu :</label>
-                    <div id="map" style="height: 300px;"></div>
-                    <div id="geocoder" class="geocoder"></div>
-                    <input type="hidden" name="longitude" id="longitude">
-                    <input type="hidden" name="latitude" id="latitude">
-                    <input type="hidden" name="place_name" id="place_name">
-                    <span id="locationError" class="error-message"></span>
-                </div>
-                <div class="form-group">
-                    <label for="imageUrl">URL de l'image :</label>
-                    <input type="text" name="imageUrl" id="imageUrl" minlength="3" pattern=".*/.*">
-                    <span id="imageUrlError" class="error-message"></span>
-                </div>
-                <div class="form-group">
-                    <label for="totalSeats">Places totales :</label>
-                    <input type="number" name="totalSeats" id="totalSeats" required min="20" max="50">
-                    <span id="totalSeatsError" class="error-message"></span>
-                </div>
-                <button type="submit" name="action" value="add" class="btn btn-primary" id="submitEventBtn" disabled>Enregistrer</button>
-            </form>
-        </div>
-                <a href="/Projet%20Web/mvcUtilisateur/View/BackOffice/indeex.php" class="menu-item">🏠 Accueil</a>
-                
-        <!-- Overlay -->
-        <div class="overlay" id="overlay"></div>
-        <!-- Charts Section -->
-<div class="charts-section">
-    <h2>Statistiques des événements</h2>
-    <div class="charts-container">
-        <div class="chart-container">
-            <canvas id="eventsByCategoryChart"></canvas>
-        </div>
-        <div class="chart-container">
-            <canvas id="seatStatusChart"></canvas>
-        </div>
-        <div class="chart-container">
-            <canvas id="priceDistributionChart"></canvas>
+    <div class="add-panel" id="addPanel">
+        <button class="close-panel" id="closePanel">×</button>
+        <h3>Ajouter un événement</h3>
+        <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" id="eventForm">
+            <div class="form-group">
+                <label for="category">Catégorie :</label>
+                <select id="category" name="category" required>
+                    <option value="">Sélectionnez...</option>
+                    <option value="sportif">Événements sportifs</option>
+                    <option value="culturel">Festivals culturels</option>
+                    <option value="culinaire">Festivals culinaires</option>
+                    <option value="musique">Festivals de musique</option>
+                    <option value="charite">Galas de charité</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="name">Nom :</label>
+                <input type="text" name="name" id="name" required minlength="3">
+                <span id="nameError" class="error-message"></span>
+            </div>
+            <div class="form-group">
+                <label for="description">Description :</label>
+                <textarea name="description" id="description" required maxlength="3000"></textarea>
+                <span id="descriptionError" class="error-message"></span>
+            </div>
+            <div class="form-group">
+                <label for="price">Prix :</label>
+                <input type="number" step="0.01" name="price" id="price" required min="0">
+                <span id="priceError" class="error-message"></span>
+            </div>
+            <div class="form-group">
+                <label for="duration">Durée :</label>
+                <input type="number" name="duration" id="duration" required min="1" max="8">
+                <span id="durationError" class="error-message"></span>
+            </div>
+            <div class="form-group">
+                <label for="date">Date :</label>
+                <input type="date" name="date" id="date" required>
+                <span id="dateError" class="error-message"></span>
+            </div>
+            <div class="form-group">
+                <label for="location">Lieu :</label>
+                <div id="map" style="height: 300px;"></div>
+                <div id="geocoder" class="geocoder"></div>
+                <input type="hidden" name="longitude" id="longitude">
+                <input type="hidden" name="latitude" id="latitude">
+                <input type="hidden" name="place_name" id="place_name">
+                <span id="locationError" class="error-message"></span>
+            </div>
+            <div class="form-group">
+                <label for="imageUrl">URL de l'image :</label>
+                <input type="text" name="imageUrl" id="imageUrl" minlength="3" pattern=".*/.*">
+                <span id="imageUrlError" class="error-message"></span>
+            </div>
+            <div class="form-group">
+                <label for="totalSeats">Places totales :</label>
+                <input type="number" name="totalSeats" id="totalSeats" required min="20" max="50">
+                <span id="totalSeatsError" class="error-message"></span>
+            </div>
+            <button type="submit" name="action" value="add" class="btn btn-primary" id="submitEventBtn" disabled>Enregistrer</button>
+        </form>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <div class="modal" id="descriptionModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Description complète</h3>
+            <div id="modalContent"></div>
         </div>
     </div>
-</div>
-    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Gestion du sidebar
+            const menuItems = document.querySelectorAll('.menu-list .menu-item');
+
+            menuItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    // Retirer la classe active de tous les items du menu
+                    menuItems.forEach(i => i.classList.remove('active'));
+                    // Ajouter la classe active à l'item cliqué
+                    this.classList.add('active');
+
+                    // Gérer l'affichage des sections
+                    const section = this.getAttribute('data-section');
+                    document.getElementById('section-evenements').style.display = (section === 'evenements') ? 'block' : 'none';
+                    document.getElementById('section-statistiques').style.display = (section === 'statistiques') ? 'block' : 'none';
+                    document.getElementById('section-chaises').style.display = (section === 'chaises') ? 'block' : 'none';
+                });
+            });
+
+            // Gestion du menu utilisateur dans la navbar
+            const userAvatar = document.querySelector('.user-avatar');
+            const userInfo = document.querySelector('.user-info');
+
+            if (userAvatar && userInfo) {
+                userAvatar.addEventListener('click', function() {
+                    userInfo.classList.toggle('active');
+                });
+
+                // Fermer le menu utilisateur quand on clique ailleurs
+                document.addEventListener('click', function(e) {
+                    if (!e.target.closest('.user-profile')) {
+                        userInfo.classList.remove('active');
+                    }
+                });
+            }
+
+            // Gestion du bouton de déconnexion
+            const logoutBtn = document.querySelector('.logout-btn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function() {
+                    window.location.href = 'logout.php';
+                });
+            }
+
+            // Activer la section événements par défaut dans le sidebar
+            const defaultMenuItem = document.querySelector('.menu-item[data-section="evenements"]');
+            if (defaultMenuItem) {
+                defaultMenuItem.classList.add('active');
+            }
+        });
+    </script>
 
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'></script>
     <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js'></script>
-   <script>
-   // Mapbox access token
-mapboxgl.accessToken = '<?php echo "pk.eyJ1IjoiaGFvYXVzMDEiLCJhIjoiY21hOHhqcGttMWJ5NjJtczg3eGJxazM0MiJ9.lm0YeqM7TkpDT4r6_Pf6aw"; ?>';
+    <script>
+        // Mapbox access token
+        mapboxgl.accessToken = '<?php echo "pk.eyJ1IjoiaGFvYXVzMDEiLCJhIjoiY21hOHhqcGttMWJ5NjJtczg3eGJxazM0MiJ9.lm0YeqM7TkpDT4r6_Pf6aw"; ?>';
 
-// Ajouter user_id pour les appels à get_chaises.php
-const USER_ID = <?php echo json_encode($user_id); ?>;
-// Event data from PHP
-const eventsData = <?php echo json_encode($events); ?>;
+        // Ajouter user_id pour les appels à get_chaises.php
+        const USER_ID = <?php echo json_encode($user_id); ?>;
+        // Event data from PHP
+        const eventsData = <?php echo json_encode($events); ?>;
 
-// Utility functions
-function showLoading(element) {
-    element.innerHTML = `
+        // Utility functions
+        function showLoading(element) {
+            element.innerHTML = `
         <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100px;">
             <div class="loading-spinner" style="
                 border: 4px solid rgba(52, 152, 219, 0.1);
@@ -715,142 +696,155 @@ function showLoading(element) {
             <p style="margin-top: 10px; color: #3498db;">Chargement...</p>
         </div>
     `;
-}
-
-function showError(element, message) {
-    element.textContent = message;
-    element.classList.add("error");
-    element.classList.remove("valid");
-}
-
-function showValid(element) {
-    element.textContent = "✓ Valide";
-    element.classList.add("valid");
-    element.classList.remove("error");
-}
-
-// Seat management variables
-let currentChaises = [];
-let currentChaiseId = null;
-let selectedSeat = null;
-
-// Seat management functions
-function loadSeatsForEvent(eventId) {
-    const grid = document.getElementById('seatGrid');
-    const stats = document.getElementById('seatStats');
-    if (!grid || !stats) {
-        console.error('Seat grid or stats element not found');
-        return;
-    }
-    if (!eventId) {
-        grid.innerHTML = '<p class="no-seats">Sélectionnez un événement</p>';
-        stats.innerHTML = '';
-        console.log('No event ID provided');
-        updateSeatStatusChart({ total: 0, reserved: 0 });
-        return;
-    }
-    showLoading(grid);
-    console.log('Fetching seats for event ID:', eventId);
-    // Ajouter user_id à l'URL si disponible
-    const url = USER_ID ? `/projet%20Web/mvcEvent/get_chaises.php?event_id=${eventId}&user_id=${USER_ID}` : `/projet%20Web/mvcEvent/get_chaises.php?event_id=${eventId}`;
-    fetch(url)
-        .then(response => {
-            console.log('Fetch response status:', response.status);
-            if (!response.ok) {
-                throw new Error(`HTTP error: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Fetch data received:', data);
-            if (data.status === 'success') {
-                currentChaises = data.chaises || [];
-                updateSeatGrid();
-                updateSeatStats(data.stats || { total: 0, reserved: 0 });
-                updateSeatStatusChart(data.stats || { total: 0, reserved: 0 });
-                animateSeats();
-            } else {
-                throw new Error(data.message || 'Erreur serveur');
-            }
-        })
-        .catch(error => {
-            console.error('Error loading seats:', error);
-            grid.innerHTML = `<p class="error-message">Erreur : ${error.message}</p>`;
-            stats.innerHTML = '';
-            updateSeatStatusChart({ total: 0, reserved: 0 });
-        });
-}
-function updateSeatGrid() {
-    const grid = document.getElementById('seatGrid');
-    const statusFilter = document.getElementById('statusFilter')?.value || 'all';
-
-    grid.innerHTML = '';
-
-    if (!currentChaises.length) {
-        grid.innerHTML = '<p class="no-seats">Aucune chaise disponible pour cet événement</p>';
-        console.log('No chaises available');
-        return;
-    }
-
-    currentChaises.forEach(chaise => {
-        if (statusFilter === 'all' || chaise.statut === statusFilter) {
-            const seatEl = createSeatElement(chaise);
-            grid.appendChild(seatEl);
         }
-    });
-    console.log('Seat grid updated with', currentChaises.length, 'chaises');
-}
 
-function createSeatElement(chaise) {
-    const seatEl = document.createElement('div');
-    seatEl.className = `seat ${chaise.statut}`;
-    seatEl.textContent = chaise.numero;
-    seatEl.dataset.id = chaise.id;
-
-    seatEl.title = `Chaise #${chaise.numero} - ${chaise.statut === 'libre' ? 'Disponible' : 'Réservée'}`;
-
-    seatEl.addEventListener('click', () => {
-        if (selectedSeat) {
-            selectedSeat.classList.remove('selected');
+        function showError(element, message) {
+            element.textContent = message;
+            element.classList.add("error");
+            element.classList.remove("valid");
         }
-        selectedSeat = seatEl;
-        selectedSeat.classList.add('selected');
-        showSeatDetails(chaise);
-    });
 
-    return seatEl;
-}
+        function showValid(element) {
+            element.textContent = "✓ Valide";
+            element.classList.add("valid");
+            element.classList.remove("error");
+        }
 
-function animateSeats() {
-    setTimeout(() => {
-        document.querySelectorAll('.seat').forEach((seat, index) => {
-            seat.style.opacity = '0';
-            seat.style.transform = 'translateY(20px)';
-            seat.style.transition = 'none';
+        // Seat management variables
+        let currentChaises = [];
+        let currentChaiseId = null;
+        let selectedSeat = null;
 
+        // Seat management functions
+        function loadSeatsForEvent(eventId) {
+            const grid = document.getElementById('seatGrid');
+            const stats = document.getElementById('seatStats');
+            if (!grid || !stats) {
+                console.error('Seat grid or stats element not found');
+                return;
+            }
+            if (!eventId) {
+                grid.innerHTML = '<p class="no-seats">Sélectionnez un événement</p>';
+                stats.innerHTML = '';
+                console.log('No event ID provided');
+                updateSeatStatusChart({
+                    total: 0,
+                    reserved: 0
+                });
+                return;
+            }
+            showLoading(grid);
+            console.log('Fetching seats for event ID:', eventId);
+            // Ajouter user_id à l'URL si disponible
+            const url = USER_ID ? `/Projet%20Web/mvcEvent/get_chaises.php?event_id=${eventId}&user_id=${USER_ID}` : `/Projet%20Web/mvcEvent/get_chaises.php?event_id=${eventId}`;
+            fetch(url)
+                .then(response => {
+                    console.log('Fetch response status:', response.status);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Fetch data received:', data);
+                    if (data.status === 'success') {
+                        currentChaises = data.chaises || [];
+                        updateSeatGrid();
+                        updateSeatStats(data.stats || {
+                            total: 0,
+                            reserved: 0
+                        });
+                        updateSeatStatusChart(data.stats || {
+                            total: 0,
+                            reserved: 0
+                        });
+                        animateSeats();
+                    } else {
+                        throw new Error(data.message || 'Erreur serveur');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading seats:', error);
+                    grid.innerHTML = `<p class="error-message">Erreur : ${error.message}</p>`;
+                    stats.innerHTML = '';
+                    updateSeatStatusChart({
+                        total: 0,
+                        reserved: 0
+                    });
+                });
+        }
+
+        function updateSeatGrid() {
+            const grid = document.getElementById('seatGrid');
+            const statusFilter = document.getElementById('statusFilter')?.value || 'all';
+
+            grid.innerHTML = '';
+
+            if (!currentChaises.length) {
+                grid.innerHTML = '<p class="no-seats">Aucune chaise disponible pour cet événement</p>';
+                console.log('No chaises available');
+                return;
+            }
+
+            currentChaises.forEach(chaise => {
+                if (statusFilter === 'all' || chaise.statut === statusFilter) {
+                    const seatEl = createSeatElement(chaise);
+                    grid.appendChild(seatEl);
+                }
+            });
+            console.log('Seat grid updated with', currentChaises.length, 'chaises');
+        }
+
+        function createSeatElement(chaise) {
+            const seatEl = document.createElement('div');
+            seatEl.className = `seat ${chaise.statut}`;
+            seatEl.textContent = chaise.numero;
+            seatEl.dataset.id = chaise.id;
+
+            seatEl.title = `Chaise #${chaise.numero} - ${chaise.statut === 'libre' ? 'Disponible' : 'Réservée'}`;
+
+            seatEl.addEventListener('click', () => {
+                if (selectedSeat) {
+                    selectedSeat.classList.remove('selected');
+                }
+                selectedSeat = seatEl;
+                selectedSeat.classList.add('selected');
+                showSeatDetails(chaise);
+            });
+
+            return seatEl;
+        }
+
+        function animateSeats() {
             setTimeout(() => {
-                seat.style.transition = 'opacity 0.3s, transform 0.3s';
-                seat.style.transitionDelay = `${index * 0.05}s`;
-                seat.style.opacity = '1';
-                seat.style.transform = 'translateY(0)';
-            }, 50);
-        });
-    }, 100);
-}
+                document.querySelectorAll('.seat').forEach((seat, index) => {
+                    seat.style.opacity = '0';
+                    seat.style.transform = 'translateY(20px)';
+                    seat.style.transition = 'none';
 
-function updateSeatStats(stats) {
-    const statsElement = document.getElementById('seatStats');
-    if (!statsElement) {
-        console.error('Seat stats element not found');
-        return;
-    }
+                    setTimeout(() => {
+                        seat.style.transition = 'opacity 0.3s, transform 0.3s';
+                        seat.style.transitionDelay = `${index * 0.05}s`;
+                        seat.style.opacity = '1';
+                        seat.style.transform = 'translateY(0)';
+                    }, 50);
+                });
+            }, 100);
+        }
 
-    const total = stats.total || 0;
-    const reserved = stats.reserved || 0;
-    const free = total - reserved;
-    const percentage = total > 0 ? Math.round((reserved / total) * 100) : 0;
+        function updateSeatStats(stats) {
+            const statsElement = document.getElementById('seatStats');
+            if (!statsElement) {
+                console.error('Seat stats element not found');
+                return;
+            }
 
-    statsElement.innerHTML = `
+            const total = stats.total || 0;
+            const reserved = stats.reserved || 0;
+            const free = total - reserved;
+            const percentage = total > 0 ? Math.round((reserved / total) * 100) : 0;
+
+            statsElement.innerHTML = `
         <div class="stats-container">
             <div class="stat-item">
                 <span class="stat-value">${total}</span>
@@ -870,55 +864,64 @@ function updateSeatStats(stats) {
             <span class="percentage">${percentage}% réservé</span>
         </div>
     `;
-    console.log('Seat stats updated:', { total, reserved, free, percentage });
-}
+            console.log('Seat stats updated:', {
+                total,
+                reserved,
+                free,
+                percentage
+            });
+        }
 
-function filterSeats() {
-    console.log('Filtering seats by status:', document.getElementById('statusFilter').value);
-    updateSeatGrid();
-}
+        function filterSeats() {
+            console.log('Filtering seats by status:', document.getElementById('statusFilter').value);
+            updateSeatGrid();
+        }
 
-function showSeatDetails(chaise) {
-    currentChaiseId = chaise.id;
-    const modal = document.getElementById('seatModal');
-    const details = document.getElementById('seatDetails');
+        function showSeatDetails(chaise) {
+            currentChaiseId = chaise.id;
+            const modal = document.getElementById('seatModal');
+            const details = document.getElementById('seatDetails');
 
-    if (!modal || !details) {
-        console.error('Modal or details element not found');
-        return;
-    }
+            if (!modal || !details) return;
 
-    details.innerHTML = `
+            details.innerHTML = `
         <p><strong>ID:</strong> <span>${chaise.id}</span></p>
         <p><strong>Numéro:</strong> <span>${chaise.numero}</span></p>
         <p><strong>Statut:</strong> <span class="status-${chaise.statut}">${chaise.statut === 'libre' ? 'Disponible' : 'Réservée'}</span></p>
         <p><strong>Utilisateur:</strong> <span>${chaise.id_user || 'Aucun'}</span></p>
     `;
 
-    modal.style.display = 'block';
-    document.body.style.overflow = 'hidden';
-    console.log('Showing seat details for chaise:', chaise);
-}
+            modal.classList.add('active'); // Utilise la classe active pour afficher
+            document.body.style.overflow = 'hidden';
+        }
 
-function closeModal() {
-    const modal = document.getElementById('seatModal');
-    if (!modal) {
-        console.error('Modal element not found');
-        return;
-    }
+        function closeModal() {
+            const modal = document.getElementById('seatModal');
+            if (!modal) return;
 
-    modal.style.animation = 'fadeOut 0.3s';
-    setTimeout(() => {
-        modal.style.display = 'none';
-        modal.style.animation = '';
-        document.body.style.overflow = '';
-    }, 300);
-    console.log('Modal closed');
-}
+            modal.classList.remove('active'); // Retire la classe active pour cacher
+            document.body.style.overflow = '';
+        }
 
-function initializeSeatManagement() {
-    const style = document.createElement('style');
-    style.textContent = `
+        // Ajouter des gestionnaires d'événements pour fermer la modal
+        document.addEventListener('DOMContentLoaded', function() {
+            const closeButtons = document.querySelectorAll('.close');
+            closeButtons.forEach(button => {
+                button.addEventListener('click', closeModal);
+            });
+
+            // Fermer la modal en cliquant en dehors
+            window.addEventListener('click', function(event) {
+                const modal = document.getElementById('seatModal');
+                if (event.target === modal) {
+                    closeModal();
+                }
+            });
+        });
+
+        function initializeSeatManagement() {
+            const style = document.createElement('style');
+            style.textContent = `
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -926,7 +929,7 @@ function initializeSeatManagement() {
         .seat { cursor: pointer; padding: 10px; margin: 5px; border-radius: 5px; }
         .seat.libre { background: #2ecc71; color: white; }
         .seat.reserve { background: #e74c3c; color: white; }
-        .seat.selected { border: 2px solid #3498db; }
+        .seat.selected { border: 2px solidrgb(137, 65, 224); }
         .status-libre { color: #2ecc71; font-weight: bold; }
         .status-reserve { color: #e74c3c; font-weight: bold; }
         .error-message { color: #e74c3c; text-align: center; padding: 20px; }
@@ -955,699 +958,888 @@ function initializeSeatManagement() {
             40%, 80% { transform: translateX(10px); }
         }
     `;
-    document.head.appendChild(style);
-}
-
-// Form validation and other dashboard functionality
-document.addEventListener("DOMContentLoaded", function() {
-    console.log('Initializing dashboard...');
-    const today = new Date().toISOString().split('T')[0];
-    document.getElementById('date').min = today;
-
-    let isLocationSelected = false;
-
-    // Initialize map for add event form
-    let map, geocoder;
-    try {
-        map = new mapboxgl.Map({
-            container: 'map',
-            style: 'mapbox://styles/mapbox/streets-v11',
-            center: [10.1815, 36.8065],
-            zoom: 10
-        });
-        geocoder = new MapboxGeocoder({
-            accessToken: mapboxgl.accessToken,
-            mapboxgl: mapboxgl,
-            placeholder: 'Rechercher un lieu...',
-            marker: { color: '#C83EFC' }
-        });
-        document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
-
-        map.on('styleimagemissing', (e) => {
-            const imageId = e.id;
-            console.warn(`Missing image: ${imageId}`);
-            map.addImage(imageId, {
-                width: 20,
-                height: 20,
-                data: new Uint8Array(20 * 20 * 4)
-            });
-        });
-
-        geocoder.on('result', function(e) {
-            const coords = e.result.geometry.coordinates;
-            document.getElementById('longitude').value = coords[0];
-            document.getElementById('latitude').value = coords[1];
-            document.getElementById('place_name').value = e.result.place_name;
-            isLocationSelected = true;
-            console.log('Geocoder result:', { longitude: coords[0], latitude: coords[1], place_name: e.result.place_name });
-            validateLocation();
-            updateSubmitButton();
-        });
-
-        geocoder.on('error', function(error) {
-            console.error('Geocoder error:', error);
-            document.getElementById('locationError').textContent = 'Erreur lors de la recherche du lieu. Veuillez réessayer.';
-            isLocationSelected = false;
-            updateSubmitButton();
-        });
-    } catch (error) {
-        console.error('Mapbox initialization failed:', error);
-        document.getElementById('locationError').textContent = 'Erreur de chargement de la carte. Vérifiez votre connexion réseau ou la clé API Mapbox.';
-    }
-
-    // Form validation functions
-    function validateName() {
-        const name = document.getElementById('name').value.trim();
-        const errorElement = document.getElementById('nameError');
-        
-        if (name.length < 3) {
-            showError(errorElement, "Le nom doit contenir au moins 3 caractères");
-            return false;
-        } else {
-            showValid(errorElement);
-            return true;
-        }
-    }
-
-    function validatePrice() {
-        const price = parseFloat(document.getElementById('price').value);
-        const errorElement = document.getElementById('priceError');
-        
-        if (isNaN(price) || price < 0) {
-            showError(errorElement, "Le prix doit être positif");
-            return false;
-        } else {
-            showValid(errorElement);
-            return true;
-        }
-    }
-
-    function validateImageUrl() {
-        const imageUrl = document.getElementById('imageUrl').value.trim();
-        const errorElement = document.getElementById('imageUrlError');
-        
-        if (imageUrl && (imageUrl.length < 3 || !imageUrl.includes('/'))) {
-            showError(errorElement, "L'image doit contenir au moins 3 caractères et un /");
-            return false;
-        } else {
-            showValid(errorElement);
-            return true;
-        }
-    }
-
-    function validateDuration() {
-        const duration = parseInt(document.getElementById('duration').value);
-        const errorElement = document.getElementById('durationError');
-        
-        if (isNaN(duration) || duration <= 0 || duration > 8) {
-            showError(errorElement, "La durée doit être positive et ≤ 8 heures");
-            return false;
-        } else {
-            showValid(errorElement);
-            return true;
-        }
-    }
-
-    function validateLocation() {
-        const longitude = document.getElementById('longitude').value;
-        const latitude = document.getElementById('latitude').value;
-        const placeName = document.getElementById('place_name').value;
-        const errorElement = document.getElementById('locationError');
-
-        if (!isLocationSelected) {
-            showError(errorElement, "Veuillez sélectionner un lieu à l'aide de la recherche.");
-            return false;
+            document.head.appendChild(style);
         }
 
-        if (!longitude || !latitude || !placeName) {
-            showError(errorElement, "Les coordonnées du lieu sont manquantes.");
-            return false;
-        }
+        // Form validation and other dashboard functionality
+        document.addEventListener("DOMContentLoaded", function() {
+            console.log('Initializing dashboard...');
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('date').min = today;
 
-        if (isNaN(parseFloat(longitude)) || isNaN(parseFloat(latitude))) {
-            showError(errorElement, "Les coordonnées GPS sont invalides.");
-            return false;
-        }
+            let isLocationSelected = false;
 
-        if (placeName.length < 3) {
-            showError(errorElement, "Le nom du lieu doit contenir au moins 3 caractères.");
-            return false;
-        }
+            // Initialize map for add event form
+            let map, geocoder;
+            try {
+                map = new mapboxgl.Map({
+                    container: 'map',
+                    style: 'mapbox://styles/mapbox/streets-v11',
+                    center: [10.1815, 36.8065],
+                    zoom: 10
+                });
+                geocoder = new MapboxGeocoder({
+                    accessToken: mapboxgl.accessToken,
+                    mapboxgl: mapboxgl,
+                    placeholder: 'Rechercher un lieu...',
+                    marker: {
+                        color: '#C83EFC'
+                    }
+                });
+                document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
 
-        showValid(errorElement);
-        return true;
-    }
+                map.on('styleimagemissing', (e) => {
+                    const imageId = e.id;
+                    console.warn(`Missing image: ${imageId}`);
+                    map.addImage(imageId, {
+                        width: 20,
+                        height: 20,
+                        data: new Uint8Array(20 * 20 * 4)
+                    });
+                });
 
-    function validateDate() {
-        const dateInput = document.getElementById('date').value;
-        const selectedDate = new Date(dateInput);
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        const errorElement = document.getElementById('dateError');
-        
-        if (!dateInput || selectedDate <= today) {
-            showError(errorElement, "La date doit être dans le futur");
-            return false;
-        } else {
-            showValid(errorElement);
-            return true;
-        }
-    }
+                geocoder.on('result', function(e) {
+                    const coords = e.result.geometry.coordinates;
+                    document.getElementById('longitude').value = coords[0];
+                    document.getElementById('latitude').value = coords[1];
+                    document.getElementById('place_name').value = e.result.place_name;
+                    isLocationSelected = true;
+                    console.log('Geocoder result:', {
+                        longitude: coords[0],
+                        latitude: coords[1],
+                        place_name: e.result.place_name
+                    });
+                    validateLocation();
+                    updateSubmitButton();
+                });
 
-    function validateTotalSeats() {
-        const seats = parseInt(document.getElementById('totalSeats').value);
-        const errorElement = document.getElementById('totalSeatsError');
-        
-        if (isNaN(seats) || seats < 20 || seats > 50) {
-            showError(errorElement, "Le nombre de places doit être entre 20 et 50");
-            return false;
-        } else {
-            showValid(errorElement);
-            return true;
-        }
-    }
-
-    function validateDescription() {
-        const description = document.getElementById('description').value.trim();
-        const words = description.split(/\s+/).filter(word => word.length > 0);
-        const errorElement = document.getElementById('descriptionError');
-        
-        if (words.length > 300) {
-            showError(errorElement, "La description ne doit pas dépasser 300 mots");
-            return false;
-        } else {
-            showValid(errorElement);
-            return true;
-        }
-    }
-
-    function validateCategory() {
-        const category = document.getElementById('category').value;
-        return category !== "";
-    }
-
-    function updateSubmitButton() {
-        const submitButton = document.getElementById('submitEventBtn');
-        const isValid = validateName() && validatePrice() && validateImageUrl() && 
-                       validateDuration() && validateLocation() && validateDate() && 
-                       validateTotalSeats() && validateDescription() && validateCategory();
-        submitButton.disabled = !isValid;
-    }
-
-    // Add event listeners for form inputs
-    document.getElementById('name').addEventListener('input', () => { validateName(); updateSubmitButton(); });
-    document.getElementById('price').addEventListener('input', () => { validatePrice(); updateSubmitButton(); });
-    document.getElementById('imageUrl').addEventListener('input', () => { validateImageUrl(); updateSubmitButton(); });
-    document.getElementById('duration').addEventListener('input', () => { validateDuration(); updateSubmitButton(); });
-    document.getElementById('date').addEventListener('change', () => { validateDate(); updateSubmitButton(); });
-    document.getElementById('totalSeats').addEventListener('input', () => { validateTotalSeats(); updateSubmitButton(); });
-    document.getElementById('description').addEventListener('input', () => { validateDescription(); updateSubmitButton(); });
-    document.getElementById('category').addEventListener('change', () => { updateSubmitButton(); });
-
-    // Form submission validation
-    document.getElementById('eventForm').addEventListener('submit', function(e) {
-        console.log('Form submission attempt:', Object.fromEntries(new FormData(this)));
-        const isValid = validateName() && validatePrice() && validateImageUrl() && 
-                       validateDuration() && validateLocation() && validateDate() && 
-                       validateTotalSeats() && validateDescription() && validateCategory();
-
-        if (!isValid) {
-            e.preventDefault();
-            console.error('Form validation failed:', {
-                name: validateName(),
-                price: validatePrice(),
-                imageUrl: validateImageUrl(),
-                duration: validateDuration(),
-                location: validateLocation(),
-                date: validateDate(),
-                totalSeats: validateTotalSeats(),
-                description: validateDescription(),
-                category: validateCategory()
-            });
-        }
-    });
-
-    // Initialize map and geocoder for edit forms
-  // Gestion du clic sur le bouton "Modifier le lieu"
-document.querySelectorAll('.edit-location-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-        const eventId = this.dataset.eventId;
-        const locationContainer = document.getElementById(`edit_location_container_${eventId}`);
-        
-        if (locationContainer) {
-            locationContainer.style.display = 'block';
-            this.style.display = 'none';
-            
-            // Initialiser la carte uniquement si elle n'existe pas déjà
-            if (!window[`editMap_${eventId}`]) {
-                initializeEditMap(eventId);
+                geocoder.on('error', function(error) {
+                    console.error('Geocoder error:', error);
+                    document.getElementById('locationError').textContent = 'Erreur lors de la recherche du lieu. Veuillez réessayer.';
+                    isLocationSelected = false;
+                    updateSubmitButton();
+                });
+            } catch (error) {
+                console.error('Mapbox initialization failed:', error);
+                document.getElementById('locationError').textContent = 'Erreur de chargement de la carte. Vérifiez votre connexion réseau ou la clé API Mapbox.';
             }
-        }
-    });
-});
 
-// Fonction pour initialiser la carte et le géocodeur
-function initializeEditMap(eventId) {
-    const mapContainer = document.getElementById(`map-${eventId}`);
-    if (!mapContainer) return;
+            // Form validation functions
+            function validateName() {
+                const name = document.getElementById('name').value.trim();
+                const errorElement = document.getElementById('nameError');
 
-    try {
-        const longitude = parseFloat(document.getElementById(`edit_longitude_${eventId}`).value) || 10.1815;
-        const latitude = parseFloat(document.getElementById(`edit_latitude_${eventId}`).value) || 36.8065;
+                if (name.length < 3) {
+                    showError(errorElement, "Le nom doit contenir au moins 3 caractères");
+                    return false;
+                } else {
+                    showValid(errorElement);
+                    return true;
+                }
+            }
 
-        const editMap = new mapboxgl.Map({
-            container: `map-${eventId}`,
-            style: 'mapbox://styles/mapbox/streets-v11',
-            center: [longitude, latitude],
-            zoom: 12
-        });
+            function validatePrice() {
+                const price = parseFloat(document.getElementById('price').value);
+                const errorElement = document.getElementById('priceError');
 
-        const editGeocoder = new MapboxGeocoder({
-            accessToken: mapboxgl.accessToken,
-            mapboxgl: mapboxgl,
-            placeholder: 'Rechercher un lieu...',
-            marker: { color: '#C83EFC' }
-        });
+                if (isNaN(price) || price < 0) {
+                    showError(errorElement, "Le prix doit être positif");
+                    return false;
+                } else {
+                    showValid(errorElement);
+                    return true;
+                }
+            }
 
-        document.getElementById(`edit_geocoder_${eventId}`).appendChild(editGeocoder.onAdd(editMap));
+            function validateImageUrl() {
+                const imageUrl = document.getElementById('imageUrl').value.trim();
+                const errorElement = document.getElementById('imageUrlError');
 
-        // Stocker la référence de la carte dans l'objet window
-        window[`editMap_${eventId}`] = editMap;
+                if (imageUrl && (imageUrl.length < 3 || !imageUrl.includes('/'))) {
+                    showError(errorElement, "L'image doit contenir au moins 3 caractères et un /");
+                    return false;
+                } else {
+                    showValid(errorElement);
+                    return true;
+                }
+            }
 
-        editGeocoder.on('result', function(e) {
-            const coords = e.result.geometry.coordinates;
-            document.getElementById(`edit_longitude_${eventId}`).value = coords[0];
-            document.getElementById(`edit_latitude_${eventId}`).value = coords[1];
-            document.getElementById(`edit_place_name_${eventId}`).value = e.result.place_name;
-            document.getElementById(`edit_place_name_display_${eventId}`).value = e.result.place_name;
-        });
+            function validateDuration() {
+                const duration = parseInt(document.getElementById('duration').value);
+                const errorElement = document.getElementById('durationError');
 
-        editGeocoder.on('error', function(error) {
-            console.error(`Geocoder error for event ${eventId}:`, error);
-            document.getElementById(`edit_locationError_${eventId}`).textContent = 
-                'Erreur lors de la recherche du lieu. Veuillez réessayer.';
-        });
+                if (isNaN(duration) || duration <= 0 || duration > 8) {
+                    showError(errorElement, "La durée doit être positive et ≤ 8 heures");
+                    return false;
+                } else {
+                    showValid(errorElement);
+                    return true;
+                }
+            }
 
-        // Ajouter un marqueur pour le lieu existant
-        if (!isNaN(longitude) && !isNaN(latitude)) {
-            new mapboxgl.Marker({ color: '#C83EFC' })
-                .setLngLat([longitude, latitude])
-                .addTo(editMap);
-        }
+            function validateLocation() {
+                const longitude = document.getElementById('longitude').value;
+                const latitude = document.getElementById('latitude').value;
+                const placeName = document.getElementById('place_name').value;
+                const errorElement = document.getElementById('locationError');
 
-    } catch (error) {
-        console.error(`Failed to initialize map for event ${eventId}:`, error);
-        document.getElementById(`edit_locationError_${eventId}`).textContent = 
-            'Erreur de chargement de la carte. Vérifiez votre connexion réseau.';
-    }
-}
-    // Panel controls
-    const openPanelBtn = document.getElementById('openPanel');
-    const closePanelBtn = document.getElementById('closePanel');
-    const addPanel = document.getElementById('addPanel');
-    const overlay = document.getElementById('overlay');
+                if (!isLocationSelected) {
+                    showError(errorElement, "Veuillez sélectionner un lieu à l'aide de la recherche.");
+                    return false;
+                }
 
-    openPanelBtn.addEventListener('click', () => {
-        addPanel.classList.add('active');
-        overlay.classList.add('active');
-    });
+                if (!longitude || !latitude || !placeName) {
+                    showError(errorElement, "Les coordonnées du lieu sont manquantes.");
+                    return false;
+                }
 
-    closePanelBtn.addEventListener('click', () => {
-        addPanel.classList.remove('active');
-        overlay.classList.remove('active');
-    });
+                if (isNaN(parseFloat(longitude)) || isNaN(parseFloat(latitude))) {
+                    showError(errorElement, "Les coordonnées GPS sont invalides.");
+                    return false;
+                }
 
-    overlay.addEventListener('click', () => {
-        addPanel.classList.remove('active');
-        overlay.classList.remove('active');
-    });
+                if (placeName.length < 3) {
+                    showError(errorElement, "Le nom du lieu doit contenir au moins 3 caractères.");
+                    return false;
+                }
 
-    // Table collapse
-    const toggleBtn = document.getElementById('toggleTableBtn');
-    const eventTable = document.getElementById('eventTable');
-    
-    if (toggleBtn && eventTable) {
-        toggleBtn.addEventListener('click', function() {
-            eventTable.classList.toggle('collapsed');
-            const icon = this.querySelector('i');
-            if (eventTable.classList.contains('collapsed')) {
-                icon.textContent = '▲';
-                this.innerHTML = '<i>▲</i> Étendre le tableau';
+                showValid(errorElement);
+                return true;
+            }
+
+            function validateDate() {
+                const dateInput = document.getElementById('date').value;
+                const selectedDate = new Date(dateInput);
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                const errorElement = document.getElementById('dateError');
+
+                if (!dateInput || selectedDate <= today) {
+                    showError(errorElement, "La date doit être dans le futur");
+                    return false;
+                } else {
+                    showValid(errorElement);
+                    return true;
+                }
+            }
+
+            function validateTotalSeats() {
+                const seats = parseInt(document.getElementById('totalSeats').value);
+                const errorElement = document.getElementById('totalSeatsError');
+
+                if (isNaN(seats) || seats < 20 || seats > 50) {
+                    showError(errorElement, "Le nombre de places doit être entre 20 et 50");
+                    return false;
+                } else {
+                    showValid(errorElement);
+                    return true;
+                }
+            }
+
+            function validateDescription() {
+                const description = document.getElementById('description').value.trim();
+                const words = description.split(/\s+/).filter(word => word.length > 0);
+                const errorElement = document.getElementById('descriptionError');
+
+                if (words.length > 300) {
+                    showError(errorElement, "La description ne doit pas dépasser 300 mots");
+                    return false;
+                } else {
+                    showValid(errorElement);
+                    return true;
+                }
+            }
+
+            function validateCategory() {
+                const category = document.getElementById('category').value;
+                return category !== "";
+            }
+
+            function updateSubmitButton() {
+                const submitButton = document.getElementById('submitEventBtn');
+                const isValid = validateName() && validatePrice() && validateImageUrl() &&
+                    validateDuration() && validateLocation() && validateDate() &&
+                    validateTotalSeats() && validateDescription() && validateCategory();
+                submitButton.disabled = !isValid;
+            }
+
+            // Add event listeners for form inputs
+            document.getElementById('name').addEventListener('input', () => {
+                validateName();
+                updateSubmitButton();
+            });
+            document.getElementById('price').addEventListener('input', () => {
+                validatePrice();
+                updateSubmitButton();
+            });
+            document.getElementById('imageUrl').addEventListener('input', () => {
+                validateImageUrl();
+                updateSubmitButton();
+            });
+            document.getElementById('duration').addEventListener('input', () => {
+                validateDuration();
+                updateSubmitButton();
+            });
+            document.getElementById('date').addEventListener('change', () => {
+                validateDate();
+                updateSubmitButton();
+            });
+            document.getElementById('totalSeats').addEventListener('input', () => {
+                validateTotalSeats();
+                updateSubmitButton();
+            });
+            document.getElementById('description').addEventListener('input', () => {
+                validateDescription();
+                updateSubmitButton();
+            });
+            document.getElementById('category').addEventListener('change', () => {
+                updateSubmitButton();
+            });
+
+            // Form submission validation
+            document.getElementById('eventForm').addEventListener('submit', function(e) {
+                console.log('Form submission attempt:', Object.fromEntries(new FormData(this)));
+                const isValid = validateName() && validatePrice() && validateImageUrl() &&
+                    validateDuration() && validateLocation() && validateDate() &&
+                    validateTotalSeats() && validateDescription() && validateCategory();
+
+                if (!isValid) {
+                    e.preventDefault();
+                    console.error('Form validation failed:', {
+                        name: validateName(),
+                        price: validatePrice(),
+                        imageUrl: validateImageUrl(),
+                        duration: validateDuration(),
+                        location: validateLocation(),
+                        date: validateDate(),
+                        totalSeats: validateTotalSeats(),
+                        description: validateDescription(),
+                        category: validateCategory()
+                    });
+                }
+            });
+
+            // Initialize map and geocoder for edit forms
+            // Gestion du clic sur le bouton "Modifier le lieu"
+            document.querySelectorAll('.edit-location-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const eventId = this.dataset.eventId;
+                    const locationContainer = document.getElementById(`edit_location_container_${eventId}`);
+
+                    if (locationContainer) {
+                        locationContainer.style.display = 'block';
+                        this.style.display = 'none';
+
+                        // Initialiser la carte uniquement si elle n'existe pas déjà
+                        if (!window[`editMap_${eventId}`]) {
+                            initializeEditMap(eventId);
+                        }
+                    }
+                });
+            });
+
+            // Fonction pour initialiser la carte et le géocodeur
+            function initializeEditMap(eventId) {
+                const mapContainer = document.getElementById(`map-${eventId}`);
+                if (!mapContainer) return;
+
+                try {
+                    const longitude = parseFloat(document.getElementById(`edit_longitude_${eventId}`).value) || 10.1815;
+                    const latitude = parseFloat(document.getElementById(`edit_latitude_${eventId}`).value) || 36.8065;
+
+                    const editMap = new mapboxgl.Map({
+                        container: `map-${eventId}`,
+                        style: 'mapbox://styles/mapbox/streets-v11',
+                        center: [longitude, latitude],
+                        zoom: 12
+                    });
+
+                    const editGeocoder = new MapboxGeocoder({
+                        accessToken: mapboxgl.accessToken,
+                        mapboxgl: mapboxgl,
+                        placeholder: 'Rechercher un lieu...',
+                        marker: {
+                            color: '#C83EFC'
+                        }
+                    });
+
+                    document.getElementById(`edit_geocoder_${eventId}`).appendChild(editGeocoder.onAdd(editMap));
+
+                    // Stocker la référence de la carte dans l'objet window
+                    window[`editMap_${eventId}`] = editMap;
+
+                    editGeocoder.on('result', function(e) {
+                        const coords = e.result.geometry.coordinates;
+                        document.getElementById(`edit_longitude_${eventId}`).value = coords[0];
+                        document.getElementById(`edit_latitude_${eventId}`).value = coords[1];
+                        document.getElementById(`edit_place_name_${eventId}`).value = e.result.place_name;
+                        document.getElementById(`edit_place_name_display_${eventId}`).value = e.result.place_name;
+                    });
+
+                    editGeocoder.on('error', function(error) {
+                        console.error(`Geocoder error for event ${eventId}:`, error);
+                        document.getElementById(`edit_locationError_${eventId}`).textContent =
+                            'Erreur lors de la recherche du lieu. Veuillez réessayer.';
+                    });
+
+                    // Ajouter un marqueur pour le lieu existant
+                    if (!isNaN(longitude) && !isNaN(latitude)) {
+                        new mapboxgl.Marker({
+                                color: '#C83EFC'
+                            })
+                            .setLngLat([longitude, latitude])
+                            .addTo(editMap);
+                    }
+
+                } catch (error) {
+                    console.error(`Failed to initialize map for event ${eventId}:`, error);
+                    document.getElementById(`edit_locationError_${eventId}`).textContent =
+                        'Erreur de chargement de la carte. Vérifiez votre connexion réseau.';
+                }
+            }
+            // Panel controls
+            const openPanelBtn = document.getElementById('openPanel');
+            const closePanelBtn = document.getElementById('closePanel');
+            const addPanel = document.getElementById('addPanel');
+            const overlay = document.getElementById('overlay');
+
+            openPanelBtn.addEventListener('click', () => {
+                addPanel.classList.add('active');
+                overlay.classList.add('active');
+            });
+
+            closePanelBtn.addEventListener('click', () => {
+                addPanel.classList.remove('active');
+                overlay.classList.remove('active');
+            });
+
+            overlay.addEventListener('click', () => {
+                addPanel.classList.remove('active');
+                overlay.classList.remove('active');
+            });
+
+            // Table collapse
+            const toggleBtn = document.getElementById('toggleTableBtn');
+            const eventTable = document.getElementById('eventTable');
+
+            if (toggleBtn && eventTable) {
+                toggleBtn.addEventListener('click', function() {
+                    eventTable.classList.toggle('collapsed');
+                    const icon = this.querySelector('i');
+                    if (eventTable.classList.contains('collapsed')) {
+                        icon.textContent = '▲';
+                        this.innerHTML = '<i>▲</i> Étendre le tableau';
+                    } else {
+                        icon.textContent = '▼';
+                        this.innerHTML = '<i>▼</i> Réduire le tableau';
+                    }
+                });
+            }
+
+            // Seat management initialization
+            function setupEventListeners() {
+                const modalClose = document.querySelector('.modal .close');
+                if (modalClose) {
+                    modalClose.addEventListener('click', closeModal);
+                } else {
+                    console.error('Modal close button not found');
+                }
+
+                window.addEventListener('click', (event) => {
+                    if (event.target === document.getElementById('seatModal')) {
+                        closeModal();
+                    }
+                });
+
+                const eventFilter = document.getElementById('eventFilter');
+                if (eventFilter) {
+                    eventFilter.addEventListener('change', function() {
+                        console.log('Event filter changed to:', this.value);
+                        loadSeatsForEvent(this.value);
+                    });
+                } else {
+                    console.error('Event filter element not found');
+                }
+
+                const statusFilter = document.getElementById('statusFilter');
+                if (statusFilter) {
+                    statusFilter.addEventListener('change', filterSeats);
+                } else {
+                    console.error('Status filter element not found');
+                }
+            }
+
+            // Search and sort
+            const searchInput = document.getElementById('searchInput');
+            const sortSelect = document.getElementById('sortSelect');
+
+            if (searchInput) {
+                searchInput.addEventListener('input', filterAndSortEvents);
             } else {
-                icon.textContent = '▼';
-                this.innerHTML = '<i>▼</i> Réduire le tableau';
-            }
-        });
-    }
-
-    // Seat management initialization
-    function setupEventListeners() {
-        const modalClose = document.querySelector('.modal .close');
-        if (modalClose) {
-            modalClose.addEventListener('click', closeModal);
-        } else {
-            console.error('Modal close button not found');
-        }
-
-        window.addEventListener('click', (event) => {
-            if (event.target === document.getElementById('seatModal')) {
-                closeModal();
-            }
-        });
-
-        const eventFilter = document.getElementById('eventFilter');
-        if (eventFilter) {
-            eventFilter.addEventListener('change', function() {
-                console.log('Event filter changed to:', this.value);
-                loadSeatsForEvent(this.value);
-            });
-        } else {
-            console.error('Event filter element not found');
-        }
-
-        const statusFilter = document.getElementById('statusFilter');
-        if (statusFilter) {
-            statusFilter.addEventListener('change', filterSeats);
-        } else {
-            console.error('Status filter element not found');
-        }
-    }
-
-    // Search and sort
-    const searchInput = document.getElementById('searchInput');
-    const sortSelect = document.getElementById('sortSelect');
-
-    if (searchInput) {
-        searchInput.addEventListener('input', filterAndSortEvents);
-    } else {
-        console.error('Search input element not found');
-    }
-
-    if (sortSelect) {
-        sortSelect.addEventListener('change', filterAndSortEvents);
-    } else {
-        console.error('Sort select element not found');
-    }
-
-    function filterAndSortEvents() {
-        const searchInput = document.getElementById('searchInput');
-        const sortSelect = document.getElementById('sortSelect');
-        const searchTerm = searchInput?.value.toLowerCase() || '';
-        const sortValue = sortSelect?.value || '';
-        const rows = document.querySelectorAll('#eventTable tbody tr');
-
-        rows.forEach(row => {
-            const cells = row.querySelectorAll('td');
-            if (!cells || cells.length < 4) {
-                console.warn('Row skipped due to missing cells:', row);
-                return;
+                console.error('Search input element not found');
             }
 
-            const name = cells[2].textContent.toLowerCase();
-            const description = cells[3].textContent.toLowerCase();
-
-            const matchesSearch = name.includes(searchTerm) ||
-                description.includes(searchTerm) ||
-                cells[1].textContent.toLowerCase().includes(searchTerm);
-
-            row.style.display = matchesSearch ? '' : 'none';
-        });
-
-        const visibleRows = Array.from(rows).filter(row => row.style.display !== 'none');
-
-        visibleRows.sort((a, b) => {
-            const aCells = a.querySelectorAll('td');
-            const bCells = b.querySelectorAll('td');
-
-            if (!aCells || !bCells || aCells.length < 7 || bCells.length < 7) {
-                console.warn('Rows skipped during sorting due to missing cells:', a, b);
-                return 0;
+            if (sortSelect) {
+                sortSelect.addEventListener('change', filterAndSortEvents);
+            } else {
+                console.error('Sort select element not found');
             }
 
-            switch (sortValue) {
-                case 'date_asc':
-                    return new Date(aCells[6].textContent) - new Date(bCells[6].textContent);
-                case 'date_desc':
-                    return new Date(bCells[6].textContent) - new Date(aCells[6].textContent);
-                case 'name_asc':
-                    return aCells[2].textContent.localeCompare(bCells[2].textContent);
-                case 'name_desc':
-                    return bCells[2].textContent.localeCompare(aCells[2].textContent);
-                case 'price_asc':
-                    return parseFloat(aCells[4].textContent) - parseFloat(bCells[4].textContent);
-                case 'price_desc':
-                    return parseFloat(bCells[4].textContent) - parseFloat(aCells[4].textContent);
-                default:
-                    return 0;
+            function filterAndSortEvents() {
+                const searchInput = document.getElementById('searchInput');
+                const sortSelect = document.getElementById('sortSelect');
+                const searchTerm = searchInput?.value.toLowerCase() || '';
+                const sortValue = sortSelect?.value || '';
+                const rows = document.querySelectorAll('#eventTable tbody tr');
+
+                rows.forEach(row => {
+                    const cells = row.querySelectorAll('td');
+                    if (!cells || cells.length < 4) {
+                        console.warn('Row skipped due to missing cells:', row);
+                        return;
+                    }
+
+                    const name = cells[2].textContent.toLowerCase();
+                    const description = cells[3].textContent.toLowerCase();
+
+                    const matchesSearch = name.includes(searchTerm) ||
+                        description.includes(searchTerm) ||
+                        cells[1].textContent.toLowerCase().includes(searchTerm);
+
+                    row.style.display = matchesSearch ? '' : 'none';
+                });
+
+                const visibleRows = Array.from(rows).filter(row => row.style.display !== 'none');
+
+                visibleRows.sort((a, b) => {
+                    const aCells = a.querySelectorAll('td');
+                    const bCells = b.querySelectorAll('td');
+
+                    if (!aCells || !bCells || aCells.length < 7 || bCells.length < 7) {
+                        console.warn('Rows skipped during sorting due to missing cells:', a, b);
+                        return 0;
+                    }
+
+                    switch (sortValue) {
+                        case 'date_asc':
+                            return new Date(aCells[6].textContent) - new Date(bCells[6].textContent);
+                        case 'date_desc':
+                            return new Date(bCells[6].textContent) - new Date(aCells[6].textContent);
+                        case 'name_asc':
+                            return aCells[2].textContent.localeCompare(bCells[2].textContent);
+                        case 'name_desc':
+                            return bCells[2].textContent.localeCompare(aCells[2].textContent);
+                        case 'price_asc':
+                            return parseFloat(aCells[4].textContent) - parseFloat(bCells[4].textContent);
+                        case 'price_desc':
+                            return parseFloat(bCells[4].textContent) - parseFloat(aCells[4].textContent);
+                        default:
+                            return 0;
+                    }
+                });
+
+                const tbody = document.querySelector('#eventTable tbody');
+                visibleRows.forEach(row => tbody.appendChild(row));
+                console.log('Events filtered and sorted:', {
+                    searchTerm,
+                    sortValue
+                });
             }
-        });
 
-        const tbody = document.querySelector('#eventTable tbody');
-        visibleRows.forEach(row => tbody.appendChild(row));
-        console.log('Events filtered and sorted:', { searchTerm, sortValue });
-    }
+            // Initialize seat management
+            initializeSeatManagement();
+            initializeCharts();
+            setupEventListeners();
 
-    // Initialize seat management
-    initializeSeatManagement();
-    initializeCharts();
-    setupEventListeners();
+            const eventFilter = document.getElementById('eventFilter');
+            if (eventFilter && eventFilter.options.length > 1) {
+                eventFilter.value = eventFilter.options[1].value;
+                loadSeatsForEvent(eventFilter.value);
+            } else {
+                console.error('Event filter not found or has insufficient options');
+                const seatGrid = document.getElementById('seatGrid');
+                if (seatGrid) {
+                    seatGrid.innerHTML = '<p class="error-message">Erreur : Aucun événement disponible.</p>';
+                }
+            }
 
-    const eventFilter = document.getElementById('eventFilter');
-    if (eventFilter && eventFilter.options.length > 1) {
-        eventFilter.value = eventFilter.options[1].value;
-        loadSeatsForEvent(eventFilter.value);
-    } else {
-        console.error('Event filter not found or has insufficient options');
-        const seatGrid = document.getElementById('seatGrid');
-        if (seatGrid) {
-            seatGrid.innerHTML = '<p class="error-message">Erreur : Aucun événement disponible.</p>';
-        }
-    }
+            // Global error handler
+            window.onerror = function(message, source, lineno, colno, error) {
+                console.error(`Global error: ${message} at ${source}:${lineno}:${colno}`, error);
 
-    // Global error handler
-    window.onerror = function (message, source, lineno, colno, error) {
-        console.error(`Global error: ${message} at ${source}:${lineno}:${colno}`, error);
+                const existingError = document.querySelector('.error-message-display');
+                if (existingError) {
+                    existingError.remove();
+                }
 
-        const existingError = document.querySelector('.error-message-display');
-        if (existingError) {
-            existingError.remove();
-        }
-
-        document.body.insertAdjacentHTML('beforeend', `
+                document.body.insertAdjacentHTML('beforeend', `
             <div class="error-message-display">
                 <p>Une erreur s'est produite. Veuillez réessayer ou contacter le support.</p>
             </div>
         `);
-    };
-});
-// Chart initialization functions
-function initializeCharts() {
-    // Events by Category (Bar Chart)
-    const categoryCounts = eventsData.reduce((acc, event) => {
-        acc[event.category] = (acc[event.category] || 0) + 1;
-        return acc;
-    }, {});
-    const categoryLabels = Object.keys(categoryCounts);
-    const categoryData = Object.values(categoryCounts);
+            };
+        });
+        // Chart initialization functions
+        function initializeCharts() {
+            const chartColors = {
+                // Couleurs pastel
+                pink: '#FFE1E9',
+                lavender: '#E1E1FF',
+                mint: '#D1FFE4',
+                peach: '#FFE4D6',
+                lemon: '#FFF3D6',
+                skyBlue: '#D6F3FF',
+                lilac: '#F2E6FF',
+                coral: '#FFD6D6',
+                // Couleurs pour les bordures
+                pinkBorder: '#FFB5C5',
+                lavenderBorder: '#B5B5FF',
+                mintBorder: '#98FFB3',
+                peachBorder: '#FFB59E',
+                lemonBorder: '#FFE08C',
+                skyBlueBorder: '#9EDFFF',
+                lilacBorder: '#E0B3FF',
+                coralBorder: '#FFB3B3'
+            };
 
-    eventsByCategoryChart = new Chart(document.getElementById('eventsByCategoryChart'), {
-        type: 'bar',
-        data: {
-            labels: categoryLabels,
-            datasets: [{
-                label: 'Nombre d\'événements',
-                data: categoryData,
-                backgroundColor: '#C83EFC',
-                borderColor: '#2c3e50',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: { display: false },
-                title: {
-                    display: true,
-                    text: 'Événements par catégorie'
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    title: { display: true, text: 'Nombre' }
+            // Events by Category (Bar Chart)
+            const categoryCounts = eventsData.reduce((acc, event) => {
+                acc[event.category] = (acc[event.category] || 0) + 1;
+                return acc;
+            }, {});
+            const categoryLabels = Object.keys(categoryCounts);
+            const categoryData = Object.values(categoryCounts);
+
+            eventsByCategoryChart = new Chart(document.getElementById('eventsByCategoryChart'), {
+                type: 'bar',
+                data: {
+                    labels: categoryLabels,
+                    datasets: [{
+                        label: 'Nombre d\'événements',
+                        data: categoryData,
+                        backgroundColor: [
+                            chartColors.pink,
+                            chartColors.lavender,
+                            chartColors.mint,
+                            chartColors.peach,
+                            chartColors.lemon,
+                            chartColors.skyBlue,
+                            chartColors.lilac,
+                            chartColors.coral
+                        ],
+                        borderColor: [
+                            chartColors.pinkBorder,
+                            chartColors.lavenderBorder,
+                            chartColors.mintBorder,
+                            chartColors.peachBorder,
+                            chartColors.lemonBorder,
+                            chartColors.skyBlueBorder,
+                            chartColors.lilacBorder,
+                            chartColors.coralBorder
+                        ],
+                        borderWidth: 2
+                    }]
                 },
-                x: {
-                    title: { display: true, text: 'Catégorie' }
-                }
-            }
-        }
-    });
-
-    // Seat Status (Pie Chart) - Initially empty
-    seatStatusChart = new Chart(document.getElementById('seatStatusChart'), {
-        type: 'pie',
-        data: {
-            labels: ['Libres', 'Réservées'],
-            datasets: [{
-                data: [0, 0],
-                backgroundColor: ['#2ecc71', '#e74c3c'],
-                borderColor: '#ffffff',
-                borderWidth: 2
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: { position: 'bottom' },
-                title: {
-                    display: true,
-                    text: 'Statut des places (Sélectionnez un événement)'
-                }
-            }
-        }
-    });
-
-    // Price Distribution (Line Chart)
-    const priceRanges = [0, 10, 20, 50, 100, Infinity];
-    const priceLabels = ['0-10', '10-20', '20-50', '50-100', '100+'];
-    const priceData = priceRanges.slice(0, -1).map((range, index) => {
-        return eventsData.filter(event => {
-            const price = parseFloat(event.price);
-            return price >= range && price < priceRanges[index + 1];
-        }).length;
-    });
-
-    priceDistributionChart = new Chart(document.getElementById('priceDistributionChart'), {
-        type: 'line',
-        data: {
-            labels: priceLabels,
-            datasets: [{
-                label: 'Nombre d\'événements',
-                data: priceData,
-                fill: false,
-                borderColor: '#3498db',
-                tension: 0.4,
-                pointBackgroundColor: '#3498db',
-                pointBorderColor: '#ffffff',
-                pointBorderWidth: 2
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: { display: false },
-                title: {
-                    display: true,
-                    text: 'Distribution des prix'
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    title: { display: true, text: 'Nombre' }
-                },
-                x: {
-                    title: { display: true, text: 'Plage de prix (€)' }
-                }
-            }
-        }
-    });
-}
-
-function updateSeatStatusChart(stats) {
-    const total = stats.total || 0;
-    const reserved = stats.reserved || 0;
-    const free = total - reserved;
-
-    seatStatusChart.data.datasets[0].data = [free, reserved];
-    seatStatusChart.options.plugins.title.text = `Statut des places${total > 0 ? ' (Événement sélectionné)' : ' (Sélectionnez un événement)'}`;
-    seatStatusChart.update();
-}
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const buttons = document.querySelectorAll('.btn-action');
-            buttons.forEach(button => {
-                button.addEventListener('click', async () => {
-                    const id = button.getAttribute('data-id');
-                    const action = button.getAttribute('data-action');
-                    if (action === 'refuse') {
-                        if (!confirm('Êtes-vous sûr?')) {
-                            return;
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        title: {
+                            display: true,
+                            text: 'Événements par catégorie',
+                            color: '#663399',
+                            font: {
+                                size: 16,
+                                weight: 'bold'
+                            }
                         }
-                    }
-                    const status = action === 'accept' ? 'accepted' : 'refused';
-
-                    try {
-                        const response = await fetch('../../controller/updatesponsor.php', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(102, 51, 153, 0.1)'
                             },
-                            body: new URLSearchParams({
-                                id: id,
-                                status: status
-                            })
-                        });
-
-                        if (!response.ok) {
-                            throw new Error(`HTTP error! Status: ${response.status}`);
-                        }
-
-                        const data = await response.json();
-
-                        if (data.success) {
-                            let message = 'Action réussie : ' + data.message;
-                            if (action === 'accept') {
-                                if (data.mailSent) {
-                                    message += '\nEmail envoyé avec succès.';
-                                } else {
-                                    message += '\nErreur lors de l\'envoi de l\'email : ' + (data.mailError || 'Unknown error');
+                            ticks: {
+                                color: '#663399',
+                                font: {
+                                    weight: '500'
                                 }
                             }
-                            alert(message);
-                            button.disabled = true;
-                            button.style.opacity = '0.6';
-                            button.style.cursor = 'not-allowed';
-                            const siblingBtn = button.parentElement.querySelector(`.btn-action[data-id="${id}"]`) === button ?
-                                button.parentElement.querySelector('.btn-action:not([data-id="' + id + '"])') :
-                                button.parentElement.querySelector('.btn-action:not([data-id="' + id + '"])');
-                            if (siblingBtn) {
-                                siblingBtn.disabled = true;
-                                siblingBtn.style.opacity = '0.6';
-                                siblingBtn.style.cursor = 'not-allowed';
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                color: '#663399',
+                                font: {
+                                    weight: '500'
+                                }
                             }
-                            location.reload();
-                        } else {
-                            alert('Erreur : ' + (data.message || 'Unknown error'));
                         }
-                    } catch (error) {
-                        console.error('Fetch Error:', error);
-                        alert('Erreur lors de la requête : ' + error.message);
                     }
-                });
+                }
             });
-        });
-        // Fonction pour ouvrir/fermer le menu
-        function toggleDropdown() {
-            const menu = document.getElementById('dropdownMenu');
-            if (menu.style.display === 'block') {
-                menu.style.display = 'none';
-            } else {
-                menu.style.display = 'block';
-            }
+
+            // Seat Status (Pie Chart)
+            seatStatusChart = new Chart(document.getElementById('seatStatusChart'), {
+                type: 'pie',
+                data: {
+                    labels: ['Libres', 'Réservées'],
+                    datasets: [{
+                        data: [0, 0],
+                        backgroundColor: [chartColors.mint, chartColors.lavender],
+                        borderColor: [chartColors.mintBorder, chartColors.lavenderBorder],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: '#663399',
+                                font: {
+                                    weight: '500'
+                                },
+                                padding: 20
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Statut des places',
+                            color: '#663399',
+                            font: {
+                                size: 16,
+                                weight: 'bold'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Price Distribution (Line Chart)
+            const priceRanges = [0, 10, 20, 50, 100, Infinity];
+            const priceLabels = ['0-10', '10-20', '20-50', '50-100', '100+'];
+            const priceData = priceRanges.slice(0, -1).map((range, index) => {
+                return eventsData.filter(event => {
+                    const price = parseFloat(event.price);
+                    return price >= range && price < priceRanges[index + 1];
+                }).length;
+            });
+
+            priceDistributionChart = new Chart(document.getElementById('priceDistributionChart'), {
+                type: 'line',
+                data: {
+                    labels: priceLabels,
+                    datasets: [{
+                        label: 'Nombre d\'événements',
+                        data: priceData,
+                        fill: true,
+                        backgroundColor: 'rgba(225, 225, 255, 0.5)',
+                        borderColor: chartColors.lavenderBorder,
+                        tension: 0.4,
+                        pointBackgroundColor: chartColors.pink,
+                        pointBorderColor: chartColors.pinkBorder,
+                        pointBorderWidth: 2,
+                        pointRadius: 5,
+                        pointHoverRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        title: {
+                            display: true,
+                            text: 'Distribution des prix',
+                            color: '#663399',
+                            font: {
+                                size: 16,
+                                weight: 'bold'
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(102, 51, 153, 0.1)'
+                            },
+                            ticks: {
+                                color: '#663399',
+                                font: {
+                                    weight: '500'
+                                }
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: 'rgba(102, 51, 153, 0.1)'
+                            },
+                            ticks: {
+                                color: '#663399',
+                                font: {
+                                    weight: '500'
+                                }
+                            }
+                        }
+                    }
+                }
+            });
         }
 
-        // Fermer le menu si on clique en dehors
-        document.addEventListener('click', function(event) {
-            const menu = document.getElementById('dropdownMenu');
-            const profile = document.querySelector('.user-profile');
-            if (!profile.contains(event.target)) {
-                menu.style.display = 'none';
-            }
+        function updateSeatStatusChart(stats) {
+            const total = stats.total || 0;
+            const reserved = stats.reserved || 0;
+            const free = total - reserved;
+
+            seatStatusChart.data.datasets[0].data = [free, reserved];
+            seatStatusChart.options.plugins.title.text = `Statut des places${total > 0 ? ' (Événement sélectionné)' : ' (Sélectionnez un événement)'}`;
+            seatStatusChart.update();
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    <!-- Modal pour la description -->
+    <div class="modal" id="descriptionModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Description complète</h3>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <script>
+        // Gestion de la modale de description
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('descriptionModal');
+            const modalContent = document.getElementById('modalContent');
+            const closeBtn = modal.querySelector('.close');
+
+            // Ajouter des écouteurs de clic sur toutes les cellules de description
+            document.querySelectorAll('table td:nth-child(4)').forEach(cell => {
+                cell.addEventListener('click', function() {
+                    modalContent.textContent = this.textContent;
+                    modal.classList.add('active');
+                });
+            });
+
+            // Fermer la modale
+            closeBtn.addEventListener('click', function() {
+                modal.classList.remove('active');
+            });
+
+            // Fermer la modale en cliquant en dehors
+            window.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
         });
+    </script>
 
+    <script>
+        /*document.addEventListener('DOMContentLoaded', function() {
+    // Gestion de la navigation*/
+        //const navLinks = document.querySelectorAll('.nav-link');
+        /*const sections = {
+        utilisateurs: document.getElementById('section-utilisateurs'),
+        activites: document.getElementById('section-activites'),
+        evenements: document.getElementById('section-evenements'),
+        produits: document.getElementById('section-produits'),
+        transports: document.getElementById('section-transports'),
+        sponsors: document.getElementById('section-sponsors')
+    };
 
-</script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    // Fonction pour afficher une section
+    function showSection(sectionName) {
+        // Cacher toutes les sections
+        Object.values(sections).forEach(section => {
+            if (section) section.style.display = 'none';
+        });
+        
+        // Afficher la section sélectionnée
+        const selectedSection = sections[sectionName];
+        if (selectedSection) selectedSection.style.display = 'block';
+    }
+
+    // Gestion des clics sur les liens
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Mise à jour des classes active
+            navLinks.forEach(l => l.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Afficher la section correspondante
+            const sectionName = this.getAttribute('data-section');
+            showSection(sectionName);
+        });
+    });
+
+    // Afficher la section événements par défaut
+    showSection('evenements');
+    document.querySelector('[data-section="evenements"]').classList.add('active');
+
+    // Gestion du menu utilisateur
+    const userAvatar = document.querySelector('.user-avatar');
+    const userInfo = document.querySelector('.user-info');
+    
+    userAvatar.addEventListener('click', function() {
+        userInfo.classList.toggle('active');
+    });
+
+    // Fermer le menu utilisateur quand on clique ailleurs
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.user-profile')) {
+            userInfo.classList.remove('active');
+        }
+    });
+
+    // Gestion du bouton de déconnexion
+    const logoutBtn = document.querySelector('.logout-btn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', function() {
+            window.location.href = 'logout.php';
+        });
+    }
+});*/
+
+        function showSeatSectionForEvent(eventId) {
+            // Activer la section chaises dans le sidebar
+            const menuItems = document.querySelectorAll('.menu-list .menu-item');
+            menuItems.forEach(item => item.classList.remove('active'));
+            document.querySelector('.menu-item.section-chaises').classList.add('active');
+
+            // Afficher la section chaises et masquer les autres
+            document.getElementById('section-evenements').style.display = 'none';
+            document.getElementById('section-statistiques').style.display = 'none';
+            document.getElementById('section-chaises').style.display = 'block';
+
+            // Sélectionner l'événement dans le filtre
+            const eventFilter = document.getElementById('eventFilter');
+            if (eventFilter) {
+                eventFilter.value = eventId;
+                // Charger les chaises pour cet événement
+                loadSeatsForEvent(eventId);
+            } else {
+                console.error('Event filter element not found');
+            }
+
+            // Faire défiler vers la section chaises
+            document.getElementById('section-chaises').scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+    </script>
 </body>
+
 </html>

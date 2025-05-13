@@ -396,3 +396,25 @@ input[type="email"].invalid {
   transform: scale(1.1); /* agrandit légèrement */
   transform-origin: center;
 }
+.btn-faceid {
+    background-color: #6c63ff;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-faceid:hover {
+    background-color: #5a52d6;
+    transform: translateY(-2px);
+}
+
+.btn-faceid i {
+    font-size: 18px;
+}

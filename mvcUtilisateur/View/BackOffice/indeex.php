@@ -5,7 +5,7 @@
       Swal.fire({
         icon: 'success',
         title: 'Utilisateur supprimé ✅',
-        html: 'Le compte avec l'ID <?= htmlspecialchars($_GET["id"]) ?></strong> a été supprimé avec succès.',
+        html: 'Le compte avec l\'ID <?= htmlspecialchars($_GET["id"]) ?></strong> a été supprimé avec succès.',
         confirmButtonColor: '#6c63ff'
       });
       window.history.replaceState({}, document.title, window.location.pathname); // Nettoie l'URL
@@ -319,18 +319,44 @@ function stringToColor($str)
         💬 Aller au Chat Admin
         <span id="badgeCount" class="badge" style="display:none;"></span>
       </a>
-<style>#chatAdminBtn {
-    background-color: #CCB7E5;
-    padding: 10px 20px; /* Adjust the padding as needed */
-    margin: 15px; /* Adjust the margin as needed */
-    border-radius: 5px; /* Optional: add rounded corners */
-    text-decoration: none; /* Removes underline from the link */
-    color: white; /* Text color */
-    font-weight: bold; /* Optional: make text bold */
-    display: block; /* Ensures the button is on a new line */
-    width: fit-content; /* Makes sure the width adjusts to the content */
-    transition: background-color 0.3s ease; /* Smooth hover transition */
-}</style>
+
+      <style>.chat-admin-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #CCB7E5; /* Set background color */
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 5px;
+  position: relative; /* Ensure badge positioning relative to button */
+  transition: background-color 0.3s;
+}
+
+.chat-admin-button:hover {
+  background-color: #BBA4D1; /* Darker shade when hovered */
+}
+
+.star-icon {
+  margin-right: 5px; /* Reduced space between the star and the text */
+  font-size: 20px; /* Adjust the star size to match the text */
+}
+
+.badge {
+  background-color: #EF4444;
+  color: white;
+  font-size: 12px;
+  padding: 3px 6px;
+  border-radius: 50%;
+  margin-left: 10px;
+  position: absolute;
+  top: 0;
+  right: 0; /* Badge position at the top-right of the button */
+  transform: translate(50%, -50%); /* Correct position adjustment */
+}
+</style>
+
+
       <button id="youtubeSectionBtn"
         style="padding: 12px 24px;
          background-color: #FF0000;
@@ -402,9 +428,6 @@ function stringToColor($str)
               const badge = document.getElementById('badgeCount');
               const button = document.getElementById('chatAdminBtn');
 
-              // Toujours garder le bouton violet
-              button.style.backgroundColor = '#8e44ad';
-
               if (data.unread > 0) {
                 badge.innerText = data.unread;
                 badge.style.display = 'inline-block';
@@ -435,7 +458,7 @@ function stringToColor($str)
           <nav class="navbar-backoffice">
             <ul>
               <li><a href="/Projet%20Web/mvcUtilisateur/View/BackOffice/indeex.php" class="nav-link active">Utilisateurs</a></li>
-              <li><a href="/Projet%20Web/mvcActivite/View/BackOffice/dashboard.php" class="nav-link">Activités</a></li>
+              <li><a href="/Projet Web/mvcact/view/back office/dashboard.php" class="nav-link">Activités</a></li>
               <li><a href="/Projet%20Web/mvcEvent/View/BackOffice/dashboard.php" class="nav-link">Événements</a></li>
               <li><a href="/Projet%20Web/mvcProduit/view/back%20office/indeex.php" class="nav-link">Produits</a></li>
               <li><a href="/Projet%20Web/mvcCovoiturage/view/backoffice/dashboard.php" class="nav-link">Transports</a></li>
@@ -512,8 +535,9 @@ function stringToColor($str)
             color: #F687B3;
           }
 
+
           .nav-link[href*="Activite"] {
-            color: #B794F4;
+            color: #9F7AEA;
           }
 
           .nav-link[href*="Event"] {

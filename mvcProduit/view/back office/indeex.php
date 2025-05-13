@@ -2666,11 +2666,11 @@ $total_pending = $pending_purchases + $pending_rentals;
           <nav class="navbar-backoffice">
             <ul style="display:flex;gap:40px;list-style:none;margin:0;padding:0;">
               <li><a href="/Projet Web/mvcUtilisateur/View/BackOffice/indeex.php" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Utilisateurs</a></li>
-              <li><a href="../back office/dashboard.php" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Activités</a></li>
-              <li><a href="../front office/events.html" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Événements</a></li>
-              <li><a href="?section=overview" style="color:#e859c0;font-weight:600;font-size:1.3em;text-decoration:none;">Produits</a></li>
-              <li><a href="../front office/transports.html" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Transports</a></li>
-              <li><a href="../front office/sponsors.html" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Sponsors</a></li>
+              <li><a href="/Projet Web/mvcact/view/back office/dashboard.php" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Activités</a></li>
+              <li><a href="/Projet Web/mvcEvent/View/BackOffice/dashboard.php" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Événements</a></li>
+              <li><a href="/Projet Web/mvcProduit/view/back office/indeex.php" style="color:#e859c0;font-weight:600;font-size:1.3em;text-decoration:none;">Produits</a></li>
+              <li><a href="/Projet Web/mvcCovoiturage/view/backoffice/dashboard.php" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Transports</a></li>
+              <li><a href="/Projet Web/mvcSponsor/crud/view/back/back.php" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Sponsors</a></li>
             </ul>
           </nav>
         </div>
