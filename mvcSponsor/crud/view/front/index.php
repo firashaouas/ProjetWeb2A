@@ -36,6 +36,36 @@ if (isset($_SESSION['sponsor_success'])) {
     </script>';
     unset($_SESSION['sponsor_success']);
 }
+
+
+// Fonction pour générer une couleur basée sur le nom de l'utilisateur
+function stringToColor($str)
+{
+  // Liste de couleurs inspirées du thème Funbooker (rose, violet, orange, etc.)
+  $Colors = [
+    '#FF6B6B', // Rose vif
+    '#FF8E53', // Orange clair
+    '#6B5B95', // Violet moyen
+    '#88B04B', // Vert doux
+    '#F7CAC9', // Rose pâle
+    '#92A8D1', // Bleu pastel
+    '#955251', // Rouge bordeaux
+    '#B565A7', // Violet rose
+    '#DD4124', // Rouge-orange vif
+    '#D65076', // Rose foncé
+  ];
+
+  // Générer un index déterministe basé sur la chaîne
+  $hash = 0;
+  for ($i = 0; $i < strlen($str); $i++) {
+    $hash = ord($str[$i]) + (($hash << 5) - $hash);
+  }
+
+  // Sélectionner une couleur du tableau
+  $index = abs($hash) % count($Colors);
+  return $Colors[$index];
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -267,9 +297,133 @@ if (isset($_SESSION['sponsor_success'])) {
                 <li class="nav-item"><a href="/Projet Web/mvcCovoiturage/view/index.php" class="nav-link">Transports</a></li>
                 <li class="nav-item"><a href="#" class="nav-link active">Sponsors</a></li>
             </ul>
-            <div class="auth-section">
-                <a href="/Projet%20Web/mvcUtilisateur/View/BackOffice/login/logout.php" class="register-btn">Déconnexion</a>
-            </div>
+
+<!-- Vérification de l'état de connexion -->
+<?php if (!isset($_SESSION['user'])): ?>
+  <!-- 🔒 Utilisateur non connecté : bouton vers login -->
+  <a href="/Projet Web/mvcUtilisateur/View/BackOffice/login/login.php" class="register-btn" title="Connexion/Inscription">
+    <i class="fas fa-user"></i>
+  </a>
+<?php else: ?>
+  <!-- 👤 Utilisateur connecté -->
+  <div class="user-profile" style="position: relative; display: inline-block;">
+    <?php
+    $user = $_SESSION['user'];
+    $fullName = $user['full_name'] ?? 'U';
+    $initial = strtoupper(substr($fullName, 0, 1));
+    $profilePicture = $user['profile_picture'] ?? '';
+    $verified = isset($user['is_verified']) && $user['is_verified'] == 1;
+    ?>
+
+    <?php if (!empty($profilePicture) && file_exists($profilePicture)): ?>
+      <img src="<?= htmlspecialchars($profilePicture) ?>" alt="Photo de profil" class="profile-photo" onclick="toggleDropdown()">
+    <?php else: ?>
+      <div class="profile-circle"
+        style="background-color: <?= stringToColor($fullName) ?>;"
+        onclick="toggleDropdown()">
+        <?= $initial ?>
+      </div>
+    <?php endif; ?>
+
+    <!-- ✅ Badge vérification -->
+    <div class="verification-status" style="position: absolute; bottom: -5px; right: -5px;">
+      <?php if ($verified): ?>
+        <img src="/Projet Web/mvcUtilisateur/assets/icons/verified.png"
+          alt="Compte vérifié"
+          title="Compte Vérifié"
+          style="width: 20px; height: 20px;">
+      <?php else: ?>
+        <img src="/Projet Web/mvcUtilisateur/assets/icons/not_verified.png"
+          alt="Compte non vérifié"
+          title="Compte Non Vérifié"
+          style="width: 20px; height: 20px; cursor: pointer;"
+          onclick="showVerificationPopup()">
+      <?php endif; ?>
+    </div>
+
+    <!-- Menu déroulant -->
+    <div class="dropdown-menu" id="dropdownMenu" style="display: none; position: absolute; top: 120%; right: 0; background-color: white; border-radius: 5px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); z-index: 100;">
+      <a href="/Projet Web/mvcUtilisateur/View/FrontOffice/profile.php" style="display: block; padding: 10px;">👤 Mon Profil</a>
+      <a href="/Projet Web/mvcUtilisateur/View/BackOffice/login/logout.php" style="display: block; padding: 10px;">🚪 Déconnexion</a>
+    </div>
+  </div>
+<?php endif; ?>
+
+<script>
+  function toggleDropdown() {
+    const menu = document.getElementById("dropdownMenu");
+    if (menu) {
+      menu.style.display = menu.style.display === "block" ? "none" : "block";
+    }
+  }
+
+  function showVerificationPopup() {
+    Swal.fire({
+      title: 'Vérification requise',
+      text: 'Veuillez vérifier votre compte via l’email que vous avez reçu.',
+      icon: 'info',
+      confirmButtonText: 'OK',
+      confirmButtonColor: '#6c63ff'
+    });
+  }
+
+  // Fermer dropdown quand on clique en dehors
+  document.addEventListener("click", function (event) {
+    const dropdown = document.getElementById("dropdownMenu");
+    const profile = document.querySelector(".user-profile");
+    if (dropdown && profile && !profile.contains(event.target)) {
+      dropdown.style.display = "none";
+    }
+  });
+</script>
+<style>
+    .user-profile {
+      position: relative;
+      display: inline-block;
+    }
+
+    .profile-photo {
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      object-fit: cover;
+      cursor: pointer;
+      border: 2px solid purple;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile-circle {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 45px;
+      right: 0;
+      background-color: white;
+      border: 1px solid #ddd;
+      padding: 10px;
+      display: none;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      z-index: 100;
+    }
+
+    .user-profile:hover .dropdown-menu {
+      display: block;
+    }
+
+  </style>
+
+
         </nav>
 
         <!-- Vidéo en plein écran -->
@@ -510,62 +664,298 @@ if (isset($_SESSION['sponsor_success'])) {
             </div>
         </div>
 
-        <!-- Footer -->
-        <footer class="main-footer">
-            <div class="footer-container">
-                <div class="newsletter-section">
-                    <h2>Inscrivez-vous à notre newsletter</h2>
-                    <form class="newsletter-form">
-                        <input type="email" placeholder="Votre email" required>
-                        <button class="newsletter-btn" type="submit">S'inscrire</button>
-                    </form>
-                </div>
-                <div class="footer-grid">
-                    <div class="footer-links">
-                        <h3>Liens rapides</h3>
-                        <ul>
-                            <li><a href="#">Accueil</a></li>
-                            <li><a href="#">Activités</a></li>
-                            <li><a href="#">Événements</a></li>
-                            <li><a href="#">Produits</a></li>
-                            <li><a href="#">Transports</a></li>
-                            <li><a href="#">Sponsors</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-links">
-                        <h3>Support</h3>
-                        <ul>
-                            <li><a href="#">FAQ</a></li>
-                            <li><a href="#">Contactez-nous</a></li>
-                            <li><a href="#">Aide</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-links">
-                        <h3>Suivez-nous</h3>
-                        <div class="social-links">
-                            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                    <div class="footer-links">
-                        <h3>Paiements acceptés</h3>
-                        <div class="payment-methods">
-                            <img src="images/visa.png" alt="Visa">
-                            <img src="images/mastercard.png" alt="Mastercard">
-                            <img src="images/paypal.png" alt="Paypal">
-                        </div>
-                    </div>
-                </div>
-                <div class="footer-bottom">
-                    <div class="legal-links">
-                        <a href="#">Conditions d'utilisation</a>
-                        <a href="#">Politique de confidentialité</a>
-                    </div>
-                    <p>© 2025 Click'N'Go. Tous droits réservés.</p>
-                </div>
+        <footer class="footer">
+    <div class="newsletter">
+        <div class="newsletter-left">
+            <h2>Abonnez-vous à notre</h2>
+            <h1>Click'N'Go</h1>
+        </div>
+        <div class="newsletter-right">
+            <div class="newsletter-input">
+                <input type="text" placeholder="Entrez votre adresse e-mail" />
+                <button>Submit</button>
             </div>
-        </footer>
+        </div>
+    </div>
+
+    <div class="footer-content">
+        <div class="footer-main">
+            <div class="footer-brand">
+                <img src="images/logo.png" alt="click'N'go Logo" class="footer-logo">
+            </div>
+            <p>Rejoignez nous aussi sur :</p>
+            <div class="social-icons">
+                <a href="#" style="--color: #0072b1" class="icon"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="#" style="--color: #E1306C" class="icon"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" style="--color: #FF0050" class="icon"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="#" style="--color: #4267B2" class="icon"><i class="fa-brands fa-facebook"></i></a>
+            </div>
+        </div>
+
+        <div class="links">
+            <p>Moyens de paiement</p>
+            <div class="payment-icons">
+                <img src="images/visa.webp" alt="Visa" style="height: 50px;">
+                <img src="images/paypal.webp" alt="PayPal" style="margin-bottom: 11px;">
+                <img src="images/mastercard.webp" alt="MasterCard" style="height: 50px;">
+            </div>
+        </div>
+
+        <div class="links">
+            <p>À propos</p>
+            <a href="" class="link">À propos de click'N'go</a>
+            <a href="" class="link">Presse</a>
+            <a href="" class="link">Nous rejoindre</a>
+        </div>
+
+        <div class="links">
+            <p>Liens utiles</p>
+            <a href="" class="link">Devenir partenaire</a>
+            <a href="" class="link">FAQ - Besoin d'aide ?</a>
+            <a href="" class="link">Tous les avis click'N'go</a>
+        </div>
+    </div>
+
+    <div class="footer-section">
+        <hr>
+        <div class="footer-separator"></div>
+        <pre>© click'N'go 2025 - tous droits réservés                                                                  <a href="#">Conditions générales</a>                                                   <a href="#">Mentions légales</a></pre>
+    </div>
+</footer>
+
+<style>
+    /* ===== FOOTER STYLES ===== */
+
+.footer-wrapper {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    background-color: #f5f5f5;
+    padding: 3rem 0;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    color: #333;
+}
+
+
+
+
+.footer-logo {
+    width: 150px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.newsletter {
+    display: flex;
+    width: 100%;
+    position: relative;
+    top: 60px;
+    max-width: 1000px;
+    margin: auto;
+    background-color: #303035;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px 15px;
+    border-radius: 10px;
+}
+
+.newsletter-left h2 {
+    color: #ffffff;
+    text-transform: uppercase;
+    font-size: 1rem;
+    opacity: 0.5;
+    letter-spacing: 1px;
+}
+
+.newsletter-left h1 {
+    color: #ffffff;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+}
+
+.newsletter-right {
+    width: 500px;
+}
+
+.newsletter-input {
+    background-color: #ffffff;
+    padding: 5px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.newsletter-input input {
+    border: none;
+    outline: none;
+    background: transparent;
+    width: 80%;
+    padding-left: 10px;
+    font-weight: 600;
+}
+
+.newsletter-input button {
+    background-color: #201e1e;
+    padding: 9px 15px;
+    border-radius: 15px;
+    color: #ffffff;
+    cursor: pointer;
+    border: none;
+}
+
+.newsletter-input button:hover {
+    background-color: #3a3939;
+}
+
+.footer-content {
+    background-color:  #f4f4f4;
+    padding: 100px 40px 40px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.footer-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.footer-main h2 {
+    color: #ffffff;
+    font-size: 1.6rem;
+}
+
+.footer-main p {
+    color: 1c3f50;
+    font-size: 0.8rem;
+    line-height: 1.3rem;
+}
+
+.social-links {
+    margin: 15px 0px;
+    display: flex;
+    gap: 8px;
+}
+
+.social-links a {
+    padding: 5px;
+    background-color: black;
+    border-radius: 5px;
+    transition: 0.5s;
+    text-decoration: none;
+}
+
+.social-links a:hover {
+    opacity: 0.7;
+}
+
+.social-links a i {
+    margin: 2px;
+    font-size: 1.1rem;
+    color: #201e1e;
+}
+
+.links {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    margin: 40px 20px;
+}
+
+.links p {
+    color: #1c3f50;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.links a {
+    color: #1c3f50;
+    text-decoration: none;
+    margin: 5px 0;
+    opacity: 0.7;
+    font-size: 0.9rem;
+}
+
+.links a:hover {
+    opacity: 1;
+}
+
+.social-icons {
+    display: flex;
+    flex-direction: row; /* ✅ forcer l'affichage en ligne */
+    flex-wrap: nowrap;   /* ✅ pas de retour à la ligne */
+    justify-content: center; /* ✅ centrer les icônes horizontalement */
+    align-items: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+
+@import url(https://use.fontawesome.com/releases/v5.0.8/css/all.css);
+
+.icon {
+    margin: 0 10px;
+    margin-bottom: 30px;
+    border-radius: 50%;
+    box-sizing: border-box;
+    background: transparent;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none !important;
+    transition: 0.5s;
+    color: var(--color);
+    font-size: 2.5em;
+    -webkit-box-reflect: below 5px linear-gradient(to bottom, rgba(0, 0, 0, 0),rgba(0, 0, 0, 0.2));
+}
+
+.icon i {
+    color: var(--color);
+}
+
+.icon:hover {
+    background: var(--color);
+    box-shadow: 0 0 5px var(--color),
+                0 0 25px var(--color), 
+                0 0 50px var(--color),
+                0 0 200px var(--color);
+}
+
+/* ✅ changer la couleur de l’icône en noir au survol */
+.icon:hover i {
+    color: #050801;
+}
+.payment-icons img {
+    height: 20px;
+    margin-right: 20px;
+}
+/* Add this to your CSS file */
+.animated-text {
+    animation: fadeInUp 1.5s ease-in-out;
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+</style>
 
         <script>
             // Pass PHP variables to JavaScript

@@ -178,6 +178,8 @@ $offers = $controller->listOffers();
 $stmt2 = $conn->query("SELECT id_offre, GROUP_CONCAT(nom_entreprise SEPARATOR ', ') AS sponsors FROM sponsor2 WHERE status = 'accepted' GROUP BY id_offre");
 $acceptedSponsors = $stmt2->fetchAll(PDO::FETCH_KEY_PAIR);
 ?>
+
+
 <?php
 // Configuration de session sécurisée
 if (session_status() === PHP_SESSION_NONE) {
@@ -217,6 +219,7 @@ function stringToColor($str)
     return $Colors[abs($hash) % count($Colors)];
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -237,7 +240,7 @@ function stringToColor($str)
         }
 
         body {
-            background: #f6f4f0;
+            background: #F4EFFF;
             display: flex;
             color: #333;
         }
@@ -274,9 +277,8 @@ function stringToColor($str)
             margin-left: 240px;
             padding: 30px 40px;
             width: calc(100% - 240px);
-            background: #fff;
             min-height: 100vh;
-            margin-top: 90px;
+            margin-top: 150px;
         }
 
         .tab-content {
@@ -551,18 +553,228 @@ function stringToColor($str)
 </head>
 
 <body>
-    <div class="navbar-backoffice-wrapper" style="position: fixed; top: 20px; left: 280px; width: calc(100% - 330px); z-index: 1000; background: #fff; padding: 10px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-radius: 8px;">
-      <nav class="navbar-backoffice" style="max-width: 1200px; margin: 0 20px;">
-        <ul style="display:flex;gap:40px;list-style:none;margin:0;padding:0; justify-content: center;">
-          <li><a href="/Projet Web/mvcUtilisateur/View/BackOffice/indeex.php" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Utilisateurs</a></li>
-          <li><a href="/Projet Web/mvcact/view/back office/dashboard.php" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Activités</a></li>
-          <li><a href="/Projet Web/mvcEvent/View/BackOffice/dashboard.php" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Événements</a></li>
-          <li><a href="/Projet Web/mvcProduit/view/back office/indeex.php" style="color:#9768d1;font-weight:600;font-size:1.3em;text-decoration:none;">Produits</a></li>
-          <li><a href="/Projet Web/mvcCovoiturage/view/backoffice/dashboard.php" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Transports</a></li>
-          <li><a href="/Projet Web/mvcSponsor/crud/view/back/back.php" style="color:#e859c0;font-weight:600;font-size:1.3em;text-decoration:none;">Sponsors</a></li>
-        </ul>
-      </nav>
+
+
+
+<nav>
+  <div class="navbar-backoffice-wrapper">
+    <div class="profile-container1">
+    <!-- Liens de navigation -->
+    <a href="/Projet%20Web/mvcUtilisateur/View/BackOffice/indeex.php" class="nav-link">Utilisateurs</a>
+    <a href="/Projet Web/mvcact/view/back office/dashboard.php" class="nav-link" data-section="activites">Activités</a>
+    <a href="/Projet Web/mvcEvent/View/BackOffice/dashboard.php" class="nav-link" data-section="evenements">Événements</a>
+    <a href="/Projet Web/mvcProduit/view/back office/indeex.php" class="nav-link" data-section="produits">Produits</a>
+    <a href="/Projet Web/mvcCovoiturage/view/backoffice/dashboard.php" class="nav-link" data-section="transports">Transports</a>
+    <a href="/Projet Web/mvcSponsor/crud/view/back/back.php" class="nav-link active" data-section="sponsors">Sponsors</a>
+    <div class="profile-container">
+    <!-- Profil à droite -->
+
+      <div class="user-profile">
+        <?php if (isset($_SESSION['user'])): ?>
+          <?php
+          $photoPath = $_SESSION['user']['profile_picture'] ?? '';
+          $fullName = $_SESSION['user']['full_name'] ?? 'Utilisateur';
+          $photoRelativePath = '../../../../mvcUtilisateur/View/FrontOffice/' . $photoPath;
+          $absolutePath = realpath(__DIR__ . '/' . $photoRelativePath);
+          $showPhoto = !empty($photoPath) && $absolutePath && file_exists($absolutePath);
+          ?>
+          <?php if ($showPhoto): ?>
+            <img src="/Projet Web/mvcUtilisateur/View/FrontOffice/<?= htmlspecialchars($photoPath) ?>"
+              alt="Photo de profil"
+              class="profile-photo"
+              onclick="toggleDropdown()">
+          <?php else: ?>
+            <div class="profile-circle"
+              style="background-color: <?= function_exists('stringToColor') ? stringToColor($fullName) : '#999' ?>;"
+              onclick="toggleDropdown()">
+              <?= strtoupper(htmlspecialchars(substr($fullName, 0, 1))) ?>
+            </div>
+          <?php endif; ?>
+
+          <div class="dropdown-menu" id="dropdownMenu">
+            <a href="/Projet Web/mvcUtilisateur/View/FrontOffice/profile.php">👤 Mon Profil</a>
+            <a href="/Projet Web/mvcUtilisateur/View/BackOffice/login/logout.php">🚪 Déconnexion</a>
+          </div>
+        <?php endif; ?>
+      </div>
     </div>
+  </div>
+</nav>
+
+        <script>
+            // Fonction pour ouvrir/fermer le menu
+            function toggleDropdown() {
+                const menu = document.getElementById('dropdownMenu');
+                if (menu.style.display === 'block') {
+                    menu.style.display = 'none';
+                } else {
+                    menu.style.display = 'block';
+                }
+            }
+
+            // ✅ Fermer le menu si on clique en dehors
+            document.addEventListener('click', function(event) {
+                const menu = document.getElementById('dropdownMenu');
+                const profile = document.querySelector('.user-profile');
+                if (!profile.contains(event.target)) {
+                    menu.style.display = 'none';
+                }
+            });
+        </script>
+
+
+
+            <style>
+
+                .user-profile {
+                  position: relative;
+                  display: inline-block;
+                }
+                
+                .user-profile:hover .dropdown-menu {
+                  display: block;
+                }
+        .navbar-backoffice-wrapper {
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.98));
+          padding: 5px 30px;
+          border-radius: 40px;
+          box-shadow: 0 8px 32px rgba(151, 104, 209, 0.1);
+          position: fixed;
+          top: 40px;
+          left: 58%;
+          transform: translateX(-50%);
+          z-index: 1000;
+          width: fit-content;
+          min-width: 800px;
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(151, 104, 209, 0.1);
+        }
+
+        .navbar-backoffice ul {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 30px;
+          /* Réduit légèrement l'espacement entre les éléments */
+          margin: 0;
+          padding: 0;
+          list-style: none;
+        }
+
+        .nav-link {
+          text-decoration: none;
+          font-weight: 500;
+          font-size: 15px;
+          transition: all 0.3s ease;
+          padding: 10px 20px;
+          border-radius: 20px;
+          white-space: nowrap;
+          position: relative;
+        }
+
+        /* Couleurs spécifiques pour chaque lien */
+        .nav-link[href*="Utilisateur"] {
+          color: #9F7AEA;
+        }
+
+
+        .nav-link[href*="act"] {
+          color: #9F7AEA;
+        }
+
+        .nav-link[href*="Event"] {
+          color: #9F7AEA;
+        }
+
+        .nav-link[href*="Produit"] {
+          color: #9F7AEA;
+        }
+
+        .nav-link[href*="Covoiturage"] {
+          color: #9F7AEA;
+        }
+
+        .nav-link[href*="Sponsor"] {
+          color: #F687B3;
+        }
+
+        .nav-link:hover {
+          background: rgba(246, 135, 179, 0.1);
+          transform: translateY(-1px);
+        }
+
+        .nav-link.active {
+          background: rgba(246, 135, 179, 0.15);
+          color: #F687B3;
+        }
+
+        .nav-link.active::after {
+          content: '';
+          position: absolute;
+          bottom: -5px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 20px;
+          height: 3px;
+          background: #F687B3;
+          border-radius: 10px;
+        }
+
+                .profile-container1 {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+          margin-left: 25px;
+          padding-left: 25px;
+        }
+
+        .profile-container {
+          display: flex;
+          align-items: center;
+          gap: 30px;
+          margin-left: 25px;
+          padding-left: 25px;
+          border-left: 1px solid rgba(151, 104, 209, 0.2);
+          margin-right: 20px;
+        }
+
+        .profile-photo,
+        .profile-circle {
+          width: 35px;
+          height: 35px;
+          border-radius: 50%;
+          cursor: pointer;
+          border: 2px solid white;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .dropdown-menu {
+          position: absolute;
+          top: 50px;
+          right: 0;
+          background: white;
+          border-radius: 15px;
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+          padding: 8px 0;
+          min-width: 180px;
+          border: 1px solid rgba(151, 104, 209, 0.1);
+        }
+
+        .dropdown-menu a {
+          display: block;
+          padding: 10px 20px;
+          color: #666;
+          text-decoration: none;
+          font-size: 14px;
+          transition: all 0.3s ease;
+        }
+
+        .dropdown-menu a:hover {
+          background: rgba(247, 243, 255, 0.95);
+          color: #9768D1;
+        }
+      </style>
+
 
     <div class="sidebar">
         <div>
@@ -576,29 +788,7 @@ function stringToColor($str)
             <div class="menu-item" data-tab="statistics">📊 Statistiques</div>
         </div>
         <!-- User Profile Section -->
-        <div class="user-profile">
-            <?php if (isset($_SESSION['user'])): ?>
-                <?php
-                $photoPath = $_SESSION['user']['profile_picture'] ?? '';
-                $fullName = $_SESSION['user']['full_name'] ?? 'Utilisateur';
-                // Adjust path for back.php's directory
-                $photoRelativePath = '../../../../mvcUtilisateur/View/FrontOffice/' . $photoPath;
-                $absolutePath = realpath(__DIR__ . '/' . $photoRelativePath);
-                $showPhoto = !empty($photoPath) && $absolutePath && file_exists($absolutePath);
-                ?>
-                <?php if ($showPhoto): ?>
-                    <img src="/Projet%20Web/mvcUtilisateur/View/FrontOffice/<?= htmlspecialchars($photoPath) ?>" alt="Photo de profil" class="profile-photo" onclick="toggleDropdown()">
-                <?php else: ?>
-                    <div class="profile-circle" style="background-color: <?= stringToColor($fullName) ?>;" onclick="toggleDropdown()">
-                        <?= strtoupper(substr($fullName, 0, 1)) ?>
-                    </div>
-                <?php endif; ?>
-                <div class="dropdown-menu" id="dropdownMenu">
-                    <a href="/Projet%20Web/mvcUtilisateur/View/FrontOffice/profile.php">👤 Mon Profil</a>
-                    <a href="/Projet%20Web/mvcUtilisateur/View/BackOffice/login/logout.php">🚪 Déconnexion</a>
-                </div>
-            <?php endif; ?>
-        </div>
+
     </div>
     <main class="dashboard">
         <div id="tab-sponsors" class="tab-content active" tabindex="0" style="display:block;">

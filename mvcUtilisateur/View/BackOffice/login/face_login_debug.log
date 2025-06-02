@@ -1,0 +1,130 @@
+[2025-05-14 03:25:27] === Début du test de reconnaissance faciale ===
+[2025-05-14 03:25:27] Initialisation du UserController
+[2025-05-14 03:25:27] Appel de faceLogin()
+[2025-05-14 03:25:27] ERREUR: Échec de reconnaissance faciale
+[2025-05-14 03:25:27] === Fin du test ===
+[2025-05-14 03:25:52] === Début du test de reconnaissance faciale ===
+[2025-05-14 03:25:52] Initialisation du UserController
+[2025-05-14 03:25:52] Appel de faceLogin()
+[2025-05-14 03:25:52] ERREUR: Échec de reconnaissance faciale
+[2025-05-14 03:25:52] === Fin du test ===
+[2025-05-14 03:32:20] === Début du test de reconnaissance faciale ===
+[2025-05-14 03:32:20] Initialisation du UserController
+[2025-05-14 03:32:20] Appel de faceLogin()
+[2025-05-14 03:32:21] ERREUR: Utilisateur non trouvé
+[2025-05-14 03:32:21] === Fin du test ===
+[2025-05-14 03:35:00] === Début du test de reconnaissance faciale ===
+[2025-05-14 03:35:00] Initialisation du UserController
+[2025-05-14 03:35:00] Appel de faceLogin()
+[2025-05-14 03:35:00] ERREUR: Utilisateur non trouvé
+[2025-05-14 03:35:00] === Fin du test ===
+[2025-05-14 03:36:34] === Début du test de reconnaissance faciale ===
+[2025-05-14 03:36:34] Initialisation du UserController
+[2025-05-14 03:36:34] Appel de faceLogin()
+[2025-05-14 03:36:34] ERREUR: Utilisateur non trouvé
+[2025-05-14 03:36:34] === Fin du test ===
+[2025-05-14 03:36:35] === Début du test de reconnaissance faciale ===
+[2025-05-14 03:36:35] Initialisation du UserController
+[2025-05-14 03:36:35] Appel de faceLogin()
+[2025-05-14 03:36:35] ERREUR: Utilisateur non trouvé
+[2025-05-14 03:36:35] === Fin du test ===
+[2025-05-14 03:36:35] === Début du test de reconnaissance faciale ===
+[2025-05-14 03:36:35] Initialisation du UserController
+[2025-05-14 03:36:35] Appel de faceLogin()
+[2025-05-14 03:36:35] ERREUR: Utilisateur non trouvé
+[2025-05-14 03:36:35] === Fin du test ===
+[2025-05-14 03:36:36] === Début du test de reconnaissance faciale ===
+[2025-05-14 03:36:36] Initialisation du UserController
+[2025-05-14 03:36:36] Appel de faceLogin()
+[2025-05-14 03:36:36] ERREUR: Utilisateur non trouvé
+[2025-05-14 03:36:36] === Fin du test ===
+[2025-05-14 03:36:36] === Début du test de reconnaissance faciale ===
+[2025-05-14 03:36:36] Initialisation du UserController
+[2025-05-14 03:36:36] Appel de faceLogin()
+[2025-05-14 03:36:36] ERREUR: Utilisateur non trouvé
+[2025-05-14 03:36:36] === Fin du test ===
+[2025-05-14 03:36:36] === Début du test de reconnaissance faciale ===
+[2025-05-14 03:36:36] Initialisation du UserController
+[2025-05-14 03:36:36] Appel de faceLogin()
+[2025-05-14 03:36:36] ERREUR: Utilisateur non trouvé
+[2025-05-14 03:36:36] === Fin du test ===
+[2025-05-14 03:36:36] === Début du test de reconnaissance faciale ===
+[2025-05-14 03:36:36] Initialisation du UserController
+[2025-05-14 03:36:36] Appel de faceLogin()
+[2025-05-14 03:36:36] ERREUR: Utilisateur non trouvé
+[2025-05-14 03:36:36] === Fin du test ===
+[2025-05-14 03:36:37] === Début du test de reconnaissance faciale ===
+[2025-05-14 03:36:37] Initialisation du UserController
+[2025-05-14 03:36:37] Appel de faceLogin()
+[2025-05-14 03:36:37] ERREUR: Utilisateur non trouvé
+[2025-05-14 03:36:37] === Fin du test ===
+[2025-05-14 03:36:37] === Début du test de reconnaissance faciale ===
+[2025-05-14 03:36:37] Initialisation du UserController
+[2025-05-14 03:36:37] Appel de faceLogin()
+[2025-05-14 03:36:37] ERREUR: Utilisateur non trouvé
+[2025-05-14 03:36:37] === Fin du test ===
+[2025-05-14 03:36:37] === Début du test de reconnaissance faciale ===
+[2025-05-14 03:36:37] Initialisation du UserController
+[2025-05-14 03:36:37] Appel de faceLogin()
+[2025-05-14 03:36:37] ERREUR: Utilisateur non trouvé
+[2025-05-14 03:36:37] === Fin du test ===
+[2025-05-14 03:39:14] === Début du test de reconnaissance faciale ===
+[2025-05-14 03:39:14] Initialisation du UserController
+[2025-05-14 03:39:14] Appel de faceLogin()
+[2025-05-14 03:39:15] ERREUR: Utilisateur non trouvé
+[2025-05-14 03:39:15] === Fin du test ===
+[2025-05-14 03:39:15] === Début du test de reconnaissance faciale ===
+[2025-05-14 03:39:15] Initialisation du UserController
+[2025-05-14 03:39:15] Appel de faceLogin()
+[2025-05-14 03:39:15] ERREUR: Utilisateur non trouvé
+[2025-05-14 03:39:15] === Fin du test ===
+[2025-05-14 03:39:16] === Début du test de reconnaissance faciale ===
+[2025-05-14 03:39:16] Initialisation du UserController
+[2025-05-14 03:39:16] Appel de faceLogin()
+[2025-05-14 03:39:16] ERREUR: Utilisateur non trouvé
+[2025-05-14 03:39:16] === Fin du test ===
+[2025-05-14 03:39:17] === Début du test de reconnaissance faciale ===
+[2025-05-14 03:39:17] Initialisation du UserController
+[2025-05-14 03:39:17] Appel de faceLogin()
+[2025-05-14 03:39:17] ERREUR: Utilisateur non trouvé
+[2025-05-14 03:39:17] === Fin du test ===
+[2025-05-14 03:44:06] === Début du test de reconnaissance faciale ===
+[2025-05-14 03:44:06] Initialisation du UserController
+[2025-05-14 03:44:06] Appel de faceLogin()
+[2025-05-14 03:44:06] ERREUR: Échec de reconnaissance faciale
+[2025-05-14 03:44:06] === Fin du test ===
+[2025-05-14 03:44:07] === Début du test de reconnaissance faciale ===
+[2025-05-14 03:44:07] Initialisation du UserController
+[2025-05-14 03:44:07] Appel de faceLogin()
+[2025-05-14 03:44:07] ERREUR: Échec de reconnaissance faciale
+[2025-05-14 03:44:07] === Fin du test ===
+[2025-05-14 03:44:07] === Début du test de reconnaissance faciale ===
+[2025-05-14 03:44:07] Initialisation du UserController
+[2025-05-14 03:44:07] Appel de faceLogin()
+[2025-05-14 03:44:07] ERREUR: Échec de reconnaissance faciale
+[2025-05-14 03:44:07] === Fin du test ===
+[2025-05-14 03:44:07] === Début du test de reconnaissance faciale ===
+[2025-05-14 03:44:07] Initialisation du UserController
+[2025-05-14 03:44:07] Appel de faceLogin()
+[2025-05-14 03:44:07] ERREUR: Échec de reconnaissance faciale
+[2025-05-14 03:44:07] === Fin du test ===
+[2025-05-14 03:44:07] === Début du test de reconnaissance faciale ===
+[2025-05-14 03:44:07] Initialisation du UserController
+[2025-05-14 03:44:07] Appel de faceLogin()
+[2025-05-14 03:44:07] ERREUR: Échec de reconnaissance faciale
+[2025-05-14 03:44:07] === Fin du test ===
+[2025-05-14 03:44:07] === Début du test de reconnaissance faciale ===
+[2025-05-14 03:44:07] Initialisation du UserController
+[2025-05-14 03:44:07] Appel de faceLogin()
+[2025-05-14 03:44:07] ERREUR: Échec de reconnaissance faciale
+[2025-05-14 03:44:07] === Fin du test ===
+[2025-05-14 03:44:08] === Début du test de reconnaissance faciale ===
+[2025-05-14 03:44:08] Initialisation du UserController
+[2025-05-14 03:44:08] Appel de faceLogin()
+[2025-05-14 03:44:08] ERREUR: Échec de reconnaissance faciale
+[2025-05-14 03:44:08] === Fin du test ===
+[2025-05-14 03:44:08] === Début du test de reconnaissance faciale ===
+[2025-05-14 03:44:08] Initialisation du UserController
+[2025-05-14 03:44:08] Appel de faceLogin()
+[2025-05-14 03:44:08] ERREUR: Échec de reconnaissance faciale
+[2025-05-14 03:44:08] === Fin du test ===

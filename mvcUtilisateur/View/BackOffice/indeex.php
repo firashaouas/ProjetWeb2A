@@ -1,7 +1,7 @@
 <?php if (isset($_GET['deleted']) && isset($_GET['id'])): ?>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
       Swal.fire({
         icon: 'success',
         title: 'Utilisateur supprimé ✅',
@@ -103,15 +103,15 @@ switch ($action) {
     }
     break;
 
-    case 'supprimerUser':
-      if (isset($_GET['id'])) {
-        $userController->supprimerUser($_GET['id']);
-        // Rediriger avec le flag "deleted"
-        header("Location: indeex.php?deleted=1&id={$id}");
-        exit;
-      }
-      break;
-    
+  case 'supprimerUser':
+    if (isset($_GET['id'])) {
+      $userController->supprimerUser($_GET['id']);
+      // Rediriger avec le flag "deleted"
+      header("Location: indeex.php?deleted=1&id={$id}");
+      exit;
+    }
+    break;
+
 
   default:
     // Pas d'action ou afficher la page d'accueil par défaut
@@ -144,7 +144,8 @@ function stringToColor($str)
 
 <!-- Gestion des alertes SweetAlert -->
 <?php if (isset($_GET['ban_success'])): ?>
-  <?php // Ensure PHP block is closed properly before including HTML/JS ?>
+  <?php // Ensure PHP block is closed properly before including HTML/JS 
+  ?>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -237,66 +238,7 @@ function stringToColor($str)
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 
-  <style>
-    .user-profile {
-      position: relative;
-      display: inline-block;
-    }
 
-    .profile-photo {
-      width: 55px;
-      height: 55px;
-      border-radius: 50%;
-      object-fit: cover;
-      cursor: pointer;
-      border: 2px solid purple;
-      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    }
-
-    .profile-circle {
-      width: 35px;
-      height: 35px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: bold;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    .dropdown-menu {
-      position: absolute;
-      top: 45px;
-      right: 0;
-      background-color: white;
-      border: 1px solid #ddd;
-      padding: 10px;
-      display: none;
-      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-      z-index: 100;
-    }
-
-    .user-profile:hover .dropdown-menu {
-      display: block;
-    }
-
-    .search-bar {
-      display: flex;
-      align-items: center;
-      background: rgba(255, 255, 255, 0.1);
-      border: 2px solid var(--spanish-gray);
-      border-radius: 50px;
-      overflow: hidden;
-      margin: 20px auto;
-      max-width: 800px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      backdrop-filter: blur(5px);
-      height: 40px;
-      margin-top: 400px !important;
-    }
-  </style>
 
 </head>
 
@@ -313,6 +255,11 @@ function stringToColor($str)
       <div class="menu-item active" data-section="overview">🏠 Tableau de Bord</div>
       <div class="menu-item" data-section="promos">👤 Utilisateurs</div>
       <div class="menu-item" data-section="unsplash">📷 Galerie Unsplash</div>
+      <div class="menu-item" data-section="youtube-section">🎬 Explorer Vidéo</div>
+      <div class="menu-item" data-section="chatbot-section">🤖 Ouvrir le Click'Bot</div>
+      <div class="menu-item" data-section="ai-image-generator-section">🖼️ Générateur d'Images IA</div>  
+
+      
 
 
       <a href="/Projet%20Web/mvcUtilisateur/View/BackOffice/chatbox.php" class="chat-admin-button" id="chatAdminBtn">
@@ -320,57 +267,53 @@ function stringToColor($str)
         <span id="badgeCount" class="badge" style="display:none;"></span>
       </a>
 
-      <style>.chat-admin-button {
-  display: inline-flex;
-  align-items: center;
-  padding: 10px 20px;
-  background-color: #CCB7E5; /* Set background color */
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-  border-radius: 5px;
-  position: relative; /* Ensure badge positioning relative to button */
-  transition: background-color 0.3s;
-}
+      <style>
+        .chat-admin-button {
+          display: inline-flex;
+          align-items: center;
+          padding: 10px 20px;
+          background-color: #CCB7E5;
+          /* Set background color */
+          color: white;
+          text-decoration: none;
+          font-weight: bold;
+          border-radius: 5px;
+          position: relative;
+          /* Ensure badge positioning relative to button */
+          transition: background-color 0.3s;
+        }
 
-.chat-admin-button:hover {
-  background-color: #BBA4D1; /* Darker shade when hovered */
-}
+        .chat-admin-button:hover {
+          background-color: #BBA4D1;
+          /* Darker shade when hovered */
+        }
 
-.star-icon {
-  margin-right: 5px; /* Reduced space between the star and the text */
-  font-size: 20px; /* Adjust the star size to match the text */
-}
+        .star-icon {
+          margin-right: 5px;
+          /* Reduced space between the star and the text */
+          font-size: 20px;
+          /* Adjust the star size to match the text */
+        }
 
-.badge {
-  background-color: #EF4444;
-  color: white;
-  font-size: 12px;
-  padding: 3px 6px;
-  border-radius: 50%;
-  margin-left: 10px;
-  position: absolute;
-  top: 0;
-  right: 0; /* Badge position at the top-right of the button */
-  transform: translate(50%, -50%); /* Correct position adjustment */
-}
-</style>
+        .badge {
+          background-color: #EF4444;
+          color: white;
+          font-size: 12px;
+          padding: 3px 6px;
+          border-radius: 50%;
+          margin-left: 10px;
+          position: absolute;
+          top: 0;
+          right: 0;
+          /* Badge position at the top-right of the button */
+          transform: translate(50%, -50%);
+          /* Correct position adjustment */
+        }
+      </style>
 
 
-      <button id="youtubeSectionBtn"
-        style="padding: 12px 24px;
-         background-color: #FF0000;
-         color: white;
-         border: none;
-         border-radius: 20px;
-         cursor: pointer;
-         font-weight: bold;
-         display: block;
-         width: fit-content;
-         margin: 20px auto;
-         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
-        📺 Explorer les vidéos YouTube
-      </button>
+
+
 
 
 
@@ -400,8 +343,6 @@ function stringToColor($str)
 
 
       <style>
-
-
         .badge {
           position: absolute;
           top: 5px;
@@ -453,177 +394,266 @@ function stringToColor($str)
 
   <div class="dashboard">
 
-  <div class="header">
-        <div class="navbar-backoffice-wrapper">
-          <nav class="navbar-backoffice">
-            <ul>
-              <li><a href="/Projet%20Web/mvcUtilisateur/View/BackOffice/indeex.php" class="nav-link active">Utilisateurs</a></li>
-              <li><a href="/Projet Web/mvcact/view/back office/dashboard.php" class="nav-link">Activités</a></li>
-              <li><a href="/Projet%20Web/mvcEvent/View/BackOffice/dashboard.php" class="nav-link">Événements</a></li>
-              <li><a href="/Projet%20Web/mvcProduit/view/back%20office/indeex.php" class="nav-link">Produits</a></li>
-              <li><a href="/Projet%20Web/mvcCovoiturage/view/backoffice/dashboard.php" class="nav-link">Transports</a></li>
-              <li><a href="/Projet%20Web/mvcSponsor/crud/view/back/back.php" class="nav-link">Sponsors</a></li>
-              <li class="profile-container">
-                
-                <div class="user-profile">
-                  <?php if (isset($_SESSION['user'])): ?>
-                    <?php
-                    $photoPath = $_SESSION['user']['profile_picture'] ?? '';
-                    $fullName = $_SESSION['user']['full_name'] ?? 'Utilisateur';
-                    $photoRelativePath = '../FrontOffice/' . $photoPath;
-                    $absolutePath = realpath(__DIR__ . '/' . $photoRelativePath);
-                    $showPhoto = !empty($photoPath) && $absolutePath && file_exists($absolutePath);
-                    ?>
-                    <?php if ($showPhoto): ?>
-                      <img src="/Projet Web/mvcUtilisateur/View/FrontOffice/<?= htmlspecialchars($photoPath) ?>" alt="Photo de profil" class="profile-photo" onclick="toggleDropdown()">
-                    <?php else: ?>
-                      <div class="profile-circle" style="background-color: <?= stringToColor($fullName) ?>;" onclick="toggleDropdown()">
-                        <?= strtoupper(substr($fullName, 0, 1)) ?>
-                      </div>
-                    <?php endif; ?>
-                    <div class="dropdown-menu" id="dropdownMenu">
-                      <a href="/Projet Web/mvcUtilisateur/View/FrontOffice/profile.php">👤 Mon Profil</a>
-                      <a href="/Projet Web/mvcUtilisateur/View/BackOffice/login/logout.php">🚪 Déconnexion</a>
+    <div class="header">
+      <div class="navbar-backoffice-wrapper">
+        <nav class="navbar-backoffice">
+          <ul>
+            <li><a href="/Projet%20Web/mvcUtilisateur/View/BackOffice/indeex.php" class="nav-link active">Utilisateurs</a></li>
+            <li><a href="/Projet%20Web/mvcact/view/back%20office/dashboard.php" class="nav-link">Activités</a></li>
+            <li><a href="/Projet%20Web/mvcEvent/View/BackOffice/dashboard.php" class="nav-link">Événements</a></li>
+            <li><a href="/Projet%20Web/mvcProduit/view/back%20office/indeex.php" class="nav-link">Produits</a></li>
+            <li><a href="/Projet%20Web/mvcCovoiturage/view/backoffice/dashboard.php" class="nav-link">Transports</a></li>
+            <li><a href="/Projet%20Web/mvcSponsor/crud/view/back/back.php" class="nav-link">Sponsors</a></li>
+            <li class="profile-container">
+
+              <div class="user-profile">
+                <?php if (isset($_SESSION['user'])): ?>
+                  <?php
+                  $photoPath = $_SESSION['user']['profile_picture'] ?? '';
+                  $fullName = $_SESSION['user']['full_name'] ?? 'Utilisateur';
+                  $photoRelativePath = '../FrontOffice/' . $photoPath;
+                  $absolutePath = realpath(__DIR__ . '/' . $photoRelativePath);
+                  $showPhoto = !empty($photoPath) && $absolutePath && file_exists($absolutePath);
+                  ?>
+                  <?php if ($showPhoto): ?>
+                    <img src="/Projet Web/mvcUtilisateur/View/FrontOffice/<?= htmlspecialchars($photoPath) ?>" alt="Photo de profil" class="profile-photo" onclick="toggleDropdown()">
+                  <?php else: ?>
+                    <div class="profile-circle" style="background-color: <?= stringToColor($fullName) ?>;" onclick="toggleDropdown()">
+                      <?= strtoupper(substr($fullName, 0, 1)) ?>
                     </div>
                   <?php endif; ?>
-                </div>
-              </li>
-            </ul>
-          </nav>
-        </div>
+                  <div class="dropdown-menu" id="dropdownMenu">
+                    <a href="/Projet Web/mvcUtilisateur/View/FrontOffice/profile.php">👤 Mon Profil</a>
+                    <a href="/Projet Web/mvcUtilisateur/View/BackOffice/login/logout.php">🚪 Déconnexion</a>
+                  </div>
+                <?php endif; ?>
+              </div>
 
-        <style>
-          .navbar-backoffice-wrapper {
-            background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,0.98));
-            padding: 15px 30px;
-            border-radius: 30px;
-            box-shadow: 0 8px 32px rgba(151, 104, 209, 0.1);
-            position: fixed;
-            top: 40px;
-            left: 58%;
-            transform: translateX(-50%);
-            z-index: 1000;
-            width: fit-content;
-            min-width: 800px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(151, 104, 209, 0.1);
-          }
+              <style>
+                .user-profile {
+                  position: relative;
+                  display: inline-block;
+                }
 
-          .navbar-backoffice ul {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 30px;  /* Réduit légèrement l'espacement entre les éléments */
-            margin: 0;
-            padding: 0;
-            list-style: none;
-          }
+                .profile-photo {
+                  width: 55px;
+                  height: 55px;
+                  border-radius: 50%;
+                  object-fit: cover;
+                  cursor: pointer;
+                  border: 2px solid purple;
+                  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+                }
 
-          .nav-link {
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 15px;
-            transition: all 0.3s ease;
-            padding: 10px 20px;
-            border-radius: 20px;
-            white-space: nowrap;
-            position: relative;
-          }
+                .profile-circle {
+                  width: 35px;
+                  height: 35px;
+                  border-radius: 50%;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  color: white;
+                  font-weight: bold;
+                  font-size: 16px;
+                  cursor: pointer;
+                }
 
-          /* Couleurs spécifiques pour chaque lien */
-          .nav-link[href*="Utilisateur"] {
-            color: #F687B3;
-          }
+                .dropdown-menu {
+                  position: absolute;
+                  top: 45px;
+                  right: 0;
+                  background-color: white;
+                  border: 1px solid #ddd;
+                  padding: 10px;
+                  display: none;
+                  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+                  z-index: 100;
+                }
+
+                .user-profile:hover .dropdown-menu {
+                  display: block;
+                }
+
+                .search-bar {
+                  display: flex;
+                  align-items: center;
+                  background: rgba(255, 255, 255, 0.1);
+                  border: 2px solid var(--spanish-gray);
+                  border-radius: 50px;
+                  overflow: hidden;
+                  margin: 20px auto;
+                  max-width: 800px;
+                  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                  backdrop-filter: blur(5px);
+                  height: 40px;
+                  margin-top: 400px !important;
+                }
+              </style>
 
 
-          .nav-link[href*="Activite"] {
-            color: #9F7AEA;
-          }
 
-          .nav-link[href*="Event"] {
-            color: #9F7AEA;
-          }
-
-          .nav-link[href*="Produit"] {
-            color: #9768D1;
-          }
-
-          .nav-link[href*="Covoiturage"] {
-            color: #B794F4;
-          }
-
-          .nav-link[href*="Sponsor"] {
-            color: #9F7AEA;
-          }
-
-          .nav-link:hover {
-            background: rgba(246, 135, 179, 0.1);
-            transform: translateY(-1px);
-          }
-
-          .nav-link.active {
-            font-weight: 600;
-            background: rgba(246, 135, 179, 0.15);
-            color: #F687B3;
-          }
-
-          .nav-link.active::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 20px;
-            height: 3px;
-            background: #F687B3;
-            border-radius: 10px;
-          }
-
-          .profile-container {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            margin-left: 25px;
-            padding-left: 25px;
-            border-left: 1px solid rgba(151, 104, 209, 0.2);
-          }
-
-          .profile-photo, .profile-circle {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            cursor: pointer;
-            border: 2px solid white;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-          }
-
-          .dropdown-menu {
-            position: absolute;
-            top: 50px;
-            right: 0;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            padding: 8px 0;
-            min-width: 180px;
-            border: 1px solid rgba(151, 104, 209, 0.1);
-          }
-
-          .dropdown-menu a {
-            display: block;
-            padding: 10px 20px;
-            color: #666;
-            text-decoration: none;
-            font-size: 14px;
-            transition: all 0.3s ease;
-          }
-
-          .dropdown-menu a:hover {
-            background: rgba(247, 243, 255, 0.95);
-            color: #9768D1;
-          }
-        </style>
+            </li>
+          </ul>
+        </nav>
       </div>
+
+      <style>
+        .navbar-backoffice-wrapper {
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.98));
+          padding: 15px 30px;
+          border-radius: 30px;
+          box-shadow: 0 8px 32px rgba(151, 104, 209, 0.1);
+          position: fixed;
+          top: 40px;
+          left: 58%;
+          transform: translateX(-50%);
+          z-index: 1000;
+          width: fit-content;
+          min-width: 800px;
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(151, 104, 209, 0.1);
+        }
+
+        .navbar-backoffice ul {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 30px;
+          /* Réduit légèrement l'espacement entre les éléments */
+          margin: 0;
+          padding: 0;
+          list-style: none;
+        }
+
+        .nav-link {
+          text-decoration: none;
+          font-weight: 500;
+          font-size: 15px;
+          transition: all 0.3s ease;
+          padding: 10px 20px;
+          border-radius: 20px;
+          white-space: nowrap;
+          position: relative;
+        }
+
+        /* Couleurs spécifiques pour chaque lien */
+        .nav-link[href*="Utilisateur"] {
+          color: #F687B3;
+        }
+
+
+        .nav-link[href*="act"] {
+          color: #9F7AEA;
+        }
+
+        .nav-link[href*="Event"] {
+          color: #9F7AEA;
+        }
+
+        .nav-link[href*="Produit"] {
+          color: #9768D1;
+        }
+
+        .nav-link[href*="Covoiturage"] {
+          color: #B794F4;
+        }
+
+        .nav-link[href*="Sponsor"] {
+          color: #9F7AEA;
+        }
+
+        .nav-link:hover {
+          background: rgba(246, 135, 179, 0.1);
+          transform: translateY(-1px);
+        }
+
+        .nav-link.active {
+          font-weight: 600;
+          background: rgba(246, 135, 179, 0.15);
+          color: #F687B3;
+        }
+
+        .nav-link.active::after {
+          content: '';
+          position: absolute;
+          bottom: -5px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 20px;
+          height: 3px;
+          background: #F687B3;
+          border-radius: 10px;
+        }
+
+        .profile-container {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+          margin-left: 25px;
+          padding-left: 25px;
+          border-left: 1px solid rgba(151, 104, 209, 0.2);
+        }
+
+        .profile-photo,
+        .profile-circle {
+          width: 35px;
+          height: 35px;
+          border-radius: 50%;
+          cursor: pointer;
+          border: 2px solid white;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .dropdown-menu {
+          position: absolute;
+          top: 50px;
+          right: 0;
+          background: white;
+          border-radius: 15px;
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+          padding: 8px 0;
+          min-width: 180px;
+          border: 1px solid rgba(151, 104, 209, 0.1);
+        }
+
+        .dropdown-menu a {
+          display: block;
+          padding: 10px 20px;
+          color: #666;
+          text-decoration: none;
+          font-size: 14px;
+          transition: all 0.3s ease;
+        }
+
+        .dropdown-menu a:hover {
+          background: rgba(247, 243, 255, 0.95);
+          color: #9768D1;
+        }
+      </style>
+
+      <script>
+        // Fonction pour ouvrir/fermer le menu
+        function toggleDropdown() {
+          const menu = document.getElementById('dropdownMenu');
+          if (menu.style.display === 'block') {
+            menu.style.display = 'none';
+          } else {
+            menu.style.display = 'block';
+          }
+        }
+
+        // ✅ Fermer le menu si on clique en dehors
+        document.addEventListener('click', function(event) {
+          const menu = document.getElementById('dropdownMenu');
+          const profile = document.querySelector('.user-profile');
+          if (!profile.contains(event.target)) {
+            menu.style.display = 'none';
+          }
+        });
+      </script>
+
+
+    </div>
 
 
     <!-- Overview Section (Tableau de Bord) -->
@@ -637,26 +667,7 @@ function stringToColor($str)
 
 
 
-          <script>
-            // Fonction pour ouvrir/fermer le menu
-            function toggleDropdown() {
-              const menu = document.getElementById('dropdownMenu');
-              if (menu.style.display === 'block') {
-                menu.style.display = 'none';
-              } else {
-                menu.style.display = 'block';
-              }
-            }
 
-            // ✅ Fermer le menu si on clique en dehors
-            document.addEventListener('click', function(event) {
-              const menu = document.getElementById('dropdownMenu');
-              const profile = document.querySelector('.user-profile');
-              if (!profile.contains(event.target)) {
-                menu.style.display = 'none';
-              }
-            });
-          </script>
 
         </div>
       </div>
@@ -733,7 +744,10 @@ function stringToColor($str)
               <div style="color: #666; font-size: 14px; font-weight: 500;">Utilisateurs</div>
             </div>
             <div style="text-align: center; padding: 15px 25px; background: #FEE2E2; border-radius: 15px; flex: 1; transition: transform 0.3s ease;">
-              <div style="font-size: 28px; color: #EF4444; font-weight: 600; margin-bottom: 8px;"><?php echo $usersByRole[2]['total']; ?></div>
+              <div style="font-size: 28px; color: #EF4444; font-weight: 600; margin-bottom: 8px;">
+                <?php echo $usersByRole[2]['total'] ?? 'Bannis'; ?>
+              </div>
+
               <div style="color: #666; font-size: 14px; font-weight: 500;">Bannis</div>
             </div>
           </div>
@@ -768,9 +782,9 @@ function stringToColor($str)
                   datasets: [{
                     data: userRolesData,
                     backgroundColor: [
-                      '#F3E8FF',  // Lilas pastel pour Admin
-                      '#FCE7F3',  // Rose pastel pour User
-                      '#FEE2E2'   // Rouge pastel pour Banni
+                      '#F3E8FF', // Lilas pastel pour Admin
+                      '#FCE7F3', // Rose pastel pour User
+                      '#FEE2E2' // Rouge pastel pour Banni
                     ],
                     hoverBackgroundColor: [
                       '#E9D5FF',
@@ -911,85 +925,415 @@ function stringToColor($str)
 
 
 
-    <!-- ✅ SECTION YOUTUBE -->
-    <div class="dashboard-section" id="youtube-section" style="display: none;">
-      <h2 style="margin-bottom: 20px;margin-top: 95px">📺 Explorer les vidéos YouTube</h2>
 
-      <div class="youtube-controls" style="display: flex; gap: 10px;">
-        <input type="text" id="youtubeSearchInput" placeholder="Ex: Balti"
-          style="padding: 10px; flex: 1; border-radius: 10px; border: 1px solid #ccc;">
-        <button id="youtubeSearchBtn" class="unsplash-btn red"
-          style="padding: 10px 20px; border-radius: 10px; background-color: #FF0000; color: white; border: none; cursor: pointer;">
-          🔍 Rechercher
-        </button>
-      </div>
 
-      <div id="youtubeResults" class="youtube-grid" style="margin-top: 30px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;"></div>
+
+<div class="dashboard-section" id="ai-image-generator-section" style="margin-top: 100px;">
+  <h2 style="margin-bottom: 20px; color: #b94ee7;">🖼️ Générateur d'Images IA</h2>
+
+  <div class="ai-image-box" style="background: linear-gradient(135deg, #ffe0f7, #f0e1ff); border-radius: 15px; padding: 20px; box-shadow: 0 0 10px rgba(190, 133, 255, 0.3);">
+    <textarea id="prompt" placeholder="Décrivez l’image à générer ici..." 
+      style="width: 100%; padding: 15px; border-radius: 10px; border: 1px solid #d4aaff; font-size: 16px; resize: vertical; background: white;"></textarea>
+    
+    <button id="generateBtn" style="margin-top: 15px; background: linear-gradient(to right, #cc66ff, #ff66cc); color: white; border: none; padding: 12px 20px; font-size: 16px; border-radius: 10px; cursor: pointer; transition: 0.3s;">
+      🎨 Générer l’image
+    </button>
+
+    <!-- SPINNER de chargement -->
+    <div id="loadingSpinner" style="display: none; margin-top: 30px; text-align: center;">
+      <div class="lds-dual-ring"></div>
+      <p style="color: #b94ee7; font-weight: bold;">Génération en cours...</p>
     </div>
 
-    <!-- ✅ SCRIPTS À LA FIN DU BODY -->
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const apiKey = 'AIzaSyDyk9qxkoCI4oMpZ5fst6lIlkQUloN-Ymc'; // 🔐 Ta vraie clé ici
+    <div class="result" id="result" style="margin-top: 30px; text-align: center;"></div>
+  </div>
+</div>
 
-        // Quand on clique sur "Explorer les vidéos YouTube" dans la sidebar
-        document.getElementById('youtubeSectionBtn').addEventListener('click', () => {
-          document.querySelectorAll('.dashboard-section').forEach(section => {
-            section.style.display = 'none';
-          });
-          document.getElementById('youtube-section').style.display = 'block';
-        });
+<style>
+/* Spinner style */
+.lds-dual-ring {
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 46px;
+  height: 46px;
+  margin: 1px;
+  border-radius: 50%;
+  border: 6px solid #c94cf7;
+  border-color: #c94cf7 transparent #ff66cc transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
 
-        // Quand on clique sur le bouton de recherche
-        document.getElementById('youtubeSearchBtn').addEventListener('click', async () => {
-          const query = document.getElementById('youtubeSearchInput').value.trim();
-          const resultDiv = document.getElementById('youtubeResults');
-          resultDiv.innerHTML = ''; // Reset l'affichage à chaque recherche
+@keyframes lds-dual-ring {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 
-          if (!query) return;
+.result img {
+  max-width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(204, 102, 255, 0.3);
+}
+</style>
 
-          try {
-            const videoIds = await searchYouTube(query);
-            if (videoIds.length === 0) {
-              resultDiv.innerHTML = "<p>❌ Aucune vidéo trouvée.</p>";
-              return;
-            }
+<script>
+document.getElementById('generateBtn').addEventListener('click', async function () {
+  const prompt = document.getElementById('prompt').value;
+  const apiKey = "21NdUykT79eHloPvtzSeNmB6k7nKTuo46mqsW6PooYFn381BD1G7g54Cdj9s"; // Remplace avec ta clé
+  const negativePrompt = "blurry, bad quality";
+  const [width, height] = [768, 768];
 
-            videoIds.forEach(id => {
-              const iframe = document.createElement('iframe');
-              iframe.width = "100%";
-              iframe.height = "315";
-              iframe.src = `https://www.youtube.com/embed/${id}`;
-              iframe.frameBorder = "0";
-              iframe.allowFullscreen = true;
-              resultDiv.appendChild(iframe);
-            });
+  if (!prompt) {
+    alert('Veuillez décrire l’image.');
+    return;
+  }
 
-          } catch (err) {
-            console.error("❌ Erreur API YouTube :", err);
-            resultDiv.innerHTML = "<p>❌ Une erreur est survenue.</p>";
-          }
-        });
+  const btn = this;
+  const spinner = document.getElementById('loadingSpinner');
+  const result = document.getElementById('result');
 
-        async function searchYouTube(query) {
-          const apiUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=6&q=${encodeURIComponent(query)}&key=${apiKey}`;
-          const res = await fetch(apiUrl);
-          const data = await res.json();
+  btn.disabled = true;
+  spinner.style.display = 'block';
+  result.innerHTML = '';
 
-          console.log("✅ Résultat YouTube brut :", data); // 👈 IMPORTANT à garder
+  try {
+    const res = await fetch('generate.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        key: apiKey,
+        prompt: prompt,
+        negative_prompt: negativePrompt,
+        width: width,
+        height: height
+      })
+    });
 
-          if (data.error) {
-            console.error("❌ Erreur API YouTube :", data.error); // 👈 Montre le vrai message
-            throw new Error(data.error.message);
-          }
+    const data = await res.json();
 
-          return data.items.map(item => item.id.videoId);
+    if (data.status === 'success') {
+      result.innerHTML = `
+        <h3 style="color: #c94cf7;">Résultat</h3>
+        <img src="${data.output[0]}" alt="Image IA générée">
+        <br>
+        <a href="${data.output[0]}" download="image.png" style="display: inline-block; margin-top: 10px; background-color: #c94cf7; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none;">📥 Télécharger</a>
+      `;
+    } else {
+      result.innerHTML = `<p style="color: red;">Erreur: ${data.message}</p>`;
+    }
+  } catch (err) {
+    result.innerHTML = `<p style="color: red;">Erreur réseau: ${err.message}</p>`;
+  } finally {
+    btn.disabled = false;
+    spinner.style.display = 'none';
+  }
+});
+</script>
+
+
+
+
+
+
+
+<!-- ✅ SECTION CHATBOT -->
+<!-- ✅ SECTION CHATBOT AVEC BULLES STYLEES -->
+<div class="dashboard-section" id="chatbot-section" style="margin-top: 100px;">
+  <div style="display: flex; justify-content: center;">
+    <h2 style="margin-bottom: 20px; background: linear-gradient(45deg, #ff6b6b, #4b6cb7); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-align: center;">
+      💬 Discuter avec notre Click'Bot
+    </h2>
+  </div>
+
+  <div id="chatbox"
+    style="height: 400px; border: 2px solid #d946ef; padding: 15px; overflow-y: auto; margin-bottom: 15px; border-radius: 15px; background: #fdf4ff; box-shadow: 0 0 10px rgba(168, 85, 247, 0.2); display: flex; flex-direction: column; gap: 10px;">
+  </div>
+
+  <div style="display: flex; gap: 10px;">
+    <input type="text" id="message" placeholder="Tapez votre message..."
+      style="flex: 1; padding: 12px; border: 2px solid #d946ef; border-radius: 12px; outline: none; background: #fff0fb;">
+    <button onclick="sendMessage()"
+      style="padding: 12px 25px; border: none; background: linear-gradient(135deg, #d946ef, #a855f7); color: white; border-radius: 12px; cursor: pointer; transition: background 0.3s;">
+      🚀 Envoyer
+    </button>
+  </div>
+</div>
+
+
+
+
+<script>
+  function sendMessage() {
+    const message = document.getElementById('message').value.trim();
+    if (!message) return;
+
+    const chatbox = document.getElementById('chatbox');
+
+    // Message utilisateur
+    const userBubble = document.createElement('div');
+    userBubble.style.alignSelf = 'flex-end';
+    userBubble.style.background = '#e9d5ff';
+    userBubble.style.color = '#6b21a8';
+    userBubble.style.padding = '10px 15px';
+    userBubble.style.borderRadius = '15px 15px 0 15px';
+    userBubble.style.maxWidth = '75%';
+    userBubble.innerText = message;
+    chatbox.appendChild(userBubble);
+    document.getElementById('message').value = '';
+
+    fetch('chatbot.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: 'message=' + encodeURIComponent(message)
+    })
+    .then(response => response.json())
+    .then(data => {
+      const reply = data.error ? `❌ ${data.error}` : data.reply;
+
+      const botBubble = document.createElement('div');
+      botBubble.style.alignSelf = 'flex-start';
+      botBubble.style.background = '#fce7f3';
+      botBubble.style.color = '#be185d';
+      botBubble.style.padding = '10px 15px';
+      botBubble.style.borderRadius = '15px 15px 15px 0';
+      botBubble.style.maxWidth = '75%';
+      botBubble.innerText = reply;
+      chatbox.appendChild(botBubble);
+      chatbox.scrollTop = chatbox.scrollHeight;
+    })
+    .catch(() => {
+      const errorBubble = document.createElement('div');
+      errorBubble.style.alignSelf = 'flex-start';
+      errorBubble.style.background = '#fee2e2';
+      errorBubble.style.color = '#b91c1c';
+      errorBubble.style.padding = '10px 15px';
+      errorBubble.style.borderRadius = '15px 15px 15px 0';
+      errorBubble.style.maxWidth = '75%';
+      errorBubble.innerText = "❌ Erreur de connexion.";
+      chatbox.appendChild(errorBubble);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('message').addEventListener('keypress', function (e) {
+      if (e.key === 'Enter') sendMessage();
+    });
+  });
+</script>
+
+
+<!-- ✅ SECTION YOUTUBE -->
+<div class="dashboard-section" id="youtube-section">
+  <h2 style="margin-bottom: 20px; margin-top: 95px;">📺 Explorer les vidéos YouTube</h2>
+
+  <div class="youtube-controls" style="display: flex; gap: 10px;">
+    <input type="text" id="youtubeSearchInput" placeholder="Ex: Balti"
+      style="padding: 10px; flex: 1; border-radius: 10px; border: 1px solid #ccc;">
+    <button id="youtubeSearchBtn" class="unsplash-btn red"
+      style="padding: 10px 20px; border-radius: 10px; background-color: #FF0000; color: white; border: none; cursor: pointer;">
+      🔍 Rechercher
+    </button>
+  </div>
+
+  <div id="youtubeResults" class="youtube-grid" style="margin-top: 30px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;"></div>
+</div>
+
+
+<!-- ✅ SECTION YOUTUBE -->
+<div class="dashboard-section" id="youtube-section">
+  <h2 style="margin-bottom: 20px; margin-top: 95px;">📺 Explorer les vidéos YouTube</h2>
+
+  <div class="youtube-controls" style="display: flex; gap: 10px;">
+    <input type="text" id="youtubeSearchInput" placeholder="Ex: Balti"
+      style="padding: 10px; flex: 1; border-radius: 10px; border: 1px solid #ccc;">
+    <button id="youtubeSearchBtn" class="unsplash-btn red"
+      style="padding: 10px 20px; border-radius: 10px; background-color: #FF0000; color: white; border: none; cursor: pointer;">
+      🔍 Rechercher
+    </button>
+  </div>
+
+  <div id="youtubeResults" class="youtube-grid"
+    style="margin-top: 30px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;"></div>
+</div>
+
+<!-- ✅ MINI LECTEUR FLOTTANT (amélioré) -->
+<div id="floatingYoutubePlayer"
+  style="display: none; position: fixed; bottom: 20px; right: 20px; width: 300px; height: 170px; background: black; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.2); z-index: 1000; cursor: move;">
+  
+  <!-- ❌ Bouton fermer -->
+  <button onclick="closeFloatingPlayer()"
+    style="position: absolute; top: 5px; right: 5px; background: rgba(0,0,0,0.6); border: none; color: white; border-radius: 50%; width: 24px; height: 24px; cursor: pointer;">✖</button>
+
+  <!-- 🧲 Bouton agrandir/réduire -->
+  <button onclick="toggleSize()"
+    style="position: absolute; bottom: 5px; left: 5px; background: rgba(255,255,255,0.1); border: none; color: white; border-radius: 6px; padding: 4px 8px; cursor: pointer;">⛶</button>
+
+  <iframe id="floatingIframe" width="100%" height="100%" frameborder="0" allowfullscreen allow="autoplay"></iframe>
+</div>
+
+
+<style>
+  .youtube-grid .video-thumbnail {
+    position: relative;
+    cursor: pointer;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .youtube-grid .video-thumbnail:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .youtube-grid .video-thumbnail img {
+    width: 100%;
+    display: block;
+  }
+
+  .youtube-grid .play-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 48px;
+    color: white;
+    text-shadow: 0 0 10px black;
+  }
+</style>
+
+<script>
+
+  function closeFloatingPlayer() {
+    const player = document.getElementById('floatingYoutubePlayer');
+    player.style.display = 'none';
+    document.getElementById('floatingIframe').src = '';
+  }
+
+  // ✅ Taille toggle (agrandir/réduire)
+  let isLarge = false;
+  function toggleSize() {
+    const player = document.getElementById('floatingYoutubePlayer');
+    if (!isLarge) {
+      player.style.width = '560px';
+      player.style.height = '315px';
+    } else {
+      player.style.width = '300px';
+      player.style.height = '170px';
+    }
+    isLarge = !isLarge;
+  }
+
+  // ✅ Drag & drop
+  let isDragging = false;
+  let offsetX, offsetY;
+  const player = document.getElementById('floatingYoutubePlayer');
+
+  player.addEventListener('mousedown', (e) => {
+    if (e.target.tagName === 'BUTTON') return; // Ne pas déplacer si clic sur un bouton
+    isDragging = true;
+    offsetX = e.clientX - player.getBoundingClientRect().left;
+    offsetY = e.clientY - player.getBoundingClientRect().top;
+    document.body.style.userSelect = 'none';
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    player.style.left = `${e.clientX - offsetX}px`;
+    player.style.top = `${e.clientY - offsetY}px`;
+    player.style.bottom = 'auto';
+    player.style.right = 'auto';
+  });
+
+  document.addEventListener('mouseup', () => {
+    isDragging = false;
+    document.body.style.userSelect = '';
+  });
+
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const apiKey = 'AIzaSyDyk9qxkoCI4oMpZ5fst6lIlkQUloN-Ymc'; // 🔐 Ta vraie clé ici
+
+    document.getElementById('youtubeSearchBtn').addEventListener('click', async () => {
+      const query = document.getElementById('youtubeSearchInput').value.trim();
+      const resultDiv = document.getElementById('youtubeResults');
+      resultDiv.innerHTML = '';
+
+      if (!query) return;
+
+      try {
+        const videoIds = await searchYouTube(query);
+        if (videoIds.length === 0) {
+          resultDiv.innerHTML = "<p>❌ Aucune vidéo trouvée.</p>";
+          return;
         }
 
-      });
-    </script>
+        videoIds.forEach(id => {
+          const videoWrapper = document.createElement('div');
+          videoWrapper.className = 'video-thumbnail';
+
+          const thumbnail = document.createElement('img');
+          thumbnail.src = `https://img.youtube.com/vi/${id}/0.jpg`;
+          thumbnail.alt = 'Miniature vidéo';
+
+          const playIcon = document.createElement('div');
+          playIcon.className = 'play-icon';
+          playIcon.innerHTML = '▶️';
+
+          videoWrapper.appendChild(thumbnail);
+          videoWrapper.appendChild(playIcon);
+
+          videoWrapper.addEventListener('click', () => {
+            const floatingIframe = document.getElementById('floatingIframe');
+            floatingIframe.src = `https://www.youtube.com/embed/${id}?autoplay=1`;
+            document.getElementById('floatingYoutubePlayer').style.display = 'block';
+          });
+
+          resultDiv.appendChild(videoWrapper);
+        });
+
+      } catch (err) {
+        console.error("❌ Erreur API YouTube :", err);
+        resultDiv.innerHTML = "<p>❌ Une erreur est survenue.</p>";
+      }
+    });
+
+    async function searchYouTube(query) {
+      const apiUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=6&q=${encodeURIComponent(query)}&key=${apiKey}`;
+      const res = await fetch(apiUrl);
+      const data = await res.json();
+
+      if (data.error) {
+        console.error("❌ Erreur API YouTube :", data.error);
+        throw new Error(data.error.message);
+      }
+
+      return data.items.map(item => item.id.videoId);
+    }
+  });
+</script>
+
+
+
+
+
+
+
 
     <style>
+
+      .dashboard-section {
+  display: none;
+}
+.dashboard-section.active {
+  display: block;
+}
+
       .youtube-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -1029,9 +1373,9 @@ function stringToColor($str)
       </div>
 
       <div id="results" class="unsplash-grid"></div>
+
+
     </div>
-
-
 
 
     <!-- Promos Section -->
@@ -1108,19 +1452,19 @@ function stringToColor($str)
             </tr>
           </thead>
           <tbody>
-          <?php
-if (!empty($userModel)) {
-  foreach ($userModel as $user) {
-    $id = $user->getIdUser();
-    $fullName = htmlspecialchars($user->getFullName());
-    $email = htmlspecialchars($user->getEmail());
-    $date = htmlspecialchars($user->getDateInscription());
-    $num = htmlspecialchars($user->getNumUser());
-    $role = addslashes($user->getRole());
-    $displayRole = htmlspecialchars($user->getRole());
-    $photoPath = "/Projet Web/mvcUtilisateur/View/FrontOffice/" . htmlspecialchars($user->getProfilePicture());
+            <?php
+            if (!empty($userModel)) {
+              foreach ($userModel as $user) {
+                $id = $user->getIdUser();
+                $fullName = htmlspecialchars($user->getFullName());
+                $email = htmlspecialchars($user->getEmail());
+                $date = htmlspecialchars($user->getDateInscription());
+                $num = htmlspecialchars($user->getNumUser());
+                $role = addslashes($user->getRole());
+                $displayRole = htmlspecialchars($user->getRole());
+                $photoPath = "/Projet Web/mvcUtilisateur/View/FrontOffice/" . htmlspecialchars($user->getProfilePicture());
 
-    echo "<tr id='user-row-{$id}'>
+                echo "<tr id='user-row-{$id}'>
       <td><img src='{$photoPath}' alt='Profile' style='width:40px;height:40px;border-radius:50%;object-fit:cover;'></td>
       <td>{$id}</td>
       <td>{$fullName}</td>
@@ -1166,9 +1510,9 @@ if (!empty($userModel)) {
             </button>
           </form>
         ";
-        
-        if ($displayRole !== 'banni') {
-          echo "<button style='
+
+                if ($displayRole !== 'banni') {
+                  echo "<button style='
             background: #F3E8FF;
             color: #9768D1;
             border: none;
@@ -1183,8 +1527,8 @@ if (!empty($userModel)) {
           ' onclick='banUser({$id})'>
             <i class='fas fa-ban'></i> Bannir
           </button>";
-        } else {
-          echo "<button style='
+                } else {
+                  echo "<button style='
             background: #F3E8FF;
             color: #9768D1;
             border: none;
@@ -1199,13 +1543,13 @@ if (!empty($userModel)) {
           ' onclick='unbanUser({$id})'>
             <i class='fas fa-check-circle'></i> Désactiver le bannissement
           </button>";
-        }
-        echo "</div>";
-      }
-    } else {
-      echo "<tr><td colspan='8'>Aucun utilisateur trouvé</td></tr>";
-    }
-?>
+                }
+                echo "</div>";
+              }
+            } else {
+              echo "<tr><td colspan='8'>Aucun utilisateur trouvé</td></tr>";
+            }
+            ?>
 
 
           </tbody>
@@ -1214,80 +1558,79 @@ if (!empty($userModel)) {
 
     </div> <!-- dashboard-section promos -->
 
-    
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-function deleteUser(id, name) {
-  if (!id || isNaN(id) || id <= 0) {
-    Swal.fire({
-      icon: 'error',
-      title: 'Erreur',
-      text: 'ID utilisateur invalide.',
-      confirmButtonColor: '#e74c3c'
-    });
-    return;
-  }
 
-  Swal.fire({
-    title: '❌ Supprimer ce profil ?',
-    html: `Voulez-vous vraiment supprimer <strong>${name}</strong> (ID: ${id}) ?`,
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonText: 'Oui, supprimer',
-    cancelButtonText: 'Annuler',
-    confirmButtonColor: '#d33',
-    cancelButtonColor: '#aaa'
-  }).then((result) => {
-    if (result.isConfirmed) {
-      fetch('indeex.php?action=supprimerUser', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: `id=${encodeURIComponent(id)}` // Encoder l'ID pour éviter les problèmes
-      })
-      .then(res => {
-        if (!res.ok) {
-          throw new Error(`Erreur HTTP: ${res.status}`);
-        }
-        return res.json();
-      })
-      .then(data => {
-        console.log("🔥 Réponse suppression :", data);
-        if (data.success) {
-          const row = document.getElementById(`user-row-${id}`);
-          if (row) {
-            row.remove();
-          }
-          Swal.fire({
-            icon: 'success',
-            title: 'Utilisateur supprimé ✅',
-            text: `Le compte a été supprimé.`,
-            confirmButtonColor: '#6c63ff'
-          });
-        } else {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+      function deleteUser(id, name) {
+        if (!id || isNaN(id) || id <= 0) {
           Swal.fire({
             icon: 'error',
             title: 'Erreur',
-            text: data.error || 'La suppression a échoué.',
+            text: 'ID utilisateur invalide.',
             confirmButtonColor: '#e74c3c'
           });
+          return;
         }
-      })
-      .catch(err => {
-        console.error("❌ Erreur FETCH :", err);
-        Swal.fire({
-          icon: 'error',
-          title: 'Erreur',
-          text: 'Une erreur est survenue lors de la suppression : ' + err.message,
-          confirmButtonColor: '#e74c3c'
-        });
-      });
-    }
-  });
-}
 
-</script>
+        Swal.fire({
+          title: '❌ Supprimer ce profil ?',
+          html: `Voulez-vous vraiment supprimer <strong>${name}</strong> (ID: ${id}) ?`,
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Oui, supprimer',
+          cancelButtonText: 'Annuler',
+          confirmButtonColor: '#d33',
+          cancelButtonColor: '#aaa'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            fetch('indeex.php?action=supprimerUser', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `id=${encodeURIComponent(id)}` // Encoder l'ID pour éviter les problèmes
+              })
+              .then(res => {
+                if (!res.ok) {
+                  throw new Error(`Erreur HTTP: ${res.status}`);
+                }
+                return res.json();
+              })
+              .then(data => {
+                console.log("🔥 Réponse suppression :", data);
+                if (data.success) {
+                  const row = document.getElementById(`user-row-${id}`);
+                  if (row) {
+                    row.remove();
+                  }
+                  Swal.fire({
+                    icon: 'success',
+                    title: 'Utilisateur supprimé ✅',
+                    text: `Le compte a été supprimé.`,
+                    confirmButtonColor: '#6c63ff'
+                  });
+                } else {
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Erreur',
+                    text: data.error || 'La suppression a échoué.',
+                    confirmButtonColor: '#e74c3c'
+                  });
+                }
+              })
+              .catch(err => {
+                console.error("❌ Erreur FETCH :", err);
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Erreur',
+                  text: 'Une erreur est survenue lors de la suppression : ' + err.message,
+                  confirmButtonColor: '#e74c3c'
+                });
+              });
+          }
+        });
+      }
+    </script>
 
 
 
@@ -1500,6 +1843,7 @@ function deleteUser(id, name) {
         const form = document.getElementById('productForm');
         const title = document.getElementById('modalTitle');
 
+
         if (mode === 'edit' && button) {
           title.textContent = 'Modifier un Produit';
           const card = button.closest('.card');
@@ -1560,6 +1904,8 @@ function deleteUser(id, name) {
         }
       }
     </script>
+
+
 </body>
 
 </html>

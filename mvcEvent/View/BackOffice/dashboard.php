@@ -77,6 +77,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 }
+
+
+// Fonction pour générer une couleur à partir du nom
+function stringToColor($str)
+{
+  $Colors = [
+    '#FF6B6B',
+    '#FF8E53',
+    '#6B5B95',
+    '#88B04B',
+    '#F7CAC9',
+    '#92A8D1',
+    '#955251',
+    '#B565A7',
+    '#DD4124',
+    '#D65076'
+  ];
+  $hash = 0;
+  for ($i = 0; $i < strlen($str); $i++) {
+    $hash = ord($str[$i]) + (($hash << 5) - $hash);
+  }
+  return $Colors[abs($hash) % count($Colors)];
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -90,15 +115,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="dashboard.css">
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css' rel='stylesheet' />
     <style>
-        body {
-            background: rgb(235, 222, 253) !important;
-        }
+
 
         .dashboard {
             padding: 20px;
             margin-left: 260px;
             min-height: 100vh;
-            background: rgb(235, 222, 253) !important;
         }
 
         /* Stats Cards Styles */
@@ -166,12 +188,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <a href="/Projet Web/mvcSponsor/crud/view/back/back.php" class="nav-link" data-section="sponsors">Sponsors</a>
     </div>
 
+    <div class="profile-container">
+
     <div class="user-profile">
         <?php if (isset($_SESSION['user'])): ?>
             <?php
             $photoPath = $_SESSION['user']['profile_picture'] ?? '';
             $fullName = $_SESSION['user']['full_name'] ?? 'Utilisateur';
-            $photoRelativePath = '../../mvcUtilisateur/View/FrontOffice/' . $photoPath;
+            $photoRelativePath = '../../../mvcUtilisateur/View/FrontOffice/' . $photoPath;
             $absolutePath = realpath(__DIR__ . '/' . $photoRelativePath);
             $showPhoto = !empty($photoPath) && $absolutePath && file_exists($absolutePath);
             ?>
@@ -197,56 +221,174 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <style>
+
+                .navbar-backoffice-wrapper {
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.98));
+          padding: 15px 30px;
+          border-radius: 30px;
+          box-shadow: 0 8px 32px rgba(151, 104, 209, 0.1);
+          position: fixed;
+          top: 40px;
+          left: 58%;
+          transform: translateX(-50%);
+          z-index: 1000;
+          width: fit-content;
+          min-width: 800px;
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(151, 104, 209, 0.1);
+        }
+        .navbar-backoffice ul {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 30px;
+          /* Réduit légèrement l'espacement entre les éléments */
+          margin: 0;
+          padding: 0;
+          list-style: none;
+        }
+
         .top-navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-            background-color: #f8f9fa;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            position: relative;
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.98));
+          padding: 0px 30px;
+          border-radius: 30px;
+          box-shadow: 0 8px 32px rgba(151, 104, 209, 0.1);
+          position: fixed;
+          top: 30px;
+          left: 55%;
+          transform: translateX(-50%);
+          z-index: 1000;
+          width: fit-content;
+          min-width: 800px;
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(151, 104, 209, 0.1);
+        }
+
+        .top-navbar ul {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 30px;
+          /* Réduit légèrement l'espacement entre les éléments */
+          margin: 0;
+          padding: 0;
+          list-style: none;
+          padding-top: 1000px;
         }
         
         .nav-links-container {
             display: flex;
-            gap: 15px;
+            gap: 30px;
+            margin: 12px 12px;
         }
         
         .nav-link {
-            padding: 8px 12px;
-            text-decoration: none;
-            color: #333;
-            border-radius: 4px;
+          text-decoration: none;
+          font-weight: 500;
+          font-size: 15px;
+          transition: all 0.3s ease;
+          padding: 10px 20px;
+          border-radius: 20px;
+          white-space: nowrap;
+          position: relative;
+        }
+
+        /* Couleurs spécifiques pour chaque lien */
+        .nav-link[href*="Utilisateur"] {
+          color: #9F7AEA;
+        }
+
+        .nav-link[href*="act"] {
+          color: #9F7AEA;
+        }
+
+        .nav-link[href*="Event"] {
+          color: #F687B3;
+        }
+
+        .nav-link[href*="Produit"] {
+          color: #9F7AEA;
+        }
+
+        .nav-link[href*="Covoiturage"] {
+          color: #9F7AEA;
+        }
+
+        .nav-link[href*="Sponsor"] {
+          color: #9F7AEA;
+        }
+
+
+        .nav-link:hover {
+          background: rgba(246, 135, 179, 0.1);
+          transform: translateY(-1px);
+        }
+
+        .nav-link.active {
+          font-weight: 600;
+          background: rgba(246, 135, 179, 0.15);
+          color: #F687B3;
         }
         
-        .nav-link:hover, .nav-link.active {
-            background-color: #e9ecef;
+                .nav-link.active::after {
+          content: '';
+          position: absolute;
+          bottom: -5px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 20px;
+          height: 3px;
+          background: #F687B3;
+          border-radius: 10px;
         }
-        
+
+
         .user-profile {
             position: relative;
             margin-left: auto;
         }
         
+                .profile-circle {
+                  width: 35px;
+                  height: 35px;
+                  border-radius: 50%;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  color: white;
+                  font-weight: bold;
+                  font-size: 16px;
+                  cursor: pointer;
+                }
+
         .profile-photo,
         .profile-circle {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            cursor: pointer;
-            object-fit: cover;
-            border: 2px solid #fff;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        display: flex;
+          width: 35px;
+          height: 35px;
+          border-radius: 50%;
+          cursor: pointer;
+          border: 2px solid white;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
+  body::after {
+    content: '✨';
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
+    opacity: 0.5;
+    z-index: 1;
+  }
         
-        .profile-circle {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #666;
-            color: white;
-            font-weight: bold;
-            font-size: 18px;
+        .profile-container {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+          margin-left: 35px;
+          padding-left: 25px;
+          border-left: 1px solid rgba(151, 104, 209, 0.2);
+          padding-right: 40px;
         }
         
         .dropdown-menu {
@@ -273,6 +415,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .dropdown-menu a:hover {
             background-color: #f5f5f5;
         }
+
+
     </style>
 
     <script>
@@ -289,6 +433,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         });
     </script>
+
+    </div>
 </nav>
 
     <div class="sidebar">
@@ -457,7 +603,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
 
-    <div id="section-statistiques" style="display:none">
+    <div id="section-statistiques" style="display:none; padding-top:100px;">
 
         <div class="stats-overview">
             <div class="stat-card">
@@ -509,7 +655,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
 
-    <div id="section-chaises" style="display:none">
+    <div id="section-chaises" style="display:non; padding-top:100px;">
         <div class="seat-management">
             <h2>Gestion des chaises</h2>
             <div class="seat-controls">

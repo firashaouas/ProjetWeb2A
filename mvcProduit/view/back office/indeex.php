@@ -60,6 +60,46 @@ $pending_rentals = $pdo->query("SELECT COUNT(*) FROM louer WHERE statut_location
 $total_pending = $pending_purchases + $pending_rentals;
 ?>
 
+<?php
+// Configuration de session sécurisée
+if (session_status() === PHP_SESSION_NONE) {
+    ini_set('session.use_only_cookies', 1);
+    ini_set('session.cookie_httponly', 1);
+    session_start();
+}
+
+// Vérifier si utilisateur connecté
+if (!isset($_SESSION['user']['id_user'])) {
+    header('Location: /login.php'); // Adjust the login path as needed
+    exit();
+}
+
+
+$conn = config::getConnexion();
+
+// Function to generate color from string (from indeex.php)
+function stringToColor($str)
+{
+    $Colors = [
+        '#FF6B6B',
+        '#FF8E53',
+        '#6B5B95',
+        '#88B04B',
+        '#F7CAC9',
+        '#92A8D1',
+        '#955251',
+        '#B565A7',
+        '#DD4124',
+        '#D65076'
+    ];
+    $hash = 0;
+    for ($i = 0; $i < strlen($str); $i++) {
+        $hash = ord($str[$i]) + (($hash << 5) - $hash);
+    }
+    return $Colors[abs($hash) % count($Colors)];
+}
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -793,6 +833,7 @@ $total_pending = $pending_purchases + $pending_rentals;
 
     .categories-overview {
       margin-bottom: 20px;
+      margin-top: 100px;
     }
 
     .categories {
@@ -1845,11 +1886,13 @@ $total_pending = $pending_purchases + $pending_rentals;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
 
-    .profile-container {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
+        .profile-container {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+          padding-left: 25px;
+          border-left: 1px solid rgba(151, 104, 209, 0.2);
+        }
 
     .export-container {
       display: flex;
@@ -1971,15 +2014,19 @@ $total_pending = $pending_purchases + $pending_rentals;
   <style>
     /* Style pour les modules dans l'en-tête */
     .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background-color: white;
-      border-radius: 15px;
-      padding: 12px 20px;
-      margin: 20px 15px 40px;
-      /* Augmentation de la marge inférieure */
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.98));
+          padding: 5px 30px;
+          border-radius: 30px;
+          box-shadow: 0 8px 32px rgba(151, 104, 209, 0.1);
+          position: fixed;
+          top: 40px;
+          left: 58%;
+          transform: translateX(-50%);
+          z-index: 1000;
+          width: fit-content;
+          min-width: 800px;
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(151, 104, 209, 0.1);
     }
 
     .header-modules {
@@ -2014,12 +2061,6 @@ $total_pending = $pending_purchases + $pending_rentals;
       height: 2px;
       background-color: #e859c0;
       border-radius: 2px;
-    }
-
-    .profile-container {
-      display: flex;
-      align-items: center;
-      gap: 20px;
     }
   </style>
   <style>
@@ -2091,11 +2132,14 @@ $total_pending = $pending_purchases + $pending_rentals;
     }
 
     .navbar-backoffice ul {
-      display: flex;
-      gap: 40px;
-      list-style: none;
-      margin: 0;
-      padding: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 30px;
+          /* Réduit légèrement l'espacement entre les éléments */
+          margin: 0;
+          padding: 0;
+          list-style: none;
     }
 
     .navbar-backoffice a {
@@ -2490,6 +2534,7 @@ $total_pending = $pending_purchases + $pending_rentals;
 
     /* Style pour le header de la section */
     .section-header {
+      margin-top: 100px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -2665,49 +2710,38 @@ $total_pending = $pending_purchases + $pending_rentals;
         <div class="navbar-backoffice-wrapper">
           <nav class="navbar-backoffice">
             <ul style="display:flex;gap:40px;list-style:none;margin:0;padding:0;">
-              <li><a href="/Projet Web/mvcUtilisateur/View/BackOffice/indeex.php" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Utilisateurs</a></li>
-              <li><a href="/Projet Web/mvcact/view/back office/dashboard.php" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Activités</a></li>
-              <li><a href="/Projet Web/mvcEvent/View/BackOffice/dashboard.php" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Événements</a></li>
-              <li><a href="/Projet Web/mvcProduit/view/back office/indeex.php" style="color:#e859c0;font-weight:600;font-size:1.3em;text-decoration:none;">Produits</a></li>
-              <li><a href="/Projet Web/mvcCovoiturage/view/backoffice/dashboard.php" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Transports</a></li>
-              <li><a href="/Projet Web/mvcSponsor/crud/view/back/back.php" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Sponsors</a></li>
-            </ul>
-          </nav>
-        </div>
+            <li><a href="/Projet%20Web/mvcUtilisateur/View/BackOffice/indeex.php" class="nav-link">Utilisateurs</a></li>
+            <li><a href="/Projet%20Web/mvcact/view/back%20office/dashboard.php" class="nav-link">Activités</a></li>
+            <li><a href="/Projet%20Web/mvcEvent/View/BackOffice/dashboard.php" class="nav-link">Événements</a></li>
+            <li><a href="/Projet%20Web/mvcProduit/view/back%20office/indeex.php" class="nav-link active">Produits</a></li>
+            <li><a href="/Projet%20Web/mvcCovoiturage/view/backoffice/dashboard.php" class="nav-link">Transports</a></li>
+            <li><a href="/Projet%20Web/mvcSponsor/crud/view/back/back.php" class="nav-link">Sponsors</a></li>
+            <li class="profile-container">
+
 
         <div class="user-profile">
-          <?php if (isset($_SESSION['user'])): ?>
-            <?php
-            $photoPath = $_SESSION['user']['profile_picture'] ?? '';
-            $fullName = $_SESSION['user']['full_name'] ?? 'Utilisateur';
-
-            // Correction du chemin relatif pour le test file_exists (chemin serveur)
-            $photoRelativePath = '../../mvcUtilisateur/View/FrontOffice/' . $photoPath;
-            $absolutePath = realpath(__DIR__ . '/' . $photoRelativePath);
-            $showPhoto = !empty($photoPath) && $absolutePath && file_exists($absolutePath);
-            ?>
-
-            <?php if ($showPhoto): ?>
-              <!-- Affichage de la photo (chemin URL côté client) -->
-              <img src="/Projet Web/mvcUtilisateur/View/FrontOffice/<?= htmlspecialchars($photoPath) ?>"
-                alt="Photo de profil"
-                class="profile-photo"
-                onclick="toggleDropdown()">
-            <?php else: ?>
-              <!-- Cercle avec initiale -->
-              <div class="profile-circle"
-                style="background-color: <?= function_exists('stringToColor') ? stringToColor($fullName) : '#999' ?>;"
-                onclick="toggleDropdown()">
-                <?= strtoupper(htmlspecialchars(substr($fullName, 0, 1))) ?>
-              </div>
+            <?php if (isset($_SESSION['user'])): ?>
+                <?php
+                $photoPath = $_SESSION['user']['profile_picture'] ?? '';
+                $fullName = $_SESSION['user']['full_name'] ?? 'Utilisateur';
+                // Adjust path for back.php's directory
+                $photoRelativePath = '../../../mvcUtilisateur/View/FrontOffice/' . $photoPath;
+                $absolutePath = realpath(__DIR__ . '/' . $photoRelativePath);
+                $showPhoto = !empty($photoPath) && $absolutePath && file_exists($absolutePath);
+                ?>
+                
+                <?php if ($showPhoto): ?>
+                    <img src="/Projet%20Web/mvcUtilisateur/View/FrontOffice/<?= htmlspecialchars($photoPath) ?>" alt="Photo de profil" class="profile-photo" onclick="toggleDropdown()">
+                <?php else: ?>
+                    <div class="profile-circle" style="background-color: <?= stringToColor($fullName) ?>;" onclick="toggleDropdown()">
+                        <?= strtoupper(substr($fullName, 0, 1)) ?>
+                    </div>
+                <?php endif; ?>
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <a href="/Projet%20Web/mvcUtilisateur/View/FrontOffice/profile.php">👤 Mon Profil</a>
+                    <a href="/Projet%20Web/mvcUtilisateur/View/BackOffice/login/logout.php">🚪 Déconnexion</a>
+                </div>
             <?php endif; ?>
-
-            <!-- Menu déroulant -->
-            <div class="dropdown-menu" id="dropdownMenu">
-              <a href="/Projet Web/mvcUtilisateur/View/FrontOffice/profile.php">👤 Mon Profil</a>
-              <a href="/Projet Web/mvcUtilisateur/View/BackOffice/login/logout.php">🚪 Déconnexion</a>
-            </div>
-          <?php endif; ?>
         </div>
 
 
@@ -2735,33 +2769,47 @@ $total_pending = $pending_purchases + $pending_rentals;
           });
         </script>
         <style>
-          .user-profile {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-          }
+                .user-profile {
+                  position: relative;
+                  display: inline-block;
+                }
+          
+                .user-profile:hover .dropdown-menu {
+                  display: block;
+                }
 
-          .profile-photo,
-          .profile-circle {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            cursor: pointer;
-            object-fit: cover;
-            border: 2px solid #fff;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-          }
+                .profile-photo {
+                  width: 55px;
+                  height: 55px;
+                  border-radius: 50%;
+                  object-fit: cover;
+                  cursor: pointer;
+                  border: 2px solid purple;
+                  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+                }
 
-          .profile-circle {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #666;
-            color: white;
-            font-weight: bold;
-            font-size: 18px;
-          }
+                .profile-circle {
+                  width: 35px;
+                  height: 35px;
+                  border-radius: 50%;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  color: white;
+                  font-weight: bold;
+                  font-size: 16px;
+                  cursor: pointer;
+                }
+
+        .profile-photo,
+        .profile-circle {
+          width: 35px;
+          height: 35px;
+          border-radius: 50%;
+          cursor: pointer;
+          border: 2px solid white;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
 
           .dropdown-menu {
             display: none;
@@ -2813,6 +2861,11 @@ $total_pending = $pending_purchases + $pending_rentals;
             background-color: #f9f9f9;
           }
         </style>
+
+            </ul>
+          </nav>
+        </div>
+
       </div>
 
       <div class="categories-overview">
@@ -2975,6 +3028,67 @@ $total_pending = $pending_purchases + $pending_rentals;
             .stars {
               letter-spacing: 2px;
             }
+
+            .nav-link {
+          text-decoration: none;
+          font-weight: 500;
+          font-size: 15px;
+          transition: all 0.3s ease;
+          padding: 10px 20px;
+          border-radius: 20px;
+          white-space: nowrap;
+          position: relative;
+        }
+
+        /* Couleurs spécifiques pour chaque lien */
+        .nav-link[href*="Utilisateur"] {
+          color: #9F7AEA;
+        }
+
+
+        .nav-link[href*="act"] {
+          color: #9F7AEA;
+        }
+
+        .nav-link[href*="Event"] {
+          color: #9F7AEA;
+        }
+
+        .nav-link[href*="Produit"] {
+          color: #F687B3;
+        }
+
+        .nav-link[href*="Covoiturage"] {
+          color: #9F7AEA;
+        }
+
+        .nav-link[href*="Sponsor"] {
+          color: #9F7AEA;
+        }
+
+        .nav-link:hover {
+          background: rgba(246, 135, 179, 0.1);
+          transform: translateY(-1px);
+        }
+
+        .nav-link.active {
+          font-weight: 600;
+          background: rgba(246, 135, 179, 0.15);
+          color: #F687B3;
+        }
+
+        .nav-link.active::after {
+          content: '';
+          position: absolute;
+          bottom: -5px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 20px;
+          height: 3px;
+          background: #F687B3;
+          border-radius: 10px;
+        }
+
           </style>
 
           <!-- Alertes Stock -->
@@ -3094,25 +3208,42 @@ $total_pending = $pending_purchases + $pending_rentals;
         <div class="navbar-backoffice-wrapper">
           <nav class="navbar-backoffice">
             <ul style="display:flex;gap:40px;list-style:none;margin:0;padding:0;">
-              <li><a href="/Projet Web/mvcUtilisateur/View/BackOffice/indeex.php" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Utilisateurs</a></li>
-              <li><a href="../back office/dashboard.php" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Activités</a></li>
-              <li><a href="../front office/events.html" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Événements</a></li>
-              <li><a href="?section=overview" style="color:#e859c0;font-weight:600;font-size:1.3em;text-decoration:none;">Produits</a></li>
-              <li><a href="../front office/transports.html" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Transports</a></li>
-              <li><a href="../front office/sponsors.html" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Sponsors</a></li>
+            <li><a href="/Projet%20Web/mvcUtilisateur/View/BackOffice/indeex.php" class="nav-link">Utilisateurs</a></li>
+            <li><a href="/Projet%20Web/mvcact/view/back%20office/dashboard.php" class="nav-link">Activités</a></li>
+            <li><a href="/Projet%20Web/mvcEvent/View/BackOffice/dashboard.php" class="nav-link">Événements</a></li>
+            <li><a href="/Projet%20Web/mvcProduit/view/back%20office/indeex.php" class="nav-link active">Produits</a></li>
+            <li><a href="/Projet%20Web/mvcCovoiturage/view/backoffice/dashboard.php" class="nav-link">Transports</a></li>
+            <li><a href="/Projet%20Web/mvcSponsor/crud/view/back/back.php" class="nav-link">Sponsors</a></li>
             </ul>
           </nav>
         </div>
 
-        <div class="profile-container-navbar" id="profileNavbar">
-          <img src="Sarah.webp" alt="Profile Picture">
-          <div class="profile-dropdown">
-            <div class="admin-mail">admin@clickngo.com</div>
-            <form method="post" action="indeex.php?action=logout" style="margin:0;">
-              <button type="submit" class="logout-btn">Déconnexion</button>
-            </form>
-          </div>
+        <div class="profile-container">
+        <div class="user-profile">
+            <?php if (isset($_SESSION['user'])): ?>
+                <?php
+                $photoPath = $_SESSION['user']['profile_picture'] ?? '';
+                $fullName = $_SESSION['user']['full_name'] ?? 'Utilisateur';
+                // Adjust path for back.php's directory
+                $photoRelativePath = '../../../mvcUtilisateur/View/FrontOffice/' . $photoPath;
+                $absolutePath = realpath(__DIR__ . '/' . $photoRelativePath);
+                $showPhoto = !empty($photoPath) && $absolutePath && file_exists($absolutePath);
+                ?>
+                
+                <?php if ($showPhoto): ?>
+                    <img src="/Projet%20Web/mvcUtilisateur/View/FrontOffice/<?= htmlspecialchars($photoPath) ?>" alt="Photo de profil" class="profile-photo" onclick="toggleDropdown()">
+                <?php else: ?>
+                    <div class="profile-circle" style="background-color: <?= stringToColor($fullName) ?>;" onclick="toggleDropdown()">
+                        <?= strtoupper(substr($fullName, 0, 1)) ?>
+                    </div>
+                <?php endif; ?>
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <a href="/Projet%20Web/mvcUtilisateur/View/FrontOffice/profile.php">👤 Mon Profil</a>
+                    <a href="/Projet%20Web/mvcUtilisateur/View/BackOffice/login/logout.php">🚪 Déconnexion</a>
+                </div>
+            <?php endif; ?>
         </div>
+      </div>
       </div>
 
       <div class="section-header">
@@ -3177,25 +3308,42 @@ $total_pending = $pending_purchases + $pending_rentals;
         <div class="navbar-backoffice-wrapper">
           <nav class="navbar-backoffice">
             <ul style="display:flex;gap:40px;list-style:none;margin:0;padding:0;">
-              <li><a href="/Projet Web/mvcUtilisateur/View/BackOffice/indeex.php" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Utilisateurs</a></li>
-              <li><a href="../back office/dashboard.php" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Activités</a></li>
-              <li><a href="../front office/events.html" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Événements</a></li>
-              <li><a href="?section=overview" style="color:#e859c0;font-weight:600;font-size:1.3em;text-decoration:none;">Produits</a></li>
-              <li><a href="../front office/transports.html" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Transports</a></li>
-              <li><a href="../front office/sponsors.html" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Sponsors</a></li>
+            <li><a href="/Projet%20Web/mvcUtilisateur/View/BackOffice/indeex.php" class="nav-link">Utilisateurs</a></li>
+            <li><a href="/Projet%20Web/mvcact/view/back%20office/dashboard.php" class="nav-link">Activités</a></li>
+            <li><a href="/Projet%20Web/mvcEvent/View/BackOffice/dashboard.php" class="nav-link">Événements</a></li>
+            <li><a href="/Projet%20Web/mvcProduit/view/back%20office/indeex.php" class="nav-link active">Produits</a></li>
+            <li><a href="/Projet%20Web/mvcCovoiturage/view/backoffice/dashboard.php" class="nav-link">Transports</a></li>
+            <li><a href="/Projet%20Web/mvcSponsor/crud/view/back/back.php" class="nav-link">Sponsors</a></li>
             </ul>
           </nav>
         </div>
 
-        <div class="profile-container-navbar" id="profileNavbar">
-          <img src="Sarah.webp" alt="Profile Picture">
-          <div class="profile-dropdown">
-            <div class="admin-mail">admin@clickngo.com</div>
-            <form method="post" action="indeex.php?action=logout" style="margin:0;">
-              <button type="submit" class="logout-btn">Déconnexion</button>
-            </form>
-          </div>
+        <div class="profile-container">
+        <div class="user-profile">
+            <?php if (isset($_SESSION['user'])): ?>
+                <?php
+                $photoPath = $_SESSION['user']['profile_picture'] ?? '';
+                $fullName = $_SESSION['user']['full_name'] ?? 'Utilisateur';
+                // Adjust path for back.php's directory
+                $photoRelativePath = '../../../mvcUtilisateur/View/FrontOffice/' . $photoPath;
+                $absolutePath = realpath(__DIR__ . '/' . $photoRelativePath);
+                $showPhoto = !empty($photoPath) && $absolutePath && file_exists($absolutePath);
+                ?>
+                
+                <?php if ($showPhoto): ?>
+                    <img src="/Projet%20Web/mvcUtilisateur/View/FrontOffice/<?= htmlspecialchars($photoPath) ?>" alt="Photo de profil" class="profile-photo" onclick="toggleDropdown()">
+                <?php else: ?>
+                    <div class="profile-circle" style="background-color: <?= stringToColor($fullName) ?>;" onclick="toggleDropdown()">
+                        <?= strtoupper(substr($fullName, 0, 1)) ?>
+                    </div>
+                <?php endif; ?>
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <a href="/Projet%20Web/mvcUtilisateur/View/FrontOffice/profile.php">👤 Mon Profil</a>
+                    <a href="/Projet%20Web/mvcUtilisateur/View/BackOffice/login/logout.php">🚪 Déconnexion</a>
+                </div>
+            <?php endif; ?>
         </div>
+      </div>
       </div>
 
       <div class="section-header">
@@ -3339,25 +3487,42 @@ $total_pending = $pending_purchases + $pending_rentals;
         <div class="navbar-backoffice-wrapper">
           <nav class="navbar-backoffice">
             <ul style="display:flex;gap:40px;list-style:none;margin:0;padding:0;">
-              <li><a href="/Projet Web/mvcUtilisateur/View/BackOffice/indeex.php" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Utilisateurs</a></li>
-              <li><a href="../back office/dashboard.php" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Activités</a></li>
-              <li><a href="../front office/events.html" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Événements</a></li>
-              <li><a href="?section=overview" style="color:#e859c0;font-weight:600;font-size:1.3em;text-decoration:none;">Produits</a></li>
-              <li><a href="../front office/transports.html" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Transports</a></li>
-              <li><a href="../front office/sponsors.html" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Sponsors</a></li>
+            <li><a href="/Projet%20Web/mvcUtilisateur/View/BackOffice/indeex.php" class="nav-link">Utilisateurs</a></li>
+            <li><a href="/Projet%20Web/mvcact/view/back%20office/dashboard.php" class="nav-link">Activités</a></li>
+            <li><a href="/Projet%20Web/mvcEvent/View/BackOffice/dashboard.php" class="nav-link">Événements</a></li>
+            <li><a href="/Projet%20Web/mvcProduit/view/back%20office/indeex.php" class="nav-link active">Produits</a></li>
+            <li><a href="/Projet%20Web/mvcCovoiturage/view/backoffice/dashboard.php" class="nav-link">Transports</a></li>
+            <li><a href="/Projet%20Web/mvcSponsor/crud/view/back/back.php" class="nav-link">Sponsors</a></li>
             </ul>
           </nav>
         </div>
 
-        <div class="profile-container-navbar" id="profileNavbar">
-          <img src="Sarah.webp" alt="Profile Picture">
-          <div class="profile-dropdown">
-            <div class="admin-mail">admin@clickngo.com</div>
-            <form method="post" action="indeex.php?action=logout" style="margin:0;">
-              <button type="submit" class="logout-btn">Déconnexion</button>
-            </form>
-          </div>
+        <div class="profile-container">
+        <div class="user-profile">
+            <?php if (isset($_SESSION['user'])): ?>
+                <?php
+                $photoPath = $_SESSION['user']['profile_picture'] ?? '';
+                $fullName = $_SESSION['user']['full_name'] ?? 'Utilisateur';
+                // Adjust path for back.php's directory
+                $photoRelativePath = '../../../mvcUtilisateur/View/FrontOffice/' . $photoPath;
+                $absolutePath = realpath(__DIR__ . '/' . $photoRelativePath);
+                $showPhoto = !empty($photoPath) && $absolutePath && file_exists($absolutePath);
+                ?>
+                
+                <?php if ($showPhoto): ?>
+                    <img src="/Projet%20Web/mvcUtilisateur/View/FrontOffice/<?= htmlspecialchars($photoPath) ?>" alt="Photo de profil" class="profile-photo" onclick="toggleDropdown()">
+                <?php else: ?>
+                    <div class="profile-circle" style="background-color: <?= stringToColor($fullName) ?>;" onclick="toggleDropdown()">
+                        <?= strtoupper(substr($fullName, 0, 1)) ?>
+                    </div>
+                <?php endif; ?>
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <a href="/Projet%20Web/mvcUtilisateur/View/FrontOffice/profile.php">👤 Mon Profil</a>
+                    <a href="/Projet%20Web/mvcUtilisateur/View/BackOffice/login/logout.php">🚪 Déconnexion</a>
+                </div>
+            <?php endif; ?>
         </div>
+      </div>
       </div>
 
       <div class="section-header">
@@ -3647,28 +3812,45 @@ $total_pending = $pending_purchases + $pending_rentals;
         <div class="navbar-backoffice-wrapper">
           <nav class="navbar-backoffice">
             <ul style="display:flex;gap:40px;list-style:none;margin:0;padding:0;">
-              <li><a href="/Projet Web/mvcUtilisateur/View/BackOffice/indeex.php" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Utilisateurs</a></li>
-              <li><a href="../back office/dashboard.php" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Activités</a></li>
-              <li><a href="../front office/events.html" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Événements</a></li>
-              <li><a href="?section=overview" style="color:#e859c0;font-weight:600;font-size:1.3em;text-decoration:none;">Produits</a></li>
-              <li><a href="../front office/transports.html" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Transports</a></li>
-              <li><a href="../front office/sponsors.html" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Sponsors</a></li>
+            <li><a href="/Projet%20Web/mvcUtilisateur/View/BackOffice/indeex.php" class="nav-link">Utilisateurs</a></li>
+            <li><a href="/Projet%20Web/mvcact/view/back%20office/dashboard.php" class="nav-link">Activités</a></li>
+            <li><a href="/Projet%20Web/mvcEvent/View/BackOffice/dashboard.php" class="nav-link">Événements</a></li>
+            <li><a href="/Projet%20Web/mvcProduit/view/back%20office/indeex.php" class="nav-link active">Produits</a></li>
+            <li><a href="/Projet%20Web/mvcCovoiturage/view/backoffice/dashboard.php" class="nav-link">Transports</a></li>
+            <li><a href="/Projet%20Web/mvcSponsor/crud/view/back/back.php" class="nav-link">Sponsors</a></li>
             </ul>
           </nav>
         </div>
 
-        <div class="profile-container-navbar" id="profileNavbar">
-          <img src="Sarah.webp" alt="Profile Picture">
-          <div class="profile-dropdown">
-            <div class="admin-mail">admin@clickngo.com</div>
-            <form method="post" action="indeex.php?action=logout" style="margin:0;">
-              <button type="submit" class="logout-btn">Déconnexion</button>
-            </form>
-          </div>
+        <div class="profile-container">
+        <div class="user-profile">
+            <?php if (isset($_SESSION['user'])): ?>
+                <?php
+                $photoPath = $_SESSION['user']['profile_picture'] ?? '';
+                $fullName = $_SESSION['user']['full_name'] ?? 'Utilisateur';
+                // Adjust path for back.php's directory
+                $photoRelativePath = '../../../mvcUtilisateur/View/FrontOffice/' . $photoPath;
+                $absolutePath = realpath(__DIR__ . '/' . $photoRelativePath);
+                $showPhoto = !empty($photoPath) && $absolutePath && file_exists($absolutePath);
+                ?>
+                
+                <?php if ($showPhoto): ?>
+                    <img src="/Projet%20Web/mvcUtilisateur/View/FrontOffice/<?= htmlspecialchars($photoPath) ?>" alt="Photo de profil" class="profile-photo" onclick="toggleDropdown()">
+                <?php else: ?>
+                    <div class="profile-circle" style="background-color: <?= stringToColor($fullName) ?>;" onclick="toggleDropdown()">
+                        <?= strtoupper(substr($fullName, 0, 1)) ?>
+                    </div>
+                <?php endif; ?>
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <a href="/Projet%20Web/mvcUtilisateur/View/FrontOffice/profile.php">👤 Mon Profil</a>
+                    <a href="/Projet%20Web/mvcUtilisateur/View/BackOffice/login/logout.php">🚪 Déconnexion</a>
+                </div>
+            <?php endif; ?>
         </div>
       </div>
+      </div>
 
-      <h2>Réglages ⚙️</h2>
+      <h2 style="margin-top: 100px;">Réglages ⚙️</h2>
       <div class="card">
         <h3>Paramètres du Site</h3>
         <p>Frais de livraison : 10 TND<br>Durée max. location : 7 jours</p>
@@ -3684,25 +3866,42 @@ $total_pending = $pending_purchases + $pending_rentals;
         <div class="navbar-backoffice-wrapper">
           <nav class="navbar-backoffice">
             <ul style="display:flex;gap:40px;list-style:none;margin:0;padding:0;">
-              <li><a href="/Projet Web/mvcUtilisateur/View/BackOffice/indeex.php" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Utilisateurs</a></li>
-              <li><a href="../back office/dashboard.php" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Activités</a></li>
-              <li><a href="../front office/events.html" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Événements</a></li>
-              <li><a href="?section=overview" style="color:#e859c0;font-weight:600;font-size:1.3em;text-decoration:none;">Produits</a></li>
-              <li><a href="../front office/transports.html" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Transports</a></li>
-              <li><a href="../front office/sponsors.html" style="color:#9768D1;font-weight:600;font-size:1.3em;text-decoration:none;">Sponsors</a></li>
+            <li><a href="/Projet%20Web/mvcUtilisateur/View/BackOffice/indeex.php" class="nav-link">Utilisateurs</a></li>
+            <li><a href="/Projet%20Web/mvcact/view/back%20office/dashboard.php" class="nav-link">Activités</a></li>
+            <li><a href="/Projet%20Web/mvcEvent/View/BackOffice/dashboard.php" class="nav-link">Événements</a></li>
+            <li><a href="/Projet%20Web/mvcProduit/view/back%20office/indeex.php" class="nav-link active">Produits</a></li>
+            <li><a href="/Projet%20Web/mvcCovoiturage/view/backoffice/dashboard.php" class="nav-link">Transports</a></li>
+            <li><a href="/Projet%20Web/mvcSponsor/crud/view/back/back.php" class="nav-link">Sponsors</a></li>
             </ul>
           </nav>
         </div>
 
-        <div class="profile-container-navbar" id="profileNavbar">
-          <img src="Sarah.webp" alt="Profile Picture">
-          <div class="profile-dropdown">
-            <div class="admin-mail">admin@clickngo.com</div>
-            <form method="post" action="indeex.php?action=logout" style="margin:0;">
-              <button type="submit" class="logout-btn">Déconnexion</button>
-            </form>
-          </div>
+        <div class="profile-container">
+        <div class="user-profile">
+            <?php if (isset($_SESSION['user'])): ?>
+                <?php
+                $photoPath = $_SESSION['user']['profile_picture'] ?? '';
+                $fullName = $_SESSION['user']['full_name'] ?? 'Utilisateur';
+                // Adjust path for back.php's directory
+                $photoRelativePath = '../../../mvcUtilisateur/View/FrontOffice/' . $photoPath;
+                $absolutePath = realpath(__DIR__ . '/' . $photoRelativePath);
+                $showPhoto = !empty($photoPath) && $absolutePath && file_exists($absolutePath);
+                ?>
+                
+                <?php if ($showPhoto): ?>
+                    <img src="/Projet%20Web/mvcUtilisateur/View/FrontOffice/<?= htmlspecialchars($photoPath) ?>" alt="Photo de profil" class="profile-photo" onclick="toggleDropdown()">
+                <?php else: ?>
+                    <div class="profile-circle" style="background-color: <?= stringToColor($fullName) ?>;" onclick="toggleDropdown()">
+                        <?= strtoupper(substr($fullName, 0, 1)) ?>
+                    </div>
+                <?php endif; ?>
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <a href="/Projet%20Web/mvcUtilisateur/View/FrontOffice/profile.php">👤 Mon Profil</a>
+                    <a href="/Projet%20Web/mvcUtilisateur/View/BackOffice/login/logout.php">🚪 Déconnexion</a>
+                </div>
+            <?php endif; ?>
         </div>
+      </div>
       </div>
 
       <div class="section-header">

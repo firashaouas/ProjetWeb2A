@@ -241,3 +241,27 @@ function loadMessages() {
     });
 }
 
+
+
+
+
+
+
+
+
+// 🔁 Activer la section "youtube" comme les autres
+document.getElementById('youtubeSectionBtn').addEventListener('click', () => {
+  // Retire "active" de toutes les sections
+  document.querySelectorAll('.dashboard-section').forEach(section => {
+    section.classList.remove('active');
+  });
+
+  // Active la section YouTube
+  const youtubeSection = document.getElementById('youtube');
+  if (youtubeSection) {
+    youtubeSection.classList.add('active');
+  }
+
+  // Affiche mini lecteur vidéo
+  startVideo("https://www.youtube.com/embed/YbJOTdZBX1g"); // ← Remplace par ta vidéo
+});

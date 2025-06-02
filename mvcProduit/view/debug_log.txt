@@ -23735,3 +23735,1273 @@
 2025-05-13 21:54:32 - AvisController: Database connected successfully
 2025-05-13 21:54:32 - Database connected successfully
 2025-05-13 21:54:32 - AvisController: Database connected successfully
+2025-05-13 22:05:22 - Database connected successfully
+2025-05-13 22:05:22 - AvisController: Database connected successfully
+2025-05-13 22:05:22 - Database connected successfully
+2025-05-13 22:05:22 - AvisController: Database connected successfully
+2025-05-14 02:18:45 - Database connected successfully
+2025-05-14 02:18:45 - AvisController: Database connected successfully
+2025-05-14 02:18:45 - Database connected successfully
+2025-05-14 02:18:45 - AvisController: Database connected successfully
+2025-05-14 02:19:25 - Database connected successfully
+2025-05-14 02:19:25 - AvisController: Database connected successfully
+2025-05-14 02:19:25 - Database connected successfully
+2025-05-14 02:19:25 - AvisController: Database connected successfully
+2025-05-14 02:19:33 - Database connected successfully
+2025-05-14 02:19:33 - AvisController: Database connected successfully
+2025-05-14 02:19:33 - Database connected successfully
+2025-05-14 02:19:33 - AvisController: Database connected successfully
+2025-05-14 02:19:35 - Database connected successfully
+2025-05-14 02:19:35 - AvisController: Database connected successfully
+2025-05-14 02:19:35 - Database connected successfully
+2025-05-14 02:19:35 - AvisController: Database connected successfully
+2025-05-14 02:19:36 - Database connected successfully
+2025-05-14 02:19:36 - AvisController: Database connected successfully
+2025-05-14 02:19:36 - Database connected successfully
+2025-05-14 02:19:36 - AvisController: Database connected successfully
+2025-05-14 02:19:37 - Database connected successfully
+2025-05-14 02:19:37 - AvisController: Database connected successfully
+2025-05-14 02:19:37 - Database connected successfully
+2025-05-14 02:19:37 - AvisController: Database connected successfully
+2025-05-14 02:19:38 - Database connected successfully
+2025-05-14 02:19:38 - AvisController: Database connected successfully
+2025-05-14 02:19:38 - Database connected successfully
+2025-05-14 02:19:38 - AvisController: Database connected successfully
+2025-05-14 02:19:40 - Database connected successfully
+2025-05-14 02:19:40 - AvisController: Database connected successfully
+2025-05-14 02:19:40 - Database connected successfully
+2025-05-14 02:19:40 - AvisController: Database connected successfully
+2025-05-14 02:19:41 - Database connected successfully
+2025-05-14 02:19:41 - AvisController: Database connected successfully
+2025-05-14 02:19:41 - Database connected successfully
+2025-05-14 02:19:41 - AvisController: Database connected successfully
+2025-05-14 02:19:44 - Database connected successfully
+2025-05-14 02:19:44 - AvisController: Database connected successfully
+2025-05-14 02:19:44 - Database connected successfully
+2025-05-14 02:19:44 - AvisController: Database connected successfully
+2025-05-14 02:19:45 - Database connected successfully
+2025-05-14 02:19:45 - AvisController: Database connected successfully
+2025-05-14 02:19:45 - Database connected successfully
+2025-05-14 02:19:45 - AvisController: Database connected successfully
+2025-05-14 02:19:46 - Database connected successfully
+2025-05-14 02:19:46 - AvisController: Database connected successfully
+2025-05-14 02:19:46 - Database connected successfully
+2025-05-14 02:19:46 - AvisController: Database connected successfully
+2025-05-14 02:19:47 - Database connected successfully
+2025-05-14 02:19:47 - AvisController: Database connected successfully
+2025-05-14 02:19:47 - Database connected successfully
+2025-05-14 02:19:47 - AvisController: Database connected successfully
+2025-05-14 02:19:58 - Database connected successfully
+2025-05-14 02:19:58 - AvisController: Database connected successfully
+2025-05-14 02:19:58 - Database connected successfully
+2025-05-14 02:19:58 - AvisController: Database connected successfully
+2025-05-14 02:19:59 - Database connected successfully
+2025-05-14 02:19:59 - AvisController: Database connected successfully
+2025-05-14 02:19:59 - Database connected successfully
+2025-05-14 02:19:59 - AvisController: Database connected successfully
+2025-05-14 02:19:59 - Database connected successfully
+2025-05-14 02:19:59 - AvisController: Database connected successfully
+2025-05-14 02:19:59 - Database connected successfully
+2025-05-14 02:19:59 - AvisController: Database connected successfully
+2025-05-14 02:20:00 - Database connected successfully
+2025-05-14 02:20:00 - AvisController: Database connected successfully
+2025-05-14 02:20:00 - Database connected successfully
+2025-05-14 02:20:00 - AvisController: Database connected successfully
+2025-05-14 02:20:01 - Database connected successfully
+2025-05-14 02:20:01 - AvisController: Database connected successfully
+2025-05-14 02:20:01 - Database connected successfully
+2025-05-14 02:20:01 - AvisController: Database connected successfully
+2025-05-14 02:23:42 - Database connected successfully
+2025-05-14 02:23:42 - AvisController: Database connected successfully
+2025-05-14 02:23:42 - Database connected successfully
+2025-05-14 02:23:42 - AvisController: Database connected successfully
+2025-05-14 02:24:36 - Database connected successfully
+2025-05-14 02:24:36 - AvisController: Database connected successfully
+2025-05-14 02:24:36 - Database connected successfully
+2025-05-14 02:24:36 - AvisController: Database connected successfully
+2025-05-14 02:27:46 - Database connected successfully
+2025-05-14 02:27:46 - AvisController: Database connected successfully
+2025-05-14 02:27:46 - Database connected successfully
+2025-05-14 02:27:46 - AvisController: Database connected successfully
+2025-05-14 02:27:57 - Database connected successfully
+2025-05-14 02:27:57 - AvisController: Database connected successfully
+2025-05-14 02:27:57 - Database connected successfully
+2025-05-14 02:27:57 - AvisController: Database connected successfully
+2025-05-14 02:28:09 - Database connected successfully
+2025-05-14 02:28:09 - AvisController: Database connected successfully
+2025-05-14 02:28:09 - Database connected successfully
+2025-05-14 02:28:09 - AvisController: Database connected successfully
+2025-05-14 02:28:13 - Database connected successfully
+2025-05-14 02:28:13 - AvisController: Database connected successfully
+2025-05-14 02:28:13 - Database connected successfully
+2025-05-14 02:28:13 - AvisController: Database connected successfully
+2025-05-14 02:29:06 - Database connected successfully
+2025-05-14 02:29:06 - AvisController: Database connected successfully
+2025-05-14 02:29:06 - Database connected successfully
+2025-05-14 02:29:06 - AvisController: Database connected successfully
+2025-05-14 02:30:08 - Database connected successfully
+2025-05-14 02:30:08 - AvisController: Database connected successfully
+2025-05-14 02:30:08 - Database connected successfully
+2025-05-14 02:30:08 - AvisController: Database connected successfully
+2025-05-14 02:30:12 - Database connected successfully
+2025-05-14 02:30:12 - AvisController: Database connected successfully
+2025-05-14 02:30:12 - Database connected successfully
+2025-05-14 02:30:12 - AvisController: Database connected successfully
+2025-05-14 02:30:59 - Database connected successfully
+2025-05-14 02:30:59 - AvisController: Database connected successfully
+2025-05-14 02:30:59 - Database connected successfully
+2025-05-14 02:30:59 - AvisController: Database connected successfully
+2025-05-14 02:31:08 - Database connected successfully
+2025-05-14 02:31:08 - AvisController: Database connected successfully
+2025-05-14 02:31:08 - Database connected successfully
+2025-05-14 02:31:08 - AvisController: Database connected successfully
+2025-05-14 04:14:45 - Database connected successfully
+2025-05-14 04:14:45 - AvisController: Database connected successfully
+2025-05-14 04:14:45 - Database connected successfully
+2025-05-14 04:14:45 - AvisController: Database connected successfully
+2025-05-14 04:16:16 - Database connected successfully
+2025-05-14 04:16:16 - AvisController: Database connected successfully
+2025-05-14 04:16:16 - Database connected successfully
+2025-05-14 04:16:16 - AvisController: Database connected successfully
+2025-05-14 04:16:31 - Database connected successfully
+2025-05-14 04:16:31 - AvisController: Database connected successfully
+2025-05-14 04:16:31 - Database connected successfully
+2025-05-14 04:16:31 - AvisController: Database connected successfully
+2025-05-14 04:22:34 - Database connected successfully
+2025-05-14 04:22:34 - AvisController: Database connected successfully
+2025-05-14 04:22:34 - Database connected successfully
+2025-05-14 04:22:34 - AvisController: Database connected successfully
+2025-05-14 04:29:46 - Database connected successfully
+2025-05-14 04:29:46 - AvisController: Database connected successfully
+2025-05-14 04:29:46 - Database connected successfully
+2025-05-14 04:29:46 - AvisController: Database connected successfully
+2025-05-14 04:43:24 - Database connected successfully
+2025-05-14 04:43:24 - AvisController: Database connected successfully
+2025-05-14 04:43:24 - Database connected successfully
+2025-05-14 04:43:24 - AvisController: Database connected successfully
+2025-05-14 05:03:01 - Database connected successfully
+2025-05-14 05:03:01 - AvisController: Database connected successfully
+2025-05-14 05:03:01 - Database connected successfully
+2025-05-14 05:03:01 - AvisController: Database connected successfully
+2025-05-14 05:03:40 - Database connected successfully
+2025-05-14 05:03:40 - AvisController: Database connected successfully
+2025-05-14 05:03:40 - Database connected successfully
+2025-05-14 05:03:40 - AvisController: Database connected successfully
+2025-05-14 05:04:09 - Database connected successfully
+2025-05-14 05:04:09 - Database connected successfully
+2025-05-14 05:04:13 - Database connected successfully
+2025-05-14 05:04:13 - AvisController: Database connected successfully
+2025-05-14 05:04:13 - Database connected successfully
+2025-05-14 05:04:13 - AvisController: Database connected successfully
+2025-05-14 05:07:00 - Database connected successfully
+2025-05-14 05:07:00 - AvisController: Database connected successfully
+2025-05-14 05:07:00 - Database connected successfully
+2025-05-14 05:07:00 - AvisController: Database connected successfully
+2025-05-14 05:07:06 - Database connected successfully
+2025-05-14 05:07:06 - AvisController: Database connected successfully
+2025-05-14 05:07:06 - Database connected successfully
+2025-05-14 05:07:06 - AvisController: Database connected successfully
+2025-05-14 05:07:07 - Database connected successfully
+2025-05-14 05:07:07 - AvisController: Database connected successfully
+2025-05-14 05:07:07 - Database connected successfully
+2025-05-14 05:07:07 - AvisController: Database connected successfully
+2025-05-14 05:07:08 - Database connected successfully
+2025-05-14 05:07:08 - AvisController: Database connected successfully
+2025-05-14 05:07:08 - Database connected successfully
+2025-05-14 05:07:08 - AvisController: Database connected successfully
+2025-05-14 05:07:12 - Database connected successfully
+2025-05-14 05:07:12 - AvisController: Database connected successfully
+2025-05-14 05:07:12 - Database connected successfully
+2025-05-14 05:07:12 - AvisController: Database connected successfully
+2025-05-14 05:07:13 - Database connected successfully
+2025-05-14 05:07:13 - AvisController: Database connected successfully
+2025-05-14 05:07:13 - Database connected successfully
+2025-05-14 05:07:13 - AvisController: Database connected successfully
+2025-05-14 05:07:17 - Database connected successfully
+2025-05-14 05:07:17 - AvisController: Database connected successfully
+2025-05-14 05:07:17 - Database connected successfully
+2025-05-14 05:07:17 - AvisController: Database connected successfully
+2025-05-14 05:07:18 - Database connected successfully
+2025-05-14 05:07:18 - AvisController: Database connected successfully
+2025-05-14 05:07:18 - Database connected successfully
+2025-05-14 05:07:18 - AvisController: Database connected successfully
+2025-05-14 05:07:21 - Database connected successfully
+2025-05-14 05:07:21 - AvisController: Database connected successfully
+2025-05-14 05:07:21 - Database connected successfully
+2025-05-14 05:07:21 - AvisController: Database connected successfully
+2025-05-14 05:07:32 - Database connected successfully
+2025-05-14 05:07:32 - AvisController: Database connected successfully
+2025-05-14 05:07:32 - Database connected successfully
+2025-05-14 05:07:32 - AvisController: Database connected successfully
+2025-05-14 06:17:35 - Database connected successfully
+2025-05-14 06:17:35 - AvisController: Database connected successfully
+2025-05-14 06:17:35 - Database connected successfully
+2025-05-14 06:17:35 - AvisController: Database connected successfully
+2025-05-14 06:17:42 - Database connected successfully
+2025-05-14 06:17:42 - AvisController: Database connected successfully
+2025-05-14 06:17:42 - Database connected successfully
+2025-05-14 06:17:42 - AvisController: Database connected successfully
+2025-05-14 06:17:46 - Database connected successfully
+2025-05-14 06:17:46 - AvisController: Database connected successfully
+2025-05-14 06:17:46 - Database connected successfully
+2025-05-14 06:17:46 - AvisController: Database connected successfully
+2025-05-14 06:17:47 - Database connected successfully
+2025-05-14 06:17:47 - AvisController: Database connected successfully
+2025-05-14 06:17:47 - Database connected successfully
+2025-05-14 06:17:47 - AvisController: Database connected successfully
+2025-05-14 06:18:10 - Database connected successfully
+2025-05-14 06:18:10 - AvisController: Database connected successfully
+2025-05-14 06:18:10 - Database connected successfully
+2025-05-14 06:18:10 - AvisController: Database connected successfully
+2025-05-14 06:18:12 - Database connected successfully
+2025-05-14 06:18:12 - AvisController: Database connected successfully
+2025-05-14 06:18:12 - Database connected successfully
+2025-05-14 06:18:12 - AvisController: Database connected successfully
+2025-05-14 10:21:59 - Database connected successfully
+2025-05-14 10:21:59 - AvisController: Database connected successfully
+2025-05-14 10:21:59 - Database connected successfully
+2025-05-14 10:21:59 - AvisController: Database connected successfully
+2025-05-14 11:18:55 - Database connected successfully
+2025-05-14 11:18:55 - AvisController: Database connected successfully
+2025-05-14 11:18:55 - Database connected successfully
+2025-05-14 11:18:55 - AvisController: Database connected successfully
+2025-05-14 11:31:31 - Database connected successfully
+2025-05-14 11:31:31 - AvisController: Database connected successfully
+2025-05-14 11:31:31 - Database connected successfully
+2025-05-14 11:31:31 - AvisController: Database connected successfully
+2025-05-14 11:31:44 - Database connected successfully
+2025-05-14 11:31:44 - AvisController: Database connected successfully
+2025-05-14 11:31:44 - Database connected successfully
+2025-05-14 11:31:44 - AvisController: Database connected successfully
+2025-05-14 11:31:50 - Database connected successfully
+2025-05-14 11:31:50 - Database connected successfully
+2025-05-14 11:31:54 - Database connected successfully
+2025-05-14 11:31:54 - AvisController: Database connected successfully
+2025-05-14 11:31:54 - Database connected successfully
+2025-05-14 11:31:54 - AvisController: Database connected successfully
+2025-05-14 11:32:00 - Database connected successfully
+2025-05-14 11:32:00 - Database connected successfully
+2025-05-14 11:32:03 - Database connected successfully
+2025-05-14 11:32:03 - AvisController: Database connected successfully
+2025-05-14 11:32:03 - Database connected successfully
+2025-05-14 11:32:03 - AvisController: Database connected successfully
+2025-05-14 11:33:25 - Database connected successfully
+2025-05-14 11:33:25 - AvisController: Database connected successfully
+2025-05-14 11:33:25 - Database connected successfully
+2025-05-14 11:33:25 - AvisController: Database connected successfully
+2025-05-15 19:12:23 - Database connected successfully
+2025-05-15 19:12:23 - AvisController: Database connected successfully
+2025-05-15 19:12:23 - Database connected successfully
+2025-05-15 19:12:23 - AvisController: Database connected successfully
+2025-05-15 19:12:39 - Database connected successfully
+2025-05-15 19:12:39 - AvisController: Database connected successfully
+2025-05-15 19:12:39 - Database connected successfully
+2025-05-15 19:12:39 - AvisController: Database connected successfully
+2025-05-15 19:17:02 - Database connected successfully
+2025-05-15 19:17:02 - AvisController: Database connected successfully
+2025-05-15 19:17:02 - Database connected successfully
+2025-05-15 19:17:02 - AvisController: Database connected successfully
+2025-05-15 19:17:03 - Database connected successfully
+2025-05-15 19:17:03 - AvisController: Database connected successfully
+2025-05-15 19:17:03 - Database connected successfully
+2025-05-15 19:17:03 - AvisController: Database connected successfully
+2025-05-15 19:30:26 - Database connected successfully
+2025-05-15 19:30:26 - AvisController: Database connected successfully
+2025-05-15 19:30:26 - Database connected successfully
+2025-05-15 19:30:26 - AvisController: Database connected successfully
+2025-05-15 19:31:33 - Database connected successfully
+2025-05-15 19:31:33 - AvisController: Database connected successfully
+2025-05-15 19:31:33 - Database connected successfully
+2025-05-15 19:31:33 - AvisController: Database connected successfully
+2025-05-15 19:31:45 - Database connected successfully
+2025-05-15 19:31:45 - AvisController: Database connected successfully
+2025-05-15 19:31:45 - Database connected successfully
+2025-05-15 19:31:45 - AvisController: Database connected successfully
+2025-05-15 18:31:51 - Database connected successfully
+2025-05-15 18:31:51 - Database connected successfully
+2025-05-15 18:32:05 - Database connected successfully
+2025-05-15 18:32:05 - Database connected successfully
+2025-05-15 18:32:08 - Database connected successfully
+2025-05-15 18:32:08 - Database connected successfully
+2025-05-15 18:32:35 - Database connected successfully
+2025-05-15 18:32:35 - Database connected successfully
+2025-05-15 18:32:38 - Database connected successfully
+2025-05-15 18:32:38 - Database connected successfully
+2025-05-15 18:32:55 - Database connected successfully
+2025-05-15 18:32:55 - Database connected successfully
+2025-05-15 18:32:58 - Database connected successfully
+2025-05-15 18:32:58 - Database connected successfully
+2025-05-15 18:33:02 - Database connected successfully
+2025-05-15 18:33:02 - Database connected successfully
+2025-05-15 18:33:06 - Database connected successfully
+2025-05-15 18:33:06 - Database connected successfully
+2025-05-15 18:33:26 - Database connected successfully
+2025-05-15 18:33:26 - Database connected successfully
+2025-05-15 18:33:31 - Database connected successfully
+2025-05-15 18:33:31 - Database connected successfully
+2025-05-15 18:33:34 - Database connected successfully
+2025-05-15 18:33:34 - Database connected successfully
+2025-05-15 18:33:38 - Database connected successfully
+2025-05-15 18:33:38 - Database connected successfully
+2025-05-28 16:24:05 - Database connected successfully
+2025-05-28 16:24:05 - AvisController: Database connected successfully
+2025-05-28 16:24:05 - Database connected successfully
+2025-05-28 16:24:05 - AvisController: Database connected successfully
+2025-05-28 16:25:53 - Database connected successfully
+2025-05-28 16:25:53 - AvisController: Database connected successfully
+2025-05-28 16:25:53 - Database connected successfully
+2025-05-28 16:25:53 - AvisController: Database connected successfully
+2025-05-28 16:26:01 - Database connected successfully
+2025-05-28 16:26:01 - AvisController: Database connected successfully
+2025-05-28 16:26:01 - Database connected successfully
+2025-05-28 16:26:01 - AvisController: Database connected successfully
+2025-05-28 16:26:01 - Database connected successfully
+2025-05-28 16:26:01 - AvisController: Database connected successfully
+2025-05-28 16:26:01 - Database connected successfully
+2025-05-28 16:26:01 - AvisController: Database connected successfully
+2025-05-28 16:26:04 - Database connected successfully
+2025-05-28 16:26:04 - AvisController: Database connected successfully
+2025-05-28 16:26:04 - Database connected successfully
+2025-05-28 16:26:04 - AvisController: Database connected successfully
+2025-05-28 16:26:07 - Database connected successfully
+2025-05-28 16:26:07 - AvisController: Database connected successfully
+2025-05-28 16:26:07 - Database connected successfully
+2025-05-28 16:26:07 - AvisController: Database connected successfully
+2025-05-28 16:31:54 - Database connected successfully
+2025-05-28 16:31:54 - AvisController: Database connected successfully
+2025-05-28 16:31:54 - Database connected successfully
+2025-05-28 16:31:54 - AvisController: Database connected successfully
+2025-05-28 15:32:25 - Database connected successfully
+2025-05-28 15:32:25 - Database connected successfully
+2025-05-28 16:32:40 - Database connected successfully
+2025-05-28 16:32:40 - AvisController: Database connected successfully
+2025-05-28 16:32:40 - Database connected successfully
+2025-05-28 16:32:40 - AvisController: Database connected successfully
+2025-05-28 16:42:00 - Database connected successfully
+2025-05-28 16:42:00 - AvisController: Database connected successfully
+2025-05-28 16:42:00 - Database connected successfully
+2025-05-28 16:42:00 - AvisController: Database connected successfully
+2025-05-28 20:24:48 - Database connected successfully
+2025-05-28 20:24:48 - AvisController: Database connected successfully
+2025-05-28 20:24:48 - Database connected successfully
+2025-05-28 20:24:48 - AvisController: Database connected successfully
+2025-05-28 20:25:05 - Database connected successfully
+2025-05-28 20:25:05 - AvisController: Database connected successfully
+2025-05-28 20:25:05 - Database connected successfully
+2025-05-28 20:25:05 - AvisController: Database connected successfully
+2025-05-28 20:25:09 - Database connected successfully
+2025-05-28 20:25:09 - AvisController: Database connected successfully
+2025-05-28 20:25:09 - Database connected successfully
+2025-05-28 20:25:09 - AvisController: Database connected successfully
+2025-05-28 20:25:14 - Database connected successfully
+2025-05-28 20:25:14 - AvisController: Database connected successfully
+2025-05-28 20:25:14 - Database connected successfully
+2025-05-28 20:25:14 - AvisController: Database connected successfully
+2025-05-31 18:54:40 - Database connected successfully
+2025-05-31 18:54:40 - AvisController: Database connected successfully
+2025-05-31 18:54:40 - Database connected successfully
+2025-05-31 18:54:40 - AvisController: Database connected successfully
+2025-05-31 18:55:00 - Database connected successfully
+2025-05-31 18:55:00 - AvisController: Database connected successfully
+2025-05-31 18:55:00 - Database connected successfully
+2025-05-31 18:55:00 - AvisController: Database connected successfully
+2025-05-31 19:25:27 - Database connected successfully
+2025-05-31 19:25:27 - AvisController: Database connected successfully
+2025-05-31 19:25:27 - Database connected successfully
+2025-05-31 19:25:27 - AvisController: Database connected successfully
+2025-05-31 19:55:48 - Database connected successfully
+2025-05-31 19:55:48 - AvisController: Database connected successfully
+2025-05-31 19:55:48 - Database connected successfully
+2025-05-31 19:55:48 - AvisController: Database connected successfully
+2025-05-31 19:56:44 - Database connected successfully
+2025-05-31 19:56:44 - AvisController: Database connected successfully
+2025-05-31 19:56:44 - Database connected successfully
+2025-05-31 19:56:44 - AvisController: Database connected successfully
+2025-05-31 19:56:48 - Database connected successfully
+2025-05-31 19:56:48 - AvisController: Database connected successfully
+2025-05-31 19:56:48 - Database connected successfully
+2025-05-31 19:56:48 - AvisController: Database connected successfully
+2025-05-31 19:56:54 - Database connected successfully
+2025-05-31 19:56:54 - AvisController: Database connected successfully
+2025-05-31 19:56:54 - Database connected successfully
+2025-05-31 19:56:54 - AvisController: Database connected successfully
+2025-05-31 20:43:04 - Database connected successfully
+2025-05-31 20:43:04 - AvisController: Database connected successfully
+2025-05-31 20:43:04 - Database connected successfully
+2025-05-31 20:43:04 - AvisController: Database connected successfully
+2025-05-31 20:43:15 - Database connected successfully
+2025-05-31 20:43:15 - AvisController: Database connected successfully
+2025-05-31 20:43:16 - Database connected successfully
+2025-05-31 20:43:16 - AvisController: Database connected successfully
+2025-05-31 20:43:21 - Database connected successfully
+2025-05-31 20:43:21 - AvisController: Database connected successfully
+2025-05-31 20:43:21 - Database connected successfully
+2025-05-31 20:43:21 - AvisController: Database connected successfully
+2025-05-31 20:44:37 - Database connected successfully
+2025-05-31 20:44:37 - AvisController: Database connected successfully
+2025-05-31 20:44:37 - Database connected successfully
+2025-05-31 20:44:37 - AvisController: Database connected successfully
+2025-05-31 20:44:56 - Database connected successfully
+2025-05-31 20:44:56 - AvisController: Database connected successfully
+2025-05-31 20:44:56 - Database connected successfully
+2025-05-31 20:44:56 - AvisController: Database connected successfully
+2025-05-31 20:44:57 - Database connected successfully
+2025-05-31 20:44:57 - AvisController: Database connected successfully
+2025-05-31 20:44:57 - Database connected successfully
+2025-05-31 20:44:57 - AvisController: Database connected successfully
+2025-05-31 20:44:59 - Database connected successfully
+2025-05-31 20:44:59 - AvisController: Database connected successfully
+2025-05-31 20:44:59 - Database connected successfully
+2025-05-31 20:44:59 - AvisController: Database connected successfully
+2025-05-31 20:45:01 - Database connected successfully
+2025-05-31 20:45:01 - AvisController: Database connected successfully
+2025-05-31 20:45:01 - Database connected successfully
+2025-05-31 20:45:01 - AvisController: Database connected successfully
+2025-05-31 20:52:02 - Database connected successfully
+2025-05-31 20:52:02 - AvisController: Database connected successfully
+2025-05-31 20:52:03 - Database connected successfully
+2025-05-31 20:52:03 - AvisController: Database connected successfully
+2025-05-31 20:52:09 - Database connected successfully
+2025-05-31 20:52:09 - AvisController: Database connected successfully
+2025-05-31 20:52:09 - Database connected successfully
+2025-05-31 20:52:09 - AvisController: Database connected successfully
+2025-05-31 20:52:13 - Database connected successfully
+2025-05-31 20:52:13 - AvisController: Database connected successfully
+2025-05-31 20:52:13 - Database connected successfully
+2025-05-31 20:52:13 - AvisController: Database connected successfully
+2025-05-31 21:52:56 - Database connected successfully
+2025-05-31 21:52:56 - AvisController: Database connected successfully
+2025-05-31 21:52:56 - Database connected successfully
+2025-05-31 21:52:56 - AvisController: Database connected successfully
+2025-06-01 03:25:05 - Database connected successfully
+2025-06-01 03:25:05 - AvisController: Database connected successfully
+2025-06-01 03:25:05 - Database connected successfully
+2025-06-01 03:25:05 - AvisController: Database connected successfully
+2025-06-01 03:26:28 - Database connected successfully
+2025-06-01 03:26:28 - AvisController: Database connected successfully
+2025-06-01 03:26:28 - Database connected successfully
+2025-06-01 03:26:28 - AvisController: Database connected successfully
+2025-06-01 03:28:14 - Database connected successfully
+2025-06-01 03:28:14 - AvisController: Database connected successfully
+2025-06-01 03:28:14 - Database connected successfully
+2025-06-01 03:28:14 - AvisController: Database connected successfully
+2025-06-01 03:28:45 - Database connected successfully
+2025-06-01 03:28:45 - AvisController: Database connected successfully
+2025-06-01 03:28:45 - Database connected successfully
+2025-06-01 03:28:45 - AvisController: Database connected successfully
+2025-06-01 03:29:26 - Database connected successfully
+2025-06-01 03:29:26 - AvisController: Database connected successfully
+2025-06-01 03:29:26 - Database connected successfully
+2025-06-01 03:29:26 - AvisController: Database connected successfully
+2025-06-01 03:30:03 - Database connected successfully
+2025-06-01 03:30:03 - AvisController: Database connected successfully
+2025-06-01 03:30:03 - Database connected successfully
+2025-06-01 03:30:03 - AvisController: Database connected successfully
+2025-06-01 03:30:52 - Database connected successfully
+2025-06-01 03:30:52 - AvisController: Database connected successfully
+2025-06-01 03:30:52 - Database connected successfully
+2025-06-01 03:30:52 - AvisController: Database connected successfully
+2025-06-01 03:31:06 - Database connected successfully
+2025-06-01 03:31:06 - AvisController: Database connected successfully
+2025-06-01 03:31:06 - Database connected successfully
+2025-06-01 03:31:06 - AvisController: Database connected successfully
+2025-06-01 03:31:12 - Database connected successfully
+2025-06-01 03:31:12 - AvisController: Database connected successfully
+2025-06-01 03:31:12 - Database connected successfully
+2025-06-01 03:31:12 - AvisController: Database connected successfully
+2025-06-01 03:31:26 - Database connected successfully
+2025-06-01 03:31:26 - AvisController: Database connected successfully
+2025-06-01 03:31:26 - Database connected successfully
+2025-06-01 03:31:26 - AvisController: Database connected successfully
+2025-06-01 03:31:28 - Database connected successfully
+2025-06-01 03:31:28 - AvisController: Database connected successfully
+2025-06-01 03:31:28 - Database connected successfully
+2025-06-01 03:31:28 - AvisController: Database connected successfully
+2025-06-01 05:06:59 - Database connected successfully
+2025-06-01 05:06:59 - AvisController: Database connected successfully
+2025-06-01 05:06:59 - Database connected successfully
+2025-06-01 05:06:59 - AvisController: Database connected successfully
+2025-06-01 14:08:09 - Database connected successfully
+2025-06-01 14:08:09 - AvisController: Database connected successfully
+2025-06-01 14:08:09 - Database connected successfully
+2025-06-01 14:08:10 - AvisController: Database connected successfully
+2025-06-01 14:11:30 - Database connected successfully
+2025-06-01 14:11:30 - AvisController: Database connected successfully
+2025-06-01 14:11:30 - Database connected successfully
+2025-06-01 14:11:30 - AvisController: Database connected successfully
+2025-06-01 14:16:10 - Database connected successfully
+2025-06-01 14:16:10 - AvisController: Database connected successfully
+2025-06-01 14:16:10 - Database connected successfully
+2025-06-01 14:16:10 - AvisController: Database connected successfully
+2025-06-01 14:17:49 - Database connected successfully
+2025-06-01 14:17:49 - AvisController: Database connected successfully
+2025-06-01 14:17:49 - Database connected successfully
+2025-06-01 14:17:49 - AvisController: Database connected successfully
+2025-06-01 14:18:42 - Database connected successfully
+2025-06-01 14:18:42 - AvisController: Database connected successfully
+2025-06-01 14:18:42 - Database connected successfully
+2025-06-01 14:18:42 - AvisController: Database connected successfully
+2025-06-01 14:19:46 - Database connected successfully
+2025-06-01 14:19:46 - AvisController: Database connected successfully
+2025-06-01 14:19:46 - Database connected successfully
+2025-06-01 14:19:46 - AvisController: Database connected successfully
+2025-06-01 14:19:48 - Database connected successfully
+2025-06-01 14:19:48 - AvisController: Database connected successfully
+2025-06-01 14:19:48 - Database connected successfully
+2025-06-01 14:19:48 - AvisController: Database connected successfully
+2025-06-01 14:19:49 - Database connected successfully
+2025-06-01 14:19:49 - AvisController: Database connected successfully
+2025-06-01 14:19:49 - Database connected successfully
+2025-06-01 14:19:49 - AvisController: Database connected successfully
+2025-06-01 14:20:26 - Database connected successfully
+2025-06-01 14:20:26 - AvisController: Database connected successfully
+2025-06-01 14:20:26 - Database connected successfully
+2025-06-01 14:20:26 - AvisController: Database connected successfully
+2025-06-01 14:20:27 - Database connected successfully
+2025-06-01 14:20:27 - AvisController: Database connected successfully
+2025-06-01 14:20:27 - Database connected successfully
+2025-06-01 14:20:27 - AvisController: Database connected successfully
+2025-06-01 14:20:28 - Database connected successfully
+2025-06-01 14:20:28 - AvisController: Database connected successfully
+2025-06-01 14:20:28 - Database connected successfully
+2025-06-01 14:20:28 - AvisController: Database connected successfully
+2025-06-01 14:24:48 - Database connected successfully
+2025-06-01 14:24:48 - AvisController: Database connected successfully
+2025-06-01 14:24:48 - Database connected successfully
+2025-06-01 14:24:48 - AvisController: Database connected successfully
+2025-06-01 14:24:49 - Database connected successfully
+2025-06-01 14:24:49 - AvisController: Database connected successfully
+2025-06-01 14:24:49 - Database connected successfully
+2025-06-01 14:24:49 - AvisController: Database connected successfully
+2025-06-01 14:26:49 - Database connected successfully
+2025-06-01 14:26:49 - AvisController: Database connected successfully
+2025-06-01 14:26:49 - Database connected successfully
+2025-06-01 14:26:49 - AvisController: Database connected successfully
+2025-06-01 14:27:55 - Database connected successfully
+2025-06-01 14:27:55 - AvisController: Database connected successfully
+2025-06-01 14:27:55 - Database connected successfully
+2025-06-01 14:27:55 - AvisController: Database connected successfully
+2025-06-01 14:28:04 - Database connected successfully
+2025-06-01 14:28:04 - AvisController: Database connected successfully
+2025-06-01 14:28:04 - Database connected successfully
+2025-06-01 14:28:04 - AvisController: Database connected successfully
+2025-06-01 14:28:07 - Database connected successfully
+2025-06-01 14:28:07 - AvisController: Database connected successfully
+2025-06-01 14:28:07 - Database connected successfully
+2025-06-01 14:28:07 - AvisController: Database connected successfully
+2025-06-01 14:30:01 - Database connected successfully
+2025-06-01 14:30:01 - AvisController: Database connected successfully
+2025-06-01 14:30:01 - Database connected successfully
+2025-06-01 14:30:01 - AvisController: Database connected successfully
+2025-06-01 14:31:16 - Database connected successfully
+2025-06-01 14:31:16 - AvisController: Database connected successfully
+2025-06-01 14:31:16 - Database connected successfully
+2025-06-01 14:31:16 - AvisController: Database connected successfully
+2025-06-01 14:31:19 - Database connected successfully
+2025-06-01 14:31:19 - AvisController: Database connected successfully
+2025-06-01 14:31:19 - Database connected successfully
+2025-06-01 14:31:19 - AvisController: Database connected successfully
+2025-06-01 14:31:31 - Database connected successfully
+2025-06-01 14:31:31 - AvisController: Database connected successfully
+2025-06-01 14:31:31 - Database connected successfully
+2025-06-01 14:31:31 - AvisController: Database connected successfully
+2025-06-01 14:31:32 - Database connected successfully
+2025-06-01 14:31:32 - AvisController: Database connected successfully
+2025-06-01 14:31:32 - Database connected successfully
+2025-06-01 14:31:32 - AvisController: Database connected successfully
+2025-06-01 14:31:32 - Database connected successfully
+2025-06-01 14:31:32 - AvisController: Database connected successfully
+2025-06-01 14:31:32 - Database connected successfully
+2025-06-01 14:31:32 - AvisController: Database connected successfully
+2025-06-01 14:31:34 - Database connected successfully
+2025-06-01 14:31:34 - AvisController: Database connected successfully
+2025-06-01 14:31:34 - Database connected successfully
+2025-06-01 14:31:34 - AvisController: Database connected successfully
+2025-06-01 14:33:05 - Database connected successfully
+2025-06-01 14:33:05 - AvisController: Database connected successfully
+2025-06-01 14:33:05 - Database connected successfully
+2025-06-01 14:33:05 - AvisController: Database connected successfully
+2025-06-01 14:33:05 - Database connected successfully
+2025-06-01 14:33:05 - AvisController: Database connected successfully
+2025-06-01 14:33:05 - Database connected successfully
+2025-06-01 14:33:05 - AvisController: Database connected successfully
+2025-06-01 14:33:38 - Database connected successfully
+2025-06-01 14:33:38 - AvisController: Database connected successfully
+2025-06-01 14:33:38 - Database connected successfully
+2025-06-01 14:33:38 - AvisController: Database connected successfully
+2025-06-01 14:33:38 - Database connected successfully
+2025-06-01 14:33:38 - AvisController: Database connected successfully
+2025-06-01 14:33:38 - Database connected successfully
+2025-06-01 14:33:38 - AvisController: Database connected successfully
+2025-06-01 14:33:40 - Database connected successfully
+2025-06-01 14:33:40 - AvisController: Database connected successfully
+2025-06-01 14:33:40 - Database connected successfully
+2025-06-01 14:33:40 - AvisController: Database connected successfully
+2025-06-01 14:34:36 - Database connected successfully
+2025-06-01 14:34:36 - AvisController: Database connected successfully
+2025-06-01 14:34:36 - Database connected successfully
+2025-06-01 14:34:36 - AvisController: Database connected successfully
+2025-06-01 14:34:36 - Database connected successfully
+2025-06-01 14:34:36 - AvisController: Database connected successfully
+2025-06-01 14:34:36 - Database connected successfully
+2025-06-01 14:34:36 - AvisController: Database connected successfully
+2025-06-01 14:35:11 - Database connected successfully
+2025-06-01 14:35:11 - AvisController: Database connected successfully
+2025-06-01 14:35:11 - Database connected successfully
+2025-06-01 14:35:11 - AvisController: Database connected successfully
+2025-06-01 14:35:12 - Database connected successfully
+2025-06-01 14:35:12 - AvisController: Database connected successfully
+2025-06-01 14:35:12 - Database connected successfully
+2025-06-01 14:35:12 - AvisController: Database connected successfully
+2025-06-01 14:35:13 - Database connected successfully
+2025-06-01 14:35:13 - AvisController: Database connected successfully
+2025-06-01 14:35:13 - Database connected successfully
+2025-06-01 14:35:13 - AvisController: Database connected successfully
+2025-06-01 14:35:16 - Database connected successfully
+2025-06-01 14:35:16 - AvisController: Database connected successfully
+2025-06-01 14:35:16 - Database connected successfully
+2025-06-01 14:35:16 - AvisController: Database connected successfully
+2025-06-01 14:35:51 - Database connected successfully
+2025-06-01 14:35:51 - AvisController: Database connected successfully
+2025-06-01 14:35:51 - Database connected successfully
+2025-06-01 14:35:51 - AvisController: Database connected successfully
+2025-06-01 14:35:52 - Database connected successfully
+2025-06-01 14:35:52 - AvisController: Database connected successfully
+2025-06-01 14:35:52 - Database connected successfully
+2025-06-01 14:35:52 - AvisController: Database connected successfully
+2025-06-01 14:35:53 - Database connected successfully
+2025-06-01 14:35:53 - AvisController: Database connected successfully
+2025-06-01 14:35:53 - Database connected successfully
+2025-06-01 14:35:53 - AvisController: Database connected successfully
+2025-06-01 14:42:18 - Database connected successfully
+2025-06-01 14:42:18 - AvisController: Database connected successfully
+2025-06-01 14:42:18 - Database connected successfully
+2025-06-01 14:42:18 - AvisController: Database connected successfully
+2025-06-01 14:42:19 - Database connected successfully
+2025-06-01 14:42:19 - AvisController: Database connected successfully
+2025-06-01 14:42:19 - Database connected successfully
+2025-06-01 14:42:19 - AvisController: Database connected successfully
+2025-06-01 14:43:31 - Database connected successfully
+2025-06-01 14:43:31 - AvisController: Database connected successfully
+2025-06-01 14:43:31 - Database connected successfully
+2025-06-01 14:43:31 - AvisController: Database connected successfully
+2025-06-01 14:43:33 - Database connected successfully
+2025-06-01 14:43:33 - AvisController: Database connected successfully
+2025-06-01 14:43:33 - Database connected successfully
+2025-06-01 14:43:33 - AvisController: Database connected successfully
+2025-06-01 14:45:52 - Database connected successfully
+2025-06-01 14:45:52 - AvisController: Database connected successfully
+2025-06-01 14:45:52 - Database connected successfully
+2025-06-01 14:45:52 - AvisController: Database connected successfully
+2025-06-01 14:45:53 - Database connected successfully
+2025-06-01 14:45:53 - AvisController: Database connected successfully
+2025-06-01 14:45:53 - Database connected successfully
+2025-06-01 14:45:53 - AvisController: Database connected successfully
+2025-06-01 14:47:11 - Database connected successfully
+2025-06-01 14:47:11 - AvisController: Database connected successfully
+2025-06-01 14:47:11 - Database connected successfully
+2025-06-01 14:47:11 - AvisController: Database connected successfully
+2025-06-01 14:47:12 - Database connected successfully
+2025-06-01 14:47:12 - AvisController: Database connected successfully
+2025-06-01 14:47:12 - Database connected successfully
+2025-06-01 14:47:12 - AvisController: Database connected successfully
+2025-06-01 14:47:14 - Database connected successfully
+2025-06-01 14:47:14 - AvisController: Database connected successfully
+2025-06-01 14:47:14 - Database connected successfully
+2025-06-01 14:47:14 - AvisController: Database connected successfully
+2025-06-01 14:47:16 - Database connected successfully
+2025-06-01 14:47:16 - AvisController: Database connected successfully
+2025-06-01 14:47:16 - Database connected successfully
+2025-06-01 14:47:16 - AvisController: Database connected successfully
+2025-06-01 14:47:21 - Database connected successfully
+2025-06-01 14:47:21 - AvisController: Database connected successfully
+2025-06-01 14:47:21 - Database connected successfully
+2025-06-01 14:47:21 - AvisController: Database connected successfully
+2025-06-01 14:47:24 - Database connected successfully
+2025-06-01 14:47:24 - AvisController: Database connected successfully
+2025-06-01 14:47:24 - Database connected successfully
+2025-06-01 14:47:24 - AvisController: Database connected successfully
+2025-06-01 14:47:27 - Database connected successfully
+2025-06-01 14:47:27 - AvisController: Database connected successfully
+2025-06-01 14:47:27 - Database connected successfully
+2025-06-01 14:47:27 - AvisController: Database connected successfully
+2025-06-01 14:47:30 - Database connected successfully
+2025-06-01 14:47:30 - AvisController: Database connected successfully
+2025-06-01 14:47:30 - Database connected successfully
+2025-06-01 14:47:30 - AvisController: Database connected successfully
+2025-06-01 14:47:32 - Database connected successfully
+2025-06-01 14:47:32 - AvisController: Database connected successfully
+2025-06-01 14:47:32 - Database connected successfully
+2025-06-01 14:47:32 - AvisController: Database connected successfully
+2025-06-01 14:47:35 - Database connected successfully
+2025-06-01 14:47:35 - AvisController: Database connected successfully
+2025-06-01 14:47:35 - Database connected successfully
+2025-06-01 14:47:35 - AvisController: Database connected successfully
+2025-06-01 14:47:37 - Database connected successfully
+2025-06-01 14:47:37 - AvisController: Database connected successfully
+2025-06-01 14:47:37 - Database connected successfully
+2025-06-01 14:47:37 - AvisController: Database connected successfully
+2025-06-01 14:47:38 - Database connected successfully
+2025-06-01 14:47:38 - AvisController: Database connected successfully
+2025-06-01 14:47:38 - Database connected successfully
+2025-06-01 14:47:38 - AvisController: Database connected successfully
+2025-06-01 14:47:42 - Database connected successfully
+2025-06-01 14:47:42 - AvisController: Database connected successfully
+2025-06-01 14:47:42 - Database connected successfully
+2025-06-01 14:47:42 - AvisController: Database connected successfully
+2025-06-01 14:47:45 - Database connected successfully
+2025-06-01 14:47:45 - AvisController: Database connected successfully
+2025-06-01 14:47:45 - Database connected successfully
+2025-06-01 14:47:45 - AvisController: Database connected successfully
+2025-06-01 14:47:48 - Database connected successfully
+2025-06-01 14:47:48 - AvisController: Database connected successfully
+2025-06-01 14:47:48 - Database connected successfully
+2025-06-01 14:47:48 - AvisController: Database connected successfully
+2025-06-01 14:47:52 - Database connected successfully
+2025-06-01 14:47:52 - AvisController: Database connected successfully
+2025-06-01 14:47:52 - Database connected successfully
+2025-06-01 14:47:52 - AvisController: Database connected successfully
+2025-06-01 14:47:58 - Database connected successfully
+2025-06-01 14:47:58 - AvisController: Database connected successfully
+2025-06-01 14:47:58 - Database connected successfully
+2025-06-01 14:47:58 - AvisController: Database connected successfully
+2025-06-01 14:48:45 - Database connected successfully
+2025-06-01 14:48:45 - AvisController: Database connected successfully
+2025-06-01 14:48:45 - Database connected successfully
+2025-06-01 14:48:45 - AvisController: Database connected successfully
+2025-06-01 14:48:45 - Database connected successfully
+2025-06-01 14:48:45 - AvisController: Database connected successfully
+2025-06-01 14:48:45 - Database connected successfully
+2025-06-01 14:48:45 - AvisController: Database connected successfully
+2025-06-01 14:48:46 - Database connected successfully
+2025-06-01 14:48:46 - AvisController: Database connected successfully
+2025-06-01 14:48:46 - Database connected successfully
+2025-06-01 14:48:46 - AvisController: Database connected successfully
+2025-06-01 14:49:37 - Database connected successfully
+2025-06-01 14:49:37 - AvisController: Database connected successfully
+2025-06-01 14:49:37 - Database connected successfully
+2025-06-01 14:49:37 - AvisController: Database connected successfully
+2025-06-01 14:49:46 - Database connected successfully
+2025-06-01 14:49:46 - AvisController: Database connected successfully
+2025-06-01 14:49:46 - Database connected successfully
+2025-06-01 14:49:46 - AvisController: Database connected successfully
+2025-06-01 14:49:55 - Database connected successfully
+2025-06-01 14:49:55 - AvisController: Database connected successfully
+2025-06-01 14:49:55 - Database connected successfully
+2025-06-01 14:49:55 - AvisController: Database connected successfully
+2025-06-01 14:49:56 - Database connected successfully
+2025-06-01 14:49:56 - AvisController: Database connected successfully
+2025-06-01 14:49:56 - Database connected successfully
+2025-06-01 14:49:56 - AvisController: Database connected successfully
+2025-06-01 14:50:02 - Database connected successfully
+2025-06-01 14:50:02 - AvisController: Database connected successfully
+2025-06-01 14:50:02 - Database connected successfully
+2025-06-01 14:50:02 - AvisController: Database connected successfully
+2025-06-01 14:50:13 - Database connected successfully
+2025-06-01 14:50:13 - AvisController: Database connected successfully
+2025-06-01 14:50:13 - Database connected successfully
+2025-06-01 14:50:13 - AvisController: Database connected successfully
+2025-06-01 14:50:16 - Database connected successfully
+2025-06-01 14:50:16 - AvisController: Database connected successfully
+2025-06-01 14:50:16 - Database connected successfully
+2025-06-01 14:50:16 - AvisController: Database connected successfully
+2025-06-01 15:09:36 - Database connected successfully
+2025-06-01 15:09:36 - AvisController: Database connected successfully
+2025-06-01 15:09:36 - Database connected successfully
+2025-06-01 15:09:36 - AvisController: Database connected successfully
+2025-06-01 15:09:38 - Database connected successfully
+2025-06-01 15:09:38 - AvisController: Database connected successfully
+2025-06-01 15:09:38 - Database connected successfully
+2025-06-01 15:09:38 - AvisController: Database connected successfully
+2025-06-01 15:09:39 - Database connected successfully
+2025-06-01 15:09:39 - AvisController: Database connected successfully
+2025-06-01 15:09:39 - Database connected successfully
+2025-06-01 15:09:39 - AvisController: Database connected successfully
+2025-06-01 15:09:41 - Database connected successfully
+2025-06-01 15:09:41 - AvisController: Database connected successfully
+2025-06-01 15:09:41 - Database connected successfully
+2025-06-01 15:09:41 - AvisController: Database connected successfully
+2025-06-01 15:48:56 - Database connected successfully
+2025-06-01 15:48:56 - AvisController: Database connected successfully
+2025-06-01 15:48:56 - Database connected successfully
+2025-06-01 15:48:56 - AvisController: Database connected successfully
+2025-06-01 15:49:01 - Database connected successfully
+2025-06-01 15:49:01 - AvisController: Database connected successfully
+2025-06-01 15:49:01 - Database connected successfully
+2025-06-01 15:49:01 - AvisController: Database connected successfully
+2025-06-01 15:50:10 - Database connected successfully
+2025-06-01 15:50:10 - AvisController: Database connected successfully
+2025-06-01 15:50:10 - Database connected successfully
+2025-06-01 15:50:10 - AvisController: Database connected successfully
+2025-06-01 15:51:35 - Database connected successfully
+2025-06-01 15:51:35 - AvisController: Database connected successfully
+2025-06-01 15:51:35 - Database connected successfully
+2025-06-01 15:51:35 - AvisController: Database connected successfully
+2025-06-01 15:51:44 - Database connected successfully
+2025-06-01 15:51:44 - AvisController: Database connected successfully
+2025-06-01 15:51:44 - Database connected successfully
+2025-06-01 15:51:44 - AvisController: Database connected successfully
+2025-06-01 15:51:48 - Database connected successfully
+2025-06-01 15:51:48 - AvisController: Database connected successfully
+2025-06-01 15:51:48 - Database connected successfully
+2025-06-01 15:51:48 - AvisController: Database connected successfully
+2025-06-01 15:51:49 - Database connected successfully
+2025-06-01 15:51:49 - AvisController: Database connected successfully
+2025-06-01 15:51:49 - Database connected successfully
+2025-06-01 15:51:49 - AvisController: Database connected successfully
+2025-06-01 15:51:49 - Database connected successfully
+2025-06-01 15:51:49 - AvisController: Database connected successfully
+2025-06-01 15:51:49 - Database connected successfully
+2025-06-01 15:51:49 - AvisController: Database connected successfully
+2025-06-01 15:51:54 - Database connected successfully
+2025-06-01 15:51:54 - AvisController: Database connected successfully
+2025-06-01 15:51:54 - Database connected successfully
+2025-06-01 15:51:54 - AvisController: Database connected successfully
+2025-06-01 15:51:56 - Database connected successfully
+2025-06-01 15:51:56 - AvisController: Database connected successfully
+2025-06-01 15:51:56 - Database connected successfully
+2025-06-01 15:51:56 - AvisController: Database connected successfully
+2025-06-01 15:52:00 - Database connected successfully
+2025-06-01 15:52:00 - AvisController: Database connected successfully
+2025-06-01 15:52:00 - Database connected successfully
+2025-06-01 15:52:00 - AvisController: Database connected successfully
+2025-06-01 15:52:45 - Database connected successfully
+2025-06-01 15:52:45 - AvisController: Database connected successfully
+2025-06-01 15:52:45 - Database connected successfully
+2025-06-01 15:52:45 - AvisController: Database connected successfully
+2025-06-01 15:55:33 - Database connected successfully
+2025-06-01 15:55:33 - AvisController: Database connected successfully
+2025-06-01 15:55:33 - Database connected successfully
+2025-06-01 15:55:33 - AvisController: Database connected successfully
+2025-06-01 15:55:35 - Database connected successfully
+2025-06-01 15:55:35 - AvisController: Database connected successfully
+2025-06-01 15:55:35 - Database connected successfully
+2025-06-01 15:55:35 - AvisController: Database connected successfully
+2025-06-01 15:55:47 - Database connected successfully
+2025-06-01 15:55:47 - AvisController: Database connected successfully
+2025-06-01 15:55:47 - Database connected successfully
+2025-06-01 15:55:47 - AvisController: Database connected successfully
+2025-06-01 15:55:58 - Database connected successfully
+2025-06-01 15:55:58 - AvisController: Database connected successfully
+2025-06-01 15:55:58 - Database connected successfully
+2025-06-01 15:55:58 - AvisController: Database connected successfully
+2025-06-01 15:57:02 - Database connected successfully
+2025-06-01 15:57:02 - AvisController: Database connected successfully
+2025-06-01 15:57:02 - Database connected successfully
+2025-06-01 15:57:02 - AvisController: Database connected successfully
+2025-06-01 15:57:03 - Database connected successfully
+2025-06-01 15:57:03 - AvisController: Database connected successfully
+2025-06-01 15:57:03 - Database connected successfully
+2025-06-01 15:57:03 - AvisController: Database connected successfully
+2025-06-01 15:57:55 - Database connected successfully
+2025-06-01 15:57:55 - AvisController: Database connected successfully
+2025-06-01 15:57:55 - Database connected successfully
+2025-06-01 15:57:55 - AvisController: Database connected successfully
+2025-06-01 15:57:56 - Database connected successfully
+2025-06-01 15:57:56 - AvisController: Database connected successfully
+2025-06-01 15:57:56 - Database connected successfully
+2025-06-01 15:57:56 - AvisController: Database connected successfully
+2025-06-01 15:57:57 - Database connected successfully
+2025-06-01 15:57:57 - AvisController: Database connected successfully
+2025-06-01 15:57:57 - Database connected successfully
+2025-06-01 15:57:57 - AvisController: Database connected successfully
+2025-06-01 16:00:52 - Database connected successfully
+2025-06-01 16:00:52 - AvisController: Database connected successfully
+2025-06-01 16:00:52 - Database connected successfully
+2025-06-01 16:00:52 - AvisController: Database connected successfully
+2025-06-01 16:00:53 - Database connected successfully
+2025-06-01 16:00:53 - AvisController: Database connected successfully
+2025-06-01 16:00:53 - Database connected successfully
+2025-06-01 16:00:53 - AvisController: Database connected successfully
+2025-06-01 16:00:57 - Database connected successfully
+2025-06-01 16:00:57 - AvisController: Database connected successfully
+2025-06-01 16:00:57 - Database connected successfully
+2025-06-01 16:00:57 - AvisController: Database connected successfully
+2025-06-01 16:01:49 - Database connected successfully
+2025-06-01 16:01:49 - AvisController: Database connected successfully
+2025-06-01 16:01:49 - Database connected successfully
+2025-06-01 16:01:49 - AvisController: Database connected successfully
+2025-06-01 16:01:55 - Database connected successfully
+2025-06-01 16:01:55 - AvisController: Database connected successfully
+2025-06-01 16:01:55 - Database connected successfully
+2025-06-01 16:01:55 - AvisController: Database connected successfully
+2025-06-01 16:02:31 - Database connected successfully
+2025-06-01 16:02:31 - AvisController: Database connected successfully
+2025-06-01 16:02:31 - Database connected successfully
+2025-06-01 16:02:31 - AvisController: Database connected successfully
+2025-06-01 16:03:38 - Database connected successfully
+2025-06-01 16:03:38 - AvisController: Database connected successfully
+2025-06-01 16:03:38 - Database connected successfully
+2025-06-01 16:03:38 - AvisController: Database connected successfully
+2025-06-01 16:03:39 - Database connected successfully
+2025-06-01 16:03:39 - AvisController: Database connected successfully
+2025-06-01 16:03:39 - Database connected successfully
+2025-06-01 16:03:39 - AvisController: Database connected successfully
+2025-06-01 16:03:39 - Database connected successfully
+2025-06-01 16:03:39 - AvisController: Database connected successfully
+2025-06-01 16:03:39 - Database connected successfully
+2025-06-01 16:03:39 - AvisController: Database connected successfully
+2025-06-01 16:03:44 - Database connected successfully
+2025-06-01 16:03:44 - AvisController: Database connected successfully
+2025-06-01 16:03:44 - Database connected successfully
+2025-06-01 16:03:44 - AvisController: Database connected successfully
+2025-06-01 16:04:07 - Database connected successfully
+2025-06-01 16:04:07 - AvisController: Database connected successfully
+2025-06-01 16:04:07 - Database connected successfully
+2025-06-01 16:04:07 - AvisController: Database connected successfully
+2025-06-01 16:04:08 - Database connected successfully
+2025-06-01 16:04:08 - AvisController: Database connected successfully
+2025-06-01 16:04:08 - Database connected successfully
+2025-06-01 16:04:08 - AvisController: Database connected successfully
+2025-06-01 16:04:25 - Database connected successfully
+2025-06-01 16:04:25 - AvisController: Database connected successfully
+2025-06-01 16:04:25 - Database connected successfully
+2025-06-01 16:04:25 - AvisController: Database connected successfully
+2025-06-01 16:04:26 - Database connected successfully
+2025-06-01 16:04:26 - AvisController: Database connected successfully
+2025-06-01 16:04:26 - Database connected successfully
+2025-06-01 16:04:26 - AvisController: Database connected successfully
+2025-06-01 16:06:58 - Database connected successfully
+2025-06-01 16:06:58 - AvisController: Database connected successfully
+2025-06-01 16:06:58 - Database connected successfully
+2025-06-01 16:06:58 - AvisController: Database connected successfully
+2025-06-01 16:07:00 - Database connected successfully
+2025-06-01 16:07:00 - AvisController: Database connected successfully
+2025-06-01 16:07:00 - Database connected successfully
+2025-06-01 16:07:00 - AvisController: Database connected successfully
+2025-06-01 16:07:03 - Database connected successfully
+2025-06-01 16:07:03 - AvisController: Database connected successfully
+2025-06-01 16:07:03 - Database connected successfully
+2025-06-01 16:07:03 - AvisController: Database connected successfully
+2025-06-01 16:07:09 - Database connected successfully
+2025-06-01 16:07:09 - AvisController: Database connected successfully
+2025-06-01 16:07:09 - Database connected successfully
+2025-06-01 16:07:09 - AvisController: Database connected successfully
+2025-06-01 16:07:50 - Database connected successfully
+2025-06-01 16:07:50 - AvisController: Database connected successfully
+2025-06-01 16:07:50 - Database connected successfully
+2025-06-01 16:07:50 - AvisController: Database connected successfully
+2025-06-01 16:08:03 - Database connected successfully
+2025-06-01 16:08:03 - AvisController: Database connected successfully
+2025-06-01 16:08:03 - Database connected successfully
+2025-06-01 16:08:03 - AvisController: Database connected successfully
+2025-06-01 16:08:05 - Database connected successfully
+2025-06-01 16:08:05 - AvisController: Database connected successfully
+2025-06-01 16:08:05 - Database connected successfully
+2025-06-01 16:08:05 - AvisController: Database connected successfully
+2025-06-01 16:09:00 - Database connected successfully
+2025-06-01 16:09:00 - AvisController: Database connected successfully
+2025-06-01 16:09:00 - Database connected successfully
+2025-06-01 16:09:00 - AvisController: Database connected successfully
+2025-06-01 16:09:03 - Database connected successfully
+2025-06-01 16:09:03 - AvisController: Database connected successfully
+2025-06-01 16:09:03 - Database connected successfully
+2025-06-01 16:09:03 - AvisController: Database connected successfully
+2025-06-01 16:09:16 - Database connected successfully
+2025-06-01 16:09:16 - AvisController: Database connected successfully
+2025-06-01 16:09:16 - Database connected successfully
+2025-06-01 16:09:16 - AvisController: Database connected successfully
+2025-06-01 16:09:18 - Database connected successfully
+2025-06-01 16:09:18 - AvisController: Database connected successfully
+2025-06-01 16:09:18 - Database connected successfully
+2025-06-01 16:09:18 - AvisController: Database connected successfully
+2025-06-01 16:09:28 - Database connected successfully
+2025-06-01 16:09:28 - AvisController: Database connected successfully
+2025-06-01 16:09:28 - Database connected successfully
+2025-06-01 16:09:28 - AvisController: Database connected successfully
+2025-06-01 16:09:32 - Database connected successfully
+2025-06-01 16:09:32 - AvisController: Database connected successfully
+2025-06-01 16:09:32 - Database connected successfully
+2025-06-01 16:09:32 - AvisController: Database connected successfully
+2025-06-01 16:09:33 - Database connected successfully
+2025-06-01 16:09:33 - AvisController: Database connected successfully
+2025-06-01 16:09:33 - Database connected successfully
+2025-06-01 16:09:33 - AvisController: Database connected successfully
+2025-06-01 16:09:35 - Database connected successfully
+2025-06-01 16:09:35 - AvisController: Database connected successfully
+2025-06-01 16:09:35 - Database connected successfully
+2025-06-01 16:09:35 - AvisController: Database connected successfully
+2025-06-01 16:09:38 - Database connected successfully
+2025-06-01 16:09:38 - AvisController: Database connected successfully
+2025-06-01 16:09:38 - Database connected successfully
+2025-06-01 16:09:38 - AvisController: Database connected successfully
+2025-06-01 16:09:39 - Database connected successfully
+2025-06-01 16:09:39 - AvisController: Database connected successfully
+2025-06-01 16:09:39 - Database connected successfully
+2025-06-01 16:09:39 - AvisController: Database connected successfully
+2025-06-01 16:09:43 - Database connected successfully
+2025-06-01 16:09:43 - AvisController: Database connected successfully
+2025-06-01 16:09:43 - Database connected successfully
+2025-06-01 16:09:43 - AvisController: Database connected successfully
+2025-06-01 16:09:50 - Database connected successfully
+2025-06-01 16:09:50 - AvisController: Database connected successfully
+2025-06-01 16:09:50 - Database connected successfully
+2025-06-01 16:09:50 - AvisController: Database connected successfully
+2025-06-01 16:11:13 - Database connected successfully
+2025-06-01 16:11:13 - AvisController: Database connected successfully
+2025-06-01 16:11:13 - Database connected successfully
+2025-06-01 16:11:13 - AvisController: Database connected successfully
+2025-06-01 16:11:57 - Database connected successfully
+2025-06-01 16:11:57 - AvisController: Database connected successfully
+2025-06-01 16:11:57 - Database connected successfully
+2025-06-01 16:11:57 - AvisController: Database connected successfully
+2025-06-01 16:11:58 - Database connected successfully
+2025-06-01 16:11:58 - AvisController: Database connected successfully
+2025-06-01 16:11:58 - Database connected successfully
+2025-06-01 16:11:58 - AvisController: Database connected successfully
+2025-06-01 16:11:59 - Database connected successfully
+2025-06-01 16:11:59 - AvisController: Database connected successfully
+2025-06-01 16:11:59 - Database connected successfully
+2025-06-01 16:11:59 - AvisController: Database connected successfully
+2025-06-01 16:12:00 - Database connected successfully
+2025-06-01 16:12:00 - AvisController: Database connected successfully
+2025-06-01 16:12:00 - Database connected successfully
+2025-06-01 16:12:00 - AvisController: Database connected successfully
+2025-06-01 16:12:02 - Database connected successfully
+2025-06-01 16:12:02 - AvisController: Database connected successfully
+2025-06-01 16:12:02 - Database connected successfully
+2025-06-01 16:12:02 - AvisController: Database connected successfully
+2025-06-01 16:12:03 - Database connected successfully
+2025-06-01 16:12:03 - AvisController: Database connected successfully
+2025-06-01 16:12:03 - Database connected successfully
+2025-06-01 16:12:03 - AvisController: Database connected successfully
+2025-06-01 16:12:04 - Database connected successfully
+2025-06-01 16:12:04 - AvisController: Database connected successfully
+2025-06-01 16:12:04 - Database connected successfully
+2025-06-01 16:12:04 - AvisController: Database connected successfully
+2025-06-01 16:12:05 - Database connected successfully
+2025-06-01 16:12:05 - AvisController: Database connected successfully
+2025-06-01 16:12:05 - Database connected successfully
+2025-06-01 16:12:05 - AvisController: Database connected successfully
+2025-06-01 16:12:06 - Database connected successfully
+2025-06-01 16:12:06 - AvisController: Database connected successfully
+2025-06-01 16:12:06 - Database connected successfully
+2025-06-01 16:12:06 - AvisController: Database connected successfully
+2025-06-01 16:12:06 - Database connected successfully
+2025-06-01 16:12:06 - AvisController: Database connected successfully
+2025-06-01 16:12:06 - Database connected successfully
+2025-06-01 16:12:06 - AvisController: Database connected successfully
+2025-06-01 16:17:00 - Database connected successfully
+2025-06-01 16:17:00 - AvisController: Database connected successfully
+2025-06-01 16:17:00 - Database connected successfully
+2025-06-01 16:17:00 - AvisController: Database connected successfully
+2025-06-01 16:17:02 - Database connected successfully
+2025-06-01 16:17:02 - AvisController: Database connected successfully
+2025-06-01 16:17:02 - Database connected successfully
+2025-06-01 16:17:02 - AvisController: Database connected successfully
+2025-06-01 16:17:03 - Database connected successfully
+2025-06-01 16:17:03 - AvisController: Database connected successfully
+2025-06-01 16:17:03 - Database connected successfully
+2025-06-01 16:17:03 - AvisController: Database connected successfully
+2025-06-01 16:17:04 - Database connected successfully
+2025-06-01 16:17:04 - AvisController: Database connected successfully
+2025-06-01 16:17:04 - Database connected successfully
+2025-06-01 16:17:04 - AvisController: Database connected successfully
+2025-06-01 16:17:05 - Database connected successfully
+2025-06-01 16:17:05 - AvisController: Database connected successfully
+2025-06-01 16:17:05 - Database connected successfully
+2025-06-01 16:17:05 - AvisController: Database connected successfully
+2025-06-01 16:17:05 - Database connected successfully
+2025-06-01 16:17:05 - AvisController: Database connected successfully
+2025-06-01 16:17:05 - Database connected successfully
+2025-06-01 16:17:05 - AvisController: Database connected successfully
+2025-06-01 16:18:10 - Database connected successfully
+2025-06-01 16:18:10 - AvisController: Database connected successfully
+2025-06-01 16:18:10 - Database connected successfully
+2025-06-01 16:18:10 - AvisController: Database connected successfully
+2025-06-01 16:18:18 - Database connected successfully
+2025-06-01 16:18:18 - AvisController: Database connected successfully
+2025-06-01 16:18:18 - Database connected successfully
+2025-06-01 16:18:18 - AvisController: Database connected successfully
+2025-06-01 16:18:20 - Database connected successfully
+2025-06-01 16:18:20 - AvisController: Database connected successfully
+2025-06-01 16:18:20 - Database connected successfully
+2025-06-01 16:18:20 - AvisController: Database connected successfully
+2025-06-01 16:18:21 - Database connected successfully
+2025-06-01 16:18:21 - AvisController: Database connected successfully
+2025-06-01 16:18:21 - Database connected successfully
+2025-06-01 16:18:21 - AvisController: Database connected successfully
+2025-06-01 16:19:37 - Database connected successfully
+2025-06-01 16:19:37 - AvisController: Database connected successfully
+2025-06-01 16:19:37 - Database connected successfully
+2025-06-01 16:19:37 - AvisController: Database connected successfully
+2025-06-01 16:19:38 - Database connected successfully
+2025-06-01 16:19:38 - AvisController: Database connected successfully
+2025-06-01 16:19:38 - Database connected successfully
+2025-06-01 16:19:38 - AvisController: Database connected successfully
+2025-06-01 16:19:39 - Database connected successfully
+2025-06-01 16:19:39 - AvisController: Database connected successfully
+2025-06-01 16:19:39 - Database connected successfully
+2025-06-01 16:19:39 - AvisController: Database connected successfully
+2025-06-01 16:19:41 - Database connected successfully
+2025-06-01 16:19:41 - AvisController: Database connected successfully
+2025-06-01 16:19:41 - Database connected successfully
+2025-06-01 16:19:41 - AvisController: Database connected successfully
+2025-06-01 19:56:01 - Database connected successfully
+2025-06-01 19:56:01 - AvisController: Database connected successfully
+2025-06-01 19:56:01 - Database connected successfully
+2025-06-01 19:56:01 - AvisController: Database connected successfully
+2025-06-01 19:56:14 - Database connected successfully
+2025-06-01 19:56:14 - AvisController: Database connected successfully
+2025-06-01 19:56:14 - Database connected successfully
+2025-06-01 19:56:14 - AvisController: Database connected successfully
+2025-06-01 19:56:16 - Database connected successfully
+2025-06-01 19:56:16 - AvisController: Database connected successfully
+2025-06-01 19:56:16 - Database connected successfully
+2025-06-01 19:56:16 - AvisController: Database connected successfully
+2025-06-01 19:56:17 - Database connected successfully
+2025-06-01 19:56:17 - AvisController: Database connected successfully
+2025-06-01 19:56:17 - Database connected successfully
+2025-06-01 19:56:17 - AvisController: Database connected successfully
+2025-06-01 19:56:18 - Database connected successfully
+2025-06-01 19:56:18 - AvisController: Database connected successfully
+2025-06-01 19:56:18 - Database connected successfully
+2025-06-01 19:56:18 - AvisController: Database connected successfully
+2025-06-01 19:56:20 - Database connected successfully
+2025-06-01 19:56:20 - AvisController: Database connected successfully
+2025-06-01 19:56:20 - Database connected successfully
+2025-06-01 19:56:20 - AvisController: Database connected successfully
+2025-06-01 19:56:21 - Database connected successfully
+2025-06-01 19:56:21 - AvisController: Database connected successfully
+2025-06-01 19:56:21 - Database connected successfully
+2025-06-01 19:56:21 - AvisController: Database connected successfully
+2025-06-01 19:56:23 - Database connected successfully
+2025-06-01 19:56:23 - AvisController: Database connected successfully
+2025-06-01 19:56:23 - Database connected successfully
+2025-06-01 19:56:23 - AvisController: Database connected successfully
+2025-06-01 19:56:24 - Database connected successfully
+2025-06-01 19:56:24 - AvisController: Database connected successfully
+2025-06-01 19:56:24 - Database connected successfully
+2025-06-01 19:56:24 - AvisController: Database connected successfully
+2025-06-01 19:56:25 - Database connected successfully
+2025-06-01 19:56:25 - AvisController: Database connected successfully
+2025-06-01 19:56:25 - Database connected successfully
+2025-06-01 19:56:25 - AvisController: Database connected successfully
+2025-06-01 19:56:27 - Database connected successfully
+2025-06-01 19:56:27 - AvisController: Database connected successfully
+2025-06-01 19:56:27 - Database connected successfully
+2025-06-01 19:56:27 - AvisController: Database connected successfully
+2025-06-01 19:58:35 - Database connected successfully
+2025-06-01 19:58:35 - AvisController: Database connected successfully
+2025-06-01 19:58:35 - Database connected successfully
+2025-06-01 19:58:35 - AvisController: Database connected successfully
+2025-06-01 19:58:37 - Database connected successfully
+2025-06-01 19:58:37 - AvisController: Database connected successfully
+2025-06-01 19:58:37 - Database connected successfully
+2025-06-01 19:58:37 - AvisController: Database connected successfully
+2025-06-01 20:01:31 - Database connected successfully
+2025-06-01 20:01:31 - AvisController: Database connected successfully
+2025-06-01 20:01:31 - Database connected successfully
+2025-06-01 20:01:31 - AvisController: Database connected successfully
+2025-06-01 20:03:09 - Database connected successfully
+2025-06-01 20:03:09 - AvisController: Database connected successfully
+2025-06-01 20:03:09 - Database connected successfully
+2025-06-01 20:03:09 - AvisController: Database connected successfully
+2025-06-01 20:09:28 - Database connected successfully
+2025-06-01 20:09:28 - AvisController: Database connected successfully
+2025-06-01 20:09:28 - Database connected successfully
+2025-06-01 20:09:28 - AvisController: Database connected successfully
+2025-06-01 20:11:30 - Database connected successfully
+2025-06-01 20:11:30 - AvisController: Database connected successfully
+2025-06-01 20:11:30 - Database connected successfully
+2025-06-01 20:11:30 - AvisController: Database connected successfully
+2025-06-01 20:12:04 - Database connected successfully
+2025-06-01 20:12:04 - AvisController: Database connected successfully
+2025-06-01 20:12:04 - Database connected successfully
+2025-06-01 20:12:04 - AvisController: Database connected successfully
+2025-06-01 20:12:08 - Database connected successfully
+2025-06-01 20:12:08 - AvisController: Database connected successfully
+2025-06-01 20:12:08 - Database connected successfully
+2025-06-01 20:12:08 - AvisController: Database connected successfully
+2025-06-01 20:12:16 - Database connected successfully
+2025-06-01 20:12:16 - AvisController: Database connected successfully
+2025-06-01 20:12:16 - Database connected successfully
+2025-06-01 20:12:16 - AvisController: Database connected successfully
+2025-06-01 20:33:51 - Database connected successfully
+2025-06-01 20:33:51 - AvisController: Database connected successfully
+2025-06-01 20:33:51 - Database connected successfully
+2025-06-01 20:33:51 - AvisController: Database connected successfully
+2025-06-01 20:34:13 - Database connected successfully
+2025-06-01 20:34:13 - AvisController: Database connected successfully
+2025-06-01 20:34:13 - Database connected successfully
+2025-06-01 20:34:13 - AvisController: Database connected successfully
+2025-06-01 21:00:46 - Database connected successfully
+2025-06-01 21:00:46 - AvisController: Database connected successfully
+2025-06-01 21:00:46 - Database connected successfully
+2025-06-01 21:00:46 - AvisController: Database connected successfully
+2025-06-01 21:03:15 - Database connected successfully
+2025-06-01 21:03:15 - AvisController: Database connected successfully
+2025-06-01 21:03:15 - Database connected successfully
+2025-06-01 21:03:15 - AvisController: Database connected successfully
+2025-06-01 21:09:27 - Database connected successfully
+2025-06-01 21:09:27 - AvisController: Database connected successfully
+2025-06-01 21:09:27 - Database connected successfully
+2025-06-01 21:09:27 - AvisController: Database connected successfully
+2025-06-01 21:09:33 - Database connected successfully
+2025-06-01 21:09:33 - AvisController: Database connected successfully
+2025-06-01 21:09:33 - Database connected successfully
+2025-06-01 21:09:33 - AvisController: Database connected successfully
+2025-06-01 21:12:17 - Database connected successfully
+2025-06-01 21:12:17 - AvisController: Database connected successfully
+2025-06-01 21:12:17 - Database connected successfully
+2025-06-01 21:12:17 - AvisController: Database connected successfully
+2025-06-02 10:43:13 - Database connected successfully
+2025-06-02 10:43:13 - AvisController: Database connected successfully
+2025-06-02 10:43:13 - Database connected successfully
+2025-06-02 10:43:13 - AvisController: Database connected successfully
+2025-06-02 11:19:29 - Database connected successfully
+2025-06-02 11:19:29 - AvisController: Database connected successfully
+2025-06-02 11:19:29 - Database connected successfully
+2025-06-02 11:19:29 - AvisController: Database connected successfully
+2025-06-02 11:48:09 - Database connected successfully
+2025-06-02 11:48:09 - AvisController: Database connected successfully
+2025-06-02 11:48:09 - Database connected successfully
+2025-06-02 11:48:09 - AvisController: Database connected successfully
+2025-06-02 12:23:44 - Database connected successfully
+2025-06-02 12:23:44 - AvisController: Database connected successfully
+2025-06-02 12:23:44 - Database connected successfully
+2025-06-02 12:23:44 - AvisController: Database connected successfully
+2025-06-02 12:23:59 - Database connected successfully
+2025-06-02 12:23:59 - AvisController: Database connected successfully
+2025-06-02 12:23:59 - Database connected successfully
+2025-06-02 12:23:59 - AvisController: Database connected successfully
+2025-06-02 12:35:19 - Database connected successfully
+2025-06-02 12:35:19 - AvisController: Database connected successfully
+2025-06-02 12:35:19 - Database connected successfully
+2025-06-02 12:35:19 - AvisController: Database connected successfully
+2025-06-02 12:40:50 - Database connected successfully
+2025-06-02 12:40:50 - AvisController: Database connected successfully
+2025-06-02 12:40:50 - Database connected successfully
+2025-06-02 12:40:50 - AvisController: Database connected successfully
+2025-06-02 20:08:56 - Database connected successfully
+2025-06-02 20:08:56 - AvisController: Database connected successfully
+2025-06-02 20:08:56 - Database connected successfully
+2025-06-02 20:08:56 - AvisController: Database connected successfully
+2025-06-02 20:13:08 - Database connected successfully
+2025-06-02 20:13:08 - AvisController: Database connected successfully
+2025-06-02 20:13:08 - Database connected successfully
+2025-06-02 20:13:08 - AvisController: Database connected successfully
+2025-06-02 20:13:29 - Database connected successfully
+2025-06-02 20:13:29 - AvisController: Database connected successfully
+2025-06-02 20:13:29 - Database connected successfully
+2025-06-02 20:13:29 - AvisController: Database connected successfully
+2025-06-02 20:13:30 - Database connected successfully
+2025-06-02 20:13:30 - AvisController: Database connected successfully
+2025-06-02 20:13:30 - Database connected successfully
+2025-06-02 20:13:30 - AvisController: Database connected successfully
+2025-06-02 20:13:37 - Database connected successfully
+2025-06-02 20:13:37 - AvisController: Database connected successfully
+2025-06-02 20:13:37 - Database connected successfully
+2025-06-02 20:13:37 - AvisController: Database connected successfully
+2025-06-02 20:13:38 - Database connected successfully
+2025-06-02 20:13:38 - AvisController: Database connected successfully
+2025-06-02 20:13:38 - Database connected successfully
+2025-06-02 20:13:38 - AvisController: Database connected successfully
+2025-06-02 20:13:40 - Database connected successfully
+2025-06-02 20:13:40 - AvisController: Database connected successfully
+2025-06-02 20:13:40 - Database connected successfully
+2025-06-02 20:13:40 - AvisController: Database connected successfully
+2025-06-02 20:13:43 - Database connected successfully
+2025-06-02 20:13:43 - AvisController: Database connected successfully
+2025-06-02 20:13:43 - Database connected successfully
+2025-06-02 20:13:43 - AvisController: Database connected successfully

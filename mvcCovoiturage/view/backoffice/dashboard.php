@@ -1,7 +1,7 @@
 <?php
 $originalDir = getcwd();
 
-chdir('../../Controller'); 
+chdir('../../Controller');
 
 require_once '../config.php'; // Resolves to C:\xampp\htdocs\clickngoooo\config.php
 require_once 'AnnonceCovoiturageController.php';
@@ -21,7 +21,7 @@ $allDemandes = $demandeController->getAllDemandes();
 // Get total counts
 $totalAnnonces = count($allAnnonces);
 $totalDemandes = count($allDemandes);
-$totalAvis = 0; 
+$totalAvis = 0;
 
 // Fetch destination statistics - lieux d'arrivée les plus utilisés (top 5)
 try {
@@ -42,10 +42,35 @@ try {
 
 // Encode the destinations data as JSON for JavaScript to use
 $destinationsJson = json_encode(['destinations' => $destinations]);
+
+
+// Fonction pour générer une couleur à partir du nom
+function stringToColor($str)
+{
+  $Colors = [
+    '#FF6B6B',
+    '#FF8E53',
+    '#6B5B95',
+    '#88B04B',
+    '#F7CAC9',
+    '#92A8D1',
+    '#955251',
+    '#B565A7',
+    '#DD4124',
+    '#D65076'
+  ];
+  $hash = 0;
+  for ($i = 0; $i < strlen($str); $i++) {
+    $hash = ord($str[$i]) + (($hash << 5) - $hash);
+  }
+  return $Colors[abs($hash) % count($Colors)];
+}
+
 ?>
 
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -62,8 +87,8 @@ $destinationsJson = json_encode(['destinations' => $destinations]);
         }
 
         body {
-            font-family: 'Roboto', sans-serif;
-            background: linear-gradient(145deg, #ffeaf2, #d9e4ff);
+            font-family: 'inter', sans-serif;
+            background: #F1EBFF;
             display: flex;
             min-height: 100vh;
             overflow-x: hidden;
@@ -86,8 +111,15 @@ $destinationsJson = json_encode(['destinations' => $destinations]);
         }
 
         @keyframes slideIn {
-            from { transform: translateX(-50px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
+            from {
+                transform: translateX(-50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
         }
 
         .sidebar .logo-container {
@@ -181,8 +213,13 @@ $destinationsJson = json_encode(['destinations' => $destinations]);
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
         .dashboard-header {
@@ -191,6 +228,7 @@ $destinationsJson = json_encode(['destinations' => $destinations]);
             border-radius: 15px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             margin-bottom: 30px;
+            margin-top: 100px;
         }
 
         .dashboard-header h1 {
@@ -271,7 +309,7 @@ $destinationsJson = json_encode(['destinations' => $destinations]);
             margin: 0 auto;
             position: relative;
             height: 400px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             padding: 20px;
             border-radius: 15px;
         }
@@ -308,7 +346,8 @@ $destinationsJson = json_encode(['destinations' => $destinations]);
             margin-bottom: 20px;
         }
 
-        .navigation-buttons a, .navigation-buttons button {
+        .navigation-buttons a,
+        .navigation-buttons button {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -319,20 +358,35 @@ $destinationsJson = json_encode(['destinations' => $destinations]);
             color: #fff;
             font-size: 20px;
             transition: all 0.3s ease;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
             border: none;
             cursor: pointer;
         }
 
-        .navigation-buttons a:hover, .navigation-buttons button:hover {
+        .navigation-buttons a:hover,
+        .navigation-buttons button:hover {
             transform: scale(1.1);
         }
 
-        .nav-annonces { background: linear-gradient(145deg, #ff8acb, #a7bfff); }
-        .nav-archiver { background: linear-gradient(145deg, #ff6f61, #ff9a8b); }
-        .nav-restaurer { background: linear-gradient(145deg, #6b7280, #9ca3af); }
-        .nav-demandes { background: linear-gradient(145deg, #60a5fa, #93c5fd); }
-        .nav-previous { background: linear-gradient(145deg, #a1a1aa, #d4d4d8); }
+        .nav-annonces {
+            background: linear-gradient(145deg, #ff8acb, #a7bfff);
+        }
+
+        .nav-archiver {
+            background: linear-gradient(145deg, #ff6f61, #ff9a8b);
+        }
+
+        .nav-restaurer {
+            background: linear-gradient(145deg, #6b7280, #9ca3af);
+        }
+
+        .nav-demandes {
+            background: linear-gradient(145deg, #60a5fa, #93c5fd);
+        }
+
+        .nav-previous {
+            background: linear-gradient(145deg, #a1a1aa, #d4d4d8);
+        }
 
         /* Popup Styles */
         .popup-overlay {
@@ -352,7 +406,7 @@ $destinationsJson = json_encode(['destinations' => $destinations]);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             width: 250px;
             position: absolute;
-            top: 20px;
+            top: 100px;
             right: 20px;
             text-align: center;
             color: #fff;
@@ -361,8 +415,15 @@ $destinationsJson = json_encode(['destinations' => $destinations]);
         }
 
         @keyframes popupFadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .popup h3 {
@@ -444,7 +505,8 @@ $destinationsJson = json_encode(['destinations' => $destinations]);
                 font-size: 16px;
             }
 
-            .navigation-buttons a, .navigation-buttons button {
+            .navigation-buttons a,
+            .navigation-buttons button {
                 width: 40px;
                 height: 40px;
                 font-size: 16px;
@@ -512,7 +574,8 @@ $destinationsJson = json_encode(['destinations' => $destinations]);
                 font-size: 14px;
             }
 
-            .navigation-buttons a, .navigation-buttons button {
+            .navigation-buttons a,
+            .navigation-buttons button {
                 width: 35px;
                 height: 35px;
                 font-size: 14px;
@@ -540,7 +603,55 @@ $destinationsJson = json_encode(['destinations' => $destinations]);
         }
     </style>
 </head>
+
 <body>
+
+
+<nav>
+  <div class="navbar-backoffice-wrapper">
+        <div class="profile-container1">
+    <!-- Liens de navigation -->
+    <a href="/Projet%20Web/mvcUtilisateur/View/BackOffice/indeex.php" class="nav-link">Utilisateurs</a>
+    <a href="/Projet Web/mvcact/view/back office/dashboard.php" class="nav-link" data-section="activites">Activités</a>
+    <a href="/Projet Web/mvcEvent/View/BackOffice/dashboard.php" class="nav-link" data-section="evenements">Événements</a>
+    <a href="/Projet Web/mvcProduit/view/back office/indeex.php" class="nav-link" data-section="produits">Produits</a>
+    <a href="/Projet Web/mvcCovoiturage/view/backoffice/dashboard.php" class="nav-link active" data-section="transports">Transports</a>
+    <a href="/Projet Web/mvcSponsor/crud/view/back/back.php" class="nav-link" data-section="sponsors">Sponsors</a>
+        <div class="profile-container">
+    <!-- Profil à droite -->
+
+      <div class="user-profile">
+        <?php if (isset($_SESSION['user'])): ?>
+          <?php
+          $photoPath = $_SESSION['user']['profile_picture'] ?? '';
+          $fullName = $_SESSION['user']['full_name'] ?? 'Utilisateur';
+          $photoRelativePath = '../../../mvcUtilisateur/View/FrontOffice/' . $photoPath;
+          $absolutePath = realpath(__DIR__ . '/' . $photoRelativePath);
+          $showPhoto = !empty($photoPath) && $absolutePath && file_exists($absolutePath);
+          ?>
+          <?php if ($showPhoto): ?>
+            <img src="/Projet Web/mvcUtilisateur/View/FrontOffice/<?= htmlspecialchars($photoPath) ?>"
+              alt="Photo de profil"
+              class="profile-photo"
+              onclick="toggleDropdown()">
+          <?php else: ?>
+            <div class="profile-circle"
+              style="background-color: <?= function_exists('stringToColor') ? stringToColor($fullName) : '#999' ?>;"
+              onclick="toggleDropdown()">
+              <?= strtoupper(htmlspecialchars(substr($fullName, 0, 1))) ?>
+            </div>
+          <?php endif; ?>
+
+          <div class="dropdown-menu" id="dropdownMenu">
+            <a href="/Projet Web/mvcUtilisateur/View/FrontOffice/profile.php">👤 Mon Profil</a>
+            <a href="/Projet Web/mvcUtilisateur/View/BackOffice/login/logout.php">🚪 Déconnexion</a>
+          </div>
+        <?php endif; ?>
+      </div>
+    </div>
+  </div>
+</nav>
+
     <!-- Popup Notification -->
     <div class="popup-overlay" id="popupOverlay">
         <div class="popup" onclick="redirectToAnnonces(event)">
@@ -553,188 +664,307 @@ $destinationsJson = json_encode(['destinations' => $destinations]);
     <!-- Sidebar -->
     <div class="sidebar">
         <div>
-            <div class="logo-container">
-            <img src="/clickngo/public/images/téléchargement__5_-removebg-preview.png" alt="Logo">
-            </div><br><br>
+            <div >
+                <img src="/Projet Web/mvcUtilisateur/View/BackOffice/logo.png" alt="Logo" class="logo">
+            </div>
+<style> 
+ .logo {
+    height: 70px;
+    margin-bottom: 20px;
+    margin-top: 50px;
+    margin-left: 40px;
+  }
+
+          .profile-container {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+          margin-left: 25px;
+          padding-left: 25px;
+          border-left: 1px solid rgba(151, 104, 209, 0.2);
+        }
+        
+                  .profile-container1 {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+          margin-left: 25px;
+          padding-left: 25px;
+        }
+  </style>
+
             <ul>
                 <li><a href="dashboard.php?page=1"> 🏠 Tableau de Bord</a></li>
-                <li><a href="annonces.php">  📢 Annonces</a></li>
+                <li><a href="annonces.php"> 📢 Annonces</a></li>
                 <li class="submenu">
-                    
+
                     <ul style="display: none; padding-left: 20px; margin-top: 10px; background: #f9f9f9; border-radius: 10px;">
                         <li style="margin: 10px 0;"><a href="annonces.php?status=active" style="padding: 8px 15px;">
-                            <span style="display: inline-block; width: 10px; height: 10px; background-color: #4CAF50; border-radius: 50%; margin-right: 10px;"></span> Actives
-                        </a></li>
+                                <span style="display: inline-block; width: 10px; height: 10px; background-color: #4CAF50; border-radius: 50%; margin-right: 10px;"></span> Actives
+                            </a></li>
                         <li style="margin: 10px 0;"><a href="annonces.php?status=archived" style="padding: 8px 15px;">
-                            <span style="display: inline-block; width: 10px; height: 10px; background-color: #f44336; border-radius: 50%; margin-right: 10px;"></span> Archivées
-                        </a></li>
+                                <span style="display: inline-block; width: 10px; height: 10px; background-color: #f44336; border-radius: 50%; margin-right: 10px;"></span> Archivées
+                            </a></li>
                     </ul>
                 </li>
-                <li><a href="demande_list.php">  📋 Demandes</a></li>
-               
+                <li><a href="demande_list.php"> 📋 Demandes</a></li>
+
             </ul>
         </div>
         <div class="logout">
             <a href="logout.php"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
         </div>
     </div>
+    
 
     <!-- Main Content -->
     <div class="main-content">
 
-    
-                <a href="/Projet%20Web/mvcUtilisateur/View/BackOffice/indeex.php" class="menu-item">🏠 Accueil</a>
-                <a href="/Projet Web/mvcact/view/back office/dashboard.php" class="nav-link" data-section="activites">Activités</a>
-                <a href="/Projet Web/mvcEvent/View/BackOffice/dashboard.php" class="nav-link active" data-section="evenements">Événements</a>
-                <a href="/Projet Web/mvcProduit/view/back office/indeex.php" class="nav-link" data-section="produits">Produits</a>
-                <a href="/Projet Web/mvcCovoiturage/view/backoffice/dashboard.php" class="nav-link" data-section="transports">Transports</a>
-                <a href="/Projet Web/mvcSponsor/crud/view/back/back.php" class="nav-link" data-section="sponsors">Sponsors</a>
+
+            <style>
+        .navbar-backoffice-wrapper {
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.98));
+          padding: 25px 30px;
+          border-radius: 30px;
+          box-shadow: 0 8px 32px rgba(151, 104, 209, 0.1);
+          position: fixed;
+          top: 40px;
+          left: 58%;
+          transform: translateX(-50%);
+          z-index: 1000;
+          width: fit-content;
+          min-width: 800px;
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(151, 104, 209, 0.1);
+        }
+
+        .navbar-backoffice ul {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 30px;
+          /* Réduit légèrement l'espacement entre les éléments */
+          margin: 0;
+          padding: 0;
+          list-style: none;
+        }
+
+        .nav-link {
+          text-decoration: none;
+          font-weight: 500;
+          font-size: 15px;
+          transition: all 0.3s ease;
+          padding: 10px 20px;
+          border-radius: 20px;
+          white-space: nowrap;
+          position: relative;
+        }
+
+        /* Couleurs spécifiques pour chaque lien */
+        .nav-link[href*="Utilisateur"] {
+          color: #9F7AEA;
+        }
 
 
-    <div class="user-profile">
-          <?php if (isset($_SESSION['user'])): ?>
-            <?php
-            $photoPath = $_SESSION['user']['profile_picture'] ?? '';
-            $fullName = $_SESSION['user']['full_name'] ?? 'Utilisateur';
+        .nav-link[href*="act"] {
+          color: #9F7AEA;
+        }
 
-            // Correction du chemin relatif pour le test file_exists (chemin serveur)
-            $photoRelativePath = '../../mvcUtilisateur/View/FrontOffice/' . $photoPath;
-            $absolutePath = realpath(__DIR__ . '/' . $photoRelativePath);
-            $showPhoto = !empty($photoPath) && $absolutePath && file_exists($absolutePath);
-            ?>
+        .nav-link[href*="Event"] {
+          color: #9F7AEA;
+        }
 
-            <?php if ($showPhoto): ?>
-              <!-- Affichage de la photo (chemin URL côté client) -->
-              <img src="/Projet Web/mvcUtilisateur/View/FrontOffice/<?= htmlspecialchars($photoPath) ?>"
-                alt="Photo de profil"
-                class="profile-photo"
-                onclick="toggleDropdown()">
-            <?php else: ?>
-              <!-- Cercle avec initiale -->
-              <div class="profile-circle"
-                style="background-color: <?= function_exists('stringToColor') ? stringToColor($fullName) : '#999' ?>;"
-                onclick="toggleDropdown()">
-                <?= strtoupper(htmlspecialchars(substr($fullName, 0, 1))) ?>
-              </div>
-            <?php endif; ?>
+        .nav-link[href*="Produit"] {
+          color: #9F7AEA;
+        }
 
-            <!-- Menu déroulant -->
-            <div class="dropdown-menu" id="dropdownMenu">
-              <a href="/Projet Web/mvcUtilisateur/View/FrontOffice/profile.php">👤 Mon Profil</a>
-              <a href="/Projet Web/mvcUtilisateur/View/BackOffice/login/logout.php">🚪 Déconnexion</a>
-            </div>
-          <?php endif; ?>
-        </div>
+        .nav-link[href*="Covoiturage"] {
+          color: #F687B3;
+        }
+
+        .nav-link[href*="Sponsor"] {
+          color: #9F7AEA;
+        }
+
+        .nav-link:hover {
+          background: rgba(246, 135, 179, 0.1);
+          transform: translateY(-1px);
+        }
+
+        .nav-link.active {
+          background: rgba(246, 135, 179, 0.15);
+          color: #F687B3;
+        }
+
+        .nav-link.active::after {
+          content: '';
+          position: absolute;
+          bottom: -5px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 20px;
+          height: 3px;
+          background: #F687B3;
+          border-radius: 10px;
+        }
+
+        .profile-container {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+          margin-left: 25px;
+          padding-left: 25px;
+          border-left: 1px solid rgba(151, 104, 209, 0.2);
+        }
+
+        .profile-photo,
+        .profile-circle {
+          width: 35px;
+          height: 35px;
+          border-radius: 50%;
+          cursor: pointer;
+          border: 2px solid white;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .dropdown-menu {
+          position: absolute;
+          top: 50px;
+          right: 0;
+          background: white;
+          border-radius: 15px;
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+          padding: 8px 0;
+          min-width: 180px;
+          border: 1px solid rgba(151, 104, 209, 0.1);
+        }
+
+        .dropdown-menu a {
+          display: block;
+          padding: 10px 20px;
+          color: #666;
+          text-decoration: none;
+          font-size: 14px;
+          transition: all 0.3s ease;
+        }
+
+        .dropdown-menu a:hover {
+          background: rgba(247, 243, 255, 0.95);
+          color: #9768D1;
+        }
+      </style>
 
 
 
 
 
         <script>
-          // Fonction pour ouvrir/fermer le menu
-          function toggleDropdown() {
-            const menu = document.getElementById('dropdownMenu');
-            if (menu.style.display === 'block') {
-              menu.style.display = 'none';
-            } else {
-              menu.style.display = 'block';
+            // Fonction pour ouvrir/fermer le menu
+            function toggleDropdown() {
+                const menu = document.getElementById('dropdownMenu');
+                if (menu.style.display === 'block') {
+                    menu.style.display = 'none';
+                } else {
+                    menu.style.display = 'block';
+                }
             }
-          }
 
-          // ✅ Fermer le menu si on clique en dehors
-          document.addEventListener('click', function(event) {
-            const menu = document.getElementById('dropdownMenu');
-            const profile = document.querySelector('.user-profile');
-            if (!profile.contains(event.target)) {
-              menu.style.display = 'none';
-            }
-          });
+            // ✅ Fermer le menu si on clique en dehors
+            document.addEventListener('click', function(event) {
+                const menu = document.getElementById('dropdownMenu');
+                const profile = document.querySelector('.user-profile');
+                if (!profile.contains(event.target)) {
+                    menu.style.display = 'none';
+                }
+            });
         </script>
         <style>
-          .user-profile {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-          }
+            .user-profile {
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                z-index: 1000;
+                display: flex;
+            }
 
-          .profile-photo,
-          .profile-circle {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            cursor: pointer;
-            object-fit: cover;
-            border: 2px solid #fff;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-          }
+            .profile-photo,
+            .profile-circle {
+                width: 35px;
+                height:35px;
+                border-radius: 50%;
+                cursor: pointer;
+                object-fit: cover;
+                border: 2px solid #fff;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+                display: flex;
+            }
 
-          .profile-circle {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #666;
-            color: white;
-            font-weight: bold;
-            font-size: 18px;
-          }
+            .profile-circle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: #666;
+                color: white;
+                font-weight: bold;
+                font-size: 18px;
+            }
 
-          .dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 55px;
-            right: 0;
-            background-color: white;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            min-width: 160px;
-            overflow: hidden;
-            z-index: 1001;
-          }
+            .dropdown-menu {
+                display: none;
+                position: absolute;
+                top: 55px;
+                right: 0;
+                background-color: white;
+                border: 1px solid #ccc;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                min-width: 160px;
+                overflow: hidden;
+                z-index: 1001;
+            }
 
-          .dropdown-menu a {
-            display: block;
-            padding: 10px 15px;
-            text-decoration: none;
-            color: #333;
-            font-size: 14px;
-          }
+            .dropdown-menu a {
+                display: block;
+                padding: 10px 15px;
+                text-decoration: none;
+                color: #333;
+                font-size: 14px;
+            }
 
-          .dropdown-menu a:hover {
-            background-color: #f5f5f5;
-          }
+            .dropdown-menu a:hover {
+                background-color: #f5f5f5;
+            }
 
-          /* Style pour le menu déroulant */
-          .dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 60px;
-            right: 20px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 10px;
-            z-index: 1000;
-          }
+            /* Style pour le menu déroulant */
+            .dropdown-menu {
+                display: none;
+                position: absolute;
+                top: 60px;
+                right: 20px;
+                background-color: white;
+                border-radius: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                padding: 10px;
+                z-index: 1000;
+            }
 
-          .dropdown-menu a {
-            display: block;
-            padding: 10px;
-            color: #333;
-            text-decoration: none;
-          }
+            .dropdown-menu a {
+                display: block;
+                padding: 10px;
+                color: #333;
+                text-decoration: none;
+            }
 
-          .dropdown-menu a:hover {
-            background-color: #f9f9f9;
-          }
+            .dropdown-menu a:hover {
+                background-color: #f9f9f9;
+            }
         </style>
 
 
         <div class="dashboard-header">
             <h1>Tableau de Bord </h1>
         </div>
-        
+
         <div class="dashboard-cards">
             <div class="card">
                 <i class="fas fa-box"></i>
@@ -746,7 +976,7 @@ $destinationsJson = json_encode(['destinations' => $destinations]);
                 <h3>Demandes</h3>
                 <p><?php echo htmlspecialchars($totalDemandes); ?> demandes</p>
             </div>
-           
+
         </div>
 
         <!-- Statistics Section -->
@@ -762,7 +992,7 @@ $destinationsJson = json_encode(['destinations' => $destinations]);
         <!-- Navigation Buttons -->
         <div class="navigation-buttons">
             <a href="annonces.php" class="nav-annonces" title="Annonces"><i class="fas fa-box"></i></a>
-         
+
             <a href="demande_list.php" class="nav-demandes" title="Demandes"><i class="fas fa-list"></i></a>
             <button onclick="window.history.back()" class="nav-previous" title="Précédent"><i class="fas fa-arrow-left"></i></button>
         </div>
@@ -779,7 +1009,7 @@ $destinationsJson = json_encode(['destinations' => $destinations]);
         document.addEventListener('DOMContentLoaded', function() {
             const submenuTrigger = document.querySelector('.submenu > a');
             const submenu = document.querySelector('.submenu > ul');
-            
+
             if (submenuTrigger) {
                 submenuTrigger.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -792,11 +1022,11 @@ $destinationsJson = json_encode(['destinations' => $destinations]);
                     }
                 });
             }
-            
+
             // Define active page links
             const pageLinks = {
                 'annonces.php': ['C:\\xampp\\htdocs\\clickngo\\view\\backoffice\\annonces.php'],
-              
+
                 'demande_list.php': ['C:\\xampp\\htdocs\\clickngo\\view\\backoffice\\demande_list.php']
             };
 
@@ -838,28 +1068,42 @@ $destinationsJson = json_encode(['destinations' => $destinations]);
             // Define gradient colors for the doughnut chart
             const generateGradients = (ctx) => {
                 const gradients = [];
-                const colors = [
-                    { start: '#ff8acb', end: '#a7bfff' },
-                    { start: '#ff8acb', end: '#d9e4ff' },
-                    { start: '#ffa8da', end: '#98b8ff' },
-                    { start: '#ffbce3', end: '#c4d6ff' },
-                    { start: '#ff9ad2', end: '#8aaeff' }
+                const colors = [{
+                        start: '#ff8acb',
+                        end: '#a7bfff'
+                    },
+                    {
+                        start: '#ff8acb',
+                        end: '#d9e4ff'
+                    },
+                    {
+                        start: '#ffa8da',
+                        end: '#98b8ff'
+                    },
+                    {
+                        start: '#ffbce3',
+                        end: '#c4d6ff'
+                    },
+                    {
+                        start: '#ff9ad2',
+                        end: '#8aaeff'
+                    }
                 ];
-                
+
                 colors.forEach(color => {
                     const gradient = ctx.createLinearGradient(0, 0, 0, 400);
                     gradient.addColorStop(0, color.start);
                     gradient.addColorStop(1, color.end);
                     gradients.push(gradient);
                 });
-                
+
                 return gradients;
             };
 
             // Create the doughnut chart using Chart.js
             const ctx = document.getElementById('destinationStatsChart').getContext('2d');
             const gradients = generateGradients(ctx);
-            
+
             new Chart(ctx, {
                 type: 'doughnut',
                 data: {
@@ -941,7 +1185,7 @@ $destinationsJson = json_encode(['destinations' => $destinations]);
             if (data.destinations.length > 0) {
                 const mostPopularDestination = data.destinations[0];
                 const totalTrips = data.destinations.reduce((sum, dest) => sum + parseInt(dest.destination_count), 0);
-                
+
                 statsDetails.innerHTML = `
                     <div style="margin-top: 30px; padding: 15px; background: linear-gradient(145deg, #ff8acb, #a7bfff); border-radius: 10px; box-shadow: 0 3px 10px rgba(0,0,0,0.05); color: white;">
                        
@@ -954,4 +1198,5 @@ $destinationsJson = json_encode(['destinations' => $destinations]);
         }
     </script>
 </body>
+
 </html>

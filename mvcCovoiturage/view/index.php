@@ -970,38 +970,47 @@ try {
     <div id="loadingSpinner"></div>
 
     <!-- BACKGROUND IMAGE WITH NAVBAR -->
-    <div class="relative w-full h-[85vh] mt-2">
-        <!-- NAVBAR SUR LA VIDÉO -->
-         
-       <nav class="bg-gray-800 text-white p-4 relative">
-  <ul class="flex space-x-6 font-semibold">
-    <!-- MENU PRINCIPAL -->
-    <li class="relative group">
-      <button class="hover:text-yellow-300">Transport ▾</button>
+    <div class="relative w-full h-[85vh]">
+    <!-- NAVBAR SUR LA VIDÉO -->
+    <nav class="absolute top-0 left-0 w-full z-50 p-4">
+        <div class="flex items-center justify-center max-w-7xl mx-auto">
+            <!-- Menu Transport centré -->
+            <div class="flex space-x-8 text-lg font-bold text-white relative">
 
-      <!-- DROPDOWN PRINCIPAL -->
-      <ul class="absolute top-full left-0 bg-white text-black rounded shadow-md hidden group-hover:block z-50">
-        <li class="relative group">
-          <a href="#" class="block px-4 py-2 hover:bg-gray-100">Nos trajets ▸</a>
-          <!-- SOUS-MENU NOS TRAJETS -->
-          <ul class="absolute top-0 left-full bg-white text-black rounded shadow-md hidden group-hover:block min-w-[180px]">
-            <li><a href="mesDemandes.php" class="block px-4 py-2 hover:bg-gray-100">Mes demandes</a></li>
-            <li><a href="nosTrajets.php" class="block px-4 py-2 hover:bg-gray-100">Nos trajets</a></li>
-          </ul>
-        </li>
-        <li class="relative group">
-          <a href="#" class="block px-4 py-2 hover:bg-gray-100">Proposer covoiturage ▸</a>
-          <!-- SOUS-MENU PROPOSER COVOITURAGE -->
-          <ul class="absolute top-0 left-full bg-white text-black rounded shadow-md hidden group-hover:block min-w-[180px]">
-            <li><a href="mesAnnonces.php" class="block px-4 py-2 hover:bg-gray-100">Mes annonces</a></li>
-          </ul>
-        </li>
-        <li><a href="topConducteurs.php" class="block px-4 py-2 hover:bg-gray-100">Top Conducteurs</a></li>
-        <li><a href="chatbot.php" class="block px-4 py-2 hover:bg-gray-100">Chatbot</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
+                <a href="/Projet%20Web/mvcUtilisateur/View/FrontOffice/index.php">Accueil</a>
+                <a href="/Projet Web/mvcact/view/front office/activite.php">Activités</a>
+                <a href="/Projet%20Web/mvcEvent/View/FrontOffice/evenemant.php">Événements</a>
+                <a href="/Projet Web/mvcProduit/view/front office/produit.php">Produits</a>
+                                                                <a href="/Projet Web/mvcSponsor/crud/view/front/index.php">Sponsors</a> 
+
+                <div class="group relative">
+                    <button class="hover:text-pink-300 font-bold text-lg">
+                        Transport  <span style="display: inline-block; transform: translateY(-2px);">▾</span>
+                    </button>
+
+
+
+                    <div class="absolute left-0 mt-2 bg-transparent rounded shadow-md z-50 min-w-[200px] opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-200">
+                        <div class="relative group/sub">
+                            <a href="DisplayConducteur.php" class="block px-4 py-2 text-white hover:text-pink-300">Nos trajets</a>
+                            <div class="absolute top-0 left-full bg-transparent rounded shadow-md z-50 min-w-[200px] opacity-0 group-hover/sub:opacity-100 invisible group-hover/sub:visible transition-all duration-200">
+                                <a href="ListPassager.php" class="block px-4 py-2 text-white hover:text-pink-300">Mes demandes</a>
+                            </div>
+                        </div>
+                        <div class="relative group/sub">
+                            <a href="AjouterConducteur.php" class="block px-4 py-2 text-white hover:text-pink-300">Proposer un trajet</a>
+                            <div class="absolute top-0 left-full bg-transparent rounded shadow-md z-50 min-w-[200px] opacity-0 group-hover/sub:opacity-100 invisible group-hover/sub:visible transition-all duration-200">
+                                <a href="ListConducteurs.php" class="block px-4 py-2 text-white hover:text-pink-300">Mes annonces</a>
+                            </div>
+                        </div>
+                        <a href="#faq" class="block px-4 py-2 text-white hover:text-pink-300">Chatbot</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
 
         
       <!-- IMAGE DE FOND -->
@@ -2055,79 +2064,403 @@ try {
                 <button class="carpooling-btn">En savoir plus</button>
             </div>
             <div class="carpooling-image">
-                <img src="/clickngo/public/images/cov.webp" alt="">
+                <img src="/Projet Web/mvcCovoiturage/public/images/cov.webp" alt="">
             </div>
         </div>
     </section>
 
-    <div class="footer-wrapper">
-        <div class="newsletter">
-            <div class="newsletter-left">
-                <h2>Abonnez-vous à notre</h2>
-                <h1>Click'N'Go</h1>
-            </div>
-            <div class="newsletter-right">
-                <div class="newsletter-input">
-                    <input type="text" placeholder="Entrez votre adresse e-mail" />
-                    <button class="fotter-btn">Valider</button>
-                </div>
-            </div>
+<footer class="footer">
+    <div class="newsletter">
+        <div class="newsletter-left">
+            <h2>Abonnez-vous à notre</h2>
+            <h1>Click'N'Go</h1>
         </div>
-
-        <div class="footer-content">
-            <div class="footer-main">
-                <div class="footer-brand">
-                    <img src="images/logo.png" alt="click'N'go Logo" class="footer-logo">
-                </div>
-                <p>Rejoignez nous aussi sur :</p>
-                <div class="social-icons">
-                    <a href="#" style="--color: #0072b1" class="icon"><i class="fa-brands fa-linkedin"></i></a>
-                    <a href="#" style="--color: #E1306C" class="icon"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#" style="--color: #FF0050" class="icon"><i class="fa-brands fa-tiktok"></i></a>
-                    <a href="#" style="--color: #4267B2" class="icon"><i class="fa-brands fa-facebook"></i></a>
-                </div>
-            </div>
-
-            <div class="links">
-                <p>Moyens de paiement</p>
-                <div class="payment-methods">
-                  <img src="images/visa.webp" alt="Visa">
-            <img src="images/mastercard-v2.webp" alt="Mastercard">
-            <img src="images/logo-cb.webp" alt="CB" class="cb-logo">
-            <img src="images/paypal.webp" alt="Paypal" class="paypal">
-                </div>
-            </div>
-
-            <div class="links">
-                <p>À propos</p>
-                <a href="/clickngo/view/about.php">À propos </a>
-                <a href="#">Presse</a>
-                <a href="#">Nous rejoindre</a>
-            </div>
-
-            <div class="links">
-                <p>Liens utiles</p>
-                <a href="#">Devenir partenaire</a>
-                <a href="#">FAQ - Besoin d'aide ?</a>
-                <a href="#">Tous les avis click'N'go</a>
-            </div>
-        </div>
-
-        <div class="footer-section">
-            <hr>
-            <div class="footer-separator"></div>
-            <div class="footer-bottom">
-                <p>© click'N'go 2025 - tous droits réservés</p>
-                <div class="footer-links-bottom">
-                    <a href="#">Conditions générales</a>
-                    <a href="#">Mentions légales</a>
-                </div>
+        <div class="newsletter-right">
+            <div class="newsletter-input">
+                <input type="text" placeholder="Entrez votre adresse e-mail" />
+                <button>Submit</button>
             </div>
         </div>
     </div>
+
+    <div class="footer-content">
+        <div class="footer-main">
+            <div class="footer-brand">
+                <img src="images/logo.png" alt="click'N'go Logo" class="footer-logo">
+            </div>
+            <p>Rejoignez nous aussi sur :</p>
+            <div class="social-icons">
+                <a href="#" style="--color: #0072b1" class="icon"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="#" style="--color: #E1306C" class="icon"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" style="--color: #FF0050" class="icon"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="#" style="--color: #4267B2" class="icon"><i class="fa-brands fa-facebook"></i></a>
+            </div>
+        </div>
+
+        <div class="links">
+            <p>Moyens de paiement</p>
+            <div class="payment-icons">
+                <img src="images/visa.webp" alt="Visa" style="height: 50px;">
+                <img src="images/paypal.webp" alt="PayPal" style="margin-bottom: 11px;">
+                <img src="images/mastercard.webp" alt="MasterCard" style="height: 50px;">
+            </div>
+        </div>
+
+        <div class="links">
+            <p>À propos</p>
+            <a href="" class="link">À propos de click'N'go</a>
+            <a href="" class="link">Presse</a>
+            <a href="" class="link">Nous rejoindre</a>
+        </div>
+
+        <div class="links">
+            <p>Liens utiles</p>
+            <a href="" class="link">Devenir partenaire</a>
+            <a href="" class="link">FAQ - Besoin d'aide ?</a>
+            <a href="" class="link">Tous les avis click'N'go</a>
+        </div>
+    </div>
+
+    <div class="footer-section">
+        <hr>
+        <div class="footer-separator"></div>
+        <pre>© click'N'go 2025 - tous droits réservés                                                                  <a href="#">Conditions générales</a>                                                   <a href="#">Mentions légales</a></pre>
+    </div>
+</footer>
 <script>
         // Static global variable for user ID
         const id_user = 12345; // You can set any value you want here
     </script>
+
+
+<style>
+
+    .carpooling-home {
+    padding: 60px 7%;
+    text-align: center;
+}
+
+.carpooling-container {
+    background: linear-gradient(to right, #2d2f5f, #6b248f, #0a6d9b);
+    border-radius: 15px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.carpooling-content {
+    color: white;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.carpooling-content h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.carpooling-features {
+    list-style: none;
+    margin-bottom: 25px;
+}
+
+.feature-item {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+}
+
+.feature-icon {
+    width: 30px;
+    margin-right: 15px;
+}
+
+.carpooling-btn {
+    display: block;
+    margin: 0 auto;
+    background: linear-gradient(to right, #be3cf0, #dc46d7 17%, #ff50aa 68%, #ff6666);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    text-align: center;
+    width: fit-content; /* Pour un meilleur ajustement */
+}
+
+.carpooling-btn:hover {
+    background: linear-gradient(to left, #be3cf0, #dc46d7 17%, #ff50aa 68%, #ff6666);
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.carpooling-image img {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+@media (min-width: 768px) {
+    .carpooling-container {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 40px;
+    }
+    
+    .carpooling-content {
+        text-align: left;
+        margin-bottom: 0;
+        margin-right: 40px;
+        flex: 1;
+    }
+    
+    .carpooling-image {
+        flex-shrink: 0;
+    }
+}
+
+
+.footer-wrapper {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    background-color: #f5f5f5;
+    padding: 3rem 0;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    color: #333;
+}
+
+
+
+
+.footer-logo {
+    width: 150px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.newsletter {
+    display: flex;
+    width: 100%;
+    position: relative;
+    top: 60px;
+    max-width: 1000px;
+    margin: auto;
+    background-color: #303035;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px 15px;
+    border-radius: 10px;
+}
+
+.newsletter-left h2 {
+    color: #ffffff;
+    text-transform: uppercase;
+    font-size: 1rem;
+    opacity: 0.5;
+    letter-spacing: 1px;
+}
+
+.newsletter-left h1 {
+    color: #ffffff;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+}
+
+.newsletter-right {
+    width: 500px;
+}
+
+.newsletter-input {
+    background-color: #ffffff;
+    padding: 5px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.newsletter-input input {
+    border: none;
+    outline: none;
+    background: transparent;
+    width: 80%;
+    padding-left: 10px;
+    font-weight: 600;
+}
+
+.newsletter-input button {
+    background-color: #201e1e;
+    padding: 9px 15px;
+    border-radius: 15px;
+    color: #ffffff;
+    cursor: pointer;
+    border: none;
+}
+
+.newsletter-input button:hover {
+    background-color: #3a3939;
+}
+
+.footer-content {
+    background-color:  #f4f4f4;
+    padding: 100px 40px 40px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.footer-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.footer-main h2 {
+    color: #ffffff;
+    font-size: 1.6rem;
+}
+
+.footer-main p {
+    color: 1c3f50;
+    font-size: 0.8rem;
+    line-height: 1.3rem;
+}
+
+.social-links {
+    margin: 15px 0px;
+    display: flex;
+    gap: 8px;
+}
+
+.social-links a {
+    padding: 5px;
+    background-color: black;
+    border-radius: 5px;
+    transition: 0.5s;
+    text-decoration: none;
+}
+
+.social-links a:hover {
+    opacity: 0.7;
+}
+
+.social-links a i {
+    margin: 2px;
+    font-size: 1.1rem;
+    color: #201e1e;
+}
+
+.links {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    margin: 40px 20px;
+}
+
+.links p {
+    color: #1c3f50;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.links a {
+    color: #1c3f50;
+    text-decoration: none;
+    margin: 5px 0;
+    opacity: 0.7;
+    font-size: 0.9rem;
+}
+
+.links a:hover {
+    opacity: 1;
+}
+
+.social-icons {
+    display: flex;
+    flex-direction: row; /* ✅ forcer l'affichage en ligne */
+    flex-wrap: nowrap;   /* ✅ pas de retour à la ligne */
+    justify-content: center; /* ✅ centrer les icônes horizontalement */
+    align-items: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+
+@import url(https://use.fontawesome.com/releases/v5.0.8/css/all.css);
+
+.icon {
+    margin: 0 10px;
+    margin-bottom: 30px;
+    border-radius: 50%;
+    box-sizing: border-box;
+    background: transparent;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none !important;
+    transition: 0.5s;
+    color: var(--color);
+    font-size: 2.5em;
+    -webkit-box-reflect: below 5px linear-gradient(to bottom, rgba(0, 0, 0, 0),rgba(0, 0, 0, 0.2));
+}
+
+.icon i {
+    color: var(--color);
+}
+
+.icon:hover {
+    background: var(--color);
+    box-shadow: 0 0 5px var(--color),
+                0 0 25px var(--color), 
+                0 0 50px var(--color),
+                0 0 200px var(--color);
+}
+
+/* ✅ changer la couleur de l’icône en noir au survol */
+.icon:hover i {
+    color: #050801;
+}
+.payment-icons img {
+    height: 20px;
+    margin-right: 20px;
+}
+/* Add this to your CSS file */
+.animated-text {
+    animation: fadeInUp 1.5s ease-in-out;
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+</style>
+
 </body>
 </html>

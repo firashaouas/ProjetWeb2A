@@ -203,6 +203,36 @@ if (isset($_POST['action']) && $_POST['action'] === 'get_suggestions') {
 
   exit;
 }
+
+
+// Fonction pour générer une couleur basée sur le nom de l'utilisateur
+function stringToColor($str)
+{
+  // Liste de couleurs inspirées du thème Funbooker (rose, violet, orange, etc.)
+  $Colors = [
+    '#FF6B6B', // Rose vif
+    '#FF8E53', // Orange clair
+    '#6B5B95', // Violet moyen
+    '#88B04B', // Vert doux
+    '#F7CAC9', // Rose pâle
+    '#92A8D1', // Bleu pastel
+    '#955251', // Rouge bordeaux
+    '#B565A7', // Violet rose
+    '#DD4124', // Rouge-orange vif
+    '#D65076', // Rose foncé
+  ];
+
+  // Générer un index déterministe basé sur la chaîne
+  $hash = 0;
+  for ($i = 0; $i < strlen($str); $i++) {
+    $hash = ord($str[$i]) + (($hash << 5) - $hash);
+  }
+
+  // Sélectionner une couleur du tableau
+  $index = abs($hash) % count($Colors);
+  return $Colors[$index];
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -2267,7 +2297,132 @@ if (isset($_POST['action']) && $_POST['action'] === 'get_suggestions') {
         <li><a href="/Projet Web/mvcCovoiturage/view/index.php">Transports</a></li>
         <li><a href="/Projet Web/mvcSponsor/crud/view/front/index.php">Sponsors</a></li>
       </ul>
-      <a href="#" class="register-btn">Register</a>
+
+<!-- Vérification de l'état de connexion -->
+<?php if (!isset($_SESSION['user'])): ?>
+  <!-- 🔒 Utilisateur non connecté : bouton vers login -->
+  <a href="/Projet Web/mvcUtilisateur/View/BackOffice/login/login.php" class="register-btn" title="Connexion/Inscription">
+    <i class="fas fa-user"></i>
+  </a>
+<?php else: ?>
+  <!-- 👤 Utilisateur connecté -->
+  <div class="user-profile" style="position: relative; display: inline-block;">
+    <?php
+    $user = $_SESSION['user'];
+    $fullName = $user['full_name'] ?? 'U';
+    $initial = strtoupper(substr($fullName, 0, 1));
+    $profilePicture = $user['profile_picture'] ?? '';
+    $verified = isset($user['is_verified']) && $user['is_verified'] == 1;
+    ?>
+
+    <?php if (!empty($profilePicture) && file_exists($profilePicture)): ?>
+      <img src="<?= htmlspecialchars($profilePicture) ?>" alt="Photo de profil" class="profile-photo" onclick="toggleDropdown()">
+    <?php else: ?>
+      <div class="profile-circle"
+        style="background-color: <?= stringToColor($fullName) ?>;"
+        onclick="toggleDropdown()">
+        <?= $initial ?>
+      </div>
+    <?php endif; ?>
+
+    <!-- ✅ Badge vérification -->
+    <div class="verification-status" style="position: absolute; bottom: -5px; right: -5px;">
+      <?php if ($verified): ?>
+        <img src="/Projet Web/mvcUtilisateur/assets/icons/verified.png"
+          alt="Compte vérifié"
+          title="Compte Vérifié"
+          style="width: 20px; height: 20px;">
+      <?php else: ?>
+        <img src="/Projet Web/mvcUtilisateur/assets/icons/not_verified.png"
+          alt="Compte non vérifié"
+          title="Compte Non Vérifié"
+          style="width: 20px; height: 20px; cursor: pointer;"
+          onclick="showVerificationPopup()">
+      <?php endif; ?>
+    </div>
+
+    <!-- Menu déroulant -->
+    <div class="dropdown-menu" id="dropdownMenu" style="display: none; position: absolute; top: 120%; right: 0; background-color: white; border-radius: 5px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); z-index: 100;">
+      <a href="/Projet Web/mvcUtilisateur/View/FrontOffice/profile.php" style="display: block; padding: 10px;">👤 Mon Profil</a>
+      <a href="/Projet Web/mvcUtilisateur/View/BackOffice/login/logout.php" style="display: block; padding: 10px;">🚪 Déconnexion</a>
+    </div>
+  </div>
+<?php endif; ?>
+
+<script>
+  function toggleDropdown() {
+    const menu = document.getElementById("dropdownMenu");
+    if (menu) {
+      menu.style.display = menu.style.display === "block" ? "none" : "block";
+    }
+  }
+
+  function showVerificationPopup() {
+    Swal.fire({
+      title: 'Vérification requise',
+      text: 'Veuillez vérifier votre compte via l’email que vous avez reçu.',
+      icon: 'info',
+      confirmButtonText: 'OK',
+      confirmButtonColor: '#6c63ff'
+    });
+  }
+
+  // Fermer dropdown quand on clique en dehors
+  document.addEventListener("click", function (event) {
+    const dropdown = document.getElementById("dropdownMenu");
+    const profile = document.querySelector(".user-profile");
+    if (dropdown && profile && !profile.contains(event.target)) {
+      dropdown.style.display = "none";
+    }
+  });
+</script>
+<style>
+    .user-profile {
+      position: relative;
+      display: inline-block;
+    }
+
+    .profile-photo {
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      object-fit: cover;
+      cursor: pointer;
+      border: 2px solid purple;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile-circle {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 45px;
+      right: 0;
+      background-color: white;
+      border: 1px solid #ddd;
+      padding: 10px;
+      display: none;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      z-index: 100;
+    }
+
+    .user-profile:hover .dropdown-menu {
+      display: block;
+    }
+
+  </style>
+
     </nav>
     <h1>Choisissez votre style d'activité</h1>
   </header>
